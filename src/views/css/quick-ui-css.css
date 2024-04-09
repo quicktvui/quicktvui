@@ -1,0 +1,48 @@
+.quick-ui-root-css {
+    width: 1920px;
+    height: 1080px;
+    background-color: #26292F;
+}
+
+.quick-ui-content-title-css {
+    width: 1920px;
+    margin-top: 20px;
+
+}
+
+.quick-ui-content-divider-css {
+    width: 1920px;
+    height: 2px;
+    background-color: rgba(240, 240, 242, 0.06);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.quick-ui-content-row-css {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.quick-ui-content-column-css {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.quick-ui-list-css {
+    width: 1920px;
+}
+
+.quick-ui-list-item-text {
+    width: 1920px;
+    height: 50px;
+    color: black;
+    font-size: 30px;
+    width: 1920px;
+    padding-left: 100px;
+}

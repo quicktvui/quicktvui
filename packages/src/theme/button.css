@@ -1,0 +1,195 @@
+/* ----------------Button---------------------- */
+.quick-button--default {
+    flex-direction: row;
+    width: 280px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(240, 240, 242, 0.08);
+    border-radius: 4px;
+    focus-background-color: #F0F0F2;
+}
+
+.quick-button--large {
+    width: 380px;
+    height: 80px;
+}
+
+.quick-button--medium {
+    width: 280px;
+    height: 80px;
+}
+
+.quick-button--small {
+    width: 200px;
+    height: 64px;
+}
+
+.quick-button--mini {
+    width: 160px;
+    height: 64px;
+}
+
+/* -----------------Text--------------------- */
+.quick-button-text--default {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    text-align-vertical: center;
+    focus-color: rgba(0, 0, 0, 0.9);
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.quick-button-text--large {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    text-align-vertical: center;
+    focus-color: rgba(0, 0, 0, 0.9);
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.quick-button-text--medium {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    text-align-vertical: center;
+    focus-color: rgba(0, 0, 0, 0.9);
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.quick-button-text--small {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    text-align-vertical: center;
+    focus-color: rgba(0, 0, 0, 0.9);
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.quick-button-text--mini {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    text-align-vertical: center;
+    focus-color: rgba(0, 0, 0, 0.9);
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+/* -------------------------------------- */
+.is-disabled-button {
+    background-color: rgba(240, 240, 242, 0.04);
+    focus-background-color: #F0F0F2;
+}
+
+.is-disabled-text {
+    color: rgba(255, 255, 255, 0.2);
+    focus-color: rgba(0, 0, 0, 0.2);
+}
+
+.is-square-text {
+    font-size: 28px;
+}
+
+/* -------------------------------------- */
+.is-circle {
+    border-radius: 50%;
+}
+
+.is-round {
+    border-radius: 100px;
+}
+
+.is-square {
+    width: 173px;
+    height: 173px;
+    flex-direction: column;
+}
+
+/* ---------------Gradient----------------------- */
+.button-gradient-background-css {
+    background-color: transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+/* ----------------ICON---PARENT------------------- */
+.quick-button-icon-parent {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-button-icon-parent--large {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.quick-button-icon-parent--medium {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.quick-button-icon-parent--small {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.quick-button-icon-parent--mini {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+/* ----------------ICON---------------------- */
+
+.quick-button-icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+.quick-button-icon--large {
+    width: 40px;
+    height: 40px;
+}
+
+.quick-button-icon--medium {
+    width: 40px;
+    height: 40px;
+}
+
+.quick-button-icon--small {
+    width: 32px;
+    height: 32px;
+}
+
+.quick-button-icon--mini {
+    width: 30px;
+    height: 30px;
+}
+
+.is-square-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    margin-right: 0;
+}

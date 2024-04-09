@@ -1,0 +1,5 @@
+export enum QTSeekBarGravity {
+  QT_SEEK_BAR_GRAVITY_TOP = 0,
+  QT_SEEK_BAR_GRAVITY_BOTTOM = 1,
+  QT_SEEK_BAR_GRAVITY_CENTER = 2,
+}

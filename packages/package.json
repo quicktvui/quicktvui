@@ -1,0 +1,21 @@
+{
+  "name": "@quicktvui/quicktvui3",
+  "version": "1.1.12",
+  "description": "ExtScreen framework",
+  "author": "ExtScreen Team",
+  "homepage": "http://extscreen.com",
+  "license": "Apache-2.0",
+  "entry": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/src/index.d.ts",
+  "keywords": [
+    "native",
+    "web",
+    "framework",
+    "compiler"
+  ],
+  "files": [
+    "dist"
+  ]
+}

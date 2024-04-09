@@ -1,0 +1,15 @@
+.animation-inner-view-css {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+
+.animation-view-css {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

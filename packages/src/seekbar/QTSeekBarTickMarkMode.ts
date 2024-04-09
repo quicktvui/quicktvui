@@ -1,0 +1,4 @@
+export enum QTSeekBarTickMarkMode {
+  QT_SEEK_BAR_TICK_MARK_MODE_NUMBER = 0,
+  QT_SEEK_BAR_TICK_MARK_MODE_OTHER = 1,
+}

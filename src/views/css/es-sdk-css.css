@@ -1,0 +1,54 @@
+.es-sdk-root-css {
+    width: 1920px;
+    height: 1080px;
+    background-color: #26292F;
+}
+
+.es-sdk-content-title-css {
+    width: 1920px;
+    color: white;
+    height: 80px;
+    font-size: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.es-sdk-content-divider-css {
+    width: 1920px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.es-sdk-content-row-css {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.es-sdk-content-column-css {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.es-sdk-list-css {
+    width: 1920px;
+}
+
+.es-sdk-list-item-text {
+    width: 1920px;
+    height: 50px;
+    color: black;
+    font-size: 30px;
+    width: 1920px;
+    padding-left: 100px;
+}

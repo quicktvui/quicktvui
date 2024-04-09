@@ -1,0 +1,5 @@
+//
+export enum QTMediaSeriesStyleType {
+  QT_MEDIA_SERIES_STYLE_TYPE_DEFAULT = 0,
+  QT_MEDIA_SERIES_STYLE_TYPE_VIP = 1,
+}

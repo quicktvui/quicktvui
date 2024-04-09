@@ -1,0 +1,4 @@
+export enum QTSeekBarTickMarkLayoutGravity {
+  QT_SEEK_BAR_TICK_MARK_LAYOUT_GRAVITY_TOP = 0,
+  QT_SEEK_BAR_TICK_MARK_LAYOUT_GRAVITY_BOTTOM = 1,
+}
