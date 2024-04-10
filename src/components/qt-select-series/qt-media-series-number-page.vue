@@ -65,7 +65,7 @@ export default defineComponent({
       const type: QTMediaSeriesType = QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER
       const group: QTMediaSeriesGroup = {
         enable: true,
-        size: 20
+        size: 10
       }
       const noneGroup: QTMediaSeriesGroup = {
         enable: false,
