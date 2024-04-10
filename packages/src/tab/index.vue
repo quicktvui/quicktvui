@@ -887,6 +887,13 @@ export default defineComponent({
       return currentTabPageIndex
     }
 
+    function getCurrentTabIndex(): Promise<number> {
+      if (tabs.value) {
+        return tabs.value!.getCurrentPage();
+      } else {
+        return Promise.resolve(-1);
+      }
+    }
 
     return {
       tabs,
@@ -947,6 +954,7 @@ export default defineComponent({
       onTabChange,
       onTabClick,
       getCurrentPageIndex,
+      getCurrentTabIndex,
       ...useBaseView(tabs)
     }
   },
