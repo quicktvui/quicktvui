@@ -61,6 +61,8 @@ export interface QTITab extends QTIView {
 
   setCurrentPage(pageIndex: number): void
 
+  getCurrentTabIndex(): Promise<number>
+
   requestTabFocus(tabIndex: number): void
 
   invokeContentFunction(pageIndex: number, functionName: string, param: Array<any>): void
