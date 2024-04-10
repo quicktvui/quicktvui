@@ -3,9 +3,10 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
-      ref="tabRef"
-      @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-css">
+        ref="tabRef"
+        @onTabPageChanged="onTabPageChanged"
+        @onTabPageLoadData="onTabPageLoadData"
+        class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -71,8 +72,8 @@ export default defineComponent({
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
-        '  pageIndex:' + pageIndex +
-        '  useDiff:' + useDiff
+          '  pageIndex:' + pageIndex +
+          '  useDiff:' + useDiff
       )
       if (pageIndexLast === pageIndex) {
         return
@@ -92,10 +93,24 @@ export default defineComponent({
       tabRef.value?.setPageData(pageIndex, tabPage)
     }
 
+    function onTabPageChanged(pageIndex: number, data: QTTabItem) {
+      console.log('---------onTabPageChanged---------->>>' +
+          '  pageIndex:' + pageIndex +
+          '  data:', data
+      )
+
+      tabRef.value?.getCurrentTabIndex().then((index: number) => {
+        console.log('---------onTabPageChanged---------->>>' +
+            '  index:' + index
+        )
+      })
+    }
+
     return {
       tabRef,
       onESCreate,
       onTabPageLoadData,
+      onTabPageChanged,
     }
   },
 });
