@@ -15,6 +15,7 @@
     "publish-quicktvui": "node ./packages/element/publish.js"
   },
   "dependencies": {
+    "signale": "^1.4.0",
     "typescript": "^5.1.3",
     "vue": "^3.2.21",
     "core-js": "^3.8.3",
@@ -55,7 +56,7 @@
     "@babel/polyfill": "^7.12.0",
     "@babel/preset-env": "^7.12.0",
     "@babel/runtime": "^7.16.0",
-    "@extscreen/es3-debug-server": "0.0.1",
+    "@extscreen/es3-debug-server": "0.0.5",
     "@hippy/hippy-dynamic-import-plugin": "^2.0.0",
     "@hippy/hippy-hmr-plugin": "^0.1.0",
     "@hippy/rejection-tracking-polyfill": "^1.0.0",
