@@ -101,8 +101,10 @@ function registerQTSeekBarView(app: ESApp) {
 
       function stopSeek() {
         seekCount.value = 0;
+        if (seekBarMode.value == QT_SEEK_BAR_MODE_SEEK) {
+          context.emit("onSeekStop", progress.value);
+        }
         seekBarMode.value = QT_SEEK_BAR_MODE_PROGRESS;
-        context.emit("onSeekStop", progress.value);
       }
 
       function isFocused() {

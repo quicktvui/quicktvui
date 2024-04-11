@@ -123,5 +123,16 @@ export default defineComponent({
 </script>
 
 <style>
+.es-range-seek-bar-css {
+  width: 1000px;
+  height: 200px;
+  background-color: darkgray;
+}
+
+.es-vertical-range-seek-bar-css {
+  width: 500px;
+  height: 800px;
+  background-color: darkgray;
+}
 
 </style>
