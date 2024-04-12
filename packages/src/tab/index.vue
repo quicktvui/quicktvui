@@ -24,6 +24,7 @@
                 :class="tabNavBarClass"
                 :sid="tabNavBarSid"
                 text-key="text"
+                :nextFocusName="navBarNextFocusName"
                 @tab-focus="onTabChange"
                 @tab-click="onTabClick"
                 :clipChldren="false"
@@ -259,6 +260,12 @@ export default defineComponent({
     customItemPool:{
       type: Object,
       default:() => {}
+    },
+    navBarNextFocusName:{
+      type: Object,
+      default: () => ({
+        down:'content'
+      })
     },
   },
   setup(props, context) {

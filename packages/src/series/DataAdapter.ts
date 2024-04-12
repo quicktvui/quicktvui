@@ -11,7 +11,18 @@ export function buildGroupParams(type: QTMediaSeriesType,
                                  data: QTMediaSeriesData) {
   const groupParams: any = {}
   if (group.enable) {
-    groupParams.groupSize = group.size
+
+    switch (type) {
+      case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER:
+        groupParams.groupSize = 10;
+        break;
+      case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_TEXT:
+        groupParams.groupSize = 3;
+        break;
+      default:
+        groupParams.groupSize = group.size;
+        break;
+    }
 
     if (styleType == QTMediaSeriesStyleType.QT_MEDIA_SERIES_STYLE_TYPE_VIP) {
       groupParams.textColor = {
