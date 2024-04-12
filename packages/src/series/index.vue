@@ -9,6 +9,7 @@
     :scroll-param="scrollParams"
     :group-param="groupParams"
     :common-param="commonParams"
+    :initFocusPosition="initFocusPosition"
     @load-data="onLoadData"
     @item-click="onItemClick"
     @item-focused="onItemFocused"
@@ -66,6 +67,10 @@ export default defineComponent({
     itemHeight: {
       type: Number,
       default: 0
+    },
+    initFocusPosition: {
+      type: Number,
+      default: -1
     }
   },
   setup(props, context) {

@@ -6,6 +6,7 @@
     :scrollParam="scrollParam"
     :groupParam="groupParam"
     :commonParam="commonParam"
+    :initFocusPosition="initFocusPosition"
     :display="true"
     @load-data="onLoadData"
     @item-click="onItemClick"
@@ -20,6 +21,7 @@
     :clipChildren="false"
     :display="true"
     :initParam="initParam"
+    :initFocusPosition="initFocusPosition"
     @load-data="onLoadData"
     @item-click="onItemClick"
     @item-focused="onItemFocused"
@@ -70,6 +72,10 @@ export default defineComponent({
         return {}
       }
     },
+    initFocusPosition: {
+      type: Number,
+      default: -1
+    }
   },
   emits: [
     'load-data',
