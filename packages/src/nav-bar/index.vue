@@ -3,8 +3,10 @@
                 ref="navList"
                 :clipChildren="false"
                 :clipPadding="false"
+                :horizontalFadingEdgeEnabled="horizontalFadingEdgeEnabled"
+                :fadingEdgeLength="fadingEdgeLength"
                 horizontal
-                class="tabNavBarClass"
+                :class="tabNavBarClass"
                 @item-click="onTabClick"
                 @item-focused="onTabChange">
     <div class="qt-ui-nav-bar-item-css"
@@ -31,7 +33,9 @@
                 ref="navList"
                 :clipChildren="false"
                 :clipPadding="false"
-                class="tabNavBarClass"
+                :class="tabNavBarClass"
+                :verticalFadingEdgeEnabled="verticalFadingEdgeEnabled"
+                :fadingEdgeLength="fadingEdgeLength"
                 @item-click="onTabClick"
                 @item-focused="onTabChange">
     <div class="qt-ui-nav-bar-item-css"
@@ -93,6 +97,18 @@ export default defineComponent({
     tabNavBarClass: {
       type: String,
       default: ''
+    },
+    horizontalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    verticalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    fadingEdgeLength:{
+      type:Number,
+      default:0
     }
   },
   setup(props, context) {

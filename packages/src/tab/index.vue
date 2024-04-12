@@ -25,6 +25,9 @@
                 :sid="tabNavBarSid"
                 text-key="text"
                 :nextFocusName="navBarNextFocusName"
+                :horizontalFadingEdgeEnabled="horizontalFadingEdgeEnabled"
+                :verticalFadingEdgeEnabled="verticalFadingEdgeEnabled"
+                :fadingEdgeLength="fadingEdgeLength"
                 @tab-focus="onTabChange"
                 @tab-click="onTabClick"
                 :clipChldren="false"
@@ -267,6 +270,18 @@ export default defineComponent({
         down:'content'
       })
     },
+    horizontalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    verticalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    fadingEdgeLength:{
+      type:Number,
+      default:0
+    }
   },
   setup(props, context) {
     const tabs = ref<ESITab>()
