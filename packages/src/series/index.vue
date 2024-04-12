@@ -10,6 +10,7 @@
     :group-param="groupParams"
     :common-param="commonParams"
     :initFocusPosition="initFocusPosition"
+    :display="display"
     @load-data="onLoadData"
     @item-click="onItemClick"
     @item-focused="onItemFocused"
@@ -71,6 +72,10 @@ export default defineComponent({
     initFocusPosition: {
       type: Number,
       default: -1
+    },
+    display: {
+      type: Boolean,
+      default: true
     }
   },
   setup(props, context) {

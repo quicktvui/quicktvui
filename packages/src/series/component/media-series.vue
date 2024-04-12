@@ -7,7 +7,7 @@
     :groupParam="groupParam"
     :commonParam="commonParam"
     :initFocusPosition="initFocusPosition"
-    :display="true"
+    :display="display"
     @load-data="onLoadData"
     @item-click="onItemClick"
     @item-focused="onItemFocused"
@@ -19,7 +19,7 @@
     v-else-if="showOld"
     ref="selectSeries"
     :clipChildren="false"
-    :display="true"
+    :display="display"
     :initParam="initParam"
     :initFocusPosition="initFocusPosition"
     @load-data="onLoadData"
@@ -75,6 +75,10 @@ export default defineComponent({
     initFocusPosition: {
       type: Number,
       default: -1
+    },
+    display: {
+      type: Boolean,
+      default: true
     }
   },
   emits: [
