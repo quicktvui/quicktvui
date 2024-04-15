@@ -103,7 +103,7 @@
            class="qt-ui-ripple-img-css"
            :focusable="false"
            :duplicateParentState="true"
-           showIf="${true}"
+           showIf="${ripple.enable==true}"
            :delayLoad="800"/>
     </div>
 
