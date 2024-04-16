@@ -23,6 +23,7 @@ import QTSeekBarPageList from "./components/qt-seek-bar"
 import QTSelectSeriesPageList from "./components/qt-select-series"
 import QTCollapsePageList from "./components/qt-collapse";
 import QTScrollViewPageList from "./components/qt-scroll-view";
+import QTAppIconPageList from "./components/qt-app-icon";
 
 import {
   QTWaterfallPageList,
@@ -230,6 +231,13 @@ const routes = [
       name: `scroll-view/${item}`,
       component: QTScrollViewPageList[item].component,
     })),
+  ...Object.keys(QTAppIconPageList)
+    .map(item => ({
+      path: `/qt-app-icon${item}`,
+      name: `qt-app-icon/${item}`,
+      component: QTAppIconPageList[item].component,
+    })),
+
 ]
 
 export default routes

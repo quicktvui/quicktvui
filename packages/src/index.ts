@@ -33,6 +33,7 @@ import registerQTDialog from "./dialog/QTDialog";
 import registerQTScrollView from "./scroll-view/QTScrollView";
 import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
+import registerAppIconView from "./app/QTAppIcon";
 
 const components = [
   View,
@@ -65,6 +66,7 @@ export const QuickTVUI = (Vue) => {
   registerQTDialog(Vue)
   registerQTScrollView(Vue)
   registerQTLottieView(Vue)
+  registerAppIconView(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
@@ -259,3 +261,5 @@ export type {QTIRow} from './row/QTIRow'
 //--------------------------------QTIText---------------------------------
 export type {QTIText} from './text/QTIText'
 
+//--------------------------------QTIText---------------------------------
+export type {QTIAppIcon} from './app/QTIAppIcon'
