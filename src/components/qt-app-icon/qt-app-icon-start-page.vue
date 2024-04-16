@@ -2,7 +2,7 @@
   <qt-view class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <qt-view class="es-sdk-content-divider-css"/>
-    <qt-view class="qt-loading-view-start-page">
+    <qt-view class="qt-app-icon-view-start-page">
       <qt-app-icon style="height: 250px;width: 250px;background-color: red"
                    packageName="com.extscreen.runtime"/>
     </qt-view>
@@ -21,7 +21,7 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-loading-view-start-page {
+.qt-app-icon-view-start-page {
   width: 1920px;
   height: 1000px;
   background-color: transparent;

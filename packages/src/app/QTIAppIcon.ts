@@ -1,6 +1,6 @@
 export interface QTIAppIcon {
 
-  setPackageName(packageName: string)
+  setPackageName(packageName: string): void
 
-  setRoundingRadius(roundingRadius: number)
+  setRoundingRadius(roundingRadius: number): void
 }
