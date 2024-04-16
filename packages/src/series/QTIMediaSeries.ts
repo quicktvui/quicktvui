@@ -5,7 +5,7 @@ import {QTMediaSeriesStyleType} from "./QTMediaSeriesStyleType";
 import {QTMediaSeriesData} from "./QTMediaSeriesData";
 import {QTIView} from "../view/QTIView";
 
-export interface QTIMediaSeries extends QTIView {
+export interface QTIMediaSeries extends Omit<QTIView, 'requestFocus'> {
 
   setup(): void
 
@@ -25,6 +25,8 @@ export interface QTIMediaSeries extends QTIView {
   setSelected(position: number): void
 
   setGroupSelected(position: number): void
+
+  requestFocus(position: number): void
 
   release(): void
 }
