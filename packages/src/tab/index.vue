@@ -398,7 +398,8 @@ export default defineComponent({
         data: itemList,
         disableScrollOnFirstScreen: tabPageData.disableScrollOnFirstScreen ?? false,
         firstFocusTargetID: tabPageData.firstFocusTargetID ?? '',
-        useDiff: tabPageData.useDiff
+        useDiff: tabPageData.useDiff,
+        bindingPlayer: tabPageData.bindingPlayer,
       }
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '---------设置数据-----setPageData------>>>>' +
