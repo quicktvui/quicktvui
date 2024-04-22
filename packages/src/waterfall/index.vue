@@ -23,8 +23,10 @@
     :scrollEventThrottle="16"
     :enableSelectOnFocus="false"
     advancedFocusSearchSpan="1"
-    :scrollYLesserReferenceValue="30"
-    :scrollYGreaterReferenceValue="30"
+    :scrollYLesserReferenceValue="scrollYLesserReferenceValue"
+    :scrollYGreaterReferenceValue="scrollYGreaterReferenceValue"
+    @scrollYGreaterReference="onScrollYGreaterReference"
+    @scrollYLesserReference="onScrollYLesserReference"
     shakePreCheckNumber="4"
     :blockFocusDirections="blockFocusDirections"
     @scrollStateChanged="onScrollStateChanged">
@@ -104,6 +106,8 @@ export default defineComponent({
     'onSectionBind',
     'onSectionAttached',
     'onSectionDetached',
+    'onScrollYGreaterReference',
+    'onScrollYLesserReference',
   ],
   props: {
     enablePlaceholder: {
@@ -125,6 +129,14 @@ export default defineComponent({
     customItemPool:{
       type: Object,
       default:() => {}
+    },
+    scrollYLesserReferenceValue: {
+      type: Number,
+      default: 0
+    },
+    scrollYGreaterReferenceValue: {
+      type: Number,
+      default: 0
     },
   },
   setup(props, context) {
@@ -370,6 +382,14 @@ export default defineComponent({
       context.emit('onScrollStateChanged', offsetX, scrollY, newState,oldState);
     }
 
+    function onScrollYGreaterReference() {
+      context.emit('onScrollYGreaterReference');
+    }
+
+    function onScrollYLesserReference() {
+      context.emit('onScrollYLesserReference');
+    }
+
     //-------------------------------------------------------------------------
     function setListData(data: any) {
       waterfallRef.value?.setListData(data)
@@ -406,6 +426,8 @@ export default defineComponent({
       destroy,
       scrollToTop,
       setListData,
+      onScrollYGreaterReference,
+      onScrollYLesserReference,
       ...useBaseView(waterfallRef)
     }
   },
