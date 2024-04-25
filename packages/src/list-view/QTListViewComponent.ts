@@ -305,6 +305,9 @@ function registerESListViewComponent(app: ESApp) {
         setBackgroundColor,
         stopPage,
         setAutoFocus,
+        setListData(dataArr: Array<QTListViewItem>){
+          Native.callUIFunction(viewRef.value, 'setListData', dataArr)
+        },
         ...useBaseView(viewRef)
       })
       return () => {
