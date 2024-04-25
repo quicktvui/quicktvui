@@ -1,11 +1,10 @@
-import {useES} from '@extscreen/es3-core';
-import {defineComponent, h, ref, onBeforeUnmount, watchEffect} from "vue";
+import {defineComponent, h, ref, onBeforeUnmount, onMounted, toRaw, watchEffect} from "vue";
 import {ESApp, Native} from "@extscreen/es3-vue";
 import {QTListViewItem} from "./core/QTListViewItem";
 import {QTListViewItemFunctionParams} from "./core/QTListViewItemFunctionParams";
 import {QTDirections} from "../core/QTDirections";
-import {deepClone} from "../utils/utils";
 import useBaseView from '../base/useBaseView'
+import {qtWatchAll, qtRef} from "../qtListen/index";
 
 function registerESListViewComponent(app: ESApp) {
 
@@ -32,6 +31,9 @@ function registerESListViewComponent(app: ESApp) {
       loadingDecoration:{
         type:Object,
         default:()=>({bottom: 18, right: 30, left: 30})
+      },
+      listData: {
+        type: Array, required: false//为兼容旧版本，当没有传入listData时，可使用init函数初始化数据
       }
     },
     emits: [
@@ -50,260 +52,116 @@ function registerESListViewComponent(app: ESApp) {
     ],
     setup(props, ctx) {
       const viewRef = ref()
-      const esManager = useES()
-      // let apkVersion: number = esManager.getESSDKVersionCode()
-      let apkVersion: number = 2.5
-      let recordTarget: Array<QTListViewItem> = []
-      let changeTarget: Array<QTListViewItem> = []
-      let keyArr: Array<any> = []
-      let type: string = ''
-      let pageNo: number = -1
+      let pageNo: number = 0
       let isStopPage: boolean = false
-      let setListDataTimer: any = -1
-      let stopPageTimer: any = -1
-      let defaultFocusTimer: any = -1
-      let pushDataTimer: any = -1
-      watchEffect(() => {
-        if (props.openPage) {
-          pageNo = 1
-          isStopPage = false
+      let recordTarget = qtRef()
+      let newList:any[] = []//ref内部的customRef会更新整个组件vnode，这里用新数组来记录props.listData的变化，以空间换时间
+      let defaultFocusTimer:any = null
+      const getRecord = ()=>{
+        return props.listData || recordTarget.value
+      }
+      onMounted(()=>{
+        if(getRecord().length&&viewRef.value){
+          newList = getRecord()
+          Native.callUIFunction(viewRef.value, 'setListData', toRaw(getRecord()))
+        }
+      })
+
+      let loadingPosition = 0
+      const loadingData = [{ _id: '', type: 1002, decoration: props.loadingDecoration }]
+      const openLoading = () => {
+        if(props.openPage && loadingPosition === 0 && newList.length > 0 && !isStopPage){
+          Native.callUIFunction(viewRef.value, 'addListData', loadingData);
+          loadingPosition = newList.length
+        }
+      }
+      const closeLoading = ()=>{
+        if(loadingPosition>0){
+          Native.callUIFunction(viewRef.value, 'deleteItemRange', [loadingPosition, 1]);
+          loadingPosition = 0
+        }
+      }
+      let stopPageTimerid:any = null
+      const stopPage = () => {
+        isStopPage = true//init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
+        clearTimeout(stopPageTimerid)
+        stopPageTimerid = setTimeout(() => {
+          isStopPage = true
+          closeLoading()
+        }, 20);
+      }
+      const initPage = ()=>{
+        isStopPage = false
+        pageNo =  0
+      }
+      const loadMoreFn = ()=>{
+        if(!isStopPage && props.loadMore){
+          pageNo++
           props.loadMore(pageNo)
+        }
+      }
+      
+      watchEffect(() => {
+        if (props.openPage && !props.listData) {
+          initPage()
+          loadMoreFn()
+        }
+      })
+
+      const watchRes = qtWatchAll(getRecord(), {
+        resetValue(newData){
+          newList = newData
+        },
+        init(datas){
+          if(viewRef.value){
+            Native.callUIFunction(viewRef.value, 'setListData', datas)
+            closeLoading()
+            openLoading()
+            initPage()
+            if(props.listData){
+              pageNo = 1
+            }
+            if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length) {
+              clearTimeout(defaultFocusTimer)
+              defaultFocusTimer = setTimeout(() => {
+                setItemFocused(props.defaultFocus)
+              }, 500);
+            }
+          }
+        },
+        add(datas){
+          Native.callUIFunction(viewRef.value, 'addListData', datas);
+          closeLoading()
+          openLoading()
+        },
+        update(position, datas, names){
+          datas.forEach((value, key) => {
+            const position = Array.isArray(key)?Number(key[0]):Number(key)
+            Native.callUIFunction(viewRef.value, 'updateItem', [position, value]);
+            // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
+          })
+        },
+        insert(position, datas){
+          Native.callUIFunction(viewRef.value, 'insertItemRange', [position, Array.from(datas.values())]);
+          closeLoading()
+          openLoading()
+        },
+        delete(position, count){
+          Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count]);
+        },
+        clear(){
+          Native.callUIFunction(viewRef.value, 'setListData', [])
+          loadingPosition = 0
         }
       })
       //监听list操作
       const init = (target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> => {
-        if (!isInit) { //第一次代理时 记录原始的数组
-          resetData()
-          if(pageNo > 1) pageNo = 0
-          recordTarget = deepClone(target)
-          updateItemName(recordTarget, -1) // 循环数据拼接name
-          changeTarget = target
-          if (props.openPage) {
-            setListData(recordTarget.concat([{
-              _id: '',
-              type: 1002,
-              decoration: props.loadingDecoration
-            }]))
-          } else {
-            setListData(recordTarget)
-          }
-          if (props.defaultFocus > -1) {
-            if (defaultFocusTimer) clearTimeout(defaultFocusTimer)
-            defaultFocusTimer = setTimeout(() => {
-              setItemFocused(props.defaultFocus)
-              // startScroll(props.defaultFocus,props.defaultFocus,0)
-            }, 500)
-          }
-        }
-        let handler = {
-          get(target, key, receiver) {
-            if (key != '__ob__' && typeof key != 'symbol' && key != 'map' && key != 'length' && key != 'constructor' && key != '_isVue' && key != 'valueOf' && key != 'toString'
-              && key != 'observeArray' && key != 'dep' && key != 'notify' && key != 'subs' && key != 'slice') {
-              keyArr.push(key);
-              if (keyArr.indexOf('push') != -1) {
-                type = 'push'
-              } else if (keyArr.indexOf('splice') != -1) {
-                type = 'splice'
-                return function (...args) {
-                  target.splice(...args)
-                  if (keyArr.indexOf('list') != -1) {
-                    recordTarget[keyArr[0]].list.splice(...args)
-                    updateItem(Number(keyArr[0]), recordTarget[keyArr[0]])
-                  } else {
-                    if (args.length == 1) {
-                      if (args[0] == 0) setListData([])
-                      else deleteItem(Number(args[0]), recordTarget.length - args[0] + 1)
-                    } else if (args.length == 2) {
-                      deleteItem(Number(args[0]), args[1])
-                    } else if (args.length > 2) {
-                      if (args[1] == 0) {
-                        if (apkVersion > 2.299) insertItem(args[0], args.slice(2)) //插入
-                      } else {
-                        updateItemList(args[0], args[1], args.slice(2))
-                      }
-                    }
-                  }
-                  recordTarget.splice(args[0], ...args.slice(1))
-                  type = ''
-                  keyArr = []
-                  return Reflect.get(target, key, receiver);
-                }
-              } else if (keyArr.indexOf('pop') != -1) {
-                type = 'pop'
-                return function () {
-                  target.pop()
-                  if (keyArr.lastIndexOf('list') != -1) {
-                    recordTarget[keyArr[0]].list.pop()
-                    updateItem(Number(keyArr[0]), recordTarget[keyArr[0]])
-                  } else {
-                    deleteItem(Number(recordTarget.length - 1), 1)
-                    recordTarget.pop()
-                  }
-                  type = ''
-                  keyArr = []
-                  return Reflect.get(target, key, receiver);
-                }
-              } else if (keyArr.indexOf('forEach') != -1) {
-                type = 'forEach'
-                return function (args) {
-                  target.forEach(element => {
-                    args(element)
-                  });
-                  recordTarget = []
-                  recordTarget = deepClone(target)
-                  if (props.openPage) {
-                    setListData(recordTarget.concat([{
-                      _id: '',
-                      type: 1002,
-                      decoration: props.loadingDecoration
-                    }]))
-                  } else {
-                    setListData(recordTarget)
-                  }
-                  type = ''
-                  keyArr = []
-                  return Reflect.get(target, key, receiver);
-                }
-              } else if (keyArr.indexOf('concat') != -1) {
-                type = 'concat'
-                return function (args) {
-                  target = target.concat(args)
-                  if (keyArr.lastIndexOf('list') != -1) {
-                    recordTarget[keyArr[0]].list = recordTarget[keyArr[0]].list.concat(args)
-                    updateItem(Number(keyArr[0]), recordTarget[keyArr[0]])
-                  } else {
-                    recordTarget = recordTarget.concat(args)
-                    if (props.openPage && !isStopPage) {
-                      setTimeout(() => {
-                        addListDataWithParams(args.concat([{
-                          type: '1002',
-                          decoration: props.loadingDecoration
-                        }]), 1)
-                      }, 300);
-                    } else {
-                      addListData(args)
-                    }
-                  }
-                  type = ''
-                  keyArr = []
-                  // return Reflect.get(target, key, receiver);
-                  Reflect.get(target, key, receiver);
-                  return new Proxy(target, handler);
-                }
-              } else {
-                type = ''
-              }
-            }
-            const res = Reflect.get(target, key, receiver);
-            if (isObject(res) && key != '__ob__' && key != 'dep' && key != 'subs') {
-              return init(res, true);
-            } else {
-              if (keyArr.indexOf('push') == -1) {
-                keyArr = []
-              }
-            }
-            return res;
-          },
-          set(target, key, value, receiver) {
-            const oldValue = target[key];
-            const hadKey = hasOwn(target, key);
-            const result = Reflect.set(target, key, value, receiver);
-            if (((!isObject(oldValue) && oldValue !== value) || isObject(oldValue)) && type != 'push') {
-              keyArr.push(key);
-              if (keyArr.lastIndexOf('list') != -1) {//如果包含list  暂时先更改整个list
-                let listIndex = keyArr.lastIndexOf('list')
-                let lth = keyArr.lastIndexOf('list') + 2
-                let dataObj: { [key: string]: any } = {}
-                for (let i = 0; i < lth; i++) {
-                  let index = keyArr[i]
-                  if (dataObj) {
-                    dataObj = dataObj[index]
-                  } else {
-                    dataObj = changeTarget[index]
-                  }
-                }
-                dataObj.name = 'name' + keyArr[(listIndex - 1)] + keyArr[listIndex + 1]
-                updateItem(Number(keyArr[0]), changeTarget[keyArr[0]])
-                //更新后 对应手动更改recordTarget的修改
-                recordTarget[keyArr[0]].list[keyArr[listIndex + 1]] = changeTarget[keyArr[0]].list[keyArr[listIndex + 1]]
-                recordTarget[keyArr[0]].list[keyArr[listIndex + 1]].name = 'name' + keyArr[(listIndex - 1)] + keyArr[listIndex + 1]
-              } else {// 没有嵌套的list 直接修改数据
-                recordTarget[keyArr[0]] = changeTarget[keyArr[0]]
-                recordTarget[keyArr[0]].name = 'name' + keyArr[0]
-                updateItem(Number(keyArr[0]), changeTarget[keyArr[0]])
-              }
-            }
-            if (key && type == 'push' && oldValue !== value) {//push一个数组时 每次把key记录 在else统一处理
-              if (keyArr.lastIndexOf('list') != -1) {
-                keyArr.push(key);
-                recordTarget[keyArr[0]].list.push(value)
-              } else {
-                keyArr.push(key);
-                recordTarget.push(value)
-              }
-            } else {
-              if (type == 'push') {//处理push的数据
-                if (keyArr.lastIndexOf('list') != -1) {
-                  updateItem(Number(keyArr[0]), recordTarget[keyArr[0]])
-                } else {
-                  let result = recordTarget.slice(keyArr[1])
-                  if (pushDataTimer) clearTimeout(pushDataTimer)
-                  if (props.openPage && !isStopPage) {
-                    pushDataTimer = setTimeout(() => {
-                      addListDataWithParams(result.concat([{
-                        _id: '',
-                        type: 1002,
-                        decoration: props.loadingDecoration
-                      }]), 1)
-                    }, 300);
-                  } else {
-                    pushDataTimer = setTimeout(() => {
-                      addListData(result)
-                    }, 300);
-                  }
-                }
-              }
-              type = ''
-              keyArr = []
-            }
-            // keyArr = []
-            return result;
-          },
-        }
-        const proxy = new Proxy(target, handler);
-        return proxy;
+        if(props.listData){ return [] }//listData的优先级高于init函数，不可同时使用，推荐使用listData
+        if(!target){ return recordTarget.value }
+        recordTarget.value = target
+        return recordTarget.value
       }
-      //自定义方法循环拼接item的name
-      const updateItemName = (arr, index) => {
-        for (let i = 0; i < arr.length; i++) {
-          const el = arr[i];
-          if (index >= 0) {
-            el.name = 'name' + index + i
-          } else {
-            el.name = 'name' + i
-          }
-          if (el.list && el.list.length > 0) {
-            updateItemName(el.list, i)
-          }
-        }
-      }
-      const isObject = (val) => {
-        return val !== null && typeof val === 'object'
-      }
-      const hasChanged = (value, oldValue) => {
-        return value !== oldValue && (value === value || oldValue === oldValue)
-      }
-      const hasOwn = (val, key) => {
-        Object.hasOwnProperty.call(val, key)
-      }
-
-      const stopPage = () => {
-        if (stopPageTimer) clearTimeout(stopPageTimer)
-        stopPageTimer = setTimeout(() => {
-          deleteItem(recordTarget.length, 1)
-        }, 400)
-        isStopPage = true
-      }
+      
       //------------------------------------------------------------------------
       const startScroll = (focusPosition?: number, scrollToPosition?: number, scrollOffset?: number) => {
         Native.callUIFunction(viewRef.value, 'startScroll',
@@ -313,37 +171,6 @@ function registerESListViewComponent(app: ESApp) {
             scrollOffset: scrollOffset
           }]
         );
-      }
-      //------------------------------------------------------------------------
-      const setListData = (dataArr: Array<QTListViewItem>) => {
-        if (setListDataTimer) clearTimeout(setListDataTimer)
-        setListDataTimer = setTimeout(() => {
-          Native.callUIFunction(viewRef.value, 'setListData', dataArr)
-        }, 100)
-      }
-      const setListDataWithParams = (data: Array<QTListViewItem>, autoChangeVisible: Boolean) => {
-        Native.callUIFunction(viewRef.value, 'setListDataWithParams', [data, autoChangeVisible]);
-      }
-      const addListData = (data: Array<QTListViewItem>) => {
-        Native.callUIFunction(viewRef.value, 'addListData', data);
-      }
-      const addListDataWithParams = (data: Array<QTListViewItem>, deleteCount: number) => {
-        Native.callUIFunction(viewRef.value, 'addListDataWithParams', [data, deleteCount]);
-      }
-      const deleteItem = (position: number, count: number) => {
-        Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count]);
-      }
-      const updateItem = (position: number, data: QTListViewItem) => {
-        Native.callUIFunction(viewRef.value, 'updateItem', [position, data]);
-      }
-      const updateItemList = (position: number, count: number, data: Array<QTListViewItem>) => {
-        Native.callUIFunction(viewRef.value, 'updateItemRange', [position, count, data]);
-      }
-      const updateItemProps = (position: number, name: string, toUpdateMap: Object) => {
-        Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
-      }
-      const insertItem = (position: number, data: Array<QTListViewItem>) => {
-        Native.callUIFunction(viewRef.value, 'insertItemRange', [position, data]);
       }
       //----------------------------------------------------------
       const dispatchItemFunction = (position: number, name: string,
@@ -441,40 +268,20 @@ function registerESListViewComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'setAutoFocus', [tag, delay]);
       }
 
-      const resetData = () => {
-        recordTarget = []
-        changeTarget.length = 0
-        keyArr = []
-        isStopPage = false
-        type = ''
-        if (setListDataTimer) clearTimeout(setListDataTimer)
-        if (defaultFocusTimer) clearTimeout(defaultFocusTimer)
-        if (pushDataTimer) clearTimeout(pushDataTimer)
-        if (stopPageTimer) clearTimeout(stopPageTimer)
-      }
       //----------------------------------------------------------
       onBeforeUnmount(() => {
-        pageNo = 1
-        resetData()
+        watchRes?.stop()
+        initPage()
+        clearTimeout(stopPageTimerid)
+        clearTimeout(defaultFocusTimer)
       })
       ctx.expose({
         viewRef,
         init,
-        updateItemName,
-        hasChanged,
         scrollToIndex,
-        updateItem,
-        updateItemList,
         hasFocus,
-        updateItemProps,
-        setListData,
-        insertItem,
-        addListData,
-        addListDataWithParams,
         dispatchItemFunction,
-        deleteItem,
         setBlockFocusDirectionsOnFail,
-        setListDataWithParams,
         prepareForRecycle,
         setDisplay,
         scrollToTop,
@@ -522,17 +329,18 @@ function registerESListViewComponent(app: ESApp) {
               ctx.emit('item-detached', evt);
             },
             onBindItem: (evt) => {
-              let myPreloadNo = props.preloadNo
-              if(props.preloadNo < 0){
-                myPreloadNo = 0
+              if(props.openPage && !isStopPage){
+                let myPreloadNo = props.preloadNo
+                if(myPreloadNo < 0 || myPreloadNo >= newList.length){
+                  myPreloadNo = 0
+                }
+                
+                if (evt.position == newList.length - 1 - myPreloadNo) {
+                  // console.log(evt.position, '---lsj--onBindItem-', newList.length)
+                  loadMoreFn()
+                }
               }
-              if(props.preloadNo > recordTarget.length - 1){
-                myPreloadNo = 0
-              }
-              if (evt.position == recordTarget.length - 1 - myPreloadNo) {
-                pageNo++
-                props.loadMore(pageNo)
-              }
+              
               ctx.emit('item-bind', evt);
             },
             onUnbindItem: (evt) => {
