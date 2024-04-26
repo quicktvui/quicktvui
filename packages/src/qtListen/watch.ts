@@ -13,7 +13,7 @@ export interface IQtWatchOptions {
   delete: (position: number, count: number) => void;
   clear: () => void;
   resetValue?:(datas:any[])=>void;
-  isAsync?:boolean;
+  isNoAsync?:boolean;
   [k: string]: any
 }
 
@@ -54,13 +54,13 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
 
   let watchTimeoutId: any = null
   const watchNextTick = (fn: any) => {
-    if(options.isAsync){
+    if(options.isNoAsync){
+      fn()
+    } else {
       clearTimeout(watchTimeoutId)
       watchTimeoutId = setTimeout(() => {
         fn()
-      }, 1);
-    } else {
-      fn()
+      }, 0);
     }
   }
   
