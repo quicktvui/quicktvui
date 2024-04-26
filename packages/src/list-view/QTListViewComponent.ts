@@ -65,7 +65,7 @@ function registerESListViewComponent(app: ESApp) {
         if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length) {
           clearTimeout(defaultFocusTimer)
           defaultFocusTimer = setTimeout(() => {
-            setItemFocused(props.defaultFocus)
+            scrollToFocused(props.defaultFocus)
           }, 300 + datas.length * 10);
         }
       }
