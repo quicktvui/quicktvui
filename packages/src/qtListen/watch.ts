@@ -56,7 +56,7 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
     clearTimeout(watchTimeoutId)
     watchTimeoutId = setTimeout(() => {
       fn()
-    }, 10);
+    }, 1);
   }
   
   const _effect = new QtReactiveEffect(

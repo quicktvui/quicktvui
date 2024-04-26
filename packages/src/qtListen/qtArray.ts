@@ -21,6 +21,11 @@ class QtArray extends Array {
   splice(start: number, deleteCount: number, ...items: any[]) {
     if(start < 0){ start = 0 }//防止索引越界
     // @ts-ignore
+    if(deleteCount === undefined && this.__v_raw.length){
+      // @ts-ignore
+      deleteCount = this.__v_raw.length - start
+    }
+    // @ts-ignore
     if(start >= this.__v_raw.length || deleteCount < 0){//防止索引越界
       deleteCount = 0
     }
