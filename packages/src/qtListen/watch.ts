@@ -54,14 +54,10 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
 
   let watchTimeoutId: any = null
   const watchNextTick = (fn: any) => {
-    if(options.isNoAsync){
+    clearTimeout(watchTimeoutId)
+    watchTimeoutId = setTimeout(() => {
       fn()
-    } else {
-      clearTimeout(watchTimeoutId)
-      watchTimeoutId = setTimeout(() => {
-        fn()
-      }, 0);
-    }
+    }, 1);
   }
   
   const _effect = new QtReactiveEffect(
@@ -70,69 +66,72 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
     },
     (target, prop, newValue, type, oldValue) => {
       // console.log(target,'-watch--change',prop)
-      if(type === emReactiveFlags.RESET_REF_VALUE){
-        // console.log(target, '---RESET_REF_VALUE', newValue)
-        qtType.getFlag(newValue).set(typeEnum.isInit, true)
+      const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target 
+      const _currentType = qtType.getFlag(target).get(typeEnum.currentType)
+      if (type === emReactiveFlags.RESET_REF_VALUE) {
+        options.resetValue?.(newValue)
       }
-      watchNextTick(() => {
-        const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target        
-        const types = qtType.getType(target)
-        const _currentType = qtType.getFlag(target).get(typeEnum.currentType)
-        const _isInit = qtType.getFlag(_target).get(typeEnum.isInit)
-        // console.log(_isInit, '--type', type, target, _target)
-        //当oldTarget未被初始化数据时，并且未进行数组操作时，优先init初始化数据
-        // 当进行了数组操作时，如果oldTarget已经初始化了数据，则优先执行数组操作，如：concat
-        if (_isInit && !((oldTarget && oldTarget.length) && _currentType === typeEnum.concat)) {
-          if (_target && _target.length) {
-            options.init(qtCloneObj(_target,false))
-          } else {
-            options.clear()
-          }
-        } else if (!(oldTarget && oldTarget.length) && _target) {
-          options.init(qtCloneObj(_target,false))
+      if(type === emReactiveFlags.RESET_REF_VALUE && !(_currentType === typeEnum.concat && oldTarget && oldTarget.length)){
+        // if (_isInit && !((oldTarget && oldTarget.length) && _currentType === typeEnum.concat)) {
+        // 初始化数据和清空数据时，不走异步，否则页面会有闪烁或卡顿的情况
+        if (newValue && newValue.length) {
+          options.init(qtCloneObj(newValue,false))
         } else {
+          options.clear()
+        }
+        __v_raw = newValue
+        oldTarget = qtCloneObj(__v_raw) 
+      } else  if (!(oldTarget && oldTarget.length) && _target) {
+        options.init(qtCloneObj(_target,false))
+        __v_raw = _target
+        oldTarget = qtCloneObj(__v_raw) 
+      } else {
+        watchNextTick(() => {
+          const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target        
+          const types = qtType.getType(target)
+          // console.log('--type', type, target, types?.size)
+          
           // 如果单个时间片段内只进行了一种类型的数组操作，则优先执行数组操作，否则就需要进行diff算法对比
           if (types && types.size === 1) {
-            // console.log(types, '--types')
-            types.forEach((tvalue, key) => {
-              // console.log(key, '--types-',tvalue)
-              if (key === typeEnum.push || key === typeEnum.concat) {
-                options.add(tvalue.dataArr || Array.from(tvalue.datas.values()))
-              }
-              if (key === typeEnum.pop) {
+          // console.log(types, '--types')
+          types.forEach((tvalue, key) => {
+            // console.log(key, '--types-',tvalue)
+            if (key === typeEnum.push || key === typeEnum.concat) {
+              options.add(tvalue.dataArr || Array.from(tvalue.datas.values()))
+            }
+            if (key === typeEnum.pop) {
+              options.delete(tvalue.start, tvalue.deleteCount)
+            }
+            if (key === typeEnum.qtSet) {
+              options.update(tvalue.start, tvalue.datas, tvalue.names)
+            }
+            if (key === typeEnum.splice) {
+              if(tvalue.deleteCount){
                 options.delete(tvalue.start, tvalue.deleteCount)
               }
-              if (key === typeEnum.qtSet) {
-                options.update(tvalue.start, tvalue.datas, tvalue.names)
+              if (tvalue.datas.size) {
+                options.insert(tvalue.start, tvalue.datas)
               }
-              if (key === typeEnum.splice) {
-                if(tvalue.deleteCount){
-                  options.delete(tvalue.start, tvalue.deleteCount)
-                }
-                if (tvalue.datas.size) {
-                  options.insert(tvalue.start, tvalue.datas)
-                }
-              }
-            })
-          } else {
-            qtDiff(oldTarget, _target, options)
-          }
+            }
+          })
+        } else {
+          qtDiff(oldTarget, _target, options)
         }
-
-        // if(type === emReactiveFlags.RESET_REF_VALUE){}
-        qtType.deleteType(oldTarget)
-        qtType.deleteType(target)
-        qtType.deleteType(__v_raw)
-        qtType.deleteType(_target)
-
-        oldTarget = qtCloneObj(__v_raw) 
-      })
+  
+          // if(type === emReactiveFlags.RESET_REF_VALUE){}
+          qtType.deleteType(oldTarget)
+          qtType.deleteType(target)
+          qtType.deleteType(__v_raw)
+          qtType.deleteType(_target)
+  
+          oldTarget = qtCloneObj(__v_raw) 
+        })
+      }
 
       if (type === emReactiveFlags.RESET_REF_VALUE) {
         qtClearupTrack(__v_raw)
         __v_raw = newValue
         _effect.run();
-        options.resetValue?.(__v_raw)
       }
     }
   )

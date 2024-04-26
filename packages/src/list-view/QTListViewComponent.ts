@@ -58,11 +58,12 @@ function registerESListViewComponent(app: ESApp) {
       let newList:any[] = []//ref内部的customRef会更新整个组件vnode，这里用新数组来记录props.listData的变化，以空间换时间
       let defaultFocusTimer:any = null
       let isinitValue=false
+      let isDefaultFocusTimer = true//为兼容旧版本，当init函数的第二个参数为false时开启默认焦点校验
       const getRecord = ()=>{
         return props.listData || recordTarget.value
       }
       const checkDefaultFocus = (datas:any[]) => {
-        if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length) {
+        if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length && isDefaultFocusTimer) {
           clearTimeout(defaultFocusTimer)
           defaultFocusTimer = setTimeout(() => {
             scrollToFocused(props.defaultFocus)
@@ -169,6 +170,11 @@ function registerESListViewComponent(app: ESApp) {
       const init = (target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> => {
         if(props.listData){ return [] }//listData的优先级高于init函数，不可同时使用，推荐使用listData
         if(!target){ return recordTarget.value }
+        if(isInit){
+          isDefaultFocusTimer = false
+        }else{
+          isDefaultFocusTimer = true
+        }
         recordTarget.value = target
         return recordTarget.value
       }
