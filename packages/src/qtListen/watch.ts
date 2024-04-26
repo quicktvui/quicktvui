@@ -57,7 +57,7 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
     clearTimeout(watchTimeoutId)
     watchTimeoutId = setTimeout(() => {
       fn()
-    }, 1);
+    }, 10);
   }
   
   const _effect = new QtReactiveEffect(
@@ -85,12 +85,15 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
         options.init(qtCloneObj(_target,false))
         __v_raw = _target
         oldTarget = qtCloneObj(__v_raw) 
+      } else if(_currentType === typeEnum.splice && !(target && target.length)){
+        options.clear()
+        __v_raw = target
+        oldTarget = qtCloneObj(__v_raw) 
       } else {
         watchNextTick(() => {
           const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target        
           const types = qtType.getType(target)
-          // console.log('--type', type, target, types?.size)
-          
+          // console.log('--type', type, target, types?.size, '异步1',_currentType)
           // 如果单个时间片段内只进行了一种类型的数组操作，则优先执行数组操作，否则就需要进行diff算法对比
           if (types && types.size === 1) {
           // console.log(types, '--types')
