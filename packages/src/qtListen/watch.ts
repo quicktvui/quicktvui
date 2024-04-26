@@ -19,7 +19,7 @@ export interface IQtWatchOptions {
 export const qtCreateUid = (key:string) => {
   return key + (Date.now() + (Math.random()*1000000))
 }
-export const qtCloneObj = (target: object) => {
+export const qtCloneObj = (target: object, isKey=true) => {
   if (isObject(target)) {
     const res: any = isArray(target) ? [] : {}
     for (const k in target) {
@@ -34,7 +34,7 @@ export const qtCloneObj = (target: object) => {
               targetItem.__qt_change_num_ = 1//标记节点是否被修改，diff对比使用
             }
           }
-          res[k] = qtCloneObj(targetItem)
+          res[k] = qtCloneObj(targetItem, isKey)
         } else {
           res[k] = targetItem
         }
@@ -79,12 +79,12 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
         // 当进行了数组操作时，如果oldTarget已经初始化了数据，则优先执行数组操作，如：concat
         if (_isInit && !((oldTarget && oldTarget.length) && _currentType === typeEnum.concat)) {
           if (_target && _target.length) {
-            options.init(_target)
+            options.init(qtCloneObj(_target,false))
           } else {
             options.clear()
           }
         } else if (!(oldTarget && oldTarget.length) && _target) {
-          options.init(_target)
+          options.init(qtCloneObj(_target,false))
         } else {
           // 如果单个时间片段内只进行了一种类型的数组操作，则优先执行数组操作，否则就需要进行diff算法对比
           if (types && types.size === 1) {

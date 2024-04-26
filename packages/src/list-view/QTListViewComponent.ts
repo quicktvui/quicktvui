@@ -57,18 +57,35 @@ function registerESListViewComponent(app: ESApp) {
       let recordTarget = qtRef()
       let newList:any[] = []//ref内部的customRef会更新整个组件vnode，这里用新数组来记录props.listData的变化，以空间换时间
       let defaultFocusTimer:any = null
+      let isinitValue=false
       const getRecord = ()=>{
         return props.listData || recordTarget.value
       }
+      const checkDefaultFocus = (datas:any[]) => {
+        if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length) {
+          clearTimeout(defaultFocusTimer)
+          defaultFocusTimer = setTimeout(() => {
+            setItemFocused(props.defaultFocus)
+          }, 300 + datas.length * 10);
+        }
+      }
       onMounted(()=>{
-        if(getRecord().length&&viewRef.value){
+        if(getRecord().length&&viewRef.value&& !isinitValue && !newList.length){
           newList = getRecord()
           Native.callUIFunction(viewRef.value, 'setListData', toRaw(getRecord()))
+          checkDefaultFocus(newList)
         }
       })
 
       let loadingPosition = 0
       const loadingData = [{ _id: '', type: 1002, decoration: props.loadingDecoration }]
+      const getOpenLoading = () => {
+        if(props.openPage && newList.length >0 && !isStopPage){
+          loadingPosition = newList.length
+          return loadingData
+        }
+        return []
+      }
       const openLoading = () => {
         if(props.openPage && loadingPosition === 0 && newList.length > 0 && !isStopPage){
           Native.callUIFunction(viewRef.value, 'addListData', loadingData);
@@ -111,22 +128,16 @@ function registerESListViewComponent(app: ESApp) {
       const watchRes = qtWatchAll(getRecord(), {
         resetValue(newData){
           newList = newData
+          isinitValue = true
         },
         init(datas){
           if(viewRef.value){
-            Native.callUIFunction(viewRef.value, 'setListData', datas)
-            closeLoading()
-            openLoading()
+            Native.callUIFunction(viewRef.value, 'setListData', datas.concat(getOpenLoading()))
             initPage()
             if(props.listData){
               pageNo = 1
             }
-            if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length) {
-              clearTimeout(defaultFocusTimer)
-              defaultFocusTimer = setTimeout(() => {
-                setItemFocused(props.defaultFocus)
-              }, 300 + datas.length * 10);
-            }
+            checkDefaultFocus(datas)
           }
         },
         add(datas){
