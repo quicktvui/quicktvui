@@ -125,7 +125,7 @@ function registerESListViewComponent(app: ESApp) {
               clearTimeout(defaultFocusTimer)
               defaultFocusTimer = setTimeout(() => {
                 setItemFocused(props.defaultFocus)
-              }, 500);
+              }, 300 + datas.length * 10);
             }
           }
         },

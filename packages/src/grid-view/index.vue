@@ -79,6 +79,7 @@ export default defineComponent({
     let isRestartPage = ref(false)
     let newList:any[] = []//ref内部的customRef会更新整个组件vnode，这里用新数组来记录props.listData的变化，以空间换时间
     let defaultFocusTimer:any = null
+
     const getRecord = ()=>{
       return props.listData || recordTarget.value
     }
@@ -139,7 +140,7 @@ export default defineComponent({
             clearTimeout(defaultFocusTimer)
             defaultFocusTimer = setTimeout(() => {
               setItemFocused(props.defaultFocus)
-            }, 500);
+            }, 300 + datas.length * 10);
           }
         }
       },
