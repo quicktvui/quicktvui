@@ -1,15 +1,48 @@
-## 示例代码
-### 数据绑定
+## ui组件封装 - qtWatchAll - 数据监听
+```vue
+<template>
+<tv-list></tv-list>
+</template>
+<script setup lang="ts">
+import { onUnmounted } from 'vue';
+import { qtWatchAll  } from '@quicktvui/quicktvui3'
+const props = defineProps<{pList:any}>()
+const watchRunner = qtWatchAll(props.pList, {
+  init(datas){
+    console.log('init-', datas)//初始化数据
+  },
+  add(datas){
+    console.log('add-',datas)//新增数据
+  },
+  update(position, datas, names){
+    console.log('update-', position, datas, names)//更新数据
+  },
+  insert(position, datas){
+    console.log('insert-', position, datas)//插入数据
+  },
+  delete(position, count){
+    console.log('delete-', position, count)//删除数据
+  },
+  clear(){
+    console.log('clear')//清空数据
+  }
+})
+
+onUnmounted(()=>{
+  watchRunner?.stop()//组件卸载时，销毁监听，清除缓存
+})
+</script>
+```
+## 在业务中使用ui组件 - qtRef - 响应式数据绑定
 ```vue
 <template>
 <list-view :list="lists"></list-view>
 </template>
 <script setup lang="ts">
-import { QTListViewItem } from "@quicktvui/quicktvui3";
-import { qtRef  } from 'qtVuejs'
+import { qtRef } from "@quicktvui/quicktvui3";
 
 const lists = qtRef()
-// const lists = qtRef<QTListViewItem[]>() //自定义类型
+// const lists = qtRef<QTListViewItem[]>() //指定类型
 
 // 初始化数据
 lists.value = [
@@ -37,42 +70,6 @@ lists.value.forEach(item => {//批量修改
   if(item.id>1){
     item.name += '123'
   }
-})
-</script>
-```
-### 数据监听
-```vue
-<template>
-<list-view :list="lists"></list-view>
-</template>
-<script setup lang="ts">
-import { onUnmounted } from 'vue';
-import { qtWatchAll  } from 'qtVuejs'
-const props = defineProps<{pList:any}>()
-const watchRunner = qtWatchAll(props.pList, {
-  init(datas){
-    console.log('init-', datas)
-  },
-  add(datas){
-    console.log('add-',datas)
-  },
-  update(position, datas, names){
-    console.log('update-', position, datas, names)
-  },
-  insert(position, datas){
-    console.log('insert-', position, datas)
-  },
-  delete(position, count){
-    console.log('delete-', position, count)
-  },
-  clear(){
-    console.log('clear')
-  },
-  deep: 3//深度箭头层级，最多5级
-})
-
-onUnmounted(()=>{
-  watchRunner?.stop()//组件卸载时，销毁监听，清除缓存
 })
 </script>
 ```

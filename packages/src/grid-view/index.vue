@@ -114,20 +114,20 @@ export default defineComponent({
           loadingPosition = newList.length
         }
       }
-      const closeLoading = ()=>{
+      const closeLoading = (isTip = false)=>{
         if(loadingPosition>0){
-          tv_list.value.deleteItem(loadingPosition, 1)
-          loadingPosition = 0
+          if(isTip){
+            tv_list.value.updateItem(loadingPosition, { text: '', type: 1003, decoration: {} })
+          } else {
+            tv_list.value.deleteItem(loadingPosition, 1)
+            loadingPosition = 0
+          }
         }
       }
-      let stopPageTimerid:any = null
-      const stopPage = () => { //当分页数据加载完毕时 调用该方法 清掉加载loading样式
+      const stopPage = (isTip = false) => { //当分页数据加载完毕时 调用该方法 清掉加载loading样式
         isStopPage = true//init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
-        clearTimeout(stopPageTimerid)
-        stopPageTimerid = setTimeout(() => {
-          isStopPage = true
-          closeLoading()
-        }, 20);
+        isStopPage = true
+        closeLoading(isTip)
       }
       const initPage = ()=>{
         isStopPage = false
@@ -294,7 +294,6 @@ export default defineComponent({
       watchRes?.stop()
       initPage()
       resetData()
-      clearTimeout(stopPageTimerid)
       clearTimeout(defaultFocusTimer)
     })
     let delayResetTimer: any = -1

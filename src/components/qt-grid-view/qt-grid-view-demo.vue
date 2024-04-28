@@ -43,8 +43,7 @@
         listData.value = listData.value.concat(getData(30,'concat-'+num))
       }, 1000);
     }else{
-      listData.value.push({ text: '', type: 1003, decoration: {} })
-      gridViewRef.value.stopPage()
+      gridViewRef.value.stopPage(true)
     }
   }
   

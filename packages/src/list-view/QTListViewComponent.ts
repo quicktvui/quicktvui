@@ -93,20 +93,20 @@ function registerESListViewComponent(app: ESApp) {
           loadingPosition = newList.length
         }
       }
-      const closeLoading = ()=>{
+      const closeLoading = (isTip = false)=>{
         if(loadingPosition>0){
-          Native.callUIFunction(viewRef.value, 'deleteItemRange', [loadingPosition, 1]);
-          loadingPosition = 0
+          if(isTip){
+            Native.callUIFunction(viewRef.value, 'updateItem', [loadingPosition, { text: '', type: 1003, decoration: {} }]);
+          } else {
+            Native.callUIFunction(viewRef.value, 'deleteItemRange', [loadingPosition, 1]);
+            loadingPosition = 0
+          }
         }
       }
-      let stopPageTimerid:any = null
-      const stopPage = () => {
+      const stopPage = (isTip = false) => {
         isStopPage = true//init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
-        clearTimeout(stopPageTimerid)
-        stopPageTimerid = setTimeout(() => {
-          isStopPage = true
-          closeLoading()
-        }, 20);
+        isStopPage = true
+        closeLoading(isTip)
       }
       const initPage = ()=>{
         isStopPage = false
@@ -289,7 +289,6 @@ function registerESListViewComponent(app: ESApp) {
       onBeforeUnmount(() => {
         watchRes?.stop()
         initPage()
-        clearTimeout(stopPageTimerid)
         clearTimeout(defaultFocusTimer)
       })
       ctx.expose({
