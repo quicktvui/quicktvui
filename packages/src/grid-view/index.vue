@@ -135,8 +135,15 @@ export default defineComponent({
       }
       const loadMoreFn = ()=>{
         if(!isStopPage && props.loadMore){
-          pageNo++
-          props.loadMore(pageNo)
+          if(props.listData){
+            if(newList.length > props.pageSize){
+              pageNo++
+              props.loadMore(pageNo)
+            }
+          }else{
+            pageNo++
+            props.loadMore(pageNo)
+          }
         }
       }
     
@@ -169,6 +176,7 @@ export default defineComponent({
           tv_list.value.updateItem(position,value)
           // tv_list.value.updateItemProps(pos, name, dataObj)
         })
+        // tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
       },
       insert(position, datas){
         let arr = [...datas.values()]

@@ -114,8 +114,15 @@ function registerESListViewComponent(app: ESApp) {
       }
       const loadMoreFn = ()=>{
         if(!isStopPage && props.loadMore){
-          pageNo++
-          props.loadMore(pageNo)
+          if(props.listData){
+            if(newList.length > 0){
+              pageNo++
+              props.loadMore(pageNo)
+            }
+          } else {
+            pageNo++
+            props.loadMore(pageNo)
+          }
         }
       }
       

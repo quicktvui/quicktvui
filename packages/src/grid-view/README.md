@@ -1,4 +1,8 @@
 ## grid-view 新语法使用示例
+- 安装测试版本的quicktvui3
+```sh
+npm i @quicktvui/quicktvui3@beta
+```
 ### 初始化数据
 ```ts
 import { qtRef } from '@quicktvui/quicktvui3';
@@ -32,7 +36,7 @@ listData.value = [{ text: '', type: 1 }]//直接赋值新数组即可
 <div class="page">
   <qt-grid-view 
     class="grid_view" ref="gridViewRef" :clipChildren="false" :clipPadding="false"
-    :enablePlaceholder="true" padding="0,0,0,20"
+    :enablePlaceholder="true" padding="0,0,0,20" :list-data="listData"
     :preloadNo="5" :loadMore="loadMore" :listenBoundEvent="true" :openPage="true"
     :spanCount="6" :loadingDecoration="{left: 950, top: 20, bottom: 20}"
     :focusable="false"
