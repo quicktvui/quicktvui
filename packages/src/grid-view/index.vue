@@ -188,6 +188,9 @@ export default defineComponent({
       },
       delete(position, count){
         tv_list.value.deleteItem(position, count)
+        if(loadingPosition>0){
+          loadingPosition = newList.length
+        }
       },
       clear(){
         tv_list.value!.setListDataWithParams([], true, true)

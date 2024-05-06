@@ -171,6 +171,9 @@ function registerESListViewComponent(app: ESApp) {
         },
         delete(position, count){
           Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count]);
+          if(loadingPosition>0){
+            loadingPosition = newList.length
+          }
         },
         clear(){
           Native.callUIFunction(viewRef.value, 'setListData', [])
