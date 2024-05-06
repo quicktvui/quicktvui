@@ -124,10 +124,13 @@ export default defineComponent({
           }
         }
       }
+      let stopPageTimerId:any = null
       const stopPage = (isTip = false) => { //当分页数据加载完毕时 调用该方法 清掉加载loading样式
         isStopPage = true//init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
-        isStopPage = true
-        closeLoading(isTip)
+        stopPageTimerId = setTimeout(() => {
+          isStopPage = true
+          closeLoading(isTip)
+        }, 20);
       }
       const initPage = ()=>{
         isStopPage = false
@@ -170,17 +173,16 @@ export default defineComponent({
       },
       update(position, datas, names){
         // let arr = [...datas.values()] [{ a: 1, b: [{  c: 2 }] }]
-        datas.forEach((value, key) => {
-          // qtGetParent(value, key, 1)
-          const position = Array.isArray(key)?Number(key[0]):Number(key)
-          tv_list.value.updateItem(position,value)
-          // tv_list.value.updateItemProps(pos, name, dataObj)
-        })
-        // tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
+        // datas.forEach((value, key) => {
+        //   // qtGetParent(value, key, 1)
+        //   const position = Array.isArray(key)?Number(key[0]):Number(key)
+        //   tv_list.value.updateItem(position,value)
+        //   // tv_list.value.updateItemProps(pos, name, dataObj)
+        // })
+        tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
       },
       insert(position, datas){
-        let arr = [...datas.values()]
-        tv_list.value.addItem(position, arr)
+        tv_list.value.addItem(position, datas)
         closeLoading()
         openLoading()
       },
@@ -303,6 +305,7 @@ export default defineComponent({
       initPage()
       resetData()
       clearTimeout(defaultFocusTimer)
+      clearTimeout(stopPageTimerId)
     })
     let delayResetTimer: any = -1
     const restartPage = () => {

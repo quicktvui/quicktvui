@@ -25,7 +25,10 @@ export const typeEnum = {
   unknownSet: '__qt_unknownSet',
   currentType: '__qt_currentType',
   expectCangeNum: '__qt_expectCangeNum',
-  isInit: '__qt_is_init'
+  isInit: '__qt_is_init',
+  shift: 'shift',
+  unshift: 'unshift',
+  newDatas: '__qt_new_datas'
 }
 
 /**
@@ -87,7 +90,6 @@ class QtType {
     if(typeof target !== 'object') { return }
     let targetMap = this.targetMaps.get(target)
     this.targetFlags.delete(target)
-
     if(!targetMap) return
     if(type){
       targetMap.delete(type)
@@ -121,8 +123,9 @@ class QtType {
     let cacheTypes = this.getTargetType(target,typeEnum.qtSet)
     if(!cacheTypes){
       const start = Array.isArray(prop) ? Number(prop[0]) : Number(prop)
-      cacheTypes = new QtChangeData(start, -1)
+      cacheTypes = new QtChangeData(start, start)
       cacheTypes.datas.set(prop, value)
+      cacheTypes.updateCount = 1
       if(name){
         const names = cacheTypes.names.get(prop)
         if(!names){
@@ -133,7 +136,10 @@ class QtType {
       }
       this.setType(target, typeEnum.qtSet, cacheTypes)
     } else {
+      const pos = Array.isArray(prop) ? Number(prop[0]) : Number(prop)
       cacheTypes.datas.set(prop, value)
+      cacheTypes.updateCount += 1
+      cacheTypes.end = pos
       if(name){
         const names = cacheTypes.names.get(prop)
         if(!names){
@@ -143,6 +149,24 @@ class QtType {
         }
       }
     }
+  }
+  recordNewData(target:any, items:any[]){
+    const flag = this.getFlag(target)
+    let newDatas:WeakSet<any> = flag.get(typeEnum.newDatas)
+    if(!newDatas){
+      flag.set(typeEnum.newDatas, newDatas = new WeakSet())
+    }
+    items.forEach(item=>{
+      newDatas.add(item)
+    })
+  }
+  checkIsNewData(target:any, data:any):boolean{
+    const flag = this.getFlag(target)
+    let newDatas:WeakSet<any> = flag.get(typeEnum.newDatas)
+    if(newDatas){
+      return newDatas.has(data)
+    }
+    return false
   }
 }
 const qtType = new QtType()

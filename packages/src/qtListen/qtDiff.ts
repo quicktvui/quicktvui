@@ -82,7 +82,7 @@ export const qtDiff = (oldt: any[], newt: any[], options:IQtWatchOptions) => {
     })
     if (oldItem) {
       if(inserts.datas.size){
-        options.insert(inserts.start, inserts.datas)
+        options.insert(inserts.start, Array.from(inserts.datas.values()))
         inserts.resetData()
       }
       const isChange = qtDiffNodeChange(oldItem, newItem)

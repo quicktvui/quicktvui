@@ -72,14 +72,18 @@ const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
     },
     set(target:any, prop, value, receiver){
       let oldValue = target[prop]
-      // console.log(prop, '--set', value)
       if(isReactive(value)){
         value = toRaw(value)
       }
+      // console.log(prop, '-r-set--')
       if(isObject(value) && !isArray(value) && typeof(prop)==='string'){
         if(!value.__qt_key_){
           if(isObject(oldValue)){
-            value.__qt_key_ = oldValue.__qt_key_ || qtCreateUid(prop)//标记唯一值，diff对比时使用
+            if(qtType.checkIsNewData(target,value)){
+              value.__qt_key_ = qtCreateUid(prop)
+            } else {
+              value.__qt_key_ = oldValue.__qt_key_ || qtCreateUid(prop)//标记唯一值，diff对比时使用
+            }
           }else{
             value.__qt_key_ = qtCreateUid(prop)
           }
@@ -102,7 +106,7 @@ const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
             }
             const _root = receiver[emReactiveFlags.qtRoot]
             const _path = receiver[emReactiveFlags.qtPath]
-            // console.log(prop, '--', value, receiver[emReactiveFlags.qtRoot])
+            // console.log(prop, '--reactive--')
             if(_path && _path.length && !isReactive(value)) {
               const firstProp = _path[0]
               const _firstObj = _root[firstProp]//[emReactiveFlags.WATCH_RAW]

@@ -1,6 +1,48 @@
 import qtType, { typeEnum, QtChangeData } from "./types"
 
 class QtArray extends Array {
+  shift(){
+    // @ts-ignore
+    if(this.__v_raw.length){
+      // @ts-ignore
+      const start = 0
+      const end = 0
+      const deleteCount = 1
+      // @ts-ignore
+      const changeData = qtType.getTargetType(this.__v_raw, typeEnum.shift)
+      if (changeData) {
+        changeData.deleteCount += deleteCount
+      } else {
+        const datas = new QtChangeData(start, end, deleteCount)
+        // @ts-ignore
+        qtType.setType(this.__v_raw, typeEnum.shift, datas)
+        // @ts-ignore
+        qtType.getFlag(this.__v_raw).set(typeEnum.expectCangeNum, this.__v_raw.length)
+      }
+    }
+    return super.shift()
+  }
+  unshift(...items: any[]){
+    if(items.length){
+      let start = 0
+      let end = items.length-1
+      // @ts-ignore
+      let changeData = qtType.getTargetType(this.__v_raw, typeEnum.unshift)
+      if (!changeData) {
+        changeData = new QtChangeData(start, end)
+        // @ts-ignore
+        qtType.setType(this.__v_raw, typeEnum.unshift, changeData)
+        // @ts-ignore
+        qtType.getFlag(this.__v_raw).set(typeEnum.expectCangeNum, this.__v_raw.length + items.length)
+      }else{
+        // console.log(changeData.start, changeData.end)
+        // changeData.end += items.length
+      }
+    }
+    // @ts-ignore
+    qtType.recordNewData(this.__v_raw, items)
+    return super.unshift(...items)
+  }
   push(...items: any[]) {
     if (items.length) {
       // @ts-ignore
@@ -38,7 +80,7 @@ class QtArray extends Array {
     }
     
     // @ts-ignore
-    let changeData = qtType.getTargetType(this.__v_raw, typeEnum.pop)
+    let changeData = qtType.getTargetType(this.__v_raw, typeEnum.splice)
     if (!changeData) {
       changeData = new QtChangeData(start, end, deleteCount)
       // @ts-ignore
@@ -74,7 +116,7 @@ class QtArray extends Array {
       const start = this.__v_raw.length
       const end = start + items.length - 1
       // @ts-ignore
-      let changeData = qtType.getTargetType(this.__v_raw, typeEnum.pop)
+      let changeData = qtType.getTargetType(this.__v_raw, typeEnum.concat)
       if (changeData) {
         changeData.end += items.length
       } else {

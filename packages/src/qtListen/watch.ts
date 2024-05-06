@@ -1,15 +1,15 @@
 import { isObject, isArray } from '@vue/shared'
-// import { isReactive } from 'vue'//markRaw
+import { nextTick } from 'vue'//markRawn isReactive
 import { qtClearupTrack, QtReactiveEffect, qtTrack } from "./effect";
 import { qtDiff } from "./qtDiff";
 import { emReactiveFlags } from './reactive'//qtToReactive
-import qtType, { typeEnum } from './types'
+import qtType, { qtLongestSequenceSplit, typeEnum } from './types'
 
 export interface IQtWatchOptions {
   init: (datas: any[]) => void;
   add: (datas: any[]) => void;
   update: (position: number, datas: Map<any, any>, names?: Map<any, Set<any>>) => void;//keyPath?:Map<any,any[]>
-  insert: (position: number, datas: Map<any, any>) => void;
+  insert: (position: number, datas: any[]) => void;
   delete: (position: number, count: number) => void;
   clear: () => void;
   resetValue?:(datas:any[])=>void;
@@ -52,12 +52,15 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
   let __v_raw = target.__v_raw
   let oldTarget = qtCloneObj(__v_raw)
 
-  let watchTimeoutId: any = null
+  let watchNextTickFlag = false
   const watchNextTick = (fn: any) => {
-    clearTimeout(watchTimeoutId)
-    watchTimeoutId = setTimeout(() => {
-      fn()
-    }, 10);
+    if(!watchNextTickFlag){
+      watchNextTickFlag = true
+      nextTick(()=>{
+        watchNextTickFlag = false
+        fn()
+      })
+    }
   }
   
   const _effect = new QtReactiveEffect(
@@ -65,7 +68,7 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
       qtTrack(__v_raw, emReactiveFlags.WATCH_ALL)
     },
     (target, prop, newValue, type, oldValue) => {
-      // console.log(target,'-watch--change',prop)
+      // console.log(type,'-------',prop)
       const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target 
       const _currentType = qtType.getFlag(target).get(typeEnum.currentType)
       if (type === emReactiveFlags.RESET_REF_VALUE) {
@@ -80,14 +83,29 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
           options.clear()
         }
         __v_raw = newValue
+
+        qtType.deleteType(oldTarget)
+        qtType.deleteType(target)
+        qtType.deleteType(__v_raw)
+        qtType.deleteType(_target)
         oldTarget = qtCloneObj(__v_raw) 
       } else  if (!(oldTarget && oldTarget.length) && _target) {
         options.init(qtCloneObj(_target,false))
         __v_raw = _target
+
+        qtType.deleteType(oldTarget)
+        qtType.deleteType(target)
+        qtType.deleteType(__v_raw)
+        qtType.deleteType(_target)
         oldTarget = qtCloneObj(__v_raw) 
       } else if(_currentType === typeEnum.splice && !(target && target.length)){
         options.clear()
         __v_raw = target
+
+        qtType.deleteType(oldTarget)
+        qtType.deleteType(target)
+        qtType.deleteType(__v_raw)
+        qtType.deleteType(_target)
         oldTarget = qtCloneObj(__v_raw) 
       } else {
         watchNextTick(() => {
@@ -96,30 +114,45 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
           // console.log('--type', type, target, types?.size, '异步1',_currentType)
           // 如果单个时间片段内只进行了一种类型的数组操作，则优先执行数组操作，否则就需要进行diff算法对比
           if (types && types.size === 1) {
-          // console.log(types, '--types')
-          types.forEach((tvalue, key) => {
-            // console.log(key, '--types-',tvalue)
-            if (key === typeEnum.push || key === typeEnum.concat) {
-              options.add(tvalue.dataArr || Array.from(tvalue.datas.values()))
-            }
-            if (key === typeEnum.pop) {
-              options.delete(tvalue.start, tvalue.deleteCount)
-            }
-            if (key === typeEnum.qtSet) {
-              options.update(tvalue.start, tvalue.datas, tvalue.names)
-            }
-            if (key === typeEnum.splice) {
-              if(tvalue.deleteCount){
+            // console.log(types, '--types')
+            types.forEach((tvalue, key) => {
+              // console.log(key, '--types-',tvalue)
+              if (key === typeEnum.push || key === typeEnum.concat) {
+                options.add(tvalue.dataArr || Array.from(tvalue.datas.values()))
+              }
+              if (key === typeEnum.pop) {
                 options.delete(tvalue.start, tvalue.deleteCount)
               }
-              if (tvalue.datas.size) {
-                options.insert(tvalue.start, tvalue.datas)
+              if (key === typeEnum.qtSet) {
+                // console.log(tvalue,'-tvalue')
+                if(tvalue.end-tvalue.start +1 == tvalue.updateCount){
+                  options.update(tvalue.start, tvalue.datas, tvalue.names)
+                }else{
+                  const equence = qtLongestSequenceSplit(tvalue)
+                  equence.forEach((evalue, epos)=>{
+                    // console.log(evalue,'-epos',epos)
+                    options.update(epos, evalue.datas, evalue.names)
+                  })
+                }
               }
-            }
-          })
-        } else {
-          qtDiff(oldTarget, _target, options)
-        }
+              if (key === typeEnum.splice) {
+                if(tvalue.deleteCount){
+                  options.delete(tvalue.start, tvalue.deleteCount)
+                }
+                if (tvalue.datas.size) {
+                  options.insert(tvalue.start, Array.from(tvalue.datas.values()))
+                }
+              }
+              if (key === typeEnum.unshift) {
+                options.insert(tvalue.start, Array.from(tvalue.datas.values()))
+              }
+              if (key === typeEnum.shift) {
+                options.delete(tvalue.start, tvalue.deleteCount)
+              }
+            })
+          } else {
+            qtDiff(oldTarget, _target, options)
+          }
   
           // if(type === emReactiveFlags.RESET_REF_VALUE){}
           qtType.deleteType(oldTarget)
@@ -144,7 +177,6 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
     stop() {
       qtClearupTrack(__v_raw)
       _effect.stop()
-      clearTimeout(watchTimeoutId)
     }
   }
 }

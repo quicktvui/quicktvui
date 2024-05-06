@@ -103,10 +103,13 @@ function registerESListViewComponent(app: ESApp) {
           }
         }
       }
+      let stopPageTimerId:any = null
       const stopPage = (isTip = false) => {
         isStopPage = true//init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
-        isStopPage = true
-        closeLoading(isTip)
+        stopPageTimerId = setTimeout(() => {
+          isStopPage = true
+          closeLoading(isTip)
+        }, 20);
       }
       const initPage = ()=>{
         isStopPage = false
@@ -154,14 +157,15 @@ function registerESListViewComponent(app: ESApp) {
           openLoading()
         },
         update(position, datas, names){
-          datas.forEach((value, key) => {
-            const position = Array.isArray(key)?Number(key[0]):Number(key)
-            Native.callUIFunction(viewRef.value, 'updateItem', [position, value]);
-            // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
-          })
+          // datas.forEach((value, key) => {
+          //   const position = Array.isArray(key)?Number(key[0]):Number(key)
+          //   Native.callUIFunction(viewRef.value, 'updateItem', [position, value]);
+          //   // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
+          // })
+          Native.callUIFunction(viewRef.value, 'updateItemRange', [position, datas.size, Array.from(datas.values())]);
         },
         insert(position, datas){
-          Native.callUIFunction(viewRef.value, 'insertItemRange', [position, Array.from(datas.values())]);
+          Native.callUIFunction(viewRef.value, 'insertItemRange', [position, datas]);
           closeLoading()
           openLoading()
         },
@@ -297,6 +301,7 @@ function registerESListViewComponent(app: ESApp) {
         watchRes?.stop()
         initPage()
         clearTimeout(defaultFocusTimer)
+        clearTimeout(stopPageTimerId)
       })
       ctx.expose({
         viewRef,
