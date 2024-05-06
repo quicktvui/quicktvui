@@ -306,6 +306,47 @@ function registerESListViewComponent(app: ESApp) {
         clearTimeout(defaultFocusTimer)
         clearTimeout(stopPageTimerId)
       })
+      //自定义方法循环拼接item的name
+      const updateItemName = (arr, index) => {
+        for (let i = 0; i < arr.length; i++) {
+          const el = arr[i];
+          if (index >= 0) {
+            el.name = 'name' + index + i
+          } else {
+            el.name = 'name' + i
+          }
+          if (el.list && el.list.length > 0) {
+            updateItemName(el.list, i)
+          }
+        }
+      }
+      const hasChanged = (value, oldValue) => {
+        return value !== oldValue && (value === value || oldValue === oldValue)
+      }
+      const updateItem = (position: number, data: QTListViewItem) => {
+        Native.callUIFunction(viewRef.value, 'updateItem', [position, data]);
+      }
+      const updateItemList = (position: number, count: number, data: Array<QTListViewItem>) => {
+        Native.callUIFunction(viewRef.value, 'updateItemRange', [position, count, data]);
+      }
+      const updateItemProps = (position: number, name: string, toUpdateMap: Object) => {
+        Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
+      }
+      const insertItem = (position: number, data: Array<QTListViewItem>) => {
+        Native.callUIFunction(viewRef.value, 'insertItemRange', [position, data]);
+      }
+      const addListData = (data: Array<QTListViewItem>) => {
+        Native.callUIFunction(viewRef.value, 'addListData', data);
+      }
+      const addListDataWithParams = (data: Array<QTListViewItem>, deleteCount: number) => {
+        Native.callUIFunction(viewRef.value, 'addListDataWithParams', [data, deleteCount]);
+      }
+      const deleteItem = (position: number, count: number) => {
+        Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count]);
+      }
+      const setListDataWithParams = (data: Array<QTListViewItem>, autoChangeVisible: Boolean) => {
+        Native.callUIFunction(viewRef.value, 'setListDataWithParams', [data, autoChangeVisible]);
+      }
       ctx.expose({
         viewRef,
         init,
@@ -339,6 +380,16 @@ function registerESListViewComponent(app: ESApp) {
         setListData(dataArr: Array<QTListViewItem>){
           Native.callUIFunction(viewRef.value, 'setListData', dataArr)
         },
+        updateItemName,
+        hasChanged,
+        updateItem,
+        updateItemList,
+        updateItemProps,
+        insertItem,
+        addListData,
+        addListDataWithParams,
+        deleteItem,
+        setListDataWithParams,
         ...useBaseView(viewRef)
       })
       return () => {

@@ -73,6 +73,7 @@ export default defineComponent({
   ],
   setup(props, context) {
     const tv_list = ref()
+    let apkVersion = ref(2.5)
     let recordTarget = qtRef()
     let pageNo: number = 0
     let isStopPage = false
@@ -327,7 +328,12 @@ export default defineComponent({
         }, delayResetTimerTime)
       }
     }
-
+    const updateItemProps = (pos: number, name: string, dataObj: object) => {
+      tv_list.value.updateItemProps(pos, name, dataObj)
+    }
+    const insertItem = (pos: number, data: Array<QTGridViewItem>) => {
+      tv_list.value.addItem(pos, data)
+    }
     return {
       tv_list,
       init,
@@ -358,6 +364,9 @@ export default defineComponent({
       requestFocus,
       requestFocusDirectly,
       setVisibility,
+      apkVersion,
+      updateItemProps,
+      insertItem,
     }
   },
 });
