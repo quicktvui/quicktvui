@@ -173,14 +173,16 @@ export default defineComponent({
         openLoading()
       },
       update(position, datas, names){
-        // let arr = [...datas.values()] [{ a: 1, b: [{  c: 2 }] }]
-        // datas.forEach((value, key) => {
-        //   // qtGetParent(value, key, 1)
-        //   const position = Array.isArray(key)?Number(key[0]):Number(key)
-        //   tv_list.value.updateItem(position,value)
-        //   // tv_list.value.updateItemProps(pos, name, dataObj)
-        // })
-        tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
+        if(datas.size>1){
+          tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
+        }else{
+          datas.forEach((value, key) => {
+            // qtGetParent(value, key, 1)
+            const position = Array.isArray(key)?Number(key[0]):Number(key)
+            tv_list.value.updateItem(position,value)
+            // tv_list.value.updateItemProps(pos, name, dataObj)
+          })
+        }
       },
       insert(position, datas){
         tv_list.value.addItem(position, datas)

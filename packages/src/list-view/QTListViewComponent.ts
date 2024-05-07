@@ -157,12 +157,15 @@ function registerESListViewComponent(app: ESApp) {
           openLoading()
         },
         update(position, datas, names){
-          // datas.forEach((value, key) => {
-          //   const position = Array.isArray(key)?Number(key[0]):Number(key)
-          //   Native.callUIFunction(viewRef.value, 'updateItem', [position, value]);
-          //   // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
-          // })
-          Native.callUIFunction(viewRef.value, 'updateItemRange', [position, datas.size, Array.from(datas.values())]);
+          if(datas.size>1){
+            Native.callUIFunction(viewRef.value, 'updateItemRange', [position, datas.size, Array.from(datas.values())]);
+          }else{
+            datas.forEach((value, key) => {
+              const position = Array.isArray(key)?Number(key[0]):Number(key)
+              Native.callUIFunction(viewRef.value, 'updateItem', [position, value]);
+              // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
+            })
+          }
         },
         insert(position, datas){
           Native.callUIFunction(viewRef.value, 'insertItemRange', [position, datas]);
