@@ -90,14 +90,16 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
         qtType.deleteType(_target)
         oldTarget = qtCloneObj(__v_raw) 
       } else  if (!(oldTarget && oldTarget.length) && _target) {
-        options.init(qtCloneObj(_target,false))
-        __v_raw = _target
+        watchNextTick(()=>{
+          options.init(qtCloneObj(_target,false))
+          __v_raw = _target
 
-        qtType.deleteType(oldTarget)
-        qtType.deleteType(target)
-        qtType.deleteType(__v_raw)
-        qtType.deleteType(_target)
-        oldTarget = qtCloneObj(__v_raw) 
+          qtType.deleteType(oldTarget)
+          qtType.deleteType(target)
+          qtType.deleteType(__v_raw)
+          qtType.deleteType(_target)
+          oldTarget = qtCloneObj(__v_raw) 
+        })
       } else if(_currentType === typeEnum.splice && !(target && target.length)){
         options.clear()
         __v_raw = target

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, onBeforeUnmount, onMounted, toRaw, watchEffect} from "vue";
+import {defineComponent, ref, onBeforeUnmount, onMounted, toRaw, watchEffect, onUnmounted} from "vue";
 import {QTGridViewItem} from "./core/QTGridViewItem";
 import useBaseView from "../base/useBaseView";
 import {qtWatchAll, qtRef} from "../qtListen/index";
@@ -99,6 +99,9 @@ export default defineComponent({
         tv_list.value!.setListDataWithParams(toRaw(getRecord()), true, true)
         checkDefaultFocus(newList)
       }
+    })
+    onUnmounted(()=>{
+      recordTarget.value.splice(0)
     })
     let loadingPosition = 0
     const loadingData = [{ _id: '', type: 1002, decoration: props.loadingDecoration }]

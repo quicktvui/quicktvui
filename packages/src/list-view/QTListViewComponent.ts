@@ -1,4 +1,4 @@
-import {defineComponent, h, ref, onBeforeUnmount, onMounted, toRaw, watchEffect} from "vue";
+import {defineComponent, h, ref, onBeforeUnmount, onMounted, toRaw, watchEffect,onUnmounted} from "vue";
 import {ESApp, Native} from "@extscreen/es3-vue";
 import {QTListViewItem} from "./core/QTListViewItem";
 import {QTListViewItemFunctionParams} from "./core/QTListViewItemFunctionParams";
@@ -77,7 +77,9 @@ function registerESListViewComponent(app: ESApp) {
           checkDefaultFocus(newList)
         }
       })
-
+      onUnmounted(()=>{
+        recordTarget.value.splice(0)
+      })
       let loadingPosition = 0
       const loadingData = [{ _id: '', type: 1002, decoration: props.loadingDecoration }]
       const getOpenLoading = () => {
@@ -135,7 +137,6 @@ function registerESListViewComponent(app: ESApp) {
           loadMoreFn()
         }
       })
-
       const watchRes = qtWatchAll(getRecord(), {
         resetValue(newData){
           newList = newData
