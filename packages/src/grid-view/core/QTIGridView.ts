@@ -3,13 +3,16 @@ import {QTIView} from "../../view/QTIView";
 
 export interface QTIGridView extends QTIView {
 
+  /**
+   * @deprecated 不再推荐使用，请使用最新的:list-data语法绑定数据
+   */
   init(target: Array<QTGridViewItem>, isInit?: boolean): Array<QTGridViewItem>
 
   scrollToTop(): void
 
   clearFocus(): void
 
-  stopPage(): void
+  stopPage(isTip?:boolean): void
 
   restartPage(): void
 
