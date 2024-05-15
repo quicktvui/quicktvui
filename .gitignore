@@ -4,6 +4,7 @@ node_modules
 ./dist
 ./packages/element/dist
 ./packages/component/dist
+./packages/dist
 # local env files
 .env.local
 .env.*.local
