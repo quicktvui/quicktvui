@@ -25,8 +25,7 @@ import {ESComponent} from "@extscreen/es3-component";
 
 app.use(ESComponent);
 
-// import {QuickTVUI} from "@quicktvui/quicktvui3";
-import {QuickTVUI} from "../packages/src/index";
-// import '@quicktvui/quicktvui3/dist/index.css';
+import {QuickTVUI} from "@quicktvui/quicktvui3";
+import '@quicktvui/quicktvui3/dist/index.css';
 
 app.use(QuickTVUI);

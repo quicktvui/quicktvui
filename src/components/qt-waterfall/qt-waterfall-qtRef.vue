@@ -31,7 +31,7 @@ import {
   QTWaterfallSection,
   QTWaterfallSectionType
 } from "@quicktvui/quicktvui3";
-import { qtRef, QTIWaterfall, QTWaterfallItem } from '../../../packages/src/index';
+import { qtRef, QTIWaterfall, QTWaterfallItem } from '@quicktvui/quicktvui3';
 
 const waterfall = ref<QTIWaterfall>()
 const waterfallDatas = qtRef<QTWaterfallSection[]>()
