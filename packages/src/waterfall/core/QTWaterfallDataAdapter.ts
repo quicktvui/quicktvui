@@ -6,12 +6,12 @@ import {QTWaterfallSectionType} from "./QTWaterfallSectionType";
 
 //
 export function generateSectionList(waterfall: QTWaterfall,
-                                    sectionList: Array<QTWaterfallSection>): Array<QTWaterfallItem> {
+                                    sectionList: Array<QTWaterfallSection>, isCheck=false): Array<QTWaterfallItem> {
   const itemList: Array<QTWaterfallItem> = []
   if (sectionList && sectionList.length > 0) {
     for (let i = 0; i < sectionList.length; i++) {
       let section = sectionList[i];
-      let item = generateSection(waterfall, section)
+      let item = generateSection(waterfall, section, isCheck)
       itemList.push(item)
     }
   }
@@ -19,10 +19,18 @@ export function generateSectionList(waterfall: QTWaterfall,
 }
 
 export function generateSection(waterfall: QTWaterfall,
-                                section: QTWaterfallSection): QTWaterfallSection {
+                                section: QTWaterfallSection, isCheck=false): QTWaterfallSection {
   let sectionHeight = 0
   if (section.itemList.length > 0 && section.type == QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX) {
     sectionHeight = layoutItem(section)
+    
+    let titiheight = 0
+    if(isCheck){
+      if(section.style && section.style.height && section.style.height>0){
+        titiheight = section.titleStyle?.height||0
+      }
+    }
+    
     section.style.height = sectionHeight
   }
   return section

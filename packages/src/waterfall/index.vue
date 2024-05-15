@@ -71,6 +71,7 @@
 
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
+import { qtWatchAll, qtFilterChangeMap } from "../qtListen/index";
 
 import flex_section from './section/flex-section.vue'
 import list_section from './section/list-section.vue'
@@ -82,7 +83,7 @@ import card_section from './section/card-section.vue'
 import vue_section from './section/vue-section.vue'
 
 import {QTWaterfall} from "./core/QTWaterfall";
-import {ref} from "vue";
+import {ref, onBeforeUnmount} from "vue";
 import {generateSectionList, generateSection} from "./core/QTWaterfallDataAdapter";
 import {QTWaterfallSection} from "./core/QTWaterfallSection";
 import {ESIListView} from "@extscreen/es3-component";
@@ -138,6 +139,12 @@ export default defineComponent({
       type: Number,
       default: 0
     },
+    listData: {
+      type: Array, required: false
+    },
+    pStype: {
+      type: Object, default:() => ({})
+    }
   },
   setup(props, context) {
     const log = useESLog()
@@ -389,11 +396,63 @@ export default defineComponent({
     function onScrollYLesserReference() {
       context.emit('onScrollYLesserReference');
     }
-
     //-------------------------------------------------------------------------
     function setListData(data: any) {
       waterfallRef.value?.setListData(data)
     }
+
+    const watchRes = qtWatchAll(props.listData, {
+      resetValue(newData){
+        init(props.pStype as any)
+      },
+      init(datas){
+        const itemList = generateSectionList(waterfall, datas, true)
+        waterfallRef.value?.setListData(itemList)
+      },
+      add(datas){
+        const itemList = generateSectionList(waterfall, datas, true)
+        waterfallRef.value?.addListData(itemList)
+      },
+      update(position, dataMaps){
+        const datas = qtFilterChangeMap(1, dataMaps.datas)
+        console.log('lsj-update---', position, datas, dataMaps.names)
+        // if(dataMaps.deth === 1 && dataMaps.names.size){
+        //   dataMaps.names.forEach((nv, ni) => {
+        //     console.log(nv, '-lsj-names-', ni, datas.get(ni))
+        //     const npos = Array.isArray(ni)?Number(ni[0]):Number(ni)
+        //     nv.forEach(niName => {
+        //       const dk = ni.length===1? ni.join(''):ni
+        //       waterfallRef.value?.updateItemProps(npos, niName, datas.get(dk))
+        //     });
+        //   })
+        // }
+        if(datas.size>1){
+          console.log('lsj-updateItemList', position, Array.from(datas.values()))
+          const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
+          waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
+        }else{
+          datas.forEach((value, key) => {
+            const position = Array.isArray(key)?Number(key[0]):Number(key)
+            const updateSection = generateSection(waterfall, value, true)
+            waterfallRef.value?.updateItem(position, updateSection)
+            // tv_list.value.updateItemProps(pos, name, dataObj)
+          })
+        }
+      },
+      insert(position, datas){
+        const sectionList = generateSectionList(waterfall, datas, true)
+        waterfallRef.value?.addItem(position, sectionList)
+      },
+      delete(position, count){
+        waterfallRef.value?.deleteItem(position, count)
+      },
+      clear(){
+        waterfallRef.value?.setListData([])
+      }
+    })
+    onBeforeUnmount(()=>{
+      watchRes?.stop()
+    })
     return {
       waterfallRef,
       visibleType,

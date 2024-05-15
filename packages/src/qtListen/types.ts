@@ -3,6 +3,8 @@ export class QtChangeData {
   names:Map<any,Set<any>> = new Map()
   dataArr?:any[]//concat 拼接数据时使用
   updateCount:number = 0
+  rootUpdateCount:number = 0
+  deth:number = -1//深度
   constructor(public start:number, public end:number, public deleteCount:number = -1){}
   resetData(){
     // this.datas.clear()
@@ -32,28 +34,51 @@ export const typeEnum = {
 }
 
 /**
+ * 指定层级，获取按层级去重后的数据，子集被多次修改时，如果只关系父级的变化则需要按层级去重
+ */
+export const qtFilterChangeMap = (deth = 1, datas:Map<any,any>) => {
+  const res = new Map()
+  datas.forEach((dv, dk)=>{
+    let rk = dk
+    if(Array.isArray(dk) && deth > 0){
+      rk = dk.slice(0, deth).join()
+    }
+    res.set(rk, dv)
+  })
+  return res
+}
+
+/**
  * 最长递增序列拆分
  */
 export const qtLongestSequenceSplit= (maps:QtChangeData)=>{
   const changes:Map<any,QtChangeData> = new Map()
   let _preStart = -1
   maps.datas.forEach((mdv, mdi)=>{
-    const _start = Array.isArray(mdi) ? Number(mdi[0]) : Number(mdi)
+    const _start = Array.isArray(mdi)?Number(mdi[0]):Number(mdi)
+    console.log(_start,'--_start')
     let changeVal = changes.get(_preStart)
-    if(changeVal && _start >= changeVal.start && _start <= changeVal.end){
+    if(changeVal && _start >= changeVal.start && _start <= changeVal.end+1){
       changeVal.updateCount++
-      changeVal.end = changeVal.start + changeVal.updateCount
+      if(_start != changeVal.end){
+        changeVal.rootUpdateCount++
+      }
+      changeVal.end = _start
       changeVal.datas.set(mdi, mdv)
     }else{
       const start = _start
       const count = 1
-      const end = start + count
+      const end = start// + count
       changeVal = new QtChangeData(start, end)
       changeVal.updateCount = count
+      changeVal.rootUpdateCount = count
       changeVal.datas.set(mdi, mdv)
-
+      changeVal.deth = maps.deth
       _preStart = _start
       changes.set(_preStart, changeVal)
+    }
+    if(maps.names.get(mdi)){
+      changeVal.names.set(mdi, (maps.names.get(mdi) as Set<any>))
     }
   })
   return changes
@@ -119,34 +144,40 @@ class QtType {
 
     return isCollect
   }
-  changeOfsetType(target:any, prop:any, value:any, name?:any){
+  changeOfsetType(target:any, prop:any, value:any, name?:any, deth = 1){
     let cacheTypes = this.getTargetType(target,typeEnum.qtSet)
     if(!cacheTypes){
       const start = Array.isArray(prop) ? Number(prop[0]) : Number(prop)
       cacheTypes = new QtChangeData(start, start)
       cacheTypes.datas.set(prop, value)
       cacheTypes.updateCount = 1
-      if(name){
-        const names = cacheTypes.names.get(prop)
-        if(!names){
-          cacheTypes.names.set(prop, new Set([name]))
-        } else {
-          names.add(name)
-        }
-      }
+      cacheTypes.rootUpdateCount = 1
+      cacheTypes.deth = deth
       this.setType(target, typeEnum.qtSet, cacheTypes)
     } else {
       const pos = Array.isArray(prop) ? Number(prop[0]) : Number(prop)
-      cacheTypes.datas.set(prop, value)
-      cacheTypes.updateCount += 1
-      cacheTypes.end = pos
-      if(name){
-        const names = cacheTypes.names.get(prop)
-        if(!names){
-          cacheTypes.names.set(prop, new Set([name]))
-        } else {
-          names.add(name)
+      if(!cacheTypes.datas.has(prop)){
+        if(pos !== cacheTypes.end){
+          cacheTypes.rootUpdateCount++
         }
+        cacheTypes.updateCount += 1
+      }
+      cacheTypes.datas.set(prop, value)
+      if(pos >= cacheTypes.end){
+        cacheTypes.end = pos
+      }else if(pos < cacheTypes.start) {
+        cacheTypes.start = pos
+      }
+      if(deth != cacheTypes.deth){
+        cacheTypes.deth = -1//如果同时修改了不通层级的数据，则无法给出固定层级
+      }
+    }
+    if(name){
+      const names = cacheTypes.names.get(prop)
+      if(!names){
+        cacheTypes.names.set(prop, new Set([name]))// todo: names 扁平化处理
+      } else {
+        names.add(name)
       }
     }
   }

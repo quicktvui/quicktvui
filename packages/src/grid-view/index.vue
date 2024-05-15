@@ -16,7 +16,7 @@
 import {defineComponent, ref, onBeforeUnmount, onMounted, toRaw, watchEffect, onUnmounted} from "vue";
 import {QTGridViewItem} from "./core/QTGridViewItem";
 import useBaseView from "../base/useBaseView";
-import {qtWatchAll, qtRef} from "../qtListen/index";
+import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
 
 export default defineComponent({
   name: "qt-grid-view",
@@ -175,7 +175,8 @@ export default defineComponent({
         closeLoading()
         openLoading()
       },
-      update(position, datas, names){
+      update(position, dataMaps){
+        const datas = qtFilterChangeMap(1, dataMaps.datas)
         if(datas.size>1){
           tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
         }else{

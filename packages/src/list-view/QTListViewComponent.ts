@@ -4,7 +4,7 @@ import {QTListViewItem} from "./core/QTListViewItem";
 import {QTListViewItemFunctionParams} from "./core/QTListViewItemFunctionParams";
 import {QTDirections} from "../core/QTDirections";
 import useBaseView from '../base/useBaseView'
-import {qtWatchAll, qtRef} from "../qtListen/index";
+import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
 
 function registerESListViewComponent(app: ESApp) {
 
@@ -157,7 +157,8 @@ function registerESListViewComponent(app: ESApp) {
           closeLoading()
           openLoading()
         },
-        update(position, datas, names){
+        update(position, dataMaps){
+          const datas = qtFilterChangeMap(1, dataMaps.datas)
           if(datas.size>1){
             Native.callUIFunction(viewRef.value, 'updateItemRange', [position, datas.size, Array.from(datas.values())]);
           }else{

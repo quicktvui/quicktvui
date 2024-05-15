@@ -12,7 +12,8 @@ export const enum emReactiveFlags {
   RESET_REF_VALUE = '__ls_reset_ref_value',//重置ref对象value值，时的类型
   NEW_SET = '__ls_new_set',
   qtPath = '__qt_path',
-  qtRoot = '__qt_root'
+  qtRoot = '__qt_root',
+  qtArrDeth = '__qt_arr_deth'
 }
 export const isTrackProp = (target:object, prop:string | symbol)=>{
   // && (typeof prop !== 'symbol')
@@ -45,7 +46,7 @@ export const qtGetParent = (root:object, paths:any[], layer:number) => {
   return res
 }
 
-const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
+const getReactiveConfig = (root?:any, paths:any[] = [], __qt_arr_deth=1): ProxyHandler<any> => {
   return {
     get(target, prop, receiver){
       if(prop === emReactiveFlags.qtRoot){
@@ -53,6 +54,9 @@ const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
       }
       if(prop === emReactiveFlags.qtPath){
         return paths
+      }
+      if(prop === emReactiveFlags.qtArrDeth){
+        return __qt_arr_deth
       }
       if(prop === emReactiveFlags.IS_REACTIVE){
         return true
@@ -64,7 +68,7 @@ const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
       // console.log(prop, '--get')
       const result = Reflect.get(target, prop, receiver)
       if(isObject(result)){
-        const res = createReactiveObject(result, root, [...paths, prop])
+        const res = createReactiveObject(result, root, [...paths, prop], isArray(result)? __qt_arr_deth+1:__qt_arr_deth)
         // console.log(result, '--', prop, target)
         return res
       }
@@ -115,7 +119,8 @@ const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
               if(isObject(_firstObj) && _firstObj.__qt_change_num_){
                 _firstObj.__qt_change_num_++
               }
-              qtType.changeOfsetType(_root, _path, _firstObj, prop)
+              const _prop = (Array.isArray(target)&&prop==='length')?'':prop//length并不是数组真正要更新的子项，应该是目标数组删除或新增了数据，如第二层的数组pop删除了一条数据
+              qtType.changeOfsetType(_root, _path, _firstObj, _prop, receiver[emReactiveFlags.qtArrDeth])
               qtTrigger(_root, firstProp, _firstObj, typeEnum.set, oldValue)
             } else if(Array.isArray(target) && !isNaN(Number(prop))){
               const isCollect = qtType.changeTypeData(target, prop, value)
@@ -134,7 +139,7 @@ const getReactiveConfig = (root?:any, paths:any[] = []): ProxyHandler<any> => {
   }
 }
 
-function createReactiveObject(data:object, root?:any, paths?:any[]){
+function createReactiveObject(data:object, root?:any, paths?:any[],__qt_arr_deth=1){
   if(!isObject(data)){ return data }
   if( (data as any)[emReactiveFlags.IS_REACTIVE] ) return data;
 
@@ -143,7 +148,7 @@ function createReactiveObject(data:object, root?:any, paths?:any[]){
     data.__proto__ = new QtArray()
   }
   if (!root) { root = data }
-  return new Proxy(data, getReactiveConfig(root, paths))
+  return new Proxy(data, getReactiveConfig(root, paths, __qt_arr_deth))
 }
 
 export function qtReactive(data:object, parent?:any, path?:any){

@@ -27,8 +27,8 @@ import qt_waterfall_item_op_delete_page from "./qt-waterfall-item-op-delete-page
 import qt_waterfall_item_op_update_page from "./qt-waterfall-item-op-update-page.vue"
 import qt_waterfall_item_op_get_page from "./qt-waterfall-item-op-get-page.vue"
 import qt_waterfall_item_card_page from "./qt-waterfall-item-card-page.vue"
-import qt_waterfall_item_card_place_holder_page
-  from "./qt-waterfall-item-card-place-holder-page.vue"
+import qt_waterfall_item_card_place_holder_page from "./qt-waterfall-item-card-place-holder-page.vue"
+import qt_waterfall_qtRef_page from "./qt-waterfall-qtRef.vue"
 
 const QTWaterfallPageList = {
   qt_waterfall_start_page: {
@@ -38,6 +38,10 @@ const QTWaterfallPageList = {
   qt_waterfall_event_page: {
     name: '事件',
     component: qt_waterfall_event_page,
+  },
+  qt_waterfall_qtRef_page: {
+    name: 'qtRef-waterfall',
+    component: qt_waterfall_qtRef_page,
   },
 };
 

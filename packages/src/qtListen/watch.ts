@@ -3,17 +3,16 @@ import { nextTick } from 'vue'//markRawn isReactive
 import { qtClearupTrack, QtReactiveEffect, qtTrack } from "./effect";
 import { qtDiff } from "./qtDiff";
 import { emReactiveFlags } from './reactive'//qtToReactive
-import qtType, { qtLongestSequenceSplit, typeEnum } from './types'
+import qtType, { qtLongestSequenceSplit, typeEnum, QtChangeData } from './types'
 
 export interface IQtWatchOptions {
   init: (datas: any[]) => void;
   add: (datas: any[]) => void;
-  update: (position: number, datas: Map<any, any>, names?: Map<any, Set<any>>) => void;//keyPath?:Map<any,any[]>
+  update: (position: number, dataMaps: QtChangeData) => void;//keyPath?:Map<any,any[]>
   insert: (position: number, datas: any[]) => void;
   delete: (position: number, count: number) => void;
   clear: () => void;
   resetValue?:(datas:any[])=>void;
-  isNoAsync?:boolean;
   [k: string]: any
 }
 
@@ -127,13 +126,13 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
               }
               if (key === typeEnum.qtSet) {
                 // console.log(tvalue,'-tvalue')
-                if(tvalue.end-tvalue.start +1 == tvalue.updateCount){
-                  options.update(tvalue.start, tvalue.datas, tvalue.names)
+                if(tvalue.end-tvalue.start +1 == tvalue.rootUpdateCount){
+                  options.update(tvalue.start, tvalue)
                 }else{
                   const equence = qtLongestSequenceSplit(tvalue)
                   equence.forEach((evalue, epos)=>{
                     // console.log(evalue,'-epos',epos)
-                    options.update(epos, evalue.datas, evalue.names)
+                    options.update(evalue.start, evalue)
                   })
                 }
               }

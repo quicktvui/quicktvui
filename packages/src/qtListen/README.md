@@ -5,7 +5,7 @@
 </template>
 <script setup lang="ts">
 import { onUnmounted } from 'vue';
-import { qtWatchAll  } from '@quicktvui/quicktvui3'
+import { qtWatchAll,qtFilterChangeMap  } from '@quicktvui/quicktvui3'
 const props = defineProps<{pList:any}>()
 const watchRunner = qtWatchAll(props.pList, {
   init(datas){
@@ -14,8 +14,9 @@ const watchRunner = qtWatchAll(props.pList, {
   add(datas){
     console.log('add-',datas)//新增数据
   },
-  update(position, datas, names){
-    console.log('update-', position, datas, names)//更新数据
+  update(position, dataMaps){
+    const datas = qtFilterChangeMap(1, dataMaps.datas)
+    console.log('update-', position, datas)//更新数据
   },
   insert(position, datas){
     console.log('insert-', position, datas)//插入数据
