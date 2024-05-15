@@ -401,16 +401,9 @@ export default defineComponent({
       waterfallRef.value?.setListData(data)
     }
 
-    let _propsListData:any[] = []
-    let itemListSize = 0
-    const reduceSizeFn = (reduceArr:any[])=>{
-      return reduceArr.reduce((pv,cv)=>{ return pv + (cv.itemList?.length||0) },0)
-    }
     const watchRes = qtWatchAll(props.listData, {
       resetValue(newData){
         init(props.pStype as any)
-        itemListSize = reduceSizeFn(newData)
-        _propsListData = newData
       },
       init(datas){
         const itemList = generateSectionList(waterfall, datas, true)
@@ -419,65 +412,28 @@ export default defineComponent({
       add(datas){
         const itemList = generateSectionList(waterfall, datas, true)
         waterfallRef.value?.addListData(itemList)
-        itemListSize = reduceSizeFn(_propsListData)
       },
       update(position, dataMaps){
         const datas = qtFilterChangeMap(1, dataMaps.datas)
-        console.log('lsj-update---', position, datas, dataMaps.names)
-        // const dataArr = Array.from(datas.values())
-        const _itemListSize = reduceSizeFn(_propsListData)
-        if(itemListSize !== _itemListSize){
-          const sectionUpdateList = generateSectionList(waterfall, _propsListData, true)
-          waterfallRef.value?.updateItemList(0, _propsListData?.length, sectionUpdateList)
-          itemListSize = _itemListSize
-          console.log('lsj-itemListSize', itemListSize, _itemListSize)
-        } else {
-          // if(dataMaps.deth === 1 && dataMaps.names.size){
-          //   const updateSection = generateSection(waterfall, _propsListData[0], true)
-          //   waterfallRef.value?.updateItemProps(0, 'title', updateSection)
-          //   console.log('lsj-_propsListData',_propsListData[0])
-          // } else {
-            const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
-            waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
-            console.log('lsj-sectionUpdateList', sectionUpdateList)
-          // }
-        }
+        // console.log('lsj-update---', position, datas, dataMaps.names)
         // if(dataMaps.deth === 1 && dataMaps.names.size){
-        //   dataMaps.names.forEach((nv, ni) => {
-        //     console.log(nv, '-lsj-names-', ni, datas.get(ni))
-        //     const npos = Array.isArray(ni)?Number(ni[0]):Number(ni)
-        //     nv.forEach(niName => {
-        //       const dk = ni.length===1? ni.join(''):ni
-        //       waterfallRef.value?.updateItemProps(npos, niName, datas.get(dk))
-        //     });
-        //   })
-        // }
-        // if(datas.size>1){
-          // console.log('lsj-updateItemList', position, Array.from(datas.values()))
-          // const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
-          // waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
-        // }else{
-        //   datas.forEach((value, key) => {
-        //     const position = Array.isArray(key)?Number(key[0]):Number(key)
-        //     const updateSection = generateSection(waterfall, value, true)
-        //     waterfallRef.value?.updateItem(position, updateSection)
-        //     // tv_list.value.updateItemProps(pos, name, dataObj)
-        //   })
+        //   const updateSection = generateSection(waterfall, _propsListData[0], true)
+        //   waterfallRef.value?.updateItemProps(0, 'title', oldSection)
+        // } else {
+          const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
+          waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
+          // waterfallRef.value?.updateItem(position, sectionUpdateList[0]) //updateItem无法更新板块的layout高度
         // }
       },
       insert(position, datas){
         const sectionList = generateSectionList(waterfall, datas, true)
         waterfallRef.value?.addItem(position, sectionList)
-        itemListSize = reduceSizeFn(_propsListData)
       },
       delete(position, count){
-        console.log(position, '--lsj-delete')
         waterfallRef.value?.deleteItem(position, count)
-        itemListSize = reduceSizeFn(_propsListData)
       },
       clear(){
         waterfallRef.value?.setListData([])
-        itemListSize = 0
       }
     })
     onBeforeUnmount(()=>{

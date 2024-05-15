@@ -5,16 +5,16 @@
         <qt-button @click="initFn" size="mini" text="初始化" class="menus_btn"></qt-button>
         <qt-button @click="addFn" size="mini" text="新增板块" class="menus_btn"></qt-button>
         <qt-button @click="addMoreFn" size="mini" text="新增多个板块" class="menus_btn"></qt-button>
-        <qt-button @click="addItemFn" size="mini" text="新增子列表项" class="menus_btn"></qt-button>
+        <qt-button @click="addItemFn" size="mini" text="新增海报" class="menus_btn"></qt-button>
         <qt-button @click="resetItemAllFn" size="mini" text="重置子列表" class="menus_btn"></qt-button>
         <qt-button @click="updateFn" size="mini" text="更新单个板块" class="menus_btn"></qt-button>
-        <qt-button @click="updateItemFn" size="mini" text="更新子列表项" class="menus_btn"></qt-button>
+        <qt-button @click="updateItemFn" size="mini" text="更新海报" class="menus_btn"></qt-button>
         <qt-button @click="updateAllFn" size="mini" text="更新所有板块" class="menus_btn"></qt-button>
         <qt-button @click="updateAllItemFn" size="mini" text="更新子列表" class="menus_btn"></qt-button>
         <qt-button @click="deleteFn" size="mini" text="删除单个板块" class="menus_btn"></qt-button>
-        <qt-button @click="deleteItemFn" size="mini" text="删除子列表项" class="menus_btn"></qt-button>
+        <qt-button @click="deleteItemFn" size="mini" text="删除海报" class="menus_btn"></qt-button>
         <qt-button @click="insertFn" size="mini" text="插入板块" class="menus_btn"></qt-button>
-        <qt-button @click="insertItemFn" size="mini" text="插入子列表项" class="menus_btn"></qt-button>
+        <qt-button @click="insertItemFn" size="mini" text="插入海报" class="menus_btn"></qt-button>
         <qt-button @click="clearFn" size="mini" text="清空" class="menus_btn"></qt-button>
       </div>
       <qt-waterfall ref="waterfall" :list-data="waterfallDatas" class="qt-waterfall-css" />
@@ -161,7 +161,7 @@ const addMoreFn = () => {
   waterfallDatas.value = waterfallDatas.value.concat(getList('addMoreFn', 2))
 }
 const addItemFn = () => {
-  const item = buildPosterItemList('addItemFn', 1)[0]
+  const item = buildPosterItemList('addItemFn'+Math.random(), 1)[0]
   waterfallDatas.value[0].itemList.push(item)
 }
 const updateFn = () => {
