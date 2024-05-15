@@ -8,7 +8,7 @@ import qtType, { qtLongestSequenceSplit, typeEnum, QtChangeData } from './types'
 export interface IQtWatchOptions {
   init: (datas: any[]) => void;
   add: (datas: any[]) => void;
-  update: (position: number, dataMaps: QtChangeData) => void;//keyPath?:Map<any,any[]>
+  update: (position: number, dataMaps: QtChangeData, oldTarget:any[]) => void;//keyPath?:Map<any,any[]>
   insert: (position: number, datas: any[]) => void;
   delete: (position: number, count: number) => void;
   clear: () => void;
@@ -127,12 +127,12 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
               if (key === typeEnum.qtSet) {
                 // console.log(tvalue,'-tvalue')
                 if(tvalue.end-tvalue.start +1 == tvalue.rootUpdateCount){
-                  options.update(tvalue.start, tvalue)
+                  options.update(tvalue.start, tvalue,oldTarget)
                 }else{
                   const equence = qtLongestSequenceSplit(tvalue)
                   equence.forEach((evalue, epos)=>{
                     // console.log(evalue,'-epos',epos)
-                    options.update(evalue.start, evalue)
+                    options.update(evalue.start, evalue,oldTarget)
                   })
                 }
               }

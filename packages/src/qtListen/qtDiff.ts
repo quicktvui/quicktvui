@@ -100,7 +100,7 @@ export const qtDiff = (oldt: any[], newt: any[], options:IQtWatchOptions) => {
             updates.end++
             updates.rootUpdateCount++
           }else{
-            options.update(updates.start, updates)
+            options.update(updates.start, updates,oldt)
             updates.resetData()
             updates.start = i
             updates.updateCount = 1
@@ -116,13 +116,13 @@ export const qtDiff = (oldt: any[], newt: any[], options:IQtWatchOptions) => {
       }
       inserts.datas.set(i, newItem)
       if(updates.datas.size){
-        options.update(updates.start, updates)
+        options.update(updates.start, updates,oldt)
         updates.resetData()
       }
     }
   }
   if(updates.datas.size){
-    options.update(updates.start, updates)
+    options.update(updates.start, updates,oldt)
   }
   
   if(inserts.datas.size){

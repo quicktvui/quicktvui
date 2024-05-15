@@ -53,7 +53,7 @@ function buildPosterItemList(sectionId: string, size = 15): Array<QTWaterfallIte
         bottom: 20
       },
       title: {
-        text: '主标题',
+        text: '主标题'+i,
         enable: true,
         style: {
           width: 260,
@@ -130,7 +130,8 @@ const getList = (flag = '', num = 1) => {
       title: 'qtRef:' + i + flag,
       titleStyle: {
         width: 1000,
-        height: 100,
+        height: 50,
+        marginTop: 10,
         marginBottom: 10,
         fontSize: 50
       },
@@ -184,7 +185,7 @@ const resetItemAllFn = () => {
   waterfallDatas.value[0].itemList = buildPosterItemList('resetItemAllFn', 5)
 }
 const deleteFn = () => {
-  waterfallDatas.value.splice(0, 1)
+  waterfallDatas.value.splice(1, 1)
 }
 const deleteItemFn = () => {
   waterfallDatas.value[0].itemList.splice(0, 1)
