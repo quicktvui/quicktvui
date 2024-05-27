@@ -13,6 +13,15 @@
     itemShowShimmer="${shimmer.enable}"
     hideShadow="${shadow.enable}"
     shimmerSize="${size}">
+    <!--占位 图-->
+    <img
+      class="qt-ui-poster-placeholder-img-css"
+      :duplicateParentState="true"
+      :postDelay="100"
+      :focusable="false"
+      showIf="${placeholderImg.enable}"
+      flexStyle="${style}"
+      src="${placeholderImg.src}"/>
     <!--封面-->
     <img
       class="qt-ui-poster-img-css"
@@ -108,9 +117,15 @@
     </div>
 
     <qt-poster-corner-title
+      showIf="${corner.showCornerRight==true}"
       :focusable="false"
       flexStyle="${corner.style}"
-      style="z-index:1000;position: absolute;"/>
+      style="z-index:1000;position: absolute;flex-direction:row-reverse"/>
+    <qt-poster-corner-title
+      showIf="${corner.showCornerLeft==true}"
+      :focusable="false"
+      flexStyle="${corner.style}"
+      style="z-index:1000;position: absolute;flex-direction:row"/>
     <slot/>
   </item-frame>
 </template>
@@ -167,6 +182,13 @@ export default defineComponent({
   position: absolute;
   background-color: transparent;
   overflow: hidden;
+}
+
+.qt-ui-poster-placeholder-img-css{
+  background-color: transparent;
+  z-index: 1;
+  position: absolute;
+  border-radius: 8px;
 }
 
 .qt-ui-poster-img-css {

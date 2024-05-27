@@ -11,6 +11,7 @@ import {QTFlexStylePadding} from "../../core/QTFlexStylePadding";
 import {QTFlexStyleSize} from "../../core/QTFlexStyleSize";
 import {QTPosterScore} from "./QTPosterScore";
 import {QTFocusable} from "../../core/QTFocusable";
+import {QTPosterPlaceholderImg} from "./QTPosterPlaceholderImg";
 
 export interface QTPoster extends QTWaterfallItem {
   focus?: QTFocusable
@@ -26,6 +27,6 @@ export interface QTPoster extends QTWaterfallItem {
   score?: QTPosterScore
   titleStyle?: QTFlexStyleMargin & QTFlexStylePadding & QTFlexStyleSize,
   titleFocusStyle?: QTFlexStyleMargin & QTFlexStylePadding & QTFlexStyleSize
-
+  placeholderImg?: QTPosterPlaceholderImg
   [prop: string]: any
 }
