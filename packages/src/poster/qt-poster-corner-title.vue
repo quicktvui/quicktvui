@@ -1,5 +1,6 @@
 <template>
-  <div class="cornerRoot" :focusable="false">
+  <div :focusable="false">
+
     <text-view
         :duplicateParentState="true"
         :focusable="false"
@@ -13,8 +14,7 @@
         gradientBackground="${corner.background}"
         autoWidth
         text="${corner.text}"
-        showIf="${corner.enable}"/>
-    <img :focusable="false" flexStyle="${corner.style}" src="${corner.src}" showIf="${corner.enableImg}"/>
+        showIf="${corner.enable==true}"/>
   </div>
 </template>
 
@@ -37,8 +37,6 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
-.cornerRoot {
-  flex-direction: row-reverse;
-}
+<style>
+
 </style>
