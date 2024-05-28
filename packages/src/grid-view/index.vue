@@ -177,16 +177,16 @@ export default defineComponent({
       },
       update(position, dataMaps){
         const datas = qtFilterChangeMap(1, dataMaps.datas)
-        if(datas.size>1){
-          tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
-        }else{
+        // if(datas.size>1){
+        //   tv_list.value.updateItemList(position, datas.size, Array.from(datas.values()))
+        // }else{
           datas.forEach((value, key) => {
             // qtGetParent(value, key, 1)
             const position = Array.isArray(key)?Number(key[0]):Number(key)
             tv_list.value.updateItem(position,value)
             // tv_list.value.updateItemProps(pos, name, dataObj)
           })
-        }
+        // }
       },
       insert(position, datas){
         tv_list.value.addItem(position, datas)
