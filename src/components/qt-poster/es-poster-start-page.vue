@@ -85,13 +85,15 @@ export default defineComponent({
             src: imgURL,
             enable: true,
             style: {
-              width: 30,
-              height: 30
+              width: 260,
+              height: 100
             }
           },
           corner: {
-            text: '角标',
+            text: '角标角标',
             enable: true,
+            showCornerRight:false,
+            showCornerLeft:true,
             style: {
               width: 260,
               height: 30
