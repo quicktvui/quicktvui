@@ -337,7 +337,7 @@ export default defineComponent({
           'position:' + e.position + "  "
         )
       }
-      context.emit('onItemClick', e.parentPosition, e.position, e.item);
+      context.emit('onItemClick', e.parentPosition, e.position, e.item, e);
     }
 
     function onItemFocused(e: QTWaterfallEvent) {

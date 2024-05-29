@@ -806,7 +806,7 @@ export default defineComponent({
     }
 
     //-------------------------------------------------------------------
-    function onWaterfallItemClick(sectionIndex: number, itemIndex: number, item: QTWaterfallItem): void {
+    function onWaterfallItemClick(sectionIndex: number, itemIndex: number, item: QTWaterfallItem, e): void {
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '-----------onWaterfallItemClick--------------->>>>' +
             ' sectionIndex:' + sectionIndex +
@@ -814,7 +814,7 @@ export default defineComponent({
             ' item:', item
         )
       }
-      context.emit('onTabPageItemClick', currentTabPageIndex, sectionIndex, itemIndex, item);
+      context.emit('onTabPageItemClick', currentTabPageIndex, sectionIndex, itemIndex, item, e);
     }
 
     function onWaterfallItemFocused(sectionIndex: number, itemIndex: number, isFocused: boolean, item: QTWaterfallItem): void {
