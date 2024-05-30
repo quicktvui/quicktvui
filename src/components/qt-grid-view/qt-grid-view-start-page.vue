@@ -43,7 +43,7 @@ export default defineComponent({
           type: 10001,
           focus: {
             enable: true,
-            scale: 2,
+            scale: 1,
             border: false
           },
           decoration: {
@@ -113,6 +113,10 @@ export default defineComponent({
             width: 260,
             height: 120,
             marginTop: 320 - 60,
+          },
+          placeholderImg:{
+            enable: true,
+            src: 'http://cdnott.holyblade.com/sxyd/GameHallResource_JSY_SXYD/UpLoadImg/07sy_spc_dt.gif',
           },
           titleFocusStyle: {width: 260, marginTop: 320 - 100},
         }

@@ -188,7 +188,7 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
+<style>
 .qt-ui-poster-root-css {
   position: absolute;
   background-color: transparent;
