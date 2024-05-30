@@ -16,7 +16,6 @@
          eventFocus
          flexStyle="${style}"
          :clipChildren="false"
-         :style="{focusBackgroundColor:focusColor}"
          :stateTextColor="textColor"
          :sateBackgroundPadding="bgPadding">
       <text-view autoWidth
@@ -45,7 +44,6 @@
          autoWidth
          :focusable="true"
          :stateTextColor="textColor"
-         :style="{focusBackgroundColor:focusColor}"
          :sateBackgroundPadding="bgPadding"
          :clipChildren="false">
       <text-view autoWidth
@@ -220,6 +218,7 @@ export default defineComponent({
   align-items: center;
   border-radius: 35px;
   background-color: transparent;
+  focus-background-color: #f5f5f5;
 }
 
 .qt-ui-nav-bar-item-text-css {
