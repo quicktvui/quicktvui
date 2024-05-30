@@ -114,6 +114,10 @@ export default defineComponent({
             height: 120,
             marginTop: 320 - 60,
           },
+          placeholderImg:{
+            enable: true,
+            src: 'http://cdnott.holyblade.com/sxyd/GameHallResource_JSY_SXYD/UpLoadImg/07sy_spc_dt.gif',
+          },
           titleFocusStyle: {width: 260, marginTop: 320 - 100},
         }
         arr.push(poster)
