@@ -1,5 +1,9 @@
 <template>
   <div class="text-item-container" :focusable="true" :focusScale="1">
+    <div class="text-item-container-bg-focus"
+         :duplicateParentState="true" showOnState="focused"
+         :focusable="false"
+         :gradientBackground="gradientBackground"/>
     <div class="text-item-container-css"
          style="position:absolute;align-items: center;background-color:transparent"
          :duplicateParentState="true">
@@ -11,28 +15,30 @@
           :duplicateParentState="true"
           flexStyle="${normalMarkStyle}"
           style="width: 24px;height: 25px;position: absolute;left: 20px;margin-right: 10px"
-          :markColor="'#FF4E46'"/>
+          :markColor="markColor"/>
         <play-mark
           :duplicateParentState="true"
           flexStyle="${vipMarkStyle}"
           style="width: 24px;height: 25px;position: absolute;left: 20px;margin-right: 10px"
-          :markColor="'#FFD97C'"/>
+          :markColor="markVipColor"/>
       </div>
 
       <text-view :duplicateParentState="true" :maxLines=1 :ellipsizeMode="2"
                  flexStyle="${normalTitleStyle}"
                  :fontSize="30" class="text-item-text" gravity="centerVertical"
+                 :style="{color:textColors.color,focusColor:textColors.focusColor,selectColor:textColors.selectColor}"
                  text="${title}"/>
 
       <text-view :duplicateParentState="true" :maxLines=1 :ellipsizeMode="2"
                  flexStyle="${vipTitleStyle}"
                  :fontSize="30" class="text-item-text-vip" gravity="centerVertical"
+                 :style="{color:textVipColors.color,focusColor:textVipColors.focusColor,selectColor:textVipColors.selectColor}"
                  text="${title}"/>
     </div>
 
     <div class="media-series-text-item-vip-root"
-         showIf="${vip.enable}"
-         :gradientBackground="{ colors: ['#FFB67827', '#FFDBAF5C'], cornerRadius: 4, orientation: 6,}">
+         showIf="${vip.enable==true}"
+         :gradientBackground="iconGradientBackground">
       <text-view :duplicateParentState="true"
                  class="media-series-text-item-vip-text"
                  :fontSize="20" gravity="center"
@@ -50,6 +56,46 @@ export default defineComponent({
     isVip: {
       type: Boolean,
       default: false
+    },
+    gradientBackground:{
+      type:Object,
+      default: () => {
+        return {colors: ['#FFFFFF', '#00C7FF'], orientation: 6, cornerRadius: 8}
+      }
+    },
+    iconGradientBackground:{
+      type:Object,
+      default:()=>{
+        return { colors: ['#FFB67827', '#FFDBAF5C'], cornerRadius: 4, orientation: 6,}
+      }
+    },
+    markColor:{
+      type:String,
+      default:"#FF4E46"
+    },
+    markVipColor:{
+      type:String,
+      default:"#FFD97C"
+    },
+    textColors:{
+      type:Object,
+      default:()=> {
+        return {
+          color: 'rgba(255, 255, 255, .50)',
+          focusColor: 'rgba(0, 0, 0, 1)',
+          selectColor: 'rgba(255, 255, 255, .50)'
+        }
+      }
+    },
+    textVipColors:{
+      type:Object,
+      default:()=> {
+        return {
+          color: '#FFD97C',
+          focusColor: '#B67827',
+          selectColor: '#B67827'
+        }
+      }
     }
   },
 });
@@ -61,8 +107,12 @@ export default defineComponent({
   height: 100px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, .1);
-  focus-background-color: white;
-  flex-direction: row;
+}
+.text-item-container-bg-focus{
+  position: absolute;
+  background-color: transparent;
+  width: 490px;
+  height: 100px;
 }
 
 .text-item-container-css {
@@ -70,7 +120,6 @@ export default defineComponent({
   height: 100px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, .1);
-  focus-background-color: white;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -81,18 +130,12 @@ export default defineComponent({
   font-weight: 400;
   height: 100px;
   width: 373px;
-  color: rgba(255, 255, 255, .50);
-  focus-color: rgba(0, 0, 0, 1);
-  select-color: rgba(255, 255, 255, .50);
 }
 
 .text-item-text-vip {
   font-weight: 400;
   height: 100px;
   width: 373px;
-  color: #FFD97C;
-  focus-color: #B67827;
-  select-color: #B67827;
 }
 
 

@@ -13,8 +13,17 @@
     @item-click="onItemClick"
     @item-focused="onItemFocused"
     @group-item-focused="onGroupItemFocused">
-    <media-series-number-item v-if="seriesType === 'number'" :is-vip="isVip"/>
-    <media-series-text-item v-else-if="seriesType === 'text'" :is-vip="isVip"/>
+    <media-series-number-item v-if="seriesType === 'number'" :is-vip="isVip"
+                              :gradient-background="gradientBackground"
+                              :mark-color="markColor" :mark-vip-color="markVipColor"
+                              :icon-gradient-background="iconGradientBackground"
+                              :text-colors="textColors" :text-vip-colors="textVipColors"
+    />
+    <media-series-text-item v-else-if="seriesType === 'text'" :is-vip="isVip"
+                            :gradient-background="gradientBackground"
+                            :mark-color="markColor" :mark-vip-color="markVipColor"
+                            :icon-gradient-background="iconGradientBackground"
+                            :text-colors="textColors" :text-vip-colors="textVipColors"/>
     <slot v-else-if="seriesType === 'custom'"/>
   </media-series>
 </template>
@@ -66,10 +75,49 @@ export default defineComponent({
     itemHeight: {
       type: Number,
       default: 0
+    },
+    gradientBackground:{
+      type:Object,
+      default: () => {
+        return {colors: ['#FFFFFF', '#FFFFFF'], orientation: 6, cornerRadius: 8}
+      }
+    },
+    iconGradientBackground:{
+      type:Object,
+      default:()=>{
+        return { colors: ['#FFB67827', '#FFDBAF5C'], cornerRadius: 4, orientation: 6,}
+      }
+    },
+    markColor:{
+      type:String,
+      default:"#FF4E46"
+    },
+    markVipColor:{
+      type:String,
+      default:"#FFD97C"
+    },
+    textColors:{
+      type:Object,
+      default:()=> {
+        return {
+          color: 'rgba(255, 255, 255, .5)',
+          focusColor: 'rgba(0, 0, 0, 1)',
+          selectColor: 'rgba(255, 255, 255, .5)'
+        }
+      }
+    },
+    textVipColors:{
+      type:Object,
+      default:()=> {
+        return {
+          color: '#FFD97C',
+          focusColor: '#B67827',
+          selectColor: '#B67827'
+        }
+      }
     }
   },
   setup(props, context) {
-
     const mediaSeriesRef = ref<ESIMediaSeries>();
     const {
       clearFocus,

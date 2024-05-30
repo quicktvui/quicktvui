@@ -9,7 +9,10 @@
         <qt-media-series
           ref="quick_select_series1"
           @load-data="onLoadData1"
-          @item-click="onItemClick"/>
+          @item-click="onItemClick"
+        :gradient-background="{colors:['#0057FF','#00C7FF'], cornerRadii4: [8, 8, 8, 8], orientation: 6}"
+        :mark-color="`#FFFFFF`"
+          :text-colors="{color:'rgba(255, 255, 255, .5)',focusColor:'#ffffff',selectColor:'#157AFC'}"/>
       </div>
       <div>
         <select-text text="有快速选集样式"/>
