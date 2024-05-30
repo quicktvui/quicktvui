@@ -9,6 +9,9 @@
         <qt-media-series
           ref="quick_select_series1"
           @load-data="onLoadData1"
+          :gradient-background="{colors:['#0057FF','#00C7FF'], cornerRadii4: [8, 8, 8, 8], orientation: 6}"
+          :mark-color="`#FFFFFF`"
+          :text-colors="{color:'rgba(255, 255, 255, .5)',focusColor:'#ffffff',selectColor:'#157AFC'}"
         />
       </div>
 
@@ -78,6 +81,7 @@ export default defineComponent({
         QTMediaSeriesStyleType.QT_MEDIA_SERIES_STYLE_TYPE_DEFAULT
 
       const data: QTMediaSeriesData = {
+        initPosition:0,
         pageSize: pageSize,
         totalCount: totalCount
       }
