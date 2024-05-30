@@ -19,6 +19,7 @@
       gravity="left"
       :postDelay="250"/>
     <div class="absoluteFocusMainBgRoot"
+         :style="{borderBottomLeftRadius: `${borderRadius}px`,borderBottomRightRadius:`${borderRadius}px`}"
          :duplicateParentState="true"
          :focusable="false"
          showIf="${focusTitle.enable}">
@@ -62,7 +63,11 @@ export default defineComponent({
     fontSize: {
       type: Number,
       default: 20
-    }
+    },
+    borderRadius:{
+      type:Number,
+      default:8
+    },
   },
   setup(props, context) {
   },
@@ -77,8 +82,6 @@ export default defineComponent({
 }
 
 .absoluteFocusMainBgRoot {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
   background-color: white;
   margin-left: -1px;
   margin-right: -1px;
