@@ -21,6 +21,7 @@
       :focusable="false"
       showIf="${placeholderImg.enable}"
       flexStyle="${style}"
+      :style="{borderRadius: `${borderRadius}px`}"
       src="${placeholderImg.src}"/>
     <!--封面-->
     <img
@@ -30,6 +31,7 @@
       :focusable="false"
       enableFocusBorder="${focus.border}"
       flexStyle="${image.style}"
+      :style="{borderRadius: `${borderRadius}px`}"
       src="${image.src}"/>
 
     <text-view
@@ -48,6 +50,7 @@
     <!--   焦点选中时的标题 -->
     <qt-poster-focus-title
       :focusable="false"
+      :border-radius="borderRadius"
       showOnState="focused"/>
 
     <div style="flex-direction: column;background-color: transparent;z-index: 999;"
@@ -58,7 +61,7 @@
       <!--  浮动标题 -->
       <div flexStyle="${floatTitle.style}"
            class="qt-ui-poster-title-css"
-           :gradientBackground="{colors:['#e5000000','#00000000'], cornerRadii4: [0, 0, 8, 8],orientation:4}"
+           :gradientBackground="{colors:['#e5000000','#00000000'], cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
            :duplicateParentState="true"
            :focusable="false"
            showIf="${floatTitle.enable}">
@@ -104,7 +107,7 @@
         :delayLoad="800"
         :focusable="false"
         :duplicateParentState="true"
-        :color="'#FF4E46'"
+        :color="rippleColor"
         isShowRipple="${ripple.enable}"
         rippleVisible="invisible"/>
 
@@ -162,6 +165,14 @@ export default defineComponent({
       type: Object,
       default: () => null
     },
+    borderRadius:{
+      type:Number,
+      default:8
+    },
+    rippleColor:{
+      type:String,
+      default:"#FF4E46"
+    }
   },
   setup(props, context) {
     let mainTextShowOnState = ['normal', 'selected']
@@ -188,7 +199,6 @@ export default defineComponent({
   background-color: transparent;
   z-index: 1;
   position: absolute;
-  border-radius: 8px;
 }
 
 .qt-ui-poster-img-css {
@@ -197,7 +207,6 @@ export default defineComponent({
   position: absolute;
   focus-border-color: white;
   focus-border-style: solid;
-  border-radius: 8px;
 }
 
 .qt-ui-poster-score-css {
