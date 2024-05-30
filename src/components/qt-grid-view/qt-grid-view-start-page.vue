@@ -43,7 +43,7 @@ export default defineComponent({
           type: 10001,
           focus: {
             enable: true,
-            scale: 2,
+            scale: 1,
             border: false
           },
           decoration: {
