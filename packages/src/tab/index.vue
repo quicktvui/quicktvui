@@ -53,8 +53,7 @@
         :duration="duration"
         :interpolatorType="interpolatorType"
         :triggerTask="triggerTask"
-        :direction="horizontal ? 'horizontal' : 'vertical'"
-        :blockFocusDirections="horizontal ? blockViewPager : blockViewPagerVertical">
+        :direction="horizontal ? 'horizontal' : 'vertical'">
 
       <qt-waterfall
           keyName="_id"
@@ -65,6 +64,7 @@
           :custom-pool="customPool"
           sid="${sid}"
           :custom-item-pool="customItemPool"
+          :blockFocusDirections="horizontal ? blockViewPager : blockViewPagerVertical"
           @onSectionBind="onWaterfallSectionBind"
           @onSectionAttached="onWaterfallSectionAttached"
           @onSectionDetached="onWaterfallSectionDetached"
