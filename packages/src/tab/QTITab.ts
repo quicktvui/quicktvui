@@ -22,7 +22,7 @@ export interface QTITab extends QTIView {
   setPageData(pageIndex: number, tabPage: QTTabPageData): void
 
   addPageData(pageIndex: number, tabPageData: QTTabPageData, deleteCount: number): void
-
+  insertPageData(tabPageIndex: number, sectionIndex: number, data: any[]): void
   //update
   updatePageData(pageIndex: number, tabPageData: QTTabPageData): void
 
