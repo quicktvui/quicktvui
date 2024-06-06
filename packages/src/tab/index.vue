@@ -979,7 +979,9 @@ export default defineComponent({
       getCurrentPageIndex,
       getCurrentTabIndex,
       insertPageData(tabPageIndex: number,sectionIndex: number, data: any[]): void {
-        tabs.value?.insertPageData(tabPageIndex,sectionIndex, data)
+        const tabIndex = tabDataManager.insertSectionList(tabPageIndex, sectionIndex, data)
+        const itemList = generateSectionList(waterfall, data)
+        tabs.value?.insertPageData(tabPageIndex,sectionIndex, itemList)
       },
       ...useBaseView(tabs)
     }
