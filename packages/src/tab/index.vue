@@ -978,6 +978,9 @@ export default defineComponent({
       onTabClick,
       getCurrentPageIndex,
       getCurrentTabIndex,
+      insertPageData(tabPageIndex: number,sectionIndex: number, data: any[]): void {
+        tabs.value?.insertPageData(tabPageIndex,sectionIndex, data)
+      },
       ...useBaseView(tabs)
     }
   },

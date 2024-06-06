@@ -1,6 +1,6 @@
 {
   "name": "@quicktvui/quicktvui3",
-  "version": "1.1.25-beta.19",
+  "version": "1.1.25-beta.22",
   "description": "ExtScreen framework",
   "author": "ExtScreen Team",
   "homepage": "http://extscreen.com",
@@ -17,5 +17,8 @@
   ],
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@extscreen/es3-component": "^1.0.20"
+  }
 }
