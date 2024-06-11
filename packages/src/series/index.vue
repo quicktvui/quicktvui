@@ -15,12 +15,14 @@
     @group-item-focused="onGroupItemFocused">
     <media-series-number-item v-if="seriesType === 'number'" :is-vip="isVip"
                               :gradient-background="gradientBackground"
+                              :gradient-focus-background="gradientFocusBackground"
                               :mark-color="markColor" :mark-vip-color="markVipColor"
                               :icon-gradient-background="iconGradientBackground"
                               :text-colors="textColors" :text-vip-colors="textVipColors"
     />
     <media-series-text-item v-else-if="seriesType === 'text'" :is-vip="isVip"
                             :gradient-background="gradientBackground"
+                            :gradient-focus-background="gradientFocusBackground"
                             :mark-color="markColor" :mark-vip-color="markVipColor"
                             :icon-gradient-background="iconGradientBackground"
                             :text-colors="textColors" :text-vip-colors="textVipColors"/>
@@ -77,6 +79,12 @@ export default defineComponent({
       default: 0
     },
     gradientBackground:{
+      type:Object,
+      default: () => {
+        return {colors: ['#1AFFFFFF', '#1AFFFFFF'], orientation: 6, cornerRadius: 8}
+      }
+    },
+    gradientFocusBackground:{
       type:Object,
       default: () => {
         return {colors: ['#FFFFFF', '#FFFFFF'], orientation: 6, cornerRadius: 8}
