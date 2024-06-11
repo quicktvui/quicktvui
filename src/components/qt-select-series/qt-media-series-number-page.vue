@@ -10,9 +10,10 @@
           ref="quick_select_series1"
           @load-data="onLoadData1"
           @item-click="onItemClick"
-        :gradient-background="{colors:['#0057FF','#00C7FF'], cornerRadii4: [8, 8, 8, 8], orientation: 6}"
-        :mark-color="`#FFFFFF`"
-          :text-colors="{color:'rgba(255, 255, 255, .5)',focusColor:'#ffffff',selectColor:'#157AFC'}"/>
+          :gradient-background="{ colors: ['#5AC6F5', '#5AC6F5'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :gradient-focus-background="{ colors: ['#FFE60D', '#FFE60D'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :mark-color="`#0186D0`"
+          :text-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"/>
       </div>
       <div>
         <select-text text="有快速选集样式"/>
