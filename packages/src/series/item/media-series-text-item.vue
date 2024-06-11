@@ -1,9 +1,10 @@
 <template>
-  <div class="text-item-container" :focusable="true" :focusScale="1">
+  <div class="text-item-container" :focusable="true" :focusScale="1"
+       :gradientBackground="gradientBackground">
     <div class="text-item-container-bg-focus"
          :duplicateParentState="true" showOnState="focused"
          :focusable="false"
-         :gradientBackground="gradientBackground"/>
+         :gradientBackground="gradientFocusBackground"/>
     <div class="text-item-container-css"
          style="position:absolute;align-items: center;background-color:transparent"
          :duplicateParentState="true">
@@ -60,7 +61,13 @@ export default defineComponent({
     gradientBackground:{
       type:Object,
       default: () => {
-        return {colors: ['#FFFFFF', '#00C7FF'], orientation: 6, cornerRadius: 8}
+        return {colors: ['#1AFFFFFF', '#1AFFFFFF'], orientation: 6, cornerRadius: 8}
+      }
+    },
+    gradientFocusBackground:{
+      type:Object,
+      default: () => {
+        return {colors: ['#FFFFFF', '#FFFFFF'], orientation: 6, cornerRadius: 8}
       }
     },
     iconGradientBackground:{
@@ -106,7 +113,7 @@ export default defineComponent({
   width: 490px;
   height: 100px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, .1);
+  background-color: transparent;
 }
 .text-item-container-bg-focus{
   position: absolute;

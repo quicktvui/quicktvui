@@ -1,9 +1,10 @@
 <template>
-  <div class="number-item-container" :focusable="true" :focusScale="1">
+  <div class="number-item-container" :focusable="true" :focusScale="1"
+       :gradientBackground="gradientBackground">
     <div class="number-item-container-bg-focus"
          :duplicateParentState="true" showOnState="focused"
          :focusable="false"
-         :gradientBackground="gradientBackground"/>
+         :gradientBackground="gradientFocusBackground"/>
     <!-- 文字-->
     <div class="number-item-text-root-css"
          :duplicateParentState="true">
@@ -66,6 +67,12 @@ export default defineComponent({
     gradientBackground:{
       type:Object,
       default: () => {
+        return {colors: ['#1AFFFFFF', '#1AFFFFFF'], orientation: 6, cornerRadius: 8}
+      }
+    },
+    gradientFocusBackground:{
+      type:Object,
+      default: () => {
         return {colors: ['#FFFFFF', '#FFFFFF'], orientation: 6, cornerRadius: 8}
       }
     },
@@ -111,7 +118,7 @@ export default defineComponent({
 .number-item-container {
   width: 160px;
   height: 80px;
-  background-color: rgba(255, 255, 255, .1);
+  background-color: transparent;
   border-radius: 8px
 }
 .number-item-container-bg-focus{
