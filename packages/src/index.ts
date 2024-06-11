@@ -208,6 +208,7 @@ export type {
 export type {QTIMediaSeries} from './series/QTIMediaSeries'
 export type {QTMediaSeries} from './series/QTMediaSeries'
 export type {QTMediaSeriesGroup} from './series/QTMediaSeriesGroup'
+export type {QTMediaSeriesGroupStyle} from './series/QTMediaSeriesGroupStyle'
 export type {QTMediaSeriesData} from './series/QTMediaSeriesData'
 export type {QTMediaSeriesEvent} from './series/QTMediaSeriesEvent'
 export {QTMediaSeriesType} from './series/QTMediaSeriesType'
