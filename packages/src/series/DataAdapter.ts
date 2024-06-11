@@ -23,22 +23,34 @@ export function buildGroupParams(type: QTMediaSeriesType,
         groupParams.groupSize = group.size;
         break;
     }
-
+    const groupStyle = group.groupStyle
+    if (groupStyle){
+      if (groupStyle.groupMarginLeft) groupParams.groupMarginLeft = groupStyle.groupMarginLeft
+      if (groupStyle.itemWidth) groupParams.itemWidth = groupStyle.itemWidth
+      if (groupStyle.itemHeight) groupParams.itemHeight = groupStyle.itemHeight
+      if (groupStyle.itemGap) groupParams.Gap = groupStyle.itemGap
+      if (groupStyle.mark) groupParams.mark = groupStyle.mark
+    }
     if (styleType == QTMediaSeriesStyleType.QT_MEDIA_SERIES_STYLE_TYPE_VIP) {
-      groupParams.textColor = {
+      groupParams.textColor = groupStyle?.textVipColor ?? {
         normal: '#80FFFFFF',
         focused: '#603314',
         selected: '#FFD97C',
       }
-      groupParams.focusBackground = {
+      groupParams.focusBackground = groupStyle?.focusVipBackground ?? {
         orientation: 'LEFT_RIGHT',
         cornerRadius: [40, 40, 40, 40],
         color: ['#FFE398', '#EEB364'],
         padding: [34, 6]
       }
-      groupParams.mark = {
+      groupParams.mark = groupStyle?.mark ?? {
         color: '#FFD97C'
       }
+    }
+    else if (groupStyle){
+      if (groupStyle.textColor) groupParams.textColor = groupStyle.textColor
+      if (groupStyle.focusBackground) groupParams.focusBackground = groupStyle.focusBackground
+      if (groupStyle.background) groupParams.background = groupStyle.background
     }
   }
   return groupParams
