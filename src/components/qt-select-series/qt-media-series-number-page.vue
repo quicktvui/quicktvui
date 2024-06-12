@@ -69,10 +69,10 @@ export default defineComponent({
     function onESCreate(params) {
       const type: QTMediaSeriesType = QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER
       const groupStyle:QTMediaSeriesGroupStyle = {
-        groupMarginLeft:20,
+        // groupMarginLeft:0,
         itemWidth:203,
         itemHeight:52,
-        // itemGap:20,
+        itemGap:20,
         mark:{color:"#00ffffff"},
         textColor:{
           normal: "#FFFFFF",
@@ -82,12 +82,12 @@ export default defineComponent({
         focusBackground:{
           color:["#FFE60D","#FFE60D"],
           cornerRadius:[8,8,8,8],
-          padding:[20,0],
+          padding:[0,0],
         },
         background:{
           color:['#5AC6F5',"#5AC6F5"],
           cornerRadius:[8,8,8,8],
-          padding:[20,0],
+          padding:[0,0],
           stroke:{
             color:{
               normal:"#FFFFFF",
