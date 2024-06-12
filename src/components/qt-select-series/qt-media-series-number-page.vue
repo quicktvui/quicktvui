@@ -10,9 +10,10 @@
           ref="quick_select_series1"
           @load-data="onLoadData1"
           @item-click="onItemClick"
-        :gradient-background="{colors:['#0057FF','#00C7FF'], cornerRadii4: [8, 8, 8, 8], orientation: 6}"
-        :mark-color="`#FFFFFF`"
-          :text-colors="{color:'rgba(255, 255, 255, .5)',focusColor:'#ffffff',selectColor:'#157AFC'}"/>
+          :gradient-background="{ colors: ['#5AC6F5', '#5AC6F5'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :gradient-focus-background="{ colors: ['#FFE60D', '#FFE60D'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :mark-color="`#0186D0`"
+          :text-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"/>
       </div>
       <div>
         <select-text text="有快速选集样式"/>
@@ -68,10 +69,10 @@ export default defineComponent({
     function onESCreate(params) {
       const type: QTMediaSeriesType = QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER
       const groupStyle:QTMediaSeriesGroupStyle = {
-        groupMarginLeft:20,
+        // groupMarginLeft:0,
         itemWidth:203,
         itemHeight:52,
-        // itemGap:20,
+        itemGap:20,
         mark:{color:"#00ffffff"},
         textColor:{
           normal: "#FFFFFF",
@@ -81,12 +82,12 @@ export default defineComponent({
         focusBackground:{
           color:["#FFE60D","#FFE60D"],
           cornerRadius:[8,8,8,8],
-          padding:[20,0],
+          padding:[0,0],
         },
         background:{
           color:['#5AC6F5',"#5AC6F5"],
           cornerRadius:[8,8,8,8],
-          padding:[20,0],
+          padding:[0,0],
           stroke:{
             color:{
               normal:"#FFFFFF",

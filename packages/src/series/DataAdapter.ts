@@ -28,7 +28,7 @@ export function buildGroupParams(type: QTMediaSeriesType,
       if (groupStyle.groupMarginLeft) groupParams.groupMarginLeft = groupStyle.groupMarginLeft
       if (groupStyle.itemWidth) groupParams.itemWidth = groupStyle.itemWidth
       if (groupStyle.itemHeight) groupParams.itemHeight = groupStyle.itemHeight
-      if (groupStyle.itemGap) groupParams.Gap = groupStyle.itemGap
+      if (groupStyle.itemGap) groupParams.itemGap = groupStyle.itemGap
       if (groupStyle.mark) groupParams.mark = groupStyle.mark
     }
     if (styleType == QTMediaSeriesStyleType.QT_MEDIA_SERIES_STYLE_TYPE_VIP) {
