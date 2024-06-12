@@ -17,6 +17,9 @@ import {defineComponent, ref, onBeforeUnmount, onMounted, toRaw, watchEffect, on
 import {QTGridViewItem} from "./core/QTGridViewItem";
 import useBaseView from "../base/useBaseView";
 import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
+import {
+  ESIListView
+} from "@extscreen/es3-component";
 
 export default defineComponent({
   name: "qt-grid-view",
@@ -72,7 +75,7 @@ export default defineComponent({
     'item-focused',
   ],
   setup(props, context) {
-    const tv_list = ref()
+    const tv_list = ref()//<ESIListView>
     let apkVersion = ref(2.5)
     let recordTarget = qtRef()
     let pageNo: number = 0
@@ -372,7 +375,7 @@ export default defineComponent({
       setVisibility,
       apkVersion,
       updateItemProps,
-      insertItem,
+      insertItem
     }
   },
 });
