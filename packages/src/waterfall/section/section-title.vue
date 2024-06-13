@@ -10,7 +10,7 @@
        :useAdvancedFocusSearch="true">
     <text-view class="section-title-text-css"
                :postDelay="300"
-               :style="{marginLeft:plateTitleLeftMargin+'px'}"
+               :style="{marginLeft:plateTitleLeftMargin+'px'}" typeface="${titleTypeface}"
                :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"/>
   </div>
 </template>

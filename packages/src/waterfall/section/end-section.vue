@@ -8,7 +8,7 @@
     class="qt-waterfall-end-section-css">
     <text-view
       :focusable="false" gravity="center" flexStyle="${titleStyle}"
-      class="qt-waterfall-end-section-text-css"
+      class="qt-waterfall-end-section-text-css" typeface="${titleTypeface}"
       textSize="${titleStyle.fontSize}" text="${title}">
     </text-view>
   </div>

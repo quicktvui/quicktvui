@@ -13,12 +13,13 @@
        :bringFocusChildToFront="true"
        :useAdvancedFocusSearch="true">
 
-    <text-view class="standard-section-title-text-css"
-               :postDelay="300"
-               autoWidth
-               autoHeight
-               flexStyle="${titleStyle}"
-               :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"/>
+    <text-view 
+      class="standard-section-title-text-css"
+      :postDelay="300"
+      autoWidth autoHeight typeface="${titleTypeface}"
+      flexStyle="${titleStyle}"
+      :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"
+    />
     <img :postDelay="300" flexStyle="${imgTitleStyle}" :focusable="false" src="${imgTitle}"/>
     <tv-flex
       class="standard-section-css"

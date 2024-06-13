@@ -13,7 +13,7 @@
 
     <text-view class="qt-ui-waterfall-card-section-title-css"
                :postDelay="300"
-               flexStyle="${titleStyle}"
+               flexStyle="${titleStyle}" typeface="${titleTypeface}"
                :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"/>
 
     <es-card-container
