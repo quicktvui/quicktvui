@@ -25,6 +25,14 @@
         :text="item.name"
         :url="`tabs-waterfall/${item.id}`"/>
     </qt-view>
+    <qt-view class="quick-ui-content-divider-css"/>
+    <qt-view class="quick-ui-content-row-css">
+      <s-nav-button
+          v-for="item in samplePageList"
+          :key="item.id"
+          :text="item.name"
+          :url="`tabs-waterfall/${item.id}`"/>
+    </qt-view>
   </qt-view>
 </template>
 
@@ -33,7 +41,8 @@ import {defineComponent} from "vue";
 import {
   QTTabsWaterfallPageList,
   QTTabsWaterfallSectionPageList,
-  QTTabsWaterfallItemPageList
+  QTTabsWaterfallItemPageList,
+  QTTabsWaterfallSamplePageList
 } from "../../components/qt-tabs-waterfall";
 
 export default defineComponent({
@@ -51,10 +60,15 @@ export default defineComponent({
       id: data,
       name: QTTabsWaterfallItemPageList[data].name
     }))
+    const samplePageList = Object.keys(QTTabsWaterfallSamplePageList).map(data => ({
+      id: data,
+      name: QTTabsWaterfallSamplePageList[data].name
+    }))
     return {
       pageList,
       sectionPageList,
-      itemPageList
+      itemPageList,
+      samplePageList
     }
   },
 });

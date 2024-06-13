@@ -126,6 +126,9 @@ export type {QTWaterfallCardSection} from './waterfall/core/QTWaterfallCardSecti
 export type {QTWaterfallCardItem} from './waterfall/core/QTWaterfallCardItem'
 export type {QTWaterfallCardPlaceHolder} from './waterfall/core/QTWaterfallCardPlaceHolder'
 export {QTWaterfallVisibleType} from './waterfall/core/QTWaterfallVisibleType'
+//
+export type {QTWaterfallPluginSection} from './waterfall/core/QTWaterfallPluginSection'
+export type {QTWaterfallPluginItem} from './waterfall/core/QTWaterfallPluginItem'
 
 //ListView
 export type {QTListViewItem} from './list-view/core/QTListViewItem'

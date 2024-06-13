@@ -33,7 +33,8 @@ import {
 import {
   QTTabsWaterfallPageList,
   QTTabsWaterfallSectionPageList,
-  QTTabsWaterfallItemPageList
+  QTTabsWaterfallItemPageList,
+  QTTabsWaterfallSamplePageList,
 } from "./components/qt-tabs-waterfall";
 import QTClassifiedListViewPageList from "./components/qt-classified-list-view"
 
@@ -158,12 +159,17 @@ const routes = [
       name: `tabs-waterfall/${item}`,
       component: QTTabsWaterfallSectionPageList[item].component,
     })),
-
   ...Object.keys(QTTabsWaterfallItemPageList)
     .map(item => ({
       path: `/tabs-waterfall/${item}`,
       name: `tabs-waterfall/${item}`,
       component: QTTabsWaterfallItemPageList[item].component,
+    })),
+  ...Object.keys(QTTabsWaterfallSamplePageList)
+    .map(item => ({
+      path: `/tabs-waterfall/${item}`,
+      name: `tabs-waterfall/${item}`,
+      component: QTTabsWaterfallSamplePageList[item].component,
     })),
   ...Object.keys(QTClassifiedListViewPageList)
     .map(item => ({

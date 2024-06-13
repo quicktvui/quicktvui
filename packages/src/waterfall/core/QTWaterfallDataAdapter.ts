@@ -25,6 +25,17 @@ export function generateSection(waterfall: QTWaterfall,
     sectionHeight = layoutItem(section)
     section.style.height = sectionHeight
   }
+  //plugin
+  else if (section.type == QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_PLUGIN) {
+    if (section.titleStyle && section.titleStyle.width && section.titleStyle.height) {
+      section.pluginStyle = {
+        width: section.style.width,
+        height: (section.style?.height ?? 0) - (section.titleStyle.height ?? 0) - (section.titleStyle.marginBottom ?? 0),
+      }
+    } else {
+      section.pluginStyle = section.style
+    }
+  }
   return section
 }
 
