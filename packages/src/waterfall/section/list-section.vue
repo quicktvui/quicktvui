@@ -26,7 +26,7 @@
                  :postDelay="300"
                  autoWidth
                  autoHeight
-                 flexStyle="${titleStyle}"
+                 flexStyle="${titleStyle}" typeface="${titleTypeface}"
                  :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"/>
       <img :postDelay="300" flexStyle="${imgTitleStyle}" :focusable="false" src="${imgTitle}"/>
 
