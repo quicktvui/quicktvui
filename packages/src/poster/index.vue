@@ -51,7 +51,11 @@
     <qt-poster-focus-title
       :focusable="false"
       :border-radius="borderRadius"
-      showOnState="focused"/>
+      showOnState="focused"
+      :bgColor="focusBgColor"
+      :titleColor="focusTitleColor"
+      :subTitleColor="focusSubTitleColor"
+    />
 
     <div style="flex-direction: column;background-color: transparent;z-index: 999;"
          :duplicateParentState="true"
@@ -123,12 +127,12 @@
       showIf="${corner.showCornerRight==true}"
       :focusable="false"
       flexStyle="${corner.style}"
-      style="z-index:1000;position: absolute;flex-direction:row-reverse"/>
+    />
     <qt-poster-corner-title
       showIf="${corner.showCornerLeft==true}"
       :focusable="false"
-      flexStyle="${corner.style}"
-      style="z-index:1000;position: absolute;flex-direction:row"/>
+      flexStyle="${corner.style}" mode="left"
+    />
     <slot/>
   </item-frame>
 </template>
@@ -172,6 +176,18 @@ export default defineComponent({
     rippleColor:{
       type:String,
       default:"#FF4E46"
+    },
+    focusBgColor: {
+      type: Object,
+      required: false
+    },
+    focusTitleColor: {
+      type: String,
+      required: false
+    },
+    focusSubTitleColor: {
+      type: String,
+      required: false
     }
   },
   setup(props, context) {
