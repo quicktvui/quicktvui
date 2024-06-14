@@ -18,7 +18,7 @@
         flexStyle="${titleStyle}"
         :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"/>
 
-    <div class="qt-ui-plugin-section-css"
+    <qt-plugin-view class="qt-ui-plugin-section-css"
          :clipChildren="false"
          :clipPadding="false"
          eventClick

@@ -1,5 +1,5 @@
 <template>
-  <div ref="viewRef"
+  <qt-plugin-view ref="viewRef"
        :type="10004"
        :clipChildren="false"
        :clipPadding="false"
@@ -14,7 +14,7 @@
        focusScale="1.1"
        :enableFocusBorder="true"
        class="qt-ui-plugin-item-root-css">
-  </div>
+  </qt-plugin-view>
 </template>
 
 <script lang="ts">
