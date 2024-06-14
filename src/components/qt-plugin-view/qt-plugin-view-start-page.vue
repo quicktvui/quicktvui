@@ -23,10 +23,13 @@ export default defineComponent({
     const toast = useESToast()
 
     function onESCreate(params) {
+      toast.showToast("开始调用方法")
       pluginView.value?.dispatchFunction('changeAlpha', [0.5])
           .then((ret) => {
+            toast.showToast("调用方法成功")
             toast.showToast(JSON.stringify(ret))
           }, error => {
+            toast.showToast("调用方法错误")
             toast.showToast(error)
           })
     }
