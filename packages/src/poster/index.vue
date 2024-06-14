@@ -65,7 +65,7 @@
       <!--  浮动标题 -->
       <div flexStyle="${floatTitle.style}"
            class="qt-ui-poster-title-css"
-           :gradientBackground="{colors:['#e5000000','#00000000'], cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
+           :gradientBackground="{colors:floatTitleBgColor, cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
            :duplicateParentState="true"
            :focusable="false"
            showIf="${floatTitle.enable}">
@@ -188,6 +188,12 @@ export default defineComponent({
     focusSubTitleColor: {
       type: String,
       required: false
+    },
+    floatTitleBgColor:{
+      type:Array,
+      default:()=>{
+        return ['#e5000000','#00000000']
+      }
     }
   },
   setup(props, context) {
