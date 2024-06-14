@@ -1,5 +1,5 @@
 import {defineComponent, h, ref} from 'vue';
-import {ESApp, Native, registerElement} from "@extscreen/es3-vue";
+import {ESApp, Native} from "@extscreen/es3-vue";
 
 function registerQTPluginView(app: ESApp) {
   const PluginViewImpl = defineComponent({
@@ -8,7 +8,7 @@ function registerQTPluginView(app: ESApp) {
 
       const dispatchFunction = (funName: string, params: Array<any>): Promise<any> => {
         return new Promise((resolve) => {
-          Native.callUIFunction(pluginViewRef.value, 'dispatchFunction', funName, params, (ret) => {
+          Native.callUIFunction(pluginViewRef.value, funName, params, (ret) => {
             resolve(ret);
           });
         });
