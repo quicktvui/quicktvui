@@ -6,7 +6,7 @@
        layout="${layout}"
        flexStyle="${style}"
        :focusable="true"
-       plugin-key="${pluginKey}"
+       pluginKey="${pluginKey}"
        eventClick
        eventFocus
        name="qt-plugin-item"

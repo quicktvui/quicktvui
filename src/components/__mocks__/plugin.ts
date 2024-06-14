@@ -15,6 +15,7 @@ export function buildPluginSection(sectionId: string, title: string): QTWaterfal
       marginBottom: 40,
       fontSize: 50
     },
+    pluginKey: 'plugin-hello',
     style: {
       width: 1920,
       height: 200,
@@ -61,7 +62,7 @@ export function buildPluginItem(sectionId: string, index: number): QTWaterfallIt
   const item: QTWaterfallPluginItem = {
     _id: sectionId + '_' + index,
     type: QTWaterfallItemType.QT_WATERFALL_ITEM_TYPE_PLUGIN,
-    pluginKey: '1717748409857474561',
+    pluginKey: 'plugin-hello',
     decoration: {
       left: 90,
       bottom: 40,

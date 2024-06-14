@@ -23,7 +23,7 @@
          :clipPadding="false"
          eventClick
          eventFocus
-         plugin-key="${pluginKey}"
+         pluginKey="${pluginKey}"
          flexStyle="${pluginStyle}"/>
   </div>
 </template>
