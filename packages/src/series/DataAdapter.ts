@@ -274,15 +274,15 @@ export function buildSeriesTextData(page: number, pageSize: number, dataArray: A
     }
     dataArray.forEach((item, index) => {
       if (item.vip && item.vip!.enable) {
-        item.vipTitleStyle = titleStyle
-        item.vipMarkStyle = markStyle
+        item.vipTitleStyle = item?.vipTitleStyle ?? titleStyle
+        item.vipMarkStyle = item?.vipMarkStyle ?? markStyle
         item.normalTitleStyle = noneStyle
         item.normalMarkStyle = noneStyle
       } else {
         item.vipTitleStyle = noneStyle
         item.vipMarkStyle = noneStyle
-        item.normalTitleStyle = titleStyle
-        item.normalMarkStyle = markStyle
+        item.normalTitleStyle = item?.normalTitleStyle ?? titleStyle
+        item.normalMarkStyle = item?.normalMarkStyle ?? markStyle
       }
     });
   }

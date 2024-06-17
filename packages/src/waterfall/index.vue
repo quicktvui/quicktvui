@@ -59,6 +59,9 @@
     <card-section
       @focus="onItemFocused"/>
 
+    <!-- plugin -->
+    <plugin-section/>
+
     <!-- vue -->
     <vue-section :block-focus-directions="vueSectionBlockFocusDirections">
       <slot name="vue-section"/>
@@ -81,6 +84,7 @@ import section_title from './section/section-title.vue'
 import blank_section from './section/blank-section.vue'
 import card_section from './section/card-section.vue'
 import vue_section from './section/vue-section.vue'
+import plugin_section from './section/plugin-section.vue'
 
 import {QTWaterfall} from "./core/QTWaterfall";
 import {ref, onBeforeUnmount, nextTick} from "vue";
@@ -486,6 +490,7 @@ export default defineComponent({
     'blank-section': blank_section,
     'card-section': card_section,
     'vue-section': vue_section,
+    'plugin-section': plugin_section
   },
 });
 </script>

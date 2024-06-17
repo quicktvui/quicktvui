@@ -2,6 +2,8 @@ import qt_waterfall_start_page from "./qt-waterfall-start-page.vue"
 import qt_waterfall_event_page from "./qt-waterfall-event-page.vue"
 //
 //
+
+import qt_waterfall_section_plugin_page from "./qt-waterfall-section-plugin-page.vue"
 import qt_waterfall_section_blank_page from "./qt-waterfall-section-blank-page.vue"
 import qt_waterfall_section_list_page from "./qt-waterfall-section-list-page.vue"
 import qt_waterfall_section_tab_page from "./qt-waterfall-section-tab-page.vue"
@@ -29,6 +31,8 @@ import qt_waterfall_item_op_get_page from "./qt-waterfall-item-op-get-page.vue"
 import qt_waterfall_item_card_page from "./qt-waterfall-item-card-page.vue"
 import qt_waterfall_item_card_place_holder_page from "./qt-waterfall-item-card-place-holder-page.vue"
 import qt_waterfall_qtRef_page from "./qt-waterfall-qtRef.vue"
+import qt_waterfall_item_plugin_page from "./qt-waterfall-item-plugin-page.vue"
+
 
 const QTWaterfallPageList = {
   qt_waterfall_start_page: {
@@ -46,6 +50,10 @@ const QTWaterfallPageList = {
 };
 
 const QTWaterfallItemPageList = {
+  qt_waterfall_item_plugin_page: {
+    name: 'PluginItem',
+    component: qt_waterfall_item_plugin_page,
+  },
   qt_waterfall_item_card_page: {
     name: 'CardItem',
     component: qt_waterfall_item_card_page,
@@ -86,6 +94,10 @@ const QTWaterfallItemPageList = {
 
 
 const QTWaterfallSectionPageList = {
+  qt_waterfall_section_plugin_page: {
+    name: 'PluginSection',
+    component: qt_waterfall_section_plugin_page,
+  },
   qt_waterfall_section_card_page: {
     name: 'CardSection',
     component: qt_waterfall_section_card_page,

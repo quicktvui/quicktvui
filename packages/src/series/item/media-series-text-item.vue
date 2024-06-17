@@ -1,16 +1,17 @@
 <template>
-  <div class="text-item-container" :focusable="true" :focusScale="1"
+  <div class="text-item-container" :focusable="true" :focusScale="1" :style="{width:`${itemWidth}px`,height:`${itemHeight}px`}"
        :gradientBackground="gradientBackground">
-    <div class="text-item-container-bg-focus"
+    <div class="text-item-container-bg-focus" :style="{width:`${itemWidth}px`,height:`${itemHeight}px`}"
          :duplicateParentState="true" showOnState="focused"
          :focusable="false"
          :gradientBackground="gradientFocusBackground"/>
-    <div class="text-item-container-css"
+    <div class="text-item-container-css" :style="{width:`${itemWidth}px`,height:`${itemHeight}px`}"
          style="position:absolute;align-items: center;background-color:transparent"
          :duplicateParentState="true">
 
       <div
-        style="position:absolute;flex-direction: row;justify-content: center; align-items: center;width: 490px;height: 100px;background-color: transparent"
+        :style="{position:'absolute',flexDirection: 'row',justifyContent: 'center', alignItems: 'center',
+        width:`${itemWidth}px`,height:`${itemHeight}px`,backgroundColor: 'transparent'}"
         showOnState="selected" :duplicateParentState="true">
         <play-mark
           :duplicateParentState="true"
@@ -103,6 +104,14 @@ export default defineComponent({
           selectColor: '#B67827'
         }
       }
+    },
+    itemWidth:{
+      type:Number,
+      default:490
+    },
+    itemHeight:{
+      type:Number,
+      default:100
     }
   },
 });
@@ -110,21 +119,15 @@ export default defineComponent({
 
 <style scoped>
 .text-item-container {
-  width: 490px;
-  height: 100px;
   border-radius: 8px;
   background-color: transparent;
 }
 .text-item-container-bg-focus{
   position: absolute;
   background-color: transparent;
-  width: 490px;
-  height: 100px;
 }
 
 .text-item-container-css {
-  width: 490px;
-  height: 100px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, .1);
   flex-direction: row;
@@ -136,27 +139,26 @@ export default defineComponent({
 .text-item-text {
   font-weight: 400;
   height: 100px;
-  width: 373px;
 }
 
 .text-item-text-vip {
   font-weight: 400;
   height: 100px;
-  width: 373px;
 }
 
 
 .media-series-text-item-vip-root {
   position: absolute;
-  width: 42px;
+  width: 45px;
   height: 28px;
-  left: 448px;
+  right: 0.01px;
+  top: 0.01px;
   border-radius: 4px;
   background-color: transparent;
 }
 
 .media-series-text-item-vip-text {
-  width: 42px;
+  width: 45px;
   height: 28px;
   color: white;
   font-weight: 400;

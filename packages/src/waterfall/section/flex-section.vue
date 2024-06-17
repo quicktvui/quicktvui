@@ -13,7 +13,7 @@
        :bringFocusChildToFront="true"
        :useAdvancedFocusSearch="true">
 
-    <text-view 
+    <text-view
       class="standard-section-title-text-css"
       :postDelay="300"
       autoWidth autoHeight typeface="${titleTypeface}"
@@ -39,6 +39,9 @@
       <!-- poster -->
       <qt-poster :load-delay="500" :type="standItemType"/>
 
+      <!-- plugin -->
+      <qt-plugin-item/>
+
       <!-- card -->
       <card-item
         @focus="onFocus"/>
@@ -55,12 +58,14 @@ import {defineComponent} from "@vue/runtime-core";
 import {QTWaterfallSectionType} from "../core/QTWaterfallSectionType";
 import {QTWaterfallItemType} from "../core/QTWaterfallItemType";
 import card_item from '../item/card-item.vue'
+import plugin_item from '../item/plugin-item.vue'
 import {ESLogLevel, useESLog} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: 'standard-section',
   components: {
     'card-item': card_item,
+    'qt-plugin-item': plugin_item
   },
   props: {
     enablePlaceholder: {

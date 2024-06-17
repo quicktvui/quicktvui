@@ -35,6 +35,7 @@ import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
 export {qtRef,qtWatchAll,qtGetParent} from "./qtListen/index";
+import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [
   View,
@@ -68,6 +69,7 @@ export const QuickTVUI = (Vue) => {
   registerQTScrollView(Vue)
   registerQTLottieView(Vue)
   registerAppIconView(Vue)
+  registerQTPluginView(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
@@ -127,6 +129,9 @@ export type {QTWaterfallCardSection} from './waterfall/core/QTWaterfallCardSecti
 export type {QTWaterfallCardItem} from './waterfall/core/QTWaterfallCardItem'
 export type {QTWaterfallCardPlaceHolder} from './waterfall/core/QTWaterfallCardPlaceHolder'
 export {QTWaterfallVisibleType} from './waterfall/core/QTWaterfallVisibleType'
+//
+export type {QTWaterfallPluginSection} from './waterfall/core/QTWaterfallPluginSection'
+export type {QTWaterfallPluginItem} from './waterfall/core/QTWaterfallPluginItem'
 
 //ListView
 export type {QTListViewItem} from './list-view/core/QTListViewItem'
@@ -265,3 +270,7 @@ export type {QTIText} from './text/QTIText'
 
 //--------------------------------QTIText---------------------------------
 export type {QTIAppIcon} from './app/QTIAppIcon'
+
+//--------------------------------QTIPluginView---------------------------------
+export type {QTIPluginView} from './plugin/QTIPluginView'
+

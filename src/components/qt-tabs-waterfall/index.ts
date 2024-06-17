@@ -19,6 +19,9 @@ import qt_tabs_waterfall_item_delete_page from "./qt-tabs-waterfall-item-delete-
 import qt_tabs_waterfall_item_get_page from "./qt-tabs-waterfall-item-get-page.vue"
 import qt_tabs_waterfall_item_update_page from "./qt-tabs-waterfall-item-update-page.vue"
 
+//
+import qt_tabs_waterfall_plugin_page from "./qt-tabs-waterfall-plugin-page.vue"
+
 const QTTabsWaterfallPageList = {
   qt_tabs_waterfall_start_page: {
     name: '使用初探',
@@ -95,8 +98,16 @@ const QTTabsWaterfallItemPageList = {
   },
 };
 
+const QTTabsWaterfallSamplePageList = {
+  qt_tabs_waterfall_plugin_page: {
+    name: '插件相关',
+    component: qt_tabs_waterfall_plugin_page,
+  },
+};
+
 export {
   QTTabsWaterfallPageList,
   QTTabsWaterfallSectionPageList,
-  QTTabsWaterfallItemPageList
+  QTTabsWaterfallItemPageList,
+  QTTabsWaterfallSamplePageList
 };
