@@ -53,9 +53,10 @@ function getLRDataByPage(page, pageSize, totalSize) {
       // floatText: `float${page * pageSize + i}`,
       floatText: i % 2 === 0 ? '05:30' : '10:06',
       vip: {
-        enable: false,
-        text: 'VIP'
+        enable: true,
+        text: 'VIP',
       },
+      vipTitleStyle:{width:150,height:100},
       index2
     })
   }

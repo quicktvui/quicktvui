@@ -25,6 +25,8 @@
                             :gradient-focus-background="gradientFocusBackground"
                             :mark-color="markColor" :mark-vip-color="markVipColor"
                             :icon-gradient-background="iconGradientBackground"
+                            :item-height="itemDivHeight"
+                            :item-width="itemDivWidth"
                             :text-colors="textColors" :text-vip-colors="textVipColors"/>
     <slot v-else-if="seriesType === 'custom'"/>
   </media-series>
@@ -123,7 +125,15 @@ export default defineComponent({
           selectColor: '#B67827'
         }
       }
-    }
+    },
+    itemDivWidth:{
+      type:Number,
+      default:490
+    },
+    itemDivHeight:{
+      type:Number,
+      default:100
+    },
   },
   setup(props, context) {
     const mediaSeriesRef = ref<ESIMediaSeries>();

@@ -129,7 +129,7 @@ export default defineComponent({
 }
 .media-series-number-item-vip-root {
   position: absolute;
-  width: 42px;
+  width: 45px;
   height: 28px;
   left: 118px;
   border-radius: 4px;
@@ -137,7 +137,7 @@ export default defineComponent({
 }
 
 .media-series-number-item-vip-text {
-  width: 42px;
+  width: 45px;
   height: 28px;
   color: white;
   font-weight: 400;
