@@ -1,10 +1,14 @@
 import {defineComponent, h, ref} from 'vue';
 import {ESApp, Native} from "@extscreen/es3-vue";
+import {ESVersion, useES} from "@extscreen/es3-core";
 
 function registerQTPluginView(app: ESApp) {
   const PluginViewImpl = defineComponent({
     setup(props, context) {
       const pluginViewRef = ref()
+      const es = useES()
+      const support = es.getESSDKVersionCode() >= ESVersion.ES_SDK_VERSION_29
+      const element = support ? 'ESPluginViewComponent' : 'div'
 
       const dispatchFunction = (funName: string, params: Array<any>): Promise<any> => {
         return new Promise((resolve) => {
@@ -18,7 +22,7 @@ function registerQTPluginView(app: ESApp) {
       })
       return () => {
         return h(
-          'ESPluginViewComponent', {
+          element, {
             ref: pluginViewRef
           },
         )
