@@ -18,7 +18,7 @@ function registerQTPluginView(app: ESApp) {
       })
       return () => {
         return h(
-          'ESPluginViewComponent', {
+          'div', {
             ref: pluginViewRef
           },
         )
