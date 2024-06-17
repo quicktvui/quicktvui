@@ -4,6 +4,10 @@ import {ESVersion, useES} from "@extscreen/es3-core";
 
 function registerQTPluginView(app: ESApp) {
   const PluginViewImpl = defineComponent({
+    emits: [
+      'onPluginLoadSuccess',
+      'onPluginLoadError'
+    ],
     setup(props, context) {
       const pluginViewRef = ref()
       const es = useES()
@@ -23,7 +27,16 @@ function registerQTPluginView(app: ESApp) {
       return () => {
         return h(
           element, {
-            ref: pluginViewRef
+            ref: pluginViewRef,
+            onPluginLoadSuccess: (evt) => {
+              context.emit("onPluginLoadSuccess")
+            },
+            onPluginLoadError: (evt) => {
+              context.emit('onPluginLoadError', {
+                errorCode: evt.errorCode,
+                errorMessage: evt.errorMessage
+              });
+            },
           },
         )
       }
