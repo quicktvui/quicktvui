@@ -40,7 +40,9 @@
       <qt-poster :load-delay="500" :type="standItemType"/>
 
       <!-- plugin -->
-      <qt-plugin-item/>
+      <qt-plugin-item
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"/>
 
       <!-- card -->
       <card-item
@@ -60,9 +62,15 @@ import {QTWaterfallItemType} from "../core/QTWaterfallItemType";
 import card_item from '../item/card-item.vue'
 import plugin_item from '../item/plugin-item.vue'
 import {ESLogLevel, useESLog} from "@extscreen/es3-core";
+import {QTPluginViewEvent} from "../../plugin/QTIPluginView";
 
 export default defineComponent({
   name: 'standard-section',
+  emits: [
+    'onPluginLoadSuccess',
+    'onPluginLoadError',
+    'focus'
+  ],
   components: {
     'card-item': card_item,
     'qt-plugin-item': plugin_item
@@ -111,8 +119,18 @@ export default defineComponent({
       context.emit('focus', e)
     }
 
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadSuccess', event)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadError', event)
+    }
+
     return {
-      onFocus
+      onFocus,
+      onPluginLoadSuccess,
+      onPluginLoadError
     };
   },
 });

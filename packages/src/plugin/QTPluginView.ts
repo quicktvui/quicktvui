@@ -29,10 +29,13 @@ function registerQTPluginView(app: ESApp) {
           element, {
             ref: pluginViewRef,
             onPluginLoadSuccess: (evt) => {
-              context.emit("onPluginLoadSuccess")
+              context.emit("onPluginLoadSuccess", {
+                sid: evt.sid,
+              })
             },
             onPluginLoadError: (evt) => {
               context.emit('onPluginLoadError', {
+                sid: evt.sid,
                 errorCode: evt.errorCode,
                 errorMessage: evt.errorMessage
               });

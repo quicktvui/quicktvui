@@ -6,6 +6,8 @@
         ref="tabRef"
         @onTabPageChanged="onTabPageChanged"
         @onTabPageLoadData="onTabPageLoadData"
+        @onPluginLoadSuccess="onPluginLoadSuccess"
+        @onPluginLoadError="onPluginLoadError"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
@@ -19,11 +21,11 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTPluginViewEvent
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 import {buildPluginSection, buildPluginFlexSection} from "../__mocks__/plugin";
+import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: '插件',
@@ -32,6 +34,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+    const toast = useESToast()
 
     function onESCreate() {
 
@@ -100,11 +103,22 @@ export default defineComponent({
       })
     }
 
+    //---------------------------------------------------------------
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      toast.showToast("插件加载成功" + event.sid)
+    }
+
+    function onPluginLoadError(error: QTPluginViewEvent) {
+      toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
+    }
+
     return {
       tabRef,
       onESCreate,
       onTabPageLoadData,
       onTabPageChanged,
+      onPluginLoadSuccess,
+      onPluginLoadError,
     }
   },
 });

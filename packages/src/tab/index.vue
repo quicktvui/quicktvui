@@ -69,7 +69,9 @@
           @onSectionAttached="onWaterfallSectionAttached"
           @onSectionDetached="onWaterfallSectionDetached"
           @onItemFocused="onWaterfallItemFocused"
-          @onItemClick="onWaterfallItemClick">
+          @onItemClick="onWaterfallItemClick"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError">
         <template v-slot:item>
           <slot name="waterfall-item"/>
         </template>
@@ -114,6 +116,7 @@ import {QTWaterfallSection} from "../waterfall/core/QTWaterfallSection";
 import {QTTabItem} from "./QTTabItem";
 import {QTListViewItemState} from "../list-view/core/QTListViewItemState";
 import useBaseView from "../base/useBaseView";
+import {QTPluginViewEvent} from "../plugin/QTIPluginView";
 
 const TAG = 'qt-tabs'
 
@@ -138,7 +141,10 @@ export default defineComponent({
     'onTabPageScrollToEnd',
     'onTabPageScrollToStart',
     //
-    'onTabClick'
+    'onTabClick',
+    //
+    'onPluginLoadSuccess',
+    'onPluginLoadError'
   ],
   props: {
     enablePlaceholder: {
@@ -918,6 +924,15 @@ export default defineComponent({
       }
     }
 
+    //---------------------------------------------------------------
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadSuccess', event)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadError', event)
+    }
+
     return {
       tabs,
       ifTabs,
@@ -978,6 +993,8 @@ export default defineComponent({
       onTabClick,
       getCurrentPageIndex,
       getCurrentTabIndex,
+      onPluginLoadSuccess,
+      onPluginLoadError,
       ...useBaseView(tabs)
     }
   },

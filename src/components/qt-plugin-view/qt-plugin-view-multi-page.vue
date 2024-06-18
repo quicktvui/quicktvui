@@ -4,19 +4,34 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-view class="qt-plugin-view-start-page">
       <qt-plugin-view
+          sid="hello_1"
           ref="pluginView"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
           pluginKey="plugin-hello"
           class="qt-plugin-view-css"/>
       <qt-plugin-view
+          sid="hello_2"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
           pluginKey="plugin-hello"
           class="qt-plugin-view-css"/>
       <qt-plugin-view
+          sid="hello_3"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
           pluginKey="plugin-hello"
           class="qt-plugin-view-css"/>
       <qt-plugin-view
+          sid="hello_4"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
           pluginKey="plugin-hello"
           class="qt-plugin-view-css"/>
       <qt-plugin-view
+          sid="hello_5"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
           pluginKey="plugin-hello"
           class="qt-plugin-view-css"/>
     </qt-view>
@@ -25,7 +40,7 @@
 
 <script lang="ts">
 import {defineComponent, ref} from "@vue/runtime-core";
-import {QTIPluginView} from "@quicktvui/quicktvui3";
+import {QTIPluginView, QTPluginViewEvent} from "@quicktvui/quicktvui3";
 import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
@@ -46,9 +61,19 @@ export default defineComponent({
           })
     }
 
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      toast.showToast("插件加载成功" + event.sid)
+    }
+
+    function onPluginLoadError(error: QTPluginViewEvent) {
+      toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
+    }
+
     return {
       onESCreate,
-      pluginView
+      pluginView,
+      onPluginLoadSuccess,
+      onPluginLoadError
     }
   },
 });

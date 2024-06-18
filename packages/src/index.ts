@@ -271,5 +271,4 @@ export type {QTIText} from './text/QTIText'
 export type {QTIAppIcon} from './app/QTIAppIcon'
 
 //--------------------------------QTIPluginView---------------------------------
-export type {QTIPluginView} from './plugin/QTIPluginView'
-
+export type {QTIPluginView, QTPluginViewEvent} from './plugin/QTIPluginView'

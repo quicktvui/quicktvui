@@ -6,6 +6,7 @@
       <qt-plugin-view
           ref="pluginView"
           pluginKey="plugin-hello"
+          sid="hello"
           @onPluginLoadSuccess="onPluginLoadSuccess"
           @onPluginLoadError="onPluginLoadError"
           class="qt-plugin-view-css"/>
@@ -15,7 +16,7 @@
 
 <script lang="ts">
 import {defineComponent, ref} from "@vue/runtime-core";
-import {QTIPluginView} from "@quicktvui/quicktvui3";
+import {QTIPluginView, QTPluginViewEvent} from "@quicktvui/quicktvui3";
 import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
@@ -35,13 +36,12 @@ export default defineComponent({
             toast.showToast(error)
           })
     }
-
-
-    function onPluginLoadSuccess() {
-      toast.showToast("插件加载成功")
+    
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      toast.showToast("插件加载成功" + event.sid)
     }
 
-    function onPluginLoadError(error) {
+    function onPluginLoadError(error: QTPluginViewEvent) {
       toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
     }
 

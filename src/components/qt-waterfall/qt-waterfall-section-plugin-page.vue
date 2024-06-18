@@ -4,6 +4,8 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-waterfall
         ref="waterfall"
+        @onPluginLoadSuccess="onPluginLoadSuccess"
+        @onPluginLoadError="onPluginLoadError"
         class="qt-waterfall-css"/>
   </div>
 </template>
@@ -16,13 +18,16 @@ import {
   QTIWaterfall,
   QTWaterfall,
   QTWaterfallSectionType,
-  QTWaterfallPluginSection
+  QTWaterfallPluginSection,
+  QTPluginViewEvent
 } from "@quicktvui/quicktvui3";
+import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: 'PluginSection',
   setup(props, context) {
     const waterfall = ref<QTIWaterfall>()
+    const toast = useESToast()
 
     function onESCreate() {
       //1.init
@@ -64,9 +69,20 @@ export default defineComponent({
       waterfall.value?.setSectionList(sectionList)
     }
 
+    //---------------------------------------------------------------
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      toast.showToast("插件加载成功" + event.sid)
+    }
+
+    function onPluginLoadError(error: QTPluginViewEvent) {
+      toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
+    }
+
     return {
       waterfall,
       onESCreate,
+      onPluginLoadSuccess,
+      onPluginLoadError
     }
   },
 });
