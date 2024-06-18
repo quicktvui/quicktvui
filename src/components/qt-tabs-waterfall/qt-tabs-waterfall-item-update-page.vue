@@ -2,17 +2,20 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
-    <div class="es-sdk-content-row-css">
-      <s-text-button text="更新Item" @onButtonClicked="onButtonClicked"/>
-    </div>
-    <qt-tabs
-      ref="tabRef"
-      @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-css">
-      <template v-slot:waterfall-item>
-        <app-list-item :type="1"/>
-      </template>
-    </qt-tabs>
+    <qt-row>
+      <qt-column>
+        <s-text-button text="更新Item" @onButtonClicked="onButtonClicked"/>
+        <s-text-button text="更新Item by sid" @onButtonClicked="updateBySid"/>
+      </qt-column>
+      <qt-tabs
+        ref="tabRef"
+        @onTabPageLoadData="onTabPageLoadData"
+        class="qt-tabs-css">
+        <template v-slot:waterfall-item>
+          <app-list-item :type="1"/>
+        </template>
+      </qt-tabs>
+    </qt-row>
   </div>
 </template>
 
@@ -24,7 +27,7 @@ import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
-import app_list_item from './item/app-list-item'
+import app_list_item from './item/app-list-item.vue'
 
 export default defineComponent({
   name: '更新Item',
@@ -72,8 +75,8 @@ export default defineComponent({
 
 
       let waterfallData: QTWaterfall = {
-        width: 1920,
-        height: 1080
+        width: 1700,
+        height: 500
       }
       tabRef.value?.initPage(waterfallData)
     }
@@ -94,7 +97,9 @@ export default defineComponent({
       let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
 
       let sectionList: Array<QTWaterfallSection> = [
-        section,
+        section,generatorAppWaterfallSection('2', "应用2"),
+        generatorAppWaterfallSection('3', "应用3"),
+        generatorAppWaterfallSection('4', "应用4")
       ]
 
       const tabPage: QTTabPageData = {
@@ -109,6 +114,14 @@ export default defineComponent({
       onESCreate,
       onButtonClicked,
       onTabPageLoadData,
+      updateBySid(){
+        const item = tabRef.value?.getPageItem(0, 0, 2)
+        if (item) {
+          item.appName = 'sid'
+          item.appIcon = 'http://qcloudimg.a311.ottcn.com/data_center/files/2022/11/07/854f47b2-fdbe-4543-a2c3-1f8754dcb13e.jpg'
+          tabRef.value?.updatePageItem(0, 0, 2, item)
+        }
+      }
     }
   },
 });
@@ -117,7 +130,7 @@ export default defineComponent({
 
 <style>
 .qt-tabs-css {
-  width: 1920px;
-  height: 1080px;
+  width: 1700px;
+  height: 500px;
 }
 </style>
