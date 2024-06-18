@@ -39,7 +39,7 @@ export default defineComponent({
 
       //
       let sectionList: Array<QTWaterfallPluginSection> = []
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 20; i++) {
         let section: QTWaterfallPluginSection = {
           _id: '' + i,
           type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_PLUGIN,
