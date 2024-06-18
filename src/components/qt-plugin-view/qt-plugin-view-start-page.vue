@@ -6,6 +6,8 @@
       <qt-plugin-view
           ref="pluginView"
           pluginKey="plugin-hello"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
           class="qt-plugin-view-css"/>
     </qt-view>
   </div>
@@ -34,9 +36,20 @@ export default defineComponent({
           })
     }
 
+
+    function onPluginLoadSuccess() {
+      toast.showToast("插件加载成功")
+    }
+
+    function onPluginLoadError(error) {
+      toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
+    }
+
     return {
       onESCreate,
-      pluginView
+      pluginView,
+      onPluginLoadSuccess,
+      onPluginLoadError
     }
   },
 });
