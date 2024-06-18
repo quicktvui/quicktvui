@@ -53,7 +53,7 @@ export default defineComponent({
             fontSize: 50
           },
           itemList: [],
-          pluginKey: 'plugin-hello',
+          pluginKey: 'plugin-hello/view' + (i % 2),
           style: {
             width: 1920,
             height: 540,

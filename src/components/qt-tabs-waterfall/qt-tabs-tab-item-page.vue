@@ -20,7 +20,7 @@ import {ref} from "vue";
 import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTWaterfallSectionType, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import tab_item from './item/tab-item'
+import tab_item from './item/tab-item.vue'
 import {buildWaterfallItemList} from "./data/mock";
 
 export default defineComponent({
