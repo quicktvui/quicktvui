@@ -32,7 +32,7 @@ import qt_waterfall_item_card_page from "./qt-waterfall-item-card-page.vue"
 import qt_waterfall_item_card_place_holder_page
   from "./qt-waterfall-item-card-place-holder-page.vue"
 import qt_waterfall_item_plugin_page from "./qt-waterfall-item-plugin-page.vue"
-
+import qt_waterfall_update_bysid from './qt-waterfall-update-bysid.vue'
 
 const QTWaterfallPageList = {
   qt_waterfall_start_page: {
@@ -86,6 +86,10 @@ const QTWaterfallItemPageList = {
     name: '更新Item',
     component: qt_waterfall_item_op_update_page,
   },
+  qt_waterfall_update_bysid: {
+    name: '更新-bysid',
+    component: qt_waterfall_update_bysid
+  }
 };
 
 

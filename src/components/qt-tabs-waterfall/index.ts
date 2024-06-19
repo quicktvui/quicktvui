@@ -21,8 +21,12 @@ import qt_tabs_waterfall_item_update_page from "./qt-tabs-waterfall-item-update-
 
 //
 import qt_tabs_waterfall_plugin_page from "./qt-tabs-waterfall-plugin-page.vue"
+import qt_tabs_waterfall_update_bysid from './qt-tabs-waterfall-update-bysid.vue'
 
 const QTTabsWaterfallPageList = {
+  qt_tabs_waterfall_update_bysid:{
+    name: '更新-byisd', component: qt_tabs_waterfall_update_bysid
+  },
   qt_tabs_waterfall_start_page: {
     name: '使用初探',
     component: qt_tabs_waterfall_start_page,
