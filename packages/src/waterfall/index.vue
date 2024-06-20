@@ -28,6 +28,8 @@
     @scrollYGreaterReference="onScrollYGreaterReference"
     @scrollYLesserReference="onScrollYLesserReference"
     shakePreCheckNumber="4"
+    @onPluginLoadSuccess="onPluginLoadSuccess"
+    @onPluginLoadError="onPluginLoadError"
     :blockFocusDirections="blockFocusDirections"
     @scrollStateChanged="onScrollStateChanged">
 
@@ -35,6 +37,8 @@
     <flex-section
       :cache-pool="itemsPool"
       :enablePlaceholder="enablePlaceholder"
+      @onPluginLoadSuccess="onPluginLoadSuccess"
+      @onPluginLoadError="onPluginLoadError"
       @focus="onItemFocused">
       <slot name="item"/>
     </flex-section>
@@ -60,7 +64,9 @@
       @focus="onItemFocused"/>
 
     <!-- plugin -->
-    <plugin-section/>
+    <plugin-section
+        @onPluginLoadSuccess="onPluginLoadSuccess"
+        @onPluginLoadError="onPluginLoadError"/>
 
     <!-- vue -->
     <vue-section :block-focus-directions="vueSectionBlockFocusDirections">
@@ -98,6 +104,7 @@ import {QTWaterfallIndex} from "./core/QTWaterfallIndex";
 import {QTWaterfallEvent} from "./core/QTWaterfallEvent";
 import {QTWaterfallVisibleType} from "./core/QTWaterfallVisibleType";
 import useBaseView from "../base/useBaseView";
+import {QTPluginViewEvent} from "../plugin/QTIPluginView";
 
 const TAG = 'qt-waterfall'
 
@@ -113,6 +120,8 @@ export default defineComponent({
     'onSectionDetached',
     'onScrollYGreaterReference',
     'onScrollYLesserReference',
+    'onPluginLoadSuccess',
+    'onPluginLoadError'
   ],
   props: {
     enablePlaceholder: {
@@ -443,6 +452,15 @@ export default defineComponent({
     onBeforeUnmount(()=>{
       watchRes?.stop()
     })
+    //-------------------------------------------------------------------------
+
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadSuccess', event)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadError', event)
+    }
     return {
       waterfallRef,
       visibleType,
@@ -477,6 +495,8 @@ export default defineComponent({
       setListData,
       onScrollYGreaterReference,
       onScrollYLesserReference,
+      onPluginLoadSuccess,
+      onPluginLoadError,
       ...useBaseView(waterfallRef)
     }
   },

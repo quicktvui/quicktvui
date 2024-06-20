@@ -5,7 +5,7 @@
     <qt-tabs
       ref="tabRef"
       tabNavBarClass="qt-tabs-nav-bar-css"
-      tabContentClass="qt-tabs-content-css"
+      tabPageClass="qt-tabs-content-css"
       @onTabPageLoadData="onTabPageLoadData"
       class="qt-single-tab-css">
       <template v-slot:waterfall-item>
