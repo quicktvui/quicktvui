@@ -28,6 +28,8 @@
     @scrollYGreaterReference="onScrollYGreaterReference"
     @scrollYLesserReference="onScrollYLesserReference"
     shakePreCheckNumber="4"
+    @onPluginLoadSuccess="onPluginLoadSuccess"
+    @onPluginLoadError="onPluginLoadError"
     :blockFocusDirections="blockFocusDirections"
     @scrollStateChanged="onScrollStateChanged">
 

@@ -25,7 +25,9 @@ import {
 } from "@quicktvui/quicktvui3";
 import app_list_item from './item/app-list-item'
 import {buildPluginSection, buildPluginFlexSection} from "../__mocks__/plugin";
-import {useESToast} from "@extscreen/es3-core";
+import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
+
+const TAG = 'QTPluginView'
 
 export default defineComponent({
   name: '插件',
@@ -35,6 +37,7 @@ export default defineComponent({
   setup(props, context) {
     const tabRef = ref<QTITab>()
     const toast = useESToast()
+    const log = useESLog()
 
     function onESCreate() {
 
@@ -79,7 +82,7 @@ export default defineComponent({
 
       let section: QTWaterfallSection = buildPluginFlexSection('0', "插件Item板块")
       let sectionList: Array<QTWaterfallSection> = [
-        buildPluginSection("1",'插件板块'),
+        buildPluginSection("1", '插件板块'),
         section,
       ]
 
@@ -105,11 +108,17 @@ export default defineComponent({
 
     //---------------------------------------------------------------
     function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadSuccess-------------->>>' + JSON.stringify(event))
+      }
       toast.showToast("插件加载成功" + event.sid)
     }
 
-    function onPluginLoadError(error: QTPluginViewEvent) {
-      toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadError-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载失败：" + event.errorCode + "--" + event.errorMessage)
     }
 
     return {

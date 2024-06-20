@@ -64,6 +64,8 @@ import plugin_item from '../item/plugin-item.vue'
 import {ESLogLevel, useESLog} from "@extscreen/es3-core";
 import {QTPluginViewEvent} from "../../plugin/QTIPluginView";
 
+const TAG = 'QTFlexSection'
+
 export default defineComponent({
   name: 'standard-section',
   emits: [
@@ -114,16 +116,22 @@ export default defineComponent({
 
     function onFocus(e) {
       if (log.isLoggable(ESLogLevel.DEBUG)) {
-        log.d('card-item', '------onFocus--------->>>>', e)
+        log.d(TAG, '------onFocus--------->>>>', e)
       }
       context.emit('focus', e)
     }
 
     function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------onPluginLoadSuccess--------->>>>' + JSON.stringify(event))
+      }
       context.emit('onPluginLoadSuccess', event)
     }
 
     function onPluginLoadError(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------onPluginLoadError--------->>>>' + JSON.stringify(event))
+      }
       context.emit('onPluginLoadError', event)
     }
 

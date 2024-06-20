@@ -162,7 +162,7 @@ export function generatorAppWaterfallSection(sectionId: string, title: string): 
       width: 1920,
       height: -1,
     },
-    itemList: generatorAppWaterfallItemList(sectionId, 21)
+    itemList: generatorAppWaterfallItemList(sectionId, 42)
   }
   return section
 }

@@ -3,10 +3,10 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <qt-waterfall
-      ref="waterfall"
-      @onPluginLoadSuccess="onPluginLoadSuccess"
-      @onPluginLoadError="onPluginLoadError"
-      class="qt-waterfall-css"/>
+        ref="waterfall"
+        @onPluginLoadSuccess="onPluginLoadSuccess"
+        @onPluginLoadError="onPluginLoadError"
+        class="qt-waterfall-css"/>
   </div>
 </template>
 
@@ -22,13 +22,16 @@ import {
   QTWaterfallSectionType
 } from "@quicktvui/quicktvui3";
 import {buildPluginItemList} from "../__mocks__/plugin";
-import {useESToast} from "@extscreen/es3-core";
+import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
+
+const TAG = 'QTPluginView'
 
 export default defineComponent({
   name: 'PluginItem',
   setup(props, context) {
     const waterfall = ref<QTIWaterfall>()
     const toast = useESToast()
+    const log = useESLog()
 
     function onESCreate() {
       //1.init
@@ -64,11 +67,17 @@ export default defineComponent({
 
     //---------------------------------------------------------------
     function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadSuccess-------------->>>' + JSON.stringify(event))
+      }
       toast.showToast("插件加载成功" + event.sid)
     }
 
-    function onPluginLoadError(error: QTPluginViewEvent) {
-      toast.showToast("插件加载失败：" + error.errorCode + "--" + error.errorMessage)
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadError-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载失败：" + event.errorCode + "--" + event.errorMessage)
     }
 
     return {
