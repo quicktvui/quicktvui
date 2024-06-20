@@ -18,6 +18,7 @@
       class="qt-ui-poster-img-css"
       :duplicateParentState="true"
       :postDelay="300"
+      enableFade
       :focusable="false"
       enableFocusBorder="${focus.border}"
       flexStyle="${image.style}"
