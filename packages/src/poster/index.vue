@@ -13,16 +13,6 @@
     itemShowShimmer="${shimmer.enable}"
     hideShadow="${shadow.enable}"
     shimmerSize="${size}">
-    <!--占位 图-->
-    <img
-      class="qt-ui-poster-placeholder-img-css"
-      :duplicateParentState="true"
-      :postDelay="100"
-      :focusable="false"
-      showIf="${placeholderImg.enable}"
-      flexStyle="${style}"
-      :style="{borderRadius: `${borderRadius}px`}"
-      src="${placeholderImg.src}"/>
     <!--封面-->
     <img
       class="qt-ui-poster-img-css"
@@ -215,12 +205,6 @@ export default defineComponent({
   position: absolute;
   background-color: transparent;
   overflow: hidden;
-}
-
-.qt-ui-poster-placeholder-img-css{
-  background-color: transparent;
-  z-index: 1;
-  position: absolute;
 }
 
 .qt-ui-poster-img-css {
