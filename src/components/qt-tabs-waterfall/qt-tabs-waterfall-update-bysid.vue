@@ -24,6 +24,7 @@ import {
   QTWaterfallSectionType, QTWaterfallItem
 } from "@quicktvui/quicktvui3";
 import ItemTvlist from './item/ItemTvlist.vue'
+import {Native} from "@extscreen/es3-vue";
 
 const img = 'http://lexueimg.cedock.com/eduImg/upload/img5/20230809143600002.jpg'
 const img2 = 'http://lexueimg.cedock.com/eduImg/upload/img5/20230809143700011.jpg'
@@ -34,6 +35,7 @@ function generatorAppMeiTuWaterfallItem(sectionId: string, index: number){
     decoration: { left: 10, bottom: 10, },
     appIcon: img, appName: 'item-' + index,
     style: { width: 500, height: 300, },
+    listSID: sectionId + '_' + index + '_list',
     list: [
       { txt: '免费', type: 101, decoration: { top: 10 } },
       { txt: 'vip', type: 101, decoration: { top: 10 } },
@@ -107,6 +109,8 @@ export default defineComponent({
         height: 500
       }
       tabRef.value?.initPage(waterfallData)
+
+
     }
 
     let pageIndexLast = -1
@@ -142,7 +146,14 @@ export default defineComponent({
         if (item) {
           item.appName = 'sid'
           item.appIcon = img2
-          tabRef.value?.updatePageItem(0, 0, 2, item)
+
+
+          //tabRef.value?.updatePageItem(0, 0, 2, item)
+          // Native.callNative('ExtendModule','callUIFunction',
+          //     item._id,'setBackGroundColor',['#ff0000'])
+          // 0_2_list
+          Native.callNative('ExtendModule','callUIFunction',
+              '0_2_list','requestChildFocus',[0])
         }
       }
     }

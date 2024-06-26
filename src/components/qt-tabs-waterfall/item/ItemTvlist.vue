@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     class="itl_box" layout="${layout}" :focusable="false"
     eventClick eventFocus flexStyle="${style}"
   >
@@ -7,8 +7,9 @@
       :focusable="false" :postDelay="300" src="${appIcon}"/>
     <div class="itl_content" flexStyle="${style}" :focusable="false">
       <text-view class="itl_content_title" :focusable="false" text="${appName}"/>
-      <tv-list 
+      <tv-list
         class="itl_box_list" list="${list}" name="itl_box_list_name"
+        sid="${listSID}"
         :clipChildren="false" :focusable="false" :endHintEnabled="false">
         <div type="101" :focusable="true" class="itl_box_list_item" :focusScale="1.1">
           <text-view class="itl_box_list_item_txt" :focusable="false" text="${txt}" duplicateParentState gravity="center"/>
