@@ -123,6 +123,7 @@ export default defineComponent({
         recordList = itemList
       });
       nextTick(() => {
+        navList[navList.length - 1].decoration!.right = 50
         content_list_view.value?.setListData(itemList)
         nav_list_view.value?.setListData(navList)
         setTimeout(() => {
@@ -170,7 +171,7 @@ export default defineComponent({
           descendantFocusability.value = 2
           recordCurrentNavIndex = e.position
           if (recordList[e.item.startIndex].isNeedFocus) {
-            content_list_view.value?.scrollToIndex(e.item.startIndex, true, props.yOffest)
+            content_list_view.value?.scrollToIndex(e.item.startIndex, false, props.yOffest)
             fItemSelectedTimer = setTimeout(() => {
               content_list_view.value?.setItemSelected(e.item.startIndex, true)
               fItemFocusedTimer = setTimeout(() => {
@@ -178,7 +179,7 @@ export default defineComponent({
               }, 200)
             }, 400)
           } else {
-            content_list_view.value?.scrollToIndex(e.item.startIndex + 1, true, props.yOffest)
+            content_list_view.value?.scrollToIndex(e.item.startIndex + 1, false, props.yOffest)
             fItemSelectedTimer = setTimeout(() => {
               content_list_view.value?.setItemSelected(e.item.startIndex + 1, true)
               fItemFocusedTimer = setTimeout(() => {
