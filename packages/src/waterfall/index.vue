@@ -37,8 +37,6 @@
     <flex-section
       :cache-pool="itemsPool"
       :enablePlaceholder="enablePlaceholder"
-      @onPluginLoadSuccess="onPluginLoadSuccess"
-      @onPluginLoadError="onPluginLoadError"
       @focus="onItemFocused">
       <slot name="item"/>
     </flex-section>
@@ -64,9 +62,7 @@
       @focus="onItemFocused"/>
 
     <!-- plugin -->
-    <plugin-section
-        @onPluginLoadSuccess="onPluginLoadSuccess"
-        @onPluginLoadError="onPluginLoadError"/>
+    <plugin-section/>
 
     <!-- vue -->
     <vue-section :block-focus-directions="vueSectionBlockFocusDirections">

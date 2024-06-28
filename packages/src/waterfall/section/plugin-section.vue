@@ -23,8 +23,6 @@
          :clipPadding="false"
          eventClick
          eventFocus
-         @onPluginLoadSuccess="onPluginLoadSuccess"
-         @onPluginLoadError="onPluginLoadError"
          sid="${_id}"
          pluginKey="${pluginKey}"
          flexStyle="${pluginStyle}"/>
@@ -35,13 +33,10 @@
 
 import {defineComponent} from "@vue/runtime-core";
 import {useESLog} from "@extscreen/es3-core";
-import {QTPluginViewEvent} from "../../plugin/QTIPluginView";
 
 export default defineComponent({
   name: 'qt-plugin-section',
   emits: [
-    'onPluginLoadSuccess',
-    'onPluginLoadError',
     'focus'
   ],
   props: {
@@ -57,18 +52,8 @@ export default defineComponent({
       context.emit('focus', e)
     }
 
-    function onPluginLoadSuccess(event: QTPluginViewEvent) {
-      context.emit('onPluginLoadSuccess', event)
-    }
-
-    function onPluginLoadError(event: QTPluginViewEvent) {
-      context.emit('onPluginLoadError', event)
-    }
-
     return {
       onFocus,
-      onPluginLoadSuccess,
-      onPluginLoadError
     };
   },
 });
