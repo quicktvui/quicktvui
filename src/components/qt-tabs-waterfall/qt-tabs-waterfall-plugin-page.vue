@@ -80,10 +80,12 @@ export default defineComponent({
           '  useDiff:' + useDiff
       )
 
-      let section: QTWaterfallSection = buildPluginFlexSection('0', "插件Item板块")
       let sectionList: Array<QTWaterfallSection> = [
-        buildPluginSection("1", '插件板块'),
-        section,
+        buildPluginSection("0", '单行插件板块', 'plg-h-recyclerview/HuanHRecyclerView', 500),
+        buildPluginSection("1", '两行插件板块', 'plg-v-recyclerview/HuanVRecyclerView', 700),
+        buildPluginSection("2", 'Hello插件板块', 'plugin-hello', 100),
+        buildPluginSection("3", 'TextView插件板块', 'plugin-textview/HuanTextView', 100),
+        buildPluginFlexSection('4', "插件Item板块"),
       ]
 
       const tabPage: QTTabPageData = {

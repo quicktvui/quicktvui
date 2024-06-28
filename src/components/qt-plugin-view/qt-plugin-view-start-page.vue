@@ -5,11 +5,11 @@
     <qt-view class="qt-text-start-page">
       <qt-plugin-view
           ref="pluginView"
-          pluginKey="plugin-hello"
+          pluginKey="plg-h-recyclerview/HuanHRecyclerView"
           sid="hello"
           @onPluginLoadSuccess="onPluginLoadSuccess"
           @onPluginLoadError="onPluginLoadError"
-          class="qt-plugin-view-css"/>
+          class="qt-plugin-view-css-aaa"/>
     </qt-view>
   </div>
 </template>
@@ -74,10 +74,10 @@ export default defineComponent({
   justify-content: center;
 }
 
-.qt-plugin-view-css {
-  width: 600px;
-  height: 100px;
+.qt-plugin-view-css-aaa {
+  width: 300px;
+  height: 300px;
   color: aqua;
-  background-color: red;
+  background-color: gold;
 }
 </style>
