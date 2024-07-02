@@ -101,9 +101,11 @@ function layoutItem(section: QTWaterfallSection): number {
       if (!item.layout) {
         item.layout = [0, 0, width, height]
       }
-      item.layout[0] = rightMost + decorationLeft
-      item.layout[1] = downMost + decorationTop
-
+      if(!item._apiLayout){
+        item.layout[0] = rightMost + decorationLeft
+        item.layout[1] = downMost + decorationTop
+      }
+      
       if (decorationTop > lineDecorationTop) {
         lineDecorationTop = decorationTop;
       }
