@@ -4,14 +4,12 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
+        tabPageClass="qt-tabs-content-css"
         @onTabPageChanged="onTabPageChanged"
         @onTabPageLoadData="onTabPageLoadData"
         @onPluginLoadSuccess="onPluginLoadSuccess"
         @onPluginLoadError="onPluginLoadError"
         class="qt-tabs-css">
-      <template v-slot:waterfall-item>
-        <app-list-item :type="1"/>
-      </template>
     </qt-tabs>
   </div>
 </template>
@@ -83,8 +81,8 @@ export default defineComponent({
       let sectionList: Array<QTWaterfallSection> = [
         buildPluginSection("0", '单行插件板块', 'plg-h-recyclerview/HuanHRecyclerView', 500),
         buildPluginSection("1", '两行插件板块', 'plg-v-recyclerview/HuanVRecyclerView', 700),
-        buildPluginSection("2", 'Hello插件板块', 'plugin-hello', 100),
-        buildPluginSection("3", 'TextView插件板块', 'plugin-textview/HuanTextView', 100),
+        buildPluginSection("2", 'Hello插件板块', 'plugin-hello', 500),
+        buildPluginSection("3", 'TextView插件板块', 'plugin-textview/HuanTextView', 500),
         buildPluginFlexSection('4', "插件Item板块"),
       ]
 
@@ -140,5 +138,10 @@ export default defineComponent({
 .qt-tabs-css {
   width: 1920px;
   height: 1080px;
+}
+.qt-tabs-css .qt-tabs-content-css {
+  width: 1920px;
+  height: 800px;
+  background-color: #7415B1;
 }
 </style>
