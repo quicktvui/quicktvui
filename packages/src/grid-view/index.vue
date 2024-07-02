@@ -281,7 +281,7 @@ export default defineComponent({
       tv_list.value.scrollToPosition(index)
     }
     const scrollToIndex = (y: number, anim: Boolean, offset: number) => {
-      tv_list.value.scrollToIndex(0, y, anim, offset)
+      tv_list.value.scrollToPositionOffset(0, y, anim, offset)
     }
     const setItemFocused = (pos: number) => {
       tv_list.value.requestFocus(pos);
