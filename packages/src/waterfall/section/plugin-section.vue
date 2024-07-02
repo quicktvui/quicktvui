@@ -3,6 +3,8 @@
        class="qt-ui-plugin-section-root-css"
        :clipChildren="false"
        :clipPadding="false"
+       :focusable="true"
+       focusScale="1.1"
        focusScrollTarget="${isFocusScrollTarget==true}"
        keyName="_id"
        flexStyle="${style}"
