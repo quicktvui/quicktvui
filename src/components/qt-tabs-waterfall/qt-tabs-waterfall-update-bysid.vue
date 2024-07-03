@@ -7,7 +7,7 @@
         <s-text-button text="更新Item by sid" @onButtonClicked="updateBySid" sid="topBtn"/>
         <s-text-button text="setBackGroundColor" @onButtonClicked="setBackGroundColor" sid="topBtn2"/>
         <s-text-button text="requestChildFocus" @onButtonClicked="requestChildFocus" sid="topBtn3"/>
-        <s-text-button text="requestChildFocusAsync" @onButtonClicked="requestChildFocusAsync" sid="topBtn4"/>
+        <s-text-button text="requestChildFocusAsync" @onButtonClicked="hasFocusAsync" sid="topBtn4"/>
         <s-text-button text="setText" @onButtonClicked="setText" sid="topBtn5"/>
       </qt-column>
       <qt-tabs
@@ -85,31 +85,7 @@ const generatorAppWaterfallSection = (sectionId: string, title: string)=>{
   }
   return section
 }
-const ExtendModule = {
-  call(sid:string, fnName:string, params:Array<any>){
-    Native.callNative('ExtendModule','callUIFunction', sid,fnName, params)
-  },
-  async callAsync(sid:string, fnName:string, params:Array<any>, maxTime = 1000){
-    return new Promise(resolve=>{
-      let timeoutId = setTimeout(() => {
-        resolve(false);
-      }, maxTime);
-      Native.callNative('ExtendModule','callUIFunctionWithPromise', sid,fnName, params,(res)=>{
-        clearTimeout(timeoutId)
-        resolve(res);
-      })
-    })
-  },
-  setBackGroundColorBySid(sid:string, color:string){
-    this.call(sid, 'setBackGroundColor', [color])
-  },
-  updateBySid(sid, data:any){
-    this.call(sid, 'updateBySid', [data])
-  },
-  requestFocusBySid(sid){
-    this.call(sid, 'requestFocusBySid', [])
-  }
-}
+
 export default defineComponent({
   name: '更新item-bysid',
   components: { ItemTvlist: ItemTvlist},
@@ -177,20 +153,19 @@ export default defineComponent({
       onTabPageLoadData,
       setBackGroundColor(){
         const item = tabRef.value?.getPageItem(0, 0, 2)
-        ExtendModule.setBackGroundColorBySid('0_2_list_0', '#ff0000')
-        // Native.callNative('ExtendModule','callUIFunction', '0_2_list_0','setBackGroundColor',['#ff0000'])
+        Native.callNative('ExtendModule','callUIFunction', '0_2_list_0','setBackGroundColor',['#ff0000'])
         // Native.callNative('ExtendModule','callUIFunction', item?._id,'setBackGroundColor',['#ff0000'])
       },
       requestChildFocus(){
         Native.callNative('ExtendModule','callUIFunction', '0_2_list','requestChildFocus',[0])
       },
-      requestChildFocusAsync(){
-        Native.callNativeWithPromise('ExtendModule','callUIFunction', '0_2_list','requestChildFocus',[0]).then(res=>{
-          console.log('res:',res)
-        })
-        // Native.callNative('ExtendModule','callUIFunctionWithPromise', '0_2_list','requestChildFocus',[0],(res)=>{
-        //   console.log('res:',res)
+      hasFocusAsync(){
+        // Native.callNativeWithPromise('ExtendModule','callUIFunctionWithPromise', '0_2_list','hasFocus',[0]).then(res=>{
+        //   console.log('lsj--aa:',res)
         // })
+        Native.callNative('ExtendModule','callUIFunction', '0_2_list','hasFocus',[0],(res)=>{
+          console.log('lsj-dd:',res)
+        })
       },
       setText(){
         Native.callNative('ExtendModule','callUIFunction', '0_2_list_0','setText',[Math.random()+''])
