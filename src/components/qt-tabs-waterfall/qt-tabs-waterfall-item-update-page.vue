@@ -33,12 +33,12 @@ import {
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
-import ComplexItem from "./item/complex-item.vue";
+// import ComplexItem from "./item/complex-item.vue";
 
 export default defineComponent({
   name: '更新Item',
   components: {
-    ComplexItem,
+    // ComplexItem,
     'app-list-item': app_list_item
   },
   setup(props, context) {

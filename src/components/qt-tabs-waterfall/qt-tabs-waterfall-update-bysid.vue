@@ -1,10 +1,14 @@
 <template>
   <div class="es-sdk-root-css">
-    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
+    <s-title-view class="es-sdk-content-title-css" text="更新item-bysid"/>
     <div class="es-sdk-content-divider-css"/>
     <qt-row>
       <qt-column>
         <s-text-button text="更新Item by sid" @onButtonClicked="updateBySid" sid="topBtn"/>
+        <s-text-button text="setBackGroundColor" @onButtonClicked="setBackGroundColor" sid="topBtn2"/>
+        <s-text-button text="requestChildFocus" @onButtonClicked="requestChildFocus" sid="topBtn3"/>
+        <s-text-button text="requestChildFocusAsync" @onButtonClicked="requestChildFocusAsync" sid="topBtn4"/>
+        <s-text-button text="setText" @onButtonClicked="setText" sid="topBtn5"/>
       </qt-column>
       <qt-tabs
           ref="tabRef" @onTabPageLoadData="onTabPageLoadData" class="qt-tabs-css" sid="myTabs"
@@ -81,6 +85,31 @@ const generatorAppWaterfallSection = (sectionId: string, title: string)=>{
   }
   return section
 }
+const ExtendModule = {
+  call(sid:string, fnName:string, params:Array<any>){
+    Native.callNative('ExtendModule','callUIFunction', sid,fnName, params)
+  },
+  async callAsync(sid:string, fnName:string, params:Array<any>, maxTime = 1000){
+    return new Promise(resolve=>{
+      let timeoutId = setTimeout(() => {
+        resolve(false);
+      }, maxTime);
+      Native.callNative('ExtendModule','callUIFunctionWithPromise', sid,fnName, params,(res)=>{
+        clearTimeout(timeoutId)
+        resolve(res);
+      })
+    })
+  },
+  setBackGroundColorBySid(sid:string, color:string){
+    this.call(sid, 'setBackGroundColor', [color])
+  },
+  updateBySid(sid, data:any){
+    this.call(sid, 'updateBySid', [data])
+  },
+  requestFocusBySid(sid){
+    this.call(sid, 'requestFocusBySid', [])
+  }
+}
 export default defineComponent({
   name: '更新item-bysid',
   components: { ItemTvlist: ItemTvlist},
@@ -146,40 +175,44 @@ export default defineComponent({
       tabRef,
       onESCreate,
       onTabPageLoadData,
+      setBackGroundColor(){
+        const item = tabRef.value?.getPageItem(0, 0, 2)
+        ExtendModule.setBackGroundColorBySid('0_2_list_0', '#ff0000')
+        // Native.callNative('ExtendModule','callUIFunction', '0_2_list_0','setBackGroundColor',['#ff0000'])
+        // Native.callNative('ExtendModule','callUIFunction', item?._id,'setBackGroundColor',['#ff0000'])
+      },
+      requestChildFocus(){
+        Native.callNative('ExtendModule','callUIFunction', '0_2_list','requestChildFocus',[0])
+      },
+      requestChildFocusAsync(){
+        Native.callNativeWithPromise('ExtendModule','callUIFunction', '0_2_list','requestChildFocus',[0]).then(res=>{
+          console.log('res:',res)
+        })
+        // Native.callNative('ExtendModule','callUIFunctionWithPromise', '0_2_list','requestChildFocus',[0],(res)=>{
+        //   console.log('res:',res)
+        // })
+      },
+      setText(){
+        Native.callNative('ExtendModule','callUIFunction', '0_2_list_0','setText',[Math.random()+''])
+        // Native.callNative('ExtendModule','callUIFunctionWithPromise', '0_2_list','setText',['updated'])
+      },
       updateBySid(){
         const item = tabRef.value?.getPageItem(0, 0, 2)
         if (item) {
           item.appName = 'sid'
           item.appIcon = img2
           //tabRef.value?.updatePageItem(0, 0, 2, item)
-          // Native.callNative('ExtendModule','callUIFunction',
-          //     item._id,'setBackGroundColor',['#ff0000'])
+          
           // 0_2_list
-          // Native.callNative('ExtendModule','callUIFunction',
-          //     '0_2_list','requestChildFocus',[0])
+          let newItem = { txt: Math.random()+'', type: 101, decoration: { top: 10 }, _id:'0_2_list_0',}
+          Native.callNative('ExtendModule','callUIFunctionWithPromise', 'myTabs','searchReplaceItem',['0_2_list_0',newItem])
 
-          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
-          //     'myTabs','searchReplaceItem',[item._id,item])
-
-          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
-          //     'myTabs','searchReplaceItem',[item._id,item])
-          let newItem = { txt: 'updated', type: 101, decoration: { top: 10 },
-                _id:'0_2_list_0',}
-Native.callNative('ExtendModule','callUIFunctionWithPromise',
-              'myTabs','searchReplaceItem',['0_2_list_0',newItem])
-          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
-          //     '0_2_list','setText',['updated'])
-
-          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
-          //     '0_2_list','requestChildFocus',[0],(promise)=>{
-          //       console.log('res:',res)
-          //     })
+          // Native.callNativeWithPromise()
           //Native.callUIFunctionBYSID('0_2_list','requestChildFocus',[0])
           // Native.callNative('ExtendModule','callUIFunction',
           //     '0_2_list','requestChildFocus',[0])
           //ListView.callUIFunctionBYSID('sid')
           // Native.callUIFunctionBYSID('0_2_textView','setText',['vip'])
-
         }
       }
     }
