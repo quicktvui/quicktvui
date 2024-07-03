@@ -4,9 +4,12 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-row>
       <qt-column>
-        <s-text-button text="更新Item by sid" @onButtonClicked="updateBySid"/>
+        <s-text-button text="更新Item by sid" @onButtonClicked="updateBySid" sid="topBtn"/>
       </qt-column>
-      <qt-tabs ref="tabRef" @onTabPageLoadData="onTabPageLoadData" class="qt-tabs-css">
+      <qt-tabs
+          ref="tabRef" @onTabPageLoadData="onTabPageLoadData" class="qt-tabs-css" sid="myTabs"
+          nextFocusUpSID="topBtn"
+      >
         <template v-slot:waterfall-item>
           <ItemTvlist :type="1"/>
         </template>
@@ -37,7 +40,9 @@ function generatorAppMeiTuWaterfallItem(sectionId: string, index: number){
     style: { width: 500, height: 300, },
     listSID: sectionId + '_' + index + '_list',
     list: [
-      { txt: '免费', type: 101, decoration: { top: 10 } },
+      { txt: '免费', type: 101, decoration: { top: 10 },
+        _id:'0_2_list_0',
+      },
       { txt: 'vip', type: 101, decoration: { top: 10 } },
       { txt: '读博', type: 101, decoration: { top: 10 } },
       { txt: '云影院', type: 101, decoration: { top: 10 } },
@@ -146,14 +151,35 @@ export default defineComponent({
         if (item) {
           item.appName = 'sid'
           item.appIcon = img2
-
-
           //tabRef.value?.updatePageItem(0, 0, 2, item)
           // Native.callNative('ExtendModule','callUIFunction',
           //     item._id,'setBackGroundColor',['#ff0000'])
           // 0_2_list
-          Native.callNative('ExtendModule','callUIFunction',
-              '0_2_list','requestChildFocus',[0])
+          // Native.callNative('ExtendModule','callUIFunction',
+          //     '0_2_list','requestChildFocus',[0])
+
+          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
+          //     'myTabs','searchReplaceItem',[item._id,item])
+
+          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
+          //     'myTabs','searchReplaceItem',[item._id,item])
+          let newItem = { txt: 'updated', type: 101, decoration: { top: 10 },
+                _id:'0_2_list_0',}
+Native.callNative('ExtendModule','callUIFunctionWithPromise',
+              'myTabs','searchReplaceItem',['0_2_list_0',newItem])
+          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
+          //     '0_2_list','setText',['updated'])
+
+          // Native.callNative('ExtendModule','callUIFunctionWithPromise',
+          //     '0_2_list','requestChildFocus',[0],(promise)=>{
+          //       console.log('res:',res)
+          //     })
+          //Native.callUIFunctionBYSID('0_2_list','requestChildFocus',[0])
+          // Native.callNative('ExtendModule','callUIFunction',
+          //     '0_2_list','requestChildFocus',[0])
+          //ListView.callUIFunctionBYSID('sid')
+          // Native.callUIFunctionBYSID('0_2_textView','setText',['vip'])
+
         }
       }
     }
