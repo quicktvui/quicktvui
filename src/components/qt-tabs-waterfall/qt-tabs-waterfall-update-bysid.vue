@@ -196,6 +196,7 @@ export default defineComponent({
         const section = tabRef.value?.getPageSection(0, 0)
         if(section){
           section.title = "new-section" + Math.random()
+          section.itemList[0].appName = "name" + Math.random()
           tabRef.value?.updatePageSection(0,0,section)
         }
       },
@@ -203,6 +204,7 @@ export default defineComponent({
         const section = tabRef.value?.getPageSection(0, 0)
         if(section){
           section.title = "new-section-sid" + Math.random()
+          section.itemList[0].appName = "name" + Math.random()
           Native.callNative('ExtendModule','callUIFunctionWithPromise', 'myTabs','searchReplaceItem',[section?._id,section])
         }
       }
