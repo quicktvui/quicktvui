@@ -272,3 +272,5 @@ export type {QTIAppIcon} from './app/QTIAppIcon'
 
 //--------------------------------QTIPluginView---------------------------------
 export type {QTIPluginView, QTPluginViewEvent} from './plugin/QTIPluginView'
+
+export { VirtualView } from './utils/VirtualView'
