@@ -47,15 +47,15 @@ export const VirtualView = {
   /**
    * 更新虚拟列表子节点数据
    */
-  updateChild(tvsid:string, sid:string, data:any){
-    this.tvCall(tvsid, sid, 'searchReplaceItem', data)
+  updateChild(tvsid:string, sid:string, data:object){
+    this.tvCall(tvsid, sid, 'searchReplaceItem', [data])
   },
   /**
    * 更新指定view数据
    * @deprecated 不推荐使用，频繁使用该方法会降低应用渲染性能 
    */
-  updateBySid(sid:string, data:any){
-    this.tvCall('', sid, 'searchReplaceItem', data)
+  updateBySid(sid:string, data:object){
+    this.tvCall('', sid, 'searchReplaceItem', [data])
   },
   // requestFocusBySid(sid:string){
   //   this.call(sid, 'requestFocusBySid', [])
