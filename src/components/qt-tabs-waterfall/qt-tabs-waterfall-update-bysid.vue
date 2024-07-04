@@ -9,6 +9,8 @@
         <s-text-button text="requestChildFocus" @onButtonClicked="requestChildFocus" sid="topBtn3"/>
         <s-text-button text="requestChildFocusAsync" @onButtonClicked="hasFocusAsync" sid="topBtn4"/>
         <s-text-button text="setText" @onButtonClicked="setText" sid="topBtn5"/>
+        <s-text-button text="更新板块section-0" @onButtonClicked="updateSection" sid="topBtn6"/>
+        <s-text-button text="更新板块section-0-bySid" @onButtonClicked="updateSectionBySid" sid="topBtn7"/>
       </qt-column>
       <qt-tabs
           ref="tabRef" @onTabPageLoadData="onTabPageLoadData" class="qt-tabs-css" sid="myTabs"
@@ -132,12 +134,12 @@ export default defineComponent({
       }
       pageIndexLast = pageIndex
 
-      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
+      let section: QTWaterfallSection = generatorAppWaterfallSection('section_1', "应用")
 
       let sectionList: Array<QTWaterfallSection> = [
-        section,generatorAppWaterfallSection('2', "应用2"),
-        generatorAppWaterfallSection('3', "应用3"),
-        generatorAppWaterfallSection('4', "应用4")
+        section,generatorAppWaterfallSection('section_2', "应用2"),
+        generatorAppWaterfallSection('section_3', "应用3"),
+        generatorAppWaterfallSection('section_4', "应用4")
       ]
 
       const tabPage: QTTabPageData = {
@@ -188,6 +190,20 @@ export default defineComponent({
           //     '0_2_list','requestChildFocus',[0])
           //ListView.callUIFunctionBYSID('sid')
           // Native.callUIFunctionBYSID('0_2_textView','setText',['vip'])
+        }
+      },
+      updateSection(){
+        const section = tabRef.value?.getPageSection(0, 0)
+        if(section){
+          section.title = "new-section" + Math.random()
+          tabRef.value?.updatePageSection(0,0,section)
+        }
+      },
+      updateSectionBySid(){
+        const section = tabRef.value?.getPageSection(0, 0)
+        if(section){
+          section.title = "new-section-sid" + Math.random()
+          Native.callNative('ExtendModule','callUIFunctionWithPromise', 'myTabs','searchReplaceItem',[section?._id,section])
         }
       }
     }
