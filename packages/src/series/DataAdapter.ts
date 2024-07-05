@@ -80,14 +80,14 @@ export function buildCommonParams(type: QTMediaSeriesType,
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_TEXT:
       return {
         contentWidth: 1740,
-        itemGap: 36,
+        itemGap: data?.dataStyle?.itemGap ?? 36,
         initPosition: data.initPosition,
         contentHeight: contentHeight
       };
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER:
       return {
         contentWidth: 1740,
-        itemGap: 15.6,
+        itemGap: data?.dataStyle?.itemGap ?? 15.6,
         initPosition: data.initPosition,
         contentHeight: contentHeight
       };
@@ -174,9 +174,9 @@ export function buildMediaSeriesContentHeight(type: QTMediaSeriesType,
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_LEFT_RIGHT:
       break
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER:
-      return 80
+      return data.dataStyle?.itemHeight ?? 80
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_TEXT:
-      return 100
+      return data.dataStyle?.itemHeight ?? 100
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_TOP_DOWN:
       break
   }

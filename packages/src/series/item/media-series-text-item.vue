@@ -25,13 +25,13 @@
           :markColor="markVipColor"/>
       </div>
 
-      <text-view :duplicateParentState="true" :maxLines=1 :ellipsizeMode="2"
+      <text-view :duplicateParentState="true" :maxLines=1 :ellipsizeMode="3"
                  flexStyle="${normalTitleStyle}"
                  :fontSize="30" class="text-item-text" gravity="centerVertical"
                  :style="{color:textColors.color,focusColor:textColors.focusColor,selectColor:textColors.selectColor}"
                  text="${title}"/>
 
-      <text-view :duplicateParentState="true" :maxLines=1 :ellipsizeMode="2"
+      <text-view :duplicateParentState="true" :maxLines=1 :ellipsizeMode="3"
                  flexStyle="${vipTitleStyle}"
                  :fontSize="30" class="text-item-text-vip" gravity="centerVertical"
                  :style="{color:textVipColors.color,focusColor:textVipColors.focusColor,selectColor:textVipColors.selectColor}"
