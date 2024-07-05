@@ -2,6 +2,27 @@ import { Native } from '@extscreen/es3-vue'
 
 export const VirtualView = {
   /**
+   * 使用UIManagerModule模块，根据sid，调用指定view node的函数 
+   */
+  callUIModule(sid:string, fnName:string, params){
+    Native.callNative('UIManagerModule','callUIFunction', sid,fnName, params)
+  },
+  /**
+   * 使用UIManagerModule模块，callUIModule方法的异步实现
+   * @returns 返回Promise，在.then中接收原生应用返给web端的数据
+   */
+  async callUIModuleAsync(sid:string, fnName:string, params:Array<any>, maxTime = 1000){
+    return new Promise(resolve=>{
+      let timeoutId = setTimeout(() => {
+        resolve(false);
+      }, maxTime);
+      Native.callNative('UIManagerModule','callUIFunctionWithPromise', sid,fnName, params,(res)=>{
+        clearTimeout(timeoutId)
+        resolve(res);
+      })
+    })
+  },
+  /**
    * 根据sid，调用指定view node的函数 
    */
   call(sid:string, fnName:string, params:Array<any>){
