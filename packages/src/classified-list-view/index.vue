@@ -2,12 +2,13 @@
   <div :focusable="false" :clipChildren="false" ref="viewRef">
     <qt-list-view :class="className" ref="content_list_view" :clipChildren="false" :clipPadding="false"
                   @item-click="onSItemClick" horizontal :blockFocusDirections="['left','right']"
-                  :descendantFocusability="descendantFocusability"
+                  :descendantFocusability="descendantFocusability" name="content_list_view"
                   @item-focused="onSItemFocused">
       <div :type="10001" name="clv_item" class="clv_item" :focusable="true" :enableFocusBorder="true"
            :clipChildren="false" eventClick eventFocus :focusScale="focusScale">
         <img class="coverV" src="${coverV}" :focusable="false" :postDelay="300"/>
-        <img src="${mask}" class="titMask" :focusable="false" :postDelay="300" showIf="${isPlaying}"/>
+        <div  class="titMask" :focusable="false" showIf="${isPlaying}" 
+          :gradientBackground = "{colors:['#00000000', '#FF000000'], cornerRadii4: [0, 0, 18, 18]}"/>
         <div :focusable="false" class="clv_item_text_box" showIf="${isPlaying}">
           <div class="playMark" :focusable="false">
             <play-mark :style="{width:'28px',height:'20px'}" :markColor="'#ffffff'" :gap="-1" style="margin-left: 16px;"
@@ -22,7 +23,7 @@
     </qt-list-view>
     <!-- listview  first nav -->
     <qt-list-view :class="classNavName" ref="nav_list_view" :clipChildren="false" :clipPadding="false"
-                  @item-click="onFItemClick"
+                  @item-click="onFItemClick" :nextFocusName="{up:'content_list_view'}"
                   horizontal :blockFocusDirections="['left','right']" @item-focused="onFItemFocused">
       <div :type="navType" name="nav_item" class="nav_item" :focusable="true" :enableFocusBorder="false"
            focusScale="1" eventClick eventFocus :clipChildren="false">
@@ -98,8 +99,6 @@ export default defineComponent({
     let recordList: Array<QTClassifiedListViewItem> = []
     const init = (itemList: Array<QTClassifiedListViewItem>) => {
       itemList.forEach((el, index) => {
-        if (!el.mask) el.mask = 'http://qcloudcdn.a311.ottcn.com/channelzero_image/web_static/extend_screen/mood/mask.png'
-        if (!el.icon) el.icon = 'http://qcloudcdn.a311.ottcn.com/channelzero_image/web_static/extend_screen/mood/playing.png'
         el.isPlaying = false
         if (props.currentFocusIndex == index) el.isPlaying = true
         let flag = false
@@ -123,6 +122,7 @@ export default defineComponent({
         recordList = itemList
       });
       nextTick(() => {
+        navList[navList.length - 1].decoration!.right = 50
         content_list_view.value?.setListData(itemList)
         nav_list_view.value?.setListData(navList)
         setTimeout(() => {
@@ -163,6 +163,7 @@ export default defineComponent({
     let fItemFocusedTimer: any = -1
     let fItemSelectedTimer: any = -1
     const onFItemFocused = (e) => {
+      if(e.position == '0') content_list_view.value?.setItemSelected(1, true)
       clearTimeout(fItemFocusedTimer)
       clearTimeout(fItemSelectedTimer)
       if (e.hasFocus) {
@@ -170,7 +171,7 @@ export default defineComponent({
           descendantFocusability.value = 2
           recordCurrentNavIndex = e.position
           if (recordList[e.item.startIndex].isNeedFocus) {
-            content_list_view.value?.scrollToIndex(e.item.startIndex, true, props.yOffest)
+            content_list_view.value?.scrollToIndex(e.item.startIndex, false, props.yOffest)
             fItemSelectedTimer = setTimeout(() => {
               content_list_view.value?.setItemSelected(e.item.startIndex, true)
               fItemFocusedTimer = setTimeout(() => {
@@ -178,7 +179,7 @@ export default defineComponent({
               }, 200)
             }, 400)
           } else {
-            content_list_view.value?.scrollToIndex(e.item.startIndex + 1, true, props.yOffest)
+            content_list_view.value?.scrollToIndex(e.item.startIndex + 1, false, props.yOffest)
             fItemSelectedTimer = setTimeout(() => {
               content_list_view.value?.setItemSelected(e.item.startIndex + 1, true)
               fItemFocusedTimer = setTimeout(() => {
@@ -213,8 +214,7 @@ export default defineComponent({
     const updateItem = (position: number, data: QTClassifiedListViewItem) => {
       recordList[position] = data
       recordList.forEach((el, index) => {
-        if (!el.mask) el.mask = 'http://qcloudcdn.a311.ottcn.com/channelzero_image/web_static/extend_screen/mood/mask.png'
-        if (!el.icon) el.icon = 'http://qcloudcdn.a311.ottcn.com/channelzero_image/web_static/extend_screen/mood/playing.png'
+       
         for (let i = 0; i < navList.length; i++) {
           const item = navList[i];
           if (el.categoryname == item.categoryname) {
@@ -283,6 +283,7 @@ export default defineComponent({
   height: 60px;
   top: 118px;
   left: 0;
+  background-color: transparent;
 }
 
 .clv_item_text_box {

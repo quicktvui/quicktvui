@@ -2,7 +2,7 @@
 import {QTWaterfallItemType, QTWaterfallItem, QTWaterfallSection, QTWaterfallSectionType} from "@quicktvui/quicktvui3";
 import {QTWaterfallPluginItem} from "@quicktvui/quicktvui3";
 
-export function buildPluginSection(sectionId: string, title: string): QTWaterfallSection {
+export function buildPluginSection(sectionId: string, title: string, pluginKey: string, height: number): QTWaterfallSection {
   let section: QTWaterfallSection = {
     _id: sectionId,
     type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_PLUGIN,
@@ -15,10 +15,10 @@ export function buildPluginSection(sectionId: string, title: string): QTWaterfal
       marginBottom: 40,
       fontSize: 50
     },
-    pluginKey: 'plugin-hello',
+    pluginKey: pluginKey,
     style: {
       width: 1920,
-      height: 200,
+      height: height,
     },
     itemList: []
   }
@@ -59,10 +59,15 @@ export function buildPluginItemList(sectionId: string, count: number): Array<QTW
 }
 
 export function buildPluginItem(sectionId: string, index: number): QTWaterfallItem {
+  let pluginKey = 'plugin-lottie/LottieView'
+  if (index % 2 == 0) {
+    pluginKey = 'plugin-textview/HuanTextView'
+  }
+
   const item: QTWaterfallPluginItem = {
     _id: sectionId + '_' + index,
     type: QTWaterfallItemType.QT_WATERFALL_ITEM_TYPE_PLUGIN,
-    pluginKey: 'plugin-hello',
+    pluginKey: pluginKey,
     decoration: {
       left: 90,
       bottom: 40,

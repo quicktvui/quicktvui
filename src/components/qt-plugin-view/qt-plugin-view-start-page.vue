@@ -5,22 +5,28 @@
     <qt-view class="qt-text-start-page">
       <qt-plugin-view
           ref="pluginView"
-          pluginKey="plugin-hello"
-          class="qt-plugin-view-css"/>
+          pluginKey="plg-h-recyclerview/HuanHRecyclerView"
+          sid="hello"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError"
+          class="qt-plugin-view-css-aaa"/>
     </qt-view>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, ref} from "@vue/runtime-core";
-import {QTIPluginView} from "@quicktvui/quicktvui3";
-import {useESToast} from "@extscreen/es3-core";
+import {QTIPluginView, QTPluginViewEvent} from "@quicktvui/quicktvui3";
+import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
+
+const TAG = 'QTPluginView'
 
 export default defineComponent({
   name: '使用初探',
   setup(props, context) {
     const pluginView = ref<QTIPluginView>();
     const toast = useESToast()
+    const log = useESLog()
 
     function onESCreate(params) {
       toast.showToast("开始调用方法")
@@ -34,9 +40,25 @@ export default defineComponent({
           })
     }
 
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadSuccess-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载成功" + event.sid)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadError-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载失败：" + event.errorCode + "--" + event.errorMessage)
+    }
+
     return {
       onESCreate,
-      pluginView
+      pluginView,
+      onPluginLoadSuccess,
+      onPluginLoadError
     }
   },
 });
@@ -52,10 +74,10 @@ export default defineComponent({
   justify-content: center;
 }
 
-.qt-plugin-view-css {
-  width: 600px;
-  height: 100px;
+.qt-plugin-view-css-aaa {
+  width: 300px;
+  height: 300px;
   color: aqua;
-  background-color: red;
+  background-color: gold;
 }
 </style>

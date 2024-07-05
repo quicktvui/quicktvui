@@ -36,7 +36,7 @@ export default defineComponent({
     const cmdListViewRef = ref<QTIListView>()
     const onESCreate = (params: any) => {
       let arr: Array<QTClassifiedListViewItem> = []
-      for (let i = 0; i < 21; i++) {
+      for (let i = 0; i < 81; i++) {
         let assetTitle: string = ''
         let categoryname: string = ''
         if (i < 2) {
@@ -54,8 +54,30 @@ export default defineComponent({
         } else if (i < 21) {
           categoryname = '庆祝';
           assetTitle = 'title:庆祝'
+        } else if (i < 31) {
+          categoryname = '庆祝2';
+          assetTitle = 'title:庆祝'
+        } else if (i < 41) {
+          categoryname = '庆祝3';
+          assetTitle = 'title:庆祝'
+        } else if (i < 51) {
+          categoryname = '庆祝4';
+          assetTitle = 'title:庆祝'
+        } else if (i < 61) {
+          categoryname = '庆祝5';
+          assetTitle = 'title:庆祝'
+        } else if (i < 71) {
+          categoryname = '庆祝6';
+          assetTitle = 'title:庆祝'
+        } else if (i < 81) {
+          categoryname = '庆祝7';
+          assetTitle = 'title:庆祝'
+        } else if (i < 91) {
+          categoryname = '庆祝8';
+          assetTitle = 'title:庆祝'
         }
-        if (i == 0 || i == 2 || i == 6 || i == 10 || i == 14) {
+        
+        if (i == 0 || i == 2 || i == 6 || i == 10 || i == 14 || i == 21 || i == 31 || i == 41 || i == 51 || i == 61 || i == 71 || i == 81) {
           let preSortObj: QTClassifiedListViewItem = {
             categoryname: categoryname,
             bg: require('../../assets/celebrate.png').default,

@@ -6,6 +6,8 @@
         ref="tabRef"
         @onTabPageChanged="onTabPageChanged"
         @onTabPageLoadData="onTabPageLoadData"
+        @onPluginLoadSuccess="onPluginLoadSuccess"
+        @onPluginLoadError="onPluginLoadError"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
@@ -19,11 +21,13 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTPluginViewEvent
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 import {buildPluginSection, buildPluginFlexSection} from "../__mocks__/plugin";
+import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
+
+const TAG = 'QTPluginView'
 
 export default defineComponent({
   name: '插件',
@@ -32,6 +36,8 @@ export default defineComponent({
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+    const toast = useESToast()
+    const log = useESLog()
 
     function onESCreate() {
 
@@ -74,10 +80,12 @@ export default defineComponent({
           '  useDiff:' + useDiff
       )
 
-      let section: QTWaterfallSection = buildPluginFlexSection('0', "插件Item板块")
       let sectionList: Array<QTWaterfallSection> = [
-        buildPluginSection("1",'插件板块'),
-        section,
+        buildPluginSection("0", '单行插件板块', 'plg-h-recyclerview/HuanHRecyclerView', 500),
+        buildPluginSection("1", '两行插件板块', 'plg-v-recyclerview/HuanVRecyclerView', 700),
+        buildPluginSection("2", 'Hello插件板块', 'plugin-hello', 100),
+        buildPluginSection("3", 'TextView插件板块', 'plugin-textview/HuanTextView', 100),
+        buildPluginFlexSection('4', "插件Item板块"),
       ]
 
       const tabPage: QTTabPageData = {
@@ -100,11 +108,28 @@ export default defineComponent({
       })
     }
 
+    //---------------------------------------------------------------
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadSuccess-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载成功" + event.sid)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadError-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载失败：" + event.errorCode + "--" + event.errorMessage)
+    }
+
     return {
       tabRef,
       onESCreate,
       onTabPageLoadData,
       onTabPageChanged,
+      onPluginLoadSuccess,
+      onPluginLoadError,
     }
   },
 });

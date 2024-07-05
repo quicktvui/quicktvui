@@ -1,19 +1,20 @@
 <template>
-  <qt-plugin-view ref="viewRef"
-       :type="10004"
-       :clipChildren="false"
-       :clipPadding="false"
-       layout="${layout}"
-       flexStyle="${style}"
-       :focusable="true"
-       pluginKey="${pluginKey}"
-       eventClick
-       eventFocus
-       name="qt-plugin-item"
-       @focus="onFocus"
-       focusScale="1.1"
-       :enableFocusBorder="true"
-       class="qt-ui-plugin-item-root-css">
+  <qt-plugin-view
+      ref="viewRef"
+      :type="10004"
+      :clipChildren="false"
+      :clipPadding="false"
+      layout="${layout}"
+      flexStyle="${style}"
+      :focusable="true"
+      pluginKey="${pluginKey}"
+      eventClick
+      eventFocus
+      name="qt-plugin-item"
+      @focus="onFocus"
+      focusScale="1.1"
+      :enableFocusBorder="true"
+      class="qt-ui-plugin-item-root-css">
   </qt-plugin-view>
 </template>
 
@@ -25,6 +26,9 @@ import useBaseView from "../../base/useBaseView";
 
 export default defineComponent({
   name: "qt-plugin-item",
+  emits: [
+    'focus'
+  ],
   setup(props, context) {
     const viewRef = ref()
 
@@ -35,7 +39,7 @@ export default defineComponent({
     return {
       viewRef,
       ...useBaseView(viewRef),
-      onFocus
+      onFocus,
     }
   },
 });

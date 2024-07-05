@@ -62,8 +62,13 @@ import card_item from '../item/card-item.vue'
 import plugin_item from '../item/plugin-item.vue'
 import {ESLogLevel, useESLog} from "@extscreen/es3-core";
 
+const TAG = 'QTFlexSection'
+
 export default defineComponent({
   name: 'standard-section',
+  emits: [
+    'focus'
+  ],
   components: {
     'card-item': card_item,
     'qt-plugin-item': plugin_item
@@ -107,13 +112,13 @@ export default defineComponent({
 
     function onFocus(e) {
       if (log.isLoggable(ESLogLevel.DEBUG)) {
-        log.d('card-item', '------onFocus--------->>>>', e)
+        log.d(TAG, '------onFocus--------->>>>', e)
       }
       context.emit('focus', e)
     }
 
     return {
-      onFocus
+      onFocus,
     };
   },
 });

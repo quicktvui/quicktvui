@@ -4,6 +4,8 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-waterfall
         ref="waterfall"
+        @onPluginLoadSuccess="onPluginLoadSuccess"
+        @onPluginLoadError="onPluginLoadError"
         class="qt-waterfall-css"/>
   </div>
 </template>
@@ -16,13 +18,19 @@ import {
   QTIWaterfall,
   QTWaterfall,
   QTWaterfallSectionType,
-  QTWaterfallPluginSection
+  QTWaterfallPluginSection,
+  QTPluginViewEvent
 } from "@quicktvui/quicktvui3";
+import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
+
+const TAG = 'QTPluginView'
 
 export default defineComponent({
   name: 'PluginSection',
   setup(props, context) {
     const waterfall = ref<QTIWaterfall>()
+    const toast = useESToast()
+    const log = useESLog()
 
     function onESCreate() {
       //1.init
@@ -34,7 +42,7 @@ export default defineComponent({
 
       //
       let sectionList: Array<QTWaterfallPluginSection> = []
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 20; i++) {
         let section: QTWaterfallPluginSection = {
           _id: '' + i,
           type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_PLUGIN,
@@ -48,7 +56,7 @@ export default defineComponent({
             fontSize: 50
           },
           itemList: [],
-          pluginKey: 'plugin-hello',
+          pluginKey: 'plugin-hello/view' + (i % 2),
           style: {
             width: 1920,
             height: 540,
@@ -64,9 +72,26 @@ export default defineComponent({
       waterfall.value?.setSectionList(sectionList)
     }
 
+    //---------------------------------------------------------------
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadSuccess-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载成功" + event.sid)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--------onPluginLoadError-------------->>>' + JSON.stringify(event))
+      }
+      toast.showToast("插件加载失败：" + event.errorCode + "--" + event.errorMessage)
+    }
+
     return {
       waterfall,
       onESCreate,
+      onPluginLoadSuccess,
+      onPluginLoadError
     }
   },
 });

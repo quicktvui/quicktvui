@@ -23,6 +23,7 @@
          :clipPadding="false"
          eventClick
          eventFocus
+         sid="${_id}"
          pluginKey="${pluginKey}"
          flexStyle="${pluginStyle}"/>
   </div>
@@ -35,6 +36,9 @@ import {useESLog} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: 'qt-plugin-section',
+  emits: [
+    'focus'
+  ],
   props: {
     pluginKey: {
       type: String,
@@ -49,7 +53,7 @@ export default defineComponent({
     }
 
     return {
-      onFocus
+      onFocus,
     };
   },
 });

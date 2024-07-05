@@ -9,10 +9,14 @@
         <qt-media-series
           ref="quick_select_series1"
           @load-data="onLoadData1"
-          :gradient-background="{colors:['#0057FF','#00C7FF'], cornerRadii4: [8, 8, 8, 8], orientation: 6}"
-          :mark-color="`#FFFFFF`"
-          :text-colors="{color:'rgba(255, 255, 0, .5)',focusColor:'#ffffff',selectColor:'#157AFC'}"
-          :item-div-width="300"
+          :gradient-background="{ colors: ['#5AC6F5', '#5AC6F5'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :gradient-focus-background="{ colors: ['#FFE60D', '#FFE60D'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :icon-gradient-background="{ colors: ['#FEE100', '#FE8900'], cornerRadii4: [0, 10, 0, 10], orientation: 0 }"
+          :mark-color="`#0186D0`"
+          :mark-vip-color="`#0186D0`"
+          :text-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
+          :text-vip-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
+          :item-div-width="423"
         />
       </div>
 
@@ -21,6 +25,13 @@
         <qt-media-series
           ref="quick_select_series2"
           @load-data="onLoadData2"
+          :gradient-background="{ colors: ['#5AC6F5', '#5AC6F5'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :gradient-focus-background="{ colors: ['#FFE60D', '#FFE60D'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :icon-gradient-background="{ colors: ['#FEE100', '#FE8900'], cornerRadii4: [0, 10, 0, 10], orientation: 0 }"
+          :mark-color="`#0186D0`"
+          :mark-vip-color="`#0186D0`"
+          :text-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
+          :text-vip-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
         />
       </div>
 
