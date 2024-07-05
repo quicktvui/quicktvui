@@ -995,6 +995,9 @@ export default defineComponent({
       getCurrentTabIndex,
       onPluginLoadSuccess,
       onPluginLoadError,
+      gettabDataManager(){
+        return tabDataManager;
+      },
       ...useBaseView(tabs)
     }
   },
