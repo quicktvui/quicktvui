@@ -6,6 +6,7 @@ import {QTWaterfallSection} from "../waterfall/core/QTWaterfallSection";
 import {QTWaterfallItem} from "../waterfall/core/QTWaterfallItem";
 import {QTTabPage} from "./QTTabPage";
 import {QTIView} from "../view/QTIView";
+import { QTTabDataManager } from "./QTTabDataManager";
 
 export interface QTITab extends QTIView {
 //------------------------TAB-----------------------------
@@ -95,4 +96,6 @@ export interface QTITab extends QTIView {
   destroy(): void
 
   cancelAll():void
+
+  getDataManager(): QTTabDataManager
 }
