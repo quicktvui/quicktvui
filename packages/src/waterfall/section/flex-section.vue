@@ -17,6 +17,7 @@
       class="standard-section-title-text-css"
       :postDelay="300"
       autoWidth autoHeight typeface="${titleTypeface}"
+      :lines="1"
       flexStyle="${titleStyle}"
       :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"
     />
