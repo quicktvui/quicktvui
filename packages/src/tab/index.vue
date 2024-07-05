@@ -1000,6 +1000,9 @@ export default defineComponent({
       },
       onPluginLoadSuccess,
       onPluginLoadError,
+      getDataManager(){
+        return tabDataManager;
+      },
       ...useBaseView(tabs)
     }
   },
