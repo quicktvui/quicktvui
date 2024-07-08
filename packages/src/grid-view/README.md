@@ -42,8 +42,8 @@ listData.value = [{ text: '', type: 1 }]//直接赋值新数组即可
     :focusable="false"
   >
     <!-- 自定义item -->
-    <qt-view type="1" class="qt_list_item" :focusable="true" eventClick>
-      <qt-text text="${text}" class="qt_list_item_text"></qt-text>
+    <qt-view type="1" :focusable="true" eventClick style="width: 100px;height: 60px;margin-right: 20px;background-color: transparent;focus-background-color: #ffffff;">
+      <qt-text text="${text}" gravity="center" style="width: 100px;height: 60px;"></qt-text>
     </qt-view>
     <!-- 加载更多loading-模板【type必须是1002】grid-view中需要使用v-slot:loading插槽，list-view中不需要使用插槽 -->
     <template v-slot:loading>
