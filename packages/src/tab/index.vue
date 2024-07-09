@@ -65,6 +65,7 @@
           sid="${sid}"
           :custom-item-pool="customItemPool"
           :blockFocusDirections="horizontal ? blockViewPager : blockViewPagerVertical"
+          :qt-tab-section-enable="qtTabSectionEnable"
           @onSectionBind="onWaterfallSectionBind"
           @onSectionAttached="onWaterfallSectionAttached"
           @onSectionDetached="onWaterfallSectionDetached"
@@ -287,6 +288,29 @@ export default defineComponent({
     fadingEdgeLength:{
       type:Number,
       default:0
+    },
+    qtTabSectionEnable:{
+      type:Object,
+      default:()=>{
+        return {
+          flexSectionEnable: true,
+          flexSection:{
+            qtPosterEnable:true,
+            qtPluginItemEnable:true,
+            cardItemEnable:true,
+          },
+          listSectionEnable:true,
+          listSection:{
+            qtPosterEnable:true
+          },
+          loadingSectionEnable:true,
+          endSectionEnable:true,
+          blankSectionEnable:true,
+          cardSectionEnable:true,
+          pluginSectionEnable:true,
+          vueSectionEnable:true
+        }
+      }
     }
   },
   setup(props, context) {

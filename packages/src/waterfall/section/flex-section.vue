@@ -38,13 +38,13 @@
       list="${itemList}">
 
       <!-- poster -->
-      <qt-poster :load-delay="500" :type="standItemType"/>
+      <qt-poster :load-delay="500" :type="standItemType" v-if="flexSection.qtPosterEnable"/>
 
       <!-- plugin -->
-      <qt-plugin-item/>
+      <qt-plugin-item v-if="flexSection.qtPluginItemEnable"/>
 
       <!-- card -->
-      <card-item
+      <card-item v-if="flexSection.cardItemEnable"
         @focus="onFocus"/>
 
       <slot/>
@@ -105,6 +105,16 @@ export default defineComponent({
     itemFocusScale:{
       type:Number,
       default:1.1
+    },
+    flexSection:{
+      type:Object,
+      default:()=>{
+        return {
+          qtPosterEnable:true,
+          qtPluginItemEnable:true,
+          cardItemEnable:true,
+        }
+      }
     }
   },
   setup(props, context) {
