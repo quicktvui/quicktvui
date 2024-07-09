@@ -2,6 +2,27 @@ import { Native } from '@extscreen/es3-vue'
 
 export const VirtualView = {
   /**
+   * 使用UIManagerModule模块，根据sid，调用指定view node的函数 
+   */
+  callUIModule(sid:string, fnName:string, params){
+    Native.callNative('UIManagerModule','callUIFunction', sid,fnName, params)
+  },
+  /**
+   * 使用UIManagerModule模块，callUIModule方法的异步实现
+   * @returns 返回Promise，在.then中接收原生应用返给web端的数据
+   */
+  async callUIModuleAsync(sid:string, fnName:string, params:Array<any>, maxTime = 1000){
+    return new Promise(resolve=>{
+      let timeoutId = setTimeout(() => {
+        resolve(false);
+      }, maxTime);
+      Native.callNative('UIManagerModule','callUIFunctionWithPromise', sid,fnName, params,(res)=>{
+        clearTimeout(timeoutId)
+        resolve(res);
+      })
+    })
+  },
+  /**
    * 根据sid，调用指定view node的函数 
    */
   call(sid:string, fnName:string, params:Array<any>){
@@ -47,15 +68,15 @@ export const VirtualView = {
   /**
    * 更新虚拟列表子节点数据
    */
-  updateChild(tvsid:string, sid:string, data:any){
-    this.tvCall(tvsid, sid, 'searchReplaceItem', data)
+  updateChild(tvsid:string, sid:string, data:object){
+    this.tvCall(tvsid, sid, 'searchReplaceItem', [data])
   },
   /**
    * 更新指定view数据
    * @deprecated 不推荐使用，频繁使用该方法会降低应用渲染性能 
    */
-  updateBySid(sid:string, data:any){
-    this.tvCall('', sid, 'searchReplaceItem', data)
+  updateBySid(sid:string, data:object){
+    this.tvCall('', sid, 'searchReplaceItem', [data])
   },
   // requestFocusBySid(sid:string){
   //   this.call(sid, 'requestFocusBySid', [])
