@@ -422,7 +422,7 @@ export default defineComponent({
         log.d(TAG, '----------loadPageData----setPageData-->>>>pageIndex:' + pageIndex)
       }
       //
-      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data)
+      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data, 0)
       const itemList = generateSectionList(waterfall, tabPageData.data)
       const data: ESPageData = {
         data: itemList,
@@ -443,7 +443,7 @@ export default defineComponent({
     }
 
     function addPageData(pageIndex: number, tabPageData: QTTabPageData, deleteCount: number = 0): void {
-      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data)
+      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data, deleteCount)
       const itemList = generateSectionList(waterfall, tabPageData.data)
       const data: ESPageData = {
         data: itemList,
