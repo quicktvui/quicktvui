@@ -34,38 +34,41 @@
     @scrollStateChanged="onScrollStateChanged">
 
     <!-- 普通版块-->
-    <flex-section
+    <flex-section v-if="qtTabSectionEnable.flexSectionEnable"
       :cache-pool="itemsPool"
       :enablePlaceholder="enablePlaceholder"
+      :flex-section="qtTabSectionEnable.flexSection"
       @focus="onItemFocused">
       <slot name="item"/>
     </flex-section>
 
     <!--一行滚动 多级tab-->
-    <list-section
+    <list-section v-if="qtTabSectionEnable.listSectionEnable"
       :cache-pool="itemsPool"
+      :list-section="qtTabSectionEnable.listSection"
       :enablePlaceholder="enablePlaceholder">
       <slot name="list-item"/>
     </list-section>
 
     <!-- loading-->
-    <loading-section/>
+    <loading-section v-if="qtTabSectionEnable.loadingSectionEnable"/>
 
     <!-- end -->
-    <end-section/>
+    <end-section v-if="qtTabSectionEnable.endSectionEnable"/>
 
     <!-- blank -->
-    <blank-section/>
+    <blank-section v-if="qtTabSectionEnable.blankSectionEnable"/>
 
     <!-- card -->
-    <card-section
+    <card-section v-if="qtTabSectionEnable.cardSectionEnable"
       @focus="onItemFocused"/>
 
     <!-- plugin -->
-    <plugin-section/>
+    <plugin-section v-if="qtTabSectionEnable.pluginSectionEnable"/>
 
     <!-- vue -->
-    <vue-section :block-focus-directions="vueSectionBlockFocusDirections">
+    <vue-section v-if="qtTabSectionEnable.vueSectionEnable"
+      :block-focus-directions="vueSectionBlockFocusDirections">
       <slot name="vue-section"/>
     </vue-section>
 
@@ -151,8 +154,29 @@ export default defineComponent({
     listData: {
       type: Array, required: false
     },
-    pStype: {
-      type: Object, default:() => ({})
+    pStype: { type: Object, default:() => ({}) },
+    qtTabSectionEnable:{
+      type:Object,
+      default:()=>{
+        return {
+          flexSectionEnable: true,
+          flexSection:{
+            qtPosterEnable:true,
+            qtPluginItemEnable:true,
+            cardItemEnable:true,
+          },
+          listSectionEnable:true,
+          listSection:{
+            qtPosterEnable:true
+          },
+          loadingSectionEnable:true,
+          endSectionEnable:true,
+          blankSectionEnable:true,
+          cardSectionEnable:true,
+          pluginSectionEnable:true,
+          vueSectionEnable:true
+        }
+      }
     }
   },
   setup(props, context) {
@@ -164,7 +188,7 @@ export default defineComponent({
       }
     }
     const cachePool = {...defaultPool,...props.customPool};
-    log.e("WaterfallVue","waterfall cachePool :"+JSON.stringify(cachePool))
+    // log.e("WaterfallVue","waterfall cachePool :"+JSON.stringify(cachePool))
     const defaultItemsPool = {
       name: "waterfallItems"+ Date.now(),
       size: {
@@ -172,7 +196,7 @@ export default defineComponent({
       }
     }
     const itemsPool = {...defaultItemsPool,...props.customItemPool}
-    log.e("WaterfallVue","itemsPool  :"+JSON.stringify(itemsPool))
+    // log.e("WaterfallVue","itemsPool  :"+JSON.stringify(itemsPool))
     //------------------------------------------------------
     const visibleType = ref<QTWaterfallVisibleType>(QTWaterfallVisibleType.QT_WATERFALL_VISIBLE_TYPE_CENTER)
     const waterfallRef = ref<ESIListView>()

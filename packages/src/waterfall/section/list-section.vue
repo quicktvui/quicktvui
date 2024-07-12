@@ -47,9 +47,9 @@
         :enablePlaceholder="enablePlaceholder"
         :blockFocusDirections="blockDirections">
 
-        <qt-poster :type="standItemType"/>
+        <qt-poster :type="standItemType" v-if="listSection.qtPosterEnable"/>
 
-        <div :type="tabItemType"
+        <div :type="tabItemType" v-if="listSection.qtPosterEnable"
              class="qt-ui-section-tab-list-item"
              :clipChildren="false"
              flexStyle="${style}"
@@ -122,6 +122,14 @@ export default defineComponent({
       type: Object,
       default: {}
     },
+    listSection:{
+      type:Object,
+      default:()=>{
+        return {
+          qtPosterEnable:true
+        }
+      }
+    }
   },
   setup(props, context) {
 
