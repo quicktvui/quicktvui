@@ -2,7 +2,7 @@
   <tv-list
     ref="waterfallRef"
     class="qt-waterfall-root-css"
-    keyName="_id"
+    keyName="_id" :list="'${'+ tvItemListName +'}'"
     :clipChildren="false"
     :clipPadding="false"
     :listenBoundEvent="true"
@@ -177,6 +177,9 @@ export default defineComponent({
           vueSectionEnable:true
         }
       }
+    },
+    tvItemListName: {
+      type: String, required: false
     }
   },
   setup(props, context) {
