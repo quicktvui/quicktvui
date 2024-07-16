@@ -29,6 +29,7 @@ module.exports = {
     path: path.resolve(`./dist/${platform}/`),
     strictModuleExceptionHandling: true,
     globalObject: '(0, eval)("this")',
+    assetModuleFilename: '[hash][ext][query]'
     // CDN path can be configured to load children bundles from remote server
     // publicPath: 'https://xxx/hippy/hippyVueNextDemo/',
   },
@@ -117,18 +118,23 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            // if you would like to use base64 for picture, uncomment limit: true
-            // limit: true,
-            // limit: 8192,
-            fallback: 'file-loader',
-            name: '[name].[ext]',
-            outputPath: 'assets/',
-            publicPath: 'assets',
-          },
-        }],
+        type: 'asset/resource',
+        generator: {
+          outputPath: 'assets/',
+          publicPath: 'assets/',
+        }
+        // use: [{
+        //   loader: 'file-loader',
+        //   options: {
+        //     // if you would like to use base64 for picture, uncomment limit: true
+        //     // limit: true,
+        //     // limit: 8192,
+        //     fallback: 'file-loader',
+        //     name: '[name].[ext]',
+        //     outputPath: 'assets/',
+        //     publicPath: 'assets',
+        //   },
+        // }],
       },
       {
         test: /\.(ts)$/,
