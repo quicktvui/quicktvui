@@ -384,7 +384,7 @@ export default defineComponent({
           'isFocused:' + e.isFocused + "  "
         )
       }
-      context.emit('onItemFocused', e.parentPosition, e.position, e.isFocused, e.item);
+      context.emit('onItemFocused', e.parentPosition, e.position, e.isFocused, e.item, e);
     }
 
     function onSectionBind(e) {

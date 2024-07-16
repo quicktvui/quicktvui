@@ -35,11 +35,11 @@
 import {defineComponent, ref} from "@vue/runtime-core";
 import {useESRouter} from "@extscreen/es3-router";
 import {QTAnimationPropertyName, QTAnimationValueType, QTIAnimation} from "@quicktvui/quicktvui3";
+import imgSrc from '../../../src/assets/ic_car.jpg'
 
 export default defineComponent({
   name: 'RotationXYAnimation',
   setup() {
-    let imgSrc = require('../../../src/assets/ic_car.jpg').default
 
     const animation_view = ref<QTIAnimation>()
     const router = useESRouter()

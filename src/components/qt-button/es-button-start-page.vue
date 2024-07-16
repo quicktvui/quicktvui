@@ -153,15 +153,15 @@
 import {defineComponent} from "@vue/runtime-core";
 import {useESRouter} from "@extscreen/es3-router";
 
+import imageA from '../../../src/assets/add-circle.png'
+import imageB from '../../../src/assets/ashbin.png'
+import imageC from '../../../src/assets/ic_radio_selected.png'
+import imageD from '../../../src/assets/ic_radio_selected_focus.png'
+
 export default defineComponent({
   name: '使用初探',
   setup(props, context) {
     const router = useESRouter()
-    let imageA = require('../../../src/assets/add-circle.png').default
-    let imageB = require('../../../src/assets/ashbin.png').default
-    let imageC = require('../../../src/assets/ic_radio_selected.png').default
-    let imageD = require('../../../src/assets/ic_radio_selected_focus.png').default
-
     console.log('-------使用初探------->>>>')
     return {
       imageA,
