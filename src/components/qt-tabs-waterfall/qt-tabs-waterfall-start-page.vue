@@ -4,9 +4,10 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
+        tabPageClass="qt-tabs-content-css"
         @onTabPageChanged="onTabPageChanged"
         @onTabPageLoadData="onTabPageLoadData"
-        class="qt-tabs-css">
+        class="qt-tabs-waterfall-root-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -24,6 +25,9 @@ import {
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 
+/**
+ *
+ */
 export default defineComponent({
   name: '使用初探',
   components: {
@@ -62,7 +66,7 @@ export default defineComponent({
 
       let waterfallData: QTWaterfall = {
         width: 1920,
-        height: 1080
+        height: 100
       }
       tabRef.value?.initPage(waterfallData)
     }
@@ -118,8 +122,16 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-tabs-css {
+.qt-tabs-waterfall-root-css {
   width: 1920px;
-  height: 1080px;
+  height: 900px;
+  background-color: red;
 }
+
+.qt-tabs-waterfall-root-css .qt-tabs-content-css {
+  width: 1920px;
+  height: 800px;
+  background-color: #7415B1;
+}
+
 </style>

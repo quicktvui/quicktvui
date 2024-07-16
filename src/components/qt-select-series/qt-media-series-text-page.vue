@@ -9,6 +9,14 @@
         <qt-media-series
           ref="quick_select_series1"
           @load-data="onLoadData1"
+          :gradient-background="{ colors: ['#5AC6F5', '#5AC6F5'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :gradient-focus-background="{ colors: ['#FFE60D', '#FFE60D'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :icon-gradient-background="{ colors: ['#FEE100', '#FE8900'], cornerRadii4: [0, 10, 0, 10], orientation: 0 }"
+          :mark-color="`#0186D0`"
+          :mark-vip-color="`#0186D0`"
+          :text-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
+          :text-vip-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
+          :item-div-width="423"
         />
       </div>
 
@@ -17,6 +25,13 @@
         <qt-media-series
           ref="quick_select_series2"
           @load-data="onLoadData2"
+          :gradient-background="{ colors: ['#5AC6F5', '#5AC6F5'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :gradient-focus-background="{ colors: ['#FFE60D', '#FFE60D'], cornerRadii4: [8, 8, 8, 8], orientation: 6 }"
+          :icon-gradient-background="{ colors: ['#FEE100', '#FE8900'], cornerRadii4: [0, 10, 0, 10], orientation: 0 }"
+          :mark-color="`#0186D0`"
+          :mark-vip-color="`#0186D0`"
+          :text-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
+          :text-vip-colors="{ color: '#FFFFFF', focusColor: '#0186D0', selectColor: '#FFF100' }"
         />
       </div>
 
@@ -40,7 +55,7 @@ import {ref} from "@vue/runtime-core";
 import {
   QTIMediaSeries,
   QTMediaSeriesData,
-  QTMediaSeriesGroup,
+  QTMediaSeriesGroup, QTMediaSeriesGroupStyle,
   QTMediaSeriesStyleType,
   QTMediaSeriesType
 } from "@quicktvui/quicktvui3";
@@ -66,9 +81,40 @@ export default defineComponent({
     function onESCreate(params) {
       const type: QTMediaSeriesType =
         QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_TEXT
+      const groupStyle:QTMediaSeriesGroupStyle = {
+        groupMarginLeft:0,
+        itemWidth:203,
+        itemHeight:52,
+        itemGap:20,
+        mark:{color:"#00ffffff"},
+        textColor:{
+          normal: "#FFFFFF",
+          focused: "#0186D0",
+          selected: "#FFF100"
+        },
+        focusBackground:{
+          color:["#FFE60D","#FFE60D"],
+          cornerRadius:[8,8,8,8],
+          padding:[0,0],
+        },
+        background:{
+          color:['#5AC6F5',"#5AC6F5"],
+          cornerRadius:[8,8,8,8],
+          padding:[0,0],
+          stroke:{
+            color:{
+              normal:"#FFFFFF",
+              selected:"#FFF100"
+            },
+            width:1
+          }
+        }
+      }
+
       const group: QTMediaSeriesGroup = {
         enable: true,
-        size: 20
+        size: 20,
+        groupStyle:groupStyle
       }
       const noneGroup: QTMediaSeriesGroup = {
         enable: false,
@@ -78,6 +124,7 @@ export default defineComponent({
         QTMediaSeriesStyleType.QT_MEDIA_SERIES_STYLE_TYPE_DEFAULT
 
       const data: QTMediaSeriesData = {
+        initPosition:0,
         pageSize: pageSize,
         totalCount: totalCount
       }

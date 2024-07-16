@@ -670,20 +670,20 @@ export default defineComponent({
           if (el.type == '1003') {
             curKey++
             if (curKey == y) {
-              tv_list.value.scrollToIndex(0, i, anim, offset)
+              tv_list.value.scrollToPositionOffset(0, i, anim, offset)
             }
           } else {
             for (let j = 0; j < el.list.length; j++) {
               const ell = el.list[j];
               curKey++
               if (curKey == y) {
-                tv_list.value.scrollToIndex(0, i, anim, offset)
+                tv_list.value.scrollToPositionOffset(0, i, anim, offset)
               }
             }
           }
         }
       } else {
-        tv_list.value.scrollToIndex(0, y, anim, offset)
+        tv_list.value.scrollToPositionOffset(0, y, anim, offset)
       }
     }
     const setItemFocused = (pos: number) => {

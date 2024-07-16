@@ -13,12 +13,14 @@
        :bringFocusChildToFront="true"
        :useAdvancedFocusSearch="true">
 
-    <text-view class="standard-section-title-text-css"
-               :postDelay="300"
-               autoWidth
-               autoHeight
-               flexStyle="${titleStyle}"
-               :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"/>
+    <text-view
+      class="standard-section-title-text-css"
+      :postDelay="300"
+      autoWidth autoHeight typeface="${titleTypeface}"
+      :lines="1"
+      flexStyle="${titleStyle}"
+      :focusable="false" textSize="${titleStyle.fontSize}" text="${title}"
+    />
     <img :postDelay="300" flexStyle="${imgTitleStyle}" :focusable="false" src="${imgTitle}"/>
     <tv-flex
       class="standard-section-css"
@@ -36,10 +38,13 @@
       list="${itemList}">
 
       <!-- poster -->
-      <qt-poster :load-delay="500" :type="standItemType"/>
+      <qt-poster :load-delay="500" :type="standItemType" v-if="flexSection.qtPosterEnable"/>
+
+      <!-- plugin -->
+      <qt-plugin-item v-if="flexSection.qtPluginItemEnable"/>
 
       <!-- card -->
-      <card-item
+      <card-item v-if="flexSection.cardItemEnable"
         @focus="onFocus"/>
 
       <slot/>
@@ -54,12 +59,19 @@ import {defineComponent} from "@vue/runtime-core";
 import {QTWaterfallSectionType} from "../core/QTWaterfallSectionType";
 import {QTWaterfallItemType} from "../core/QTWaterfallItemType";
 import card_item from '../item/card-item.vue'
+import plugin_item from '../item/plugin-item.vue'
 import {ESLogLevel, useESLog} from "@extscreen/es3-core";
+
+const TAG = 'QTFlexSection'
 
 export default defineComponent({
   name: 'standard-section',
+  emits: [
+    'focus'
+  ],
   components: {
     'card-item': card_item,
+    'qt-plugin-item': plugin_item
   },
   props: {
     enablePlaceholder: {
@@ -93,6 +105,16 @@ export default defineComponent({
     itemFocusScale:{
       type:Number,
       default:1.1
+    },
+    flexSection:{
+      type:Object,
+      default:()=>{
+        return {
+          qtPosterEnable:true,
+          qtPluginItemEnable:true,
+          cardItemEnable:true,
+        }
+      }
     }
   },
   setup(props, context) {
@@ -100,13 +122,13 @@ export default defineComponent({
 
     function onFocus(e) {
       if (log.isLoggable(ESLogLevel.DEBUG)) {
-        log.d('card-item', '------onFocus--------->>>>', e)
+        log.d(TAG, '------onFocus--------->>>>', e)
       }
       context.emit('focus', e)
     }
 
     return {
-      onFocus
+      onFocus,
     };
   },
 });

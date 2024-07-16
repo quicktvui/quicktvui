@@ -13,12 +13,12 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {useESRouter} from "@extscreen/es3-router";
+import logo from '../../assets/logo.png'
 
 export default defineComponent({
   name: "es-splash-page",
   setup() {
     const router = useESRouter();
-    let logo = require('../../assets/logo.png').default
     const onESCreate = (params) => {
       setTimeout(() => {
         router.push('index')

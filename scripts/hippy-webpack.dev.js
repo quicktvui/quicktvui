@@ -118,16 +118,30 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [{
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
             limit: true,
             // limit: 8192,
-            // fallback: 'file-loader',
-            // name: '[name].[ext]',
-            // outputPath: 'assets/',
+            fallback: 'file-loader',
+            name: '[name].[ext]',
+            outputPath: 'assets/',
+            publicPath: 'assets',
           },
         }],
       },
+      // {
+      //   test: /\.(png|jpe?g|gif)$/i,
+      //   use: [{
+      //     loader: 'url-loader',
+      //     options: {
+      //       limit: true,
+      //       // limit: 8192,
+      //       // fallback: 'file-loader',
+      //       // name: '[name].[ext]',
+      //       // outputPath: 'assets/',
+      //     },
+      //   }],
+      // },
       {
         test: /\.(ts)$/,
         use: [
@@ -154,28 +168,8 @@ module.exports = {
       const aliases = {
         src: path.resolve('./src'),
         // '@': path.resolve('./src'),
-        //'@quicktvui/quicktvui3': path.resolve('./packages/'),
+        // '@quicktvui/quicktvui3': path.resolve('./packages/'),
       };
-
-      // If @vue/runtime-core was built exist in packages directory then make an alias
-      // Remove the section if you don't use it
-      const hippyVueRuntimeCorePath = path.resolve(__dirname, '../node_modules/@vue/runtime-core');
-      if (fs.existsSync(path.resolve(hippyVueRuntimeCorePath, 'index.js'))) {
-        console.warn(`* Using the @vue/runtime-core in ${hippyVueRuntimeCorePath} as vue alias`);
-        aliases['@vue/runtime-core'] = hippyVueRuntimeCorePath;
-      } else {
-        console.warn('* Using the @vue/runtime-core defined in package.json');
-      }
-
-      // If @hippy/vue-next was built exist in packages directory then make an alias
-      // Remove the section if you don't use it
-      const hippyVueNextPath = path.resolve(__dirname, '../node_modules/@extscreen/es3-vue');
-      if (fs.existsSync(path.resolve(hippyVueNextPath, 'index.ts'))) {
-        console.warn(`* Using the @extscreen/es3-vue in ${hippyVueNextPath} as @extscreen/es3-vue alias`);
-        aliases['@extscreen/es3-vue'] = hippyVueNextPath;
-      } else {
-        console.warn('* Using the @extscreen/es3-vue defined in package.json');
-      }
       return aliases;
     })(),
   },

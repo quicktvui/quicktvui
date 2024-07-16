@@ -18,9 +18,11 @@
       class="qt-ui-poster-img-css"
       :duplicateParentState="true"
       :postDelay="300"
+      enableFade
       :focusable="false"
       enableFocusBorder="${focus.border}"
       flexStyle="${image.style}"
+      :style="{borderRadius: `${borderRadius}px`}"
       src="${image.src}"/>
 
     <text-view
@@ -39,7 +41,12 @@
     <!--   焦点选中时的标题 -->
     <qt-poster-focus-title
       :focusable="false"
-      showOnState="focused"/>
+      :border-radius="borderRadius"
+      showOnState="focused"
+      :bgColor="focusBgColor"
+      :titleColor="focusTitleColor"
+      :subTitleColor="focusSubTitleColor"
+    />
 
     <div style="flex-direction: column;background-color: transparent;z-index: 999;"
          :duplicateParentState="true"
@@ -49,7 +56,7 @@
       <!--  浮动标题 -->
       <div flexStyle="${floatTitle.style}"
            class="qt-ui-poster-title-css"
-           :gradientBackground="{colors:['#e5000000','#00000000'], cornerRadii4: [0, 0, 8, 8],orientation:4}"
+           :gradientBackground="{colors:floatTitleBgColor, cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
            :duplicateParentState="true"
            :focusable="false"
            showIf="${floatTitle.enable}">
@@ -95,7 +102,7 @@
         :delayLoad="800"
         :focusable="false"
         :duplicateParentState="true"
-        :color="'#FF4E46'"
+        :color="rippleColor"
         isShowRipple="${ripple.enable}"
         rippleVisible="invisible"/>
 
@@ -103,14 +110,20 @@
            class="qt-ui-ripple-img-css"
            :focusable="false"
            :duplicateParentState="true"
-           showIf="${true}"
+           showIf="${ripple.enable==true}"
            :delayLoad="800"/>
     </div>
 
     <qt-poster-corner-title
+      showIf="${corner.showCornerRight==true}"
       :focusable="false"
       flexStyle="${corner.style}"
-      style="z-index:1000;position: absolute;"/>
+    />
+    <qt-poster-corner-title
+      showIf="${corner.showCornerLeft==true}"
+      :focusable="false"
+      flexStyle="${corner.style}" mode="left"
+    />
     <slot/>
   </item-frame>
 </template>
@@ -147,6 +160,32 @@ export default defineComponent({
       type: Object,
       default: () => null
     },
+    borderRadius:{
+      type:Number,
+      default:8
+    },
+    rippleColor:{
+      type:String,
+      default:"#FF4E46"
+    },
+    focusBgColor: {
+      type: Object,
+      required: false
+    },
+    focusTitleColor: {
+      type: String,
+      required: false
+    },
+    focusSubTitleColor: {
+      type: String,
+      required: false
+    },
+    floatTitleBgColor:{
+      type:Array,
+      default:()=>{
+        return ['#e5000000','#00000000']
+      }
+    }
   },
   setup(props, context) {
     let mainTextShowOnState = ['normal', 'selected']
@@ -162,7 +201,7 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
+<style>
 .qt-ui-poster-root-css {
   position: absolute;
   background-color: transparent;
@@ -175,7 +214,6 @@ export default defineComponent({
   position: absolute;
   focus-border-color: white;
   focus-border-style: solid;
-  border-radius: 8px;
 }
 
 .qt-ui-poster-score-css {

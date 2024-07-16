@@ -6,7 +6,7 @@
       <tv-list ref="listViewRef" class="qt_tv_list_view_root_css" horizontal="true"
                :clipChildren="false" :clipPadding="false"
                @item-click="onItemClick" @item-bind="onItemBind">
-        <qt-poster/>
+        <qt-poster :borderRadius="20" :rippleColor="'#157AFC'"/>
       </tv-list>
     </div>
   </div>
@@ -85,20 +85,22 @@ export default defineComponent({
             src: imgURL,
             enable: true,
             style: {
-              width: 30,
-              height: 30
+              width: 260,
+              height: 100
             }
           },
           corner: {
-            text: '角标',
+            text: '角标角标',
             enable: true,
+            showCornerRight:true,
+            showCornerLeft:false,
             style: {
               width: 260,
               height: 30
             },
             background: {
               colors: ['#FE3824', '#F0051E'],
-              cornerRadii4: [0, 8, 0, 8],
+              cornerRadii4: [0, 20, 0, 20],
               orientation: 2
             }
           },

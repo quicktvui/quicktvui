@@ -33,6 +33,8 @@ import registerQTDialog from "./dialog/QTDialog";
 import registerQTScrollView from "./scroll-view/QTScrollView";
 import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
+import registerAppIconView from "./app/QTAppIcon";
+import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [
   View,
@@ -65,6 +67,8 @@ export const QuickTVUI = (Vue) => {
   registerQTDialog(Vue)
   registerQTScrollView(Vue)
   registerQTLottieView(Vue)
+  registerAppIconView(Vue)
+  registerQTPluginView(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
@@ -124,6 +128,9 @@ export type {QTWaterfallCardSection} from './waterfall/core/QTWaterfallCardSecti
 export type {QTWaterfallCardItem} from './waterfall/core/QTWaterfallCardItem'
 export type {QTWaterfallCardPlaceHolder} from './waterfall/core/QTWaterfallCardPlaceHolder'
 export {QTWaterfallVisibleType} from './waterfall/core/QTWaterfallVisibleType'
+//
+export type {QTWaterfallPluginSection} from './waterfall/core/QTWaterfallPluginSection'
+export type {QTWaterfallPluginItem} from './waterfall/core/QTWaterfallPluginItem'
 
 //ListView
 export type {QTListViewItem} from './list-view/core/QTListViewItem'
@@ -206,6 +213,8 @@ export type {
 export type {QTIMediaSeries} from './series/QTIMediaSeries'
 export type {QTMediaSeries} from './series/QTMediaSeries'
 export type {QTMediaSeriesGroup} from './series/QTMediaSeriesGroup'
+export type {QTMediaSeriesGroupStyle} from './series/QTMediaSeriesGroupStyle'
+export type {QTMediaSeriesDataStyle} from './series/QTMediaSeriesDataStyle'
 export type {QTMediaSeriesData} from './series/QTMediaSeriesData'
 export type {QTMediaSeriesEvent} from './series/QTMediaSeriesEvent'
 export {QTMediaSeriesType} from './series/QTMediaSeriesType'
@@ -259,3 +268,10 @@ export type {QTIRow} from './row/QTIRow'
 //--------------------------------QTIText---------------------------------
 export type {QTIText} from './text/QTIText'
 
+//--------------------------------QTIText---------------------------------
+export type {QTIAppIcon} from './app/QTIAppIcon'
+
+//--------------------------------QTIPluginView---------------------------------
+export type {QTIPluginView, QTPluginViewEvent} from './plugin/QTIPluginView'
+
+export { VirtualView } from './utils/VirtualView'

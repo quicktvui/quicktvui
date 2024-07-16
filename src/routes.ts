@@ -23,6 +23,8 @@ import QTSeekBarPageList from "./components/qt-seek-bar"
 import QTSelectSeriesPageList from "./components/qt-select-series"
 import QTCollapsePageList from "./components/qt-collapse";
 import QTScrollViewPageList from "./components/qt-scroll-view";
+import QTAppIconPageList from "./components/qt-app-icon";
+import QTPluginViewPageList from "./components/qt-plugin-view";
 
 import {
   QTWaterfallPageList,
@@ -32,7 +34,8 @@ import {
 import {
   QTTabsWaterfallPageList,
   QTTabsWaterfallSectionPageList,
-  QTTabsWaterfallItemPageList
+  QTTabsWaterfallItemPageList,
+  QTTabsWaterfallSamplePageList,
 } from "./components/qt-tabs-waterfall";
 import QTClassifiedListViewPageList from "./components/qt-classified-list-view"
 
@@ -157,12 +160,17 @@ const routes = [
       name: `tabs-waterfall/${item}`,
       component: QTTabsWaterfallSectionPageList[item].component,
     })),
-
   ...Object.keys(QTTabsWaterfallItemPageList)
     .map(item => ({
       path: `/tabs-waterfall/${item}`,
       name: `tabs-waterfall/${item}`,
       component: QTTabsWaterfallItemPageList[item].component,
+    })),
+  ...Object.keys(QTTabsWaterfallSamplePageList)
+    .map(item => ({
+      path: `/tabs-waterfall/${item}`,
+      name: `tabs-waterfall/${item}`,
+      component: QTTabsWaterfallSamplePageList[item].component,
     })),
   ...Object.keys(QTClassifiedListViewPageList)
     .map(item => ({
@@ -229,6 +237,18 @@ const routes = [
       path: `/scroll-view${item}`,
       name: `scroll-view/${item}`,
       component: QTScrollViewPageList[item].component,
+    })),
+  ...Object.keys(QTAppIconPageList)
+    .map(item => ({
+      path: `/qt-app-icon${item}`,
+      name: `qt-app-icon/${item}`,
+      component: QTAppIconPageList[item].component,
+    })),
+  ...Object.keys(QTPluginViewPageList)
+    .map(item => ({
+      path: `/plugin-view${item}`,
+      name: `plugin-view/${item}`,
+      component: QTPluginViewPageList[item].component,
     })),
 ]
 

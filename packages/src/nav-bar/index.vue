@@ -3,8 +3,10 @@
                 ref="navList"
                 :clipChildren="false"
                 :clipPadding="false"
+                :horizontalFadingEdgeEnabled="horizontalFadingEdgeEnabled"
+                :fadingEdgeLength="fadingEdgeLength"
                 horizontal
-                class="tabNavBarClass"
+                :class="tabNavBarClass"
                 @item-click="onTabClick"
                 @item-focused="onTabChange">
     <div class="qt-ui-nav-bar-item-css"
@@ -14,7 +16,6 @@
          eventFocus
          flexStyle="${style}"
          :clipChildren="false"
-         :style="{focusBackgroundColor:focusColor}"
          :stateTextColor="textColor"
          :sateBackgroundPadding="bgPadding">
       <text-view autoWidth
@@ -31,7 +32,9 @@
                 ref="navList"
                 :clipChildren="false"
                 :clipPadding="false"
-                class="tabNavBarClass"
+                :class="tabNavBarClass"
+                :verticalFadingEdgeEnabled="verticalFadingEdgeEnabled"
+                :fadingEdgeLength="fadingEdgeLength"
                 @item-click="onTabClick"
                 @item-focused="onTabChange">
     <div class="qt-ui-nav-bar-item-css"
@@ -41,7 +44,6 @@
          autoWidth
          :focusable="true"
          :stateTextColor="textColor"
-         :style="{focusBackgroundColor:focusColor}"
          :sateBackgroundPadding="bgPadding"
          :clipChildren="false">
       <text-view autoWidth
@@ -93,6 +95,18 @@ export default defineComponent({
     tabNavBarClass: {
       type: String,
       default: ''
+    },
+    horizontalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    verticalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    fadingEdgeLength:{
+      type:Number,
+      default:0
     }
   },
   setup(props, context) {
@@ -204,6 +218,7 @@ export default defineComponent({
   align-items: center;
   border-radius: 35px;
   background-color: transparent;
+  focus-background-color: #f5f5f5;
 }
 
 .qt-ui-nav-bar-item-text-css {

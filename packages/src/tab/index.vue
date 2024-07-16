@@ -25,6 +25,9 @@
                 :sid="tabNavBarSid"
                 text-key="text"
                 :nextFocusName="navBarNextFocusName"
+                :horizontalFadingEdgeEnabled="horizontalFadingEdgeEnabled"
+                :verticalFadingEdgeEnabled="verticalFadingEdgeEnabled"
+                :fadingEdgeLength="fadingEdgeLength"
                 @tab-focus="onTabChange"
                 @tab-click="onTabClick"
                 :clipChldren="false"
@@ -50,8 +53,7 @@
         :duration="duration"
         :interpolatorType="interpolatorType"
         :triggerTask="triggerTask"
-        :direction="horizontal ? 'horizontal' : 'vertical'"
-        :blockFocusDirections="horizontal ? blockViewPager : blockViewPagerVertical">
+        :direction="horizontal ? 'horizontal' : 'vertical'">
 
       <qt-waterfall
           keyName="_id"
@@ -62,11 +64,15 @@
           :custom-pool="customPool"
           sid="${sid}"
           :custom-item-pool="customItemPool"
+          :blockFocusDirections="horizontal ? blockViewPager : blockViewPagerVertical"
+          :qt-tab-section-enable="qtTabSectionEnable"
           @onSectionBind="onWaterfallSectionBind"
           @onSectionAttached="onWaterfallSectionAttached"
           @onSectionDetached="onWaterfallSectionDetached"
           @onItemFocused="onWaterfallItemFocused"
-          @onItemClick="onWaterfallItemClick">
+          @onItemClick="onWaterfallItemClick"
+          @onPluginLoadSuccess="onPluginLoadSuccess"
+          @onPluginLoadError="onPluginLoadError">
         <template v-slot:item>
           <slot name="waterfall-item"/>
         </template>
@@ -111,6 +117,7 @@ import {QTWaterfallSection} from "../waterfall/core/QTWaterfallSection";
 import {QTTabItem} from "./QTTabItem";
 import {QTListViewItemState} from "../list-view/core/QTListViewItemState";
 import useBaseView from "../base/useBaseView";
+import {QTPluginViewEvent} from "../plugin/QTIPluginView";
 
 const TAG = 'qt-tabs'
 
@@ -135,7 +142,10 @@ export default defineComponent({
     'onTabPageScrollToEnd',
     'onTabPageScrollToStart',
     //
-    'onTabClick'
+    'onTabClick',
+    //
+    'onPluginLoadSuccess',
+    'onPluginLoadError'
   ],
   props: {
     enablePlaceholder: {
@@ -267,6 +277,41 @@ export default defineComponent({
         down:'content'
       })
     },
+    horizontalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    verticalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    fadingEdgeLength:{
+      type:Number,
+      default:0
+    },
+    qtTabSectionEnable:{
+      type:Object,
+      default:()=>{
+        return {
+          flexSectionEnable: true,
+          flexSection:{
+            qtPosterEnable:true,
+            qtPluginItemEnable:true,
+            cardItemEnable:true,
+          },
+          listSectionEnable:true,
+          listSection:{
+            qtPosterEnable:true
+          },
+          loadingSectionEnable:true,
+          endSectionEnable:true,
+          blankSectionEnable:true,
+          cardSectionEnable:true,
+          pluginSectionEnable:true,
+          vueSectionEnable:true
+        }
+      }
+    }
   },
   setup(props, context) {
     const tabs = ref<ESITab>()
@@ -377,13 +422,14 @@ export default defineComponent({
         log.d(TAG, '----------loadPageData----setPageData-->>>>pageIndex:' + pageIndex)
       }
       //
-      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data)
+      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data, 0)
       const itemList = generateSectionList(waterfall, tabPageData.data)
       const data: ESPageData = {
         data: itemList,
         disableScrollOnFirstScreen: tabPageData.disableScrollOnFirstScreen ?? false,
         firstFocusTargetID: tabPageData.firstFocusTargetID ?? '',
-        useDiff: tabPageData.useDiff
+        useDiff: tabPageData.useDiff,
+        bindingPlayer: tabPageData.bindingPlayer,
       }
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '---------设置数据-----setPageData------>>>>' +
@@ -397,7 +443,7 @@ export default defineComponent({
     }
 
     function addPageData(pageIndex: number, tabPageData: QTTabPageData, deleteCount: number = 0): void {
-      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data)
+      const tabIndex = tabDataManager.addSectionList(pageIndex, tabPageData.data, deleteCount)
       const itemList = generateSectionList(waterfall, tabPageData.data)
       const data: ESPageData = {
         data: itemList,
@@ -902,6 +948,15 @@ export default defineComponent({
       }
     }
 
+    //---------------------------------------------------------------
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadSuccess', event)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadError', event)
+    }
+
     return {
       tabs,
       ifTabs,
@@ -962,6 +1017,11 @@ export default defineComponent({
       onTabClick,
       getCurrentPageIndex,
       getCurrentTabIndex,
+      onPluginLoadSuccess,
+      onPluginLoadError,
+      getDataManager(){
+        return tabDataManager;
+      },
       ...useBaseView(tabs)
     }
   },

@@ -23,42 +23,52 @@
     :scrollEventThrottle="16"
     :enableSelectOnFocus="false"
     advancedFocusSearchSpan="1"
-    :scrollYLesserReferenceValue="30"
-    :scrollYGreaterReferenceValue="30"
+    :scrollYLesserReferenceValue="scrollYLesserReferenceValue"
+    :scrollYGreaterReferenceValue="scrollYGreaterReferenceValue"
+    @scrollYGreaterReference="onScrollYGreaterReference"
+    @scrollYLesserReference="onScrollYLesserReference"
     shakePreCheckNumber="4"
+    @onPluginLoadSuccess="onPluginLoadSuccess"
+    @onPluginLoadError="onPluginLoadError"
     :blockFocusDirections="blockFocusDirections"
     @scrollStateChanged="onScrollStateChanged">
 
     <!-- 普通版块-->
-    <flex-section
+    <flex-section v-if="qtTabSectionEnable.flexSectionEnable"
       :cache-pool="itemsPool"
       :enablePlaceholder="enablePlaceholder"
+      :flex-section="qtTabSectionEnable.flexSection"
       @focus="onItemFocused">
       <slot name="item"/>
     </flex-section>
 
     <!--一行滚动 多级tab-->
-    <list-section
+    <list-section v-if="qtTabSectionEnable.listSectionEnable"
       :cache-pool="itemsPool"
+      :list-section="qtTabSectionEnable.listSection"
       :enablePlaceholder="enablePlaceholder">
       <slot name="list-item"/>
     </list-section>
 
     <!-- loading-->
-    <loading-section/>
+    <loading-section v-if="qtTabSectionEnable.loadingSectionEnable"/>
 
     <!-- end -->
-    <end-section/>
+    <end-section v-if="qtTabSectionEnable.endSectionEnable"/>
 
     <!-- blank -->
-    <blank-section/>
+    <blank-section v-if="qtTabSectionEnable.blankSectionEnable"/>
 
     <!-- card -->
-    <card-section
+    <card-section v-if="qtTabSectionEnable.cardSectionEnable"
       @focus="onItemFocused"/>
 
+    <!-- plugin -->
+    <plugin-section v-if="qtTabSectionEnable.pluginSectionEnable"/>
+
     <!-- vue -->
-    <vue-section :block-focus-directions="vueSectionBlockFocusDirections">
+    <vue-section v-if="qtTabSectionEnable.vueSectionEnable"
+      :block-focus-directions="vueSectionBlockFocusDirections">
       <slot name="vue-section"/>
     </vue-section>
 
@@ -78,6 +88,7 @@ import section_title from './section/section-title.vue'
 import blank_section from './section/blank-section.vue'
 import card_section from './section/card-section.vue'
 import vue_section from './section/vue-section.vue'
+import plugin_section from './section/plugin-section.vue'
 
 import {QTWaterfall} from "./core/QTWaterfall";
 import {ref} from "vue";
@@ -91,6 +102,7 @@ import {QTWaterfallIndex} from "./core/QTWaterfallIndex";
 import {QTWaterfallEvent} from "./core/QTWaterfallEvent";
 import {QTWaterfallVisibleType} from "./core/QTWaterfallVisibleType";
 import useBaseView from "../base/useBaseView";
+import {QTPluginViewEvent} from "../plugin/QTIPluginView";
 
 const TAG = 'qt-waterfall'
 
@@ -104,6 +116,10 @@ export default defineComponent({
     'onSectionBind',
     'onSectionAttached',
     'onSectionDetached',
+    'onScrollYGreaterReference',
+    'onScrollYLesserReference',
+    'onPluginLoadSuccess',
+    'onPluginLoadError'
   ],
   props: {
     enablePlaceholder: {
@@ -126,6 +142,37 @@ export default defineComponent({
       type: Object,
       default:() => {}
     },
+    scrollYLesserReferenceValue: {
+      type: Number,
+      default: 0
+    },
+    scrollYGreaterReferenceValue: {
+      type: Number,
+      default: 0
+    },
+    qtTabSectionEnable:{
+      type:Object,
+      default:()=>{
+        return {
+          flexSectionEnable: true,
+          flexSection:{
+            qtPosterEnable:true,
+            qtPluginItemEnable:true,
+            cardItemEnable:true,
+          },
+          listSectionEnable:true,
+          listSection:{
+            qtPosterEnable:true
+          },
+          loadingSectionEnable:true,
+          endSectionEnable:true,
+          blankSectionEnable:true,
+          cardSectionEnable:true,
+          pluginSectionEnable:true,
+          vueSectionEnable:true
+        }
+      }
+    }
   },
   setup(props, context) {
     const log = useESLog()
@@ -136,7 +183,7 @@ export default defineComponent({
       }
     }
     const cachePool = {...defaultPool,...props.customPool};
-    log.e("WaterfallVue","waterfall cachePool :"+JSON.stringify(cachePool))
+    // log.e("WaterfallVue","waterfall cachePool :"+JSON.stringify(cachePool))
     const defaultItemsPool = {
       name: "waterfallItems"+ Date.now(),
       size: {
@@ -144,7 +191,7 @@ export default defineComponent({
       }
     }
     const itemsPool = {...defaultItemsPool,...props.customItemPool}
-    log.e("WaterfallVue","itemsPool  :"+JSON.stringify(itemsPool))
+    // log.e("WaterfallVue","itemsPool  :"+JSON.stringify(itemsPool))
     //------------------------------------------------------
     const visibleType = ref<QTWaterfallVisibleType>(QTWaterfallVisibleType.QT_WATERFALL_VISIBLE_TYPE_CENTER)
     const waterfallRef = ref<ESIListView>()
@@ -370,9 +417,26 @@ export default defineComponent({
       context.emit('onScrollStateChanged', offsetX, scrollY, newState,oldState);
     }
 
+    function onScrollYGreaterReference() {
+      context.emit('onScrollYGreaterReference');
+    }
+
+    function onScrollYLesserReference() {
+      context.emit('onScrollYLesserReference');
+    }
+
     //-------------------------------------------------------------------------
     function setListData(data: any) {
       waterfallRef.value?.setListData(data)
+    }
+    //-------------------------------------------------------------------------
+
+    function onPluginLoadSuccess(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadSuccess', event)
+    }
+
+    function onPluginLoadError(event: QTPluginViewEvent) {
+      context.emit('onPluginLoadError', event)
     }
     return {
       waterfallRef,
@@ -406,6 +470,10 @@ export default defineComponent({
       destroy,
       scrollToTop,
       setListData,
+      onScrollYGreaterReference,
+      onScrollYLesserReference,
+      onPluginLoadSuccess,
+      onPluginLoadError,
       ...useBaseView(waterfallRef)
     }
   },
@@ -419,6 +487,7 @@ export default defineComponent({
     'blank-section': blank_section,
     'card-section': card_section,
     'vue-section': vue_section,
+    'plugin-section': plugin_section
   },
 });
 </script>

@@ -4,16 +4,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {defineComponent} from '@vue/runtime-core';
-import {ESLogLevel, useESLog} from "@extscreen/es3-core";
+import {ESLogLevel, useESLog, ESAppParams} from "@extscreen/es3-core";
+import {ESApp} from "@extscreen/es3-vue";
 
 export default defineComponent({
   name: 'App',
   setup() {
     const log = useESLog()
 
-    function onESCreate(app, params) {
+    function onESCreate(app: ESApp, params: ESAppParams) {
       log.setMinimumLoggingLevel(ESLogLevel.DEBUG)
     }
 

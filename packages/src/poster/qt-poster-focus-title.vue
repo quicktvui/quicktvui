@@ -19,8 +19,10 @@
       gravity="left"
       :postDelay="250"/>
     <div class="absoluteFocusMainBgRoot"
+         :style="{borderBottomLeftRadius: `${borderRadius}px`,borderBottomRightRadius:`${borderRadius}px`}"
          :duplicateParentState="true"
          :focusable="false"
+         :gradientBackground="bgColor"
          showIf="${focusTitle.enable}">
       <!-- 主标题 -->
       <text-view
@@ -32,7 +34,7 @@
         :maxLines="2"
         gravity="left"
         :paddingRect="[16,8,12,8]"
-        style="background-color: transparent;color: #000000"
+        :style="{backgroundColor: 'transparent',color: `${titleColor}`}"
         flexStyle="${focusTitle.style}"
         text="${focusTitle.text}"/>
       <!-- 副标题 -->
@@ -45,7 +47,7 @@
         autoHeight
         gravity="left|top"
         :paddingRect="[16,0,0,16]"
-        style="color: rgba(0,0,0,.4);background-color: transparent"
+        :style="{color: `${subTitleColor}`,backgroundColor: 'transparent'}"
         flexStyle="${subTitle.style}"
         text="${subTitle.text}"
         visibility="${subTitle}"/>
@@ -62,6 +64,24 @@ export default defineComponent({
     fontSize: {
       type: Number,
       default: 20
+    },
+    borderRadius:{
+      type:Number,
+      default:8
+    },
+    bgColor: {
+      type: Object,
+      default(){
+        return {colors:['#ffffff','#ffffff'],cornerRadii4: [0, 0, 8, 8]}
+      }
+    },
+    titleColor: {
+      type: String,
+      default: '#000000'
+    },
+    subTitleColor: {
+      type: String,
+      default: 'rgba(0,0,0,.4)'
     }
   },
   setup(props, context) {
@@ -77,9 +97,7 @@ export default defineComponent({
 }
 
 .absoluteFocusMainBgRoot {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  background-color: white;
+  background-color: transparent;
   margin-left: -1px;
   margin-right: -1px;
 }

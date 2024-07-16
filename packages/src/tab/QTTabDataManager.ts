@@ -21,7 +21,7 @@ export interface QTTabDataManager {
   //-------------------------------------------------------------------------------------
   getSectionList(pageIndex: number): Array<QTWaterfallSection>
 
-  addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>): QTTabIndex
+  addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>, deleteCount: number): QTTabIndex
 
   deleteSection(pageIndex: number, sectionIndex: number, count: number): QTTabIndex
 
@@ -90,8 +90,12 @@ export function createQTTabDataManager(): QTTabDataManager {
     return pageDataMap.get(pageIndex) ?? []
   }
 
-  function addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>): QTTabIndex {
-    const sectionList = pageDataMap.get(pageIndex) ?? []
+  function addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>, deleteCount: number = 0): QTTabIndex {
+    let sectionList = pageDataMap.get(pageIndex) ?? []
+    if(deleteCount > 0) {
+      sectionList = sectionList.slice(0,sectionList.length - deleteCount)
+      pageDataMap.set(pageIndex, sectionList)
+    }
     const sectionListLength = sectionList.length
     const previousItemCount = getRangeSectionListItemCount(sectionList, 0, sectionListLength)
     const itemCount = getSectionListItemCount(sections)

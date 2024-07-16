@@ -23,7 +23,7 @@ import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
-} from "../../../packages/element/src";
+} from "../../../packages";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 

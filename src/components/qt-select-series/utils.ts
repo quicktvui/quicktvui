@@ -54,8 +54,9 @@ function getLRDataByPage(page, pageSize, totalSize) {
       floatText: i % 2 === 0 ? '05:30' : '10:06',
       vip: {
         enable: true,
-        text: 'VIP'
+        text: 'VIP',
       },
+      vipTitleStyle:{width:150,height:100},
       index2
     })
   }
@@ -76,7 +77,7 @@ function getNumberDataByPage(page, pageSize, totalSize) {
     result.push({
       showVip: (i !== 0 || page !== 0) ? i % 2 === 0 ? true : true : false,
       vip: {
-        enable: true,
+        enable: false,
         text: 'VIP',
       },
       title: 'Z--' + page * pageSize + i

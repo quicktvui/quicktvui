@@ -118,7 +118,7 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [{
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
             // if you would like to use base64 for picture, uncomment limit: true
             // limit: true,
@@ -126,6 +126,7 @@ module.exports = {
             fallback: 'file-loader',
             name: '[name].[ext]',
             outputPath: 'assets/',
+            publicPath: 'assets',
           },
         }],
       },
