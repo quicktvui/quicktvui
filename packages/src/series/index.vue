@@ -89,7 +89,6 @@ export default defineComponent({
     display: {
       type: Boolean,
       default: true
-    }
     },
     gradientBackground:{
       type:Object,

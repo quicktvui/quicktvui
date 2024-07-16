@@ -5,6 +5,7 @@ export interface QTTabPageData {
   disableScrollOnFirstScreen?: boolean
   firstFocusTargetID?: string
   data: Array<QTWaterfallSection>
-  bindingPlayer?:string
+  bindingPlayer?: string
+
   [prop: string]: any
 }
