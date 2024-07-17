@@ -43,7 +43,7 @@ export function generateSection(waterfall: QTWaterfall,
     const titleMarginBottom = section.titleStyle?.marginBottom ?? 0
     const titlePaddingTop = section.titleStyle?.paddingTop ?? 0
     const titlePaddingBottom = section.titleStyle?.paddingBottom ?? 0
-    section.style.height = titleHeight + titleMarginTop + titleMarginBottom + titlePaddingTop + titlePaddingBottom
+    section.style.height = (section.style.minHeight||0) + titleHeight + titleMarginTop + titleMarginBottom + titlePaddingTop + titlePaddingBottom
   }
   return section
 }
