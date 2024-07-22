@@ -35,6 +35,8 @@
       sid="${listSID}"
       :enablePlaceholder="enablePlaceholder"
       focusScrollTarget="${isFocusScrollTarget==true}"
+      enableFirstFocusAtStart="${enableFirstFocusAtStart}"
+      firstFocusChild="${firstFocusChild}"
       list="${itemList}">
 
       <!-- poster -->

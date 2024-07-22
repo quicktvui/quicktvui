@@ -40,6 +40,8 @@
         enableKeepFocus="${enableKeepFocus==true}"
         endHintEnabled="${enableEndHit}"
         useDiff="${enableDiff}"
+        enableFirstFocusAtStart="${enableFirstFocusAtStart}"
+        firstFocusChild="${firstFocusChild}"
         sid="${listSID}"
         :cachePool="cachePool"
         :onScrollEnable="false"
