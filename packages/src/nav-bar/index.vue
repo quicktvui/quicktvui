@@ -6,7 +6,7 @@
     :horizontalFadingEdgeEnabled="horizontal?horizontalFadingEdgeEnabled:false"
     :verticalFadingEdgeEnabled="!horizontal?verticalFadingEdgeEnabled:false"
     :fadingEdgeLength="fadingEdgeLength"
-    :horizontal="horizontal"
+    :horizontal="horizontal?true:undefined"
     :class="tabNavBarClass"
     @item-click="onTabClick"
     @item-focused="onTabChange"
