@@ -8,7 +8,7 @@
            :clipChildren="false" eventClick eventFocus :focusScale="focusScale">
         <img class="coverV" src="${coverV}" :focusable="false" :postDelay="300"/>
         <div  class="titMask" :focusable="false" showIf="${isPlaying}" 
-          :gradientBackground = "{colors:['#00000000', '#FF000000'], cornerRadii4: [0, 0, 18, 18]}"/>
+          :gradientBackground = "{colors:['#00000000', '#FF000000'], cornerRadii4: [0, 0, 8, 8]}"/>
         <div :focusable="false" class="clv_item_text_box" showIf="${isPlaying}">
           <div class="playMark" :focusable="false">
             <play-mark :style="{width:'28px',height:'20px'}" :markColor="'#ffffff'" :gap="-1" style="margin-left: 16px;"
