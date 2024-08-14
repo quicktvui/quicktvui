@@ -5,7 +5,8 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const {VueLoaderPlugin} = require('vue-loader');
 const webpack = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
-
+//混淆 TODO
+// const WebpackObfuscator = require('webpack-obfuscator');
 const platform = 'android';
 const pkg = require('../package.json');
 const manifest = require('../dist/android/vendor-manifest.json');
@@ -36,9 +37,28 @@ module.exports = {
   optimization: {
     moduleIds: 'named',
     minimize: true,
-    minimizer: [new TerserPlugin({
-      extractComments: false,
-    })],
+    minimizer: [
+      new TerserPlugin({
+        //混淆 TODO
+        // parallel: true,
+        // terserOptions: {
+        //   mangle: true,
+        //   output: {
+        //     // 是否输出可读性较强的代码，即会保留空格和制表符，默认为输出，为了达到更好的压缩效果，可以设置为false
+        //     beautify: false,
+        //     // 是否保留代码中的注释，默认为保留，为了达到更好的压缩效果，可以设置为false
+        //     comments: false
+        //   },
+        //   compress: {
+        //     warnings: false,
+        //     drop_debugger: true,
+        //     drop_console: true,
+        //     pure_funcs: ['console.log']
+        //   },
+        // },
+        extractComments: false
+      })
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -67,6 +87,11 @@ module.exports = {
     //   test: /\.(js|jsbundle|css|bundle)($|\?)/i,
     //   filename: '[file].map',
     // }),
+
+    //混淆 TODO
+    // new WebpackObfuscator ({
+    //   rotateStringArray: true
+    // }, [''])
   ],
   module: {
     rules: [
