@@ -12,6 +12,7 @@
     @item-focused="onTabChange"
   >
     <div class="qt-ui-nav-bar-item-css"
+         v-if="tabEnable"
          :type="20000"
          autoWidth
          :focusable="true"
@@ -81,6 +82,10 @@ export default defineComponent({
     fadingEdgeLength:{
       type:Number,
       default:0
+    },
+    tabEnable:{
+      type:Boolean,
+      default:true
     }
   },
   setup(props, context) {
