@@ -394,7 +394,7 @@ export default defineComponent({
 
     function setPageStateRecycled(pageIndex: number) {
       if (log.isLoggable(ESLogLevel.DEBUG)) {
-        log.d(TAG, '----设置数据---setPageStateRecycled->>>>pageIndex:' + pageIndex)
+        log.d(TAG, '----设置数据---setPageStateRecycled---START-->>>pageIndex:' + pageIndex)
       }
       //设置绑定的section index
       const pageData = tabDataManager.getTabPageDataState(pageIndex)
@@ -408,8 +408,14 @@ export default defineComponent({
       const list = tabDataManager.getSectionList(pageIndex);
       tabDataManager.deleteSection(pageIndex, 1, (list.length - 1))
 
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '----设置数据---setPageStateRecycled---END--->>pageIndex:' + pageIndex)
+      }
       //重置页码
-      setTabPageDataNo(pageIndex, 1)
+      const pageNo = getTabPageDataNo(pageIndex)
+      if (pageNo > 0) {
+        setTabPageDataNo(pageIndex, 1)
+      }
     }
 
     function getPageBindSectionIndex(pageIndex: number): number {
@@ -639,6 +645,12 @@ export default defineComponent({
       if (tabItem.__pageNo == undefined) {
         tabItem.__pageNo = 0
       }
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '---------设置数据----getTabPageDataNo--->>>>' +
+            ' pageIndex:' + pageIndex +
+            ' pageNo:' + tabItem.__pageNo
+        )
+      }
       return tabItem.__pageNo
     }
 
@@ -649,17 +661,41 @@ export default defineComponent({
       const tabItem: QTTabItem = tabItemList[pageIndex]
       if (tabItem.__pageNo == undefined) {
         tabItem.__pageNo = 1
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+          log.d(TAG, '---------设置数据----increaseTabPageDataNo--->>>>' +
+              ' pageIndex:' + pageIndex +
+              ' pageNo:' + 1
+          )
+        }
         return
       }
       tabItem.__pageNo = (tabItem.__pageNo + 1)
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '---------设置数据----increaseTabPageDataNo--->>>>' +
+            ' pageIndex:' + pageIndex +
+            ' pageNo:' + tabItem.__pageNo
+        )
+      }
     }
 
     function setTabPageDataNo(pageIndex: number, pageNum: number) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '---------设置数据----setTabPageDataNo--START--->>>>' +
+            ' pageIndex:' + pageIndex +
+            ' pageNum:' + pageNum
+        )
+      }
       if (pageIndex < 0 || pageIndex > tabItemList.length) {
         return
       }
       const tabItem: QTTabItem = tabItemList[pageIndex]
       tabItem.__pageNo = pageNum
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '---------设置数据----setTabPageDataNo---END--->>>>' +
+            ' pageIndex:' + pageIndex +
+            ' pageNo:' + tabItem.__pageNo
+        )
+      }
     }
 
     function resetTabPageDataNo(pageIndex: number) {
@@ -711,20 +747,35 @@ export default defineComponent({
 
     function onTabPageChanged(e: QTTabEvent): void {
       const pageIndex = e.pageIndex
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------设置数据----onTabPageChanged--->>>>pageIndex:', pageIndex)
+      }
       if (currentTabPageIndex == pageIndex) {
         return
-      }
-
-      lastTabPageIndex = currentTabPageIndex
-      if (lastTabPageIndex == -1) {
-        lastTabPageIndex = pageIndex
       }
       currentTabPageIndex = pageIndex
 
       for (let i = 0; i < tabItemList.length; i++) {
         const pageState = tabDataManager.getTabPageDataState(i);
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+          log.d(TAG, '------设置数据--调用setPageStateRecycled--START->>>>'+
+              ' index:' + i +
+              ' lastTabPageIndex:' + lastTabPageIndex +
+              ' pageIndex:' + pageIndex +
+              ' pageState:', pageState
+          )
+        }
+
         if ((i != pageIndex) && (i != lastTabPageIndex) && pageState &&
           pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
+          if (log.isLoggable(ESLogLevel.DEBUG)) {
+            log.d(TAG, '------设置数据--调用setPageStateRecycled--END->>>>' +
+                ' index:' + i +
+                ' lastTabPageIndex:' + lastTabPageIndex +
+                ' pageIndex:' + pageIndex +
+                ' pageState:', pageState
+            )
+          }
           setPageStateRecycled(i)
         }
       }
@@ -738,6 +789,9 @@ export default defineComponent({
         emitOnLoadTabPageDataEvent(pageIndex, false, pageData.sectionBindIndex)
       }
       notifyTabContentSectionAttached()
+
+      //
+      lastTabPageIndex = pageIndex
     }
 
 
