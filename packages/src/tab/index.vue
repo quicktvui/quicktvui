@@ -23,6 +23,7 @@
                 :focusable="false"
                 :class="tabNavBarClass"
                 :sid="tabNavBarSid"
+                :tabEnable="qtTabSectionEnable.tabEnable"
                 text-key="text"
                 :nextFocusName="navBarNextFocusName"
                 :horizontalFadingEdgeEnabled="horizontalFadingEdgeEnabled"
@@ -35,7 +36,7 @@
       <slot name="tab-item"/>
     </qt-nav-bar>
 
-    <recycler-view-pager
+    <recycler-view-pager v-if="loadContent"
         :nextFocusName="contentNextFocus"
         ref="viewPager"
         :class="tabPageClass"
@@ -293,6 +294,7 @@ export default defineComponent({
       type:Object,
       default:()=>{
         return {
+          tabEnable:true,
           flexSectionEnable: true,
           flexSection:{
             qtPosterEnable:true,
@@ -331,8 +333,10 @@ export default defineComponent({
     let lastTabPageIndex: number = -1
     let notifySectionAttachTimer: any = -1
 
+    let loadContent = ref(false)
     //--------------------------------------------------------
     function initTab(tab: QTTab): void {
+      loadContent.value = true
       let data: ESTab = {
         defaultIndex: tab.defaultIndex,
         focusIndex: tab.defaultFocusIndex,
@@ -1017,6 +1021,7 @@ export default defineComponent({
       onTabClick,
       getCurrentPageIndex,
       getCurrentTabIndex,
+      loadContent,
       onPluginLoadSuccess,
       onPluginLoadError,
       getDataManager(){
