@@ -708,10 +708,13 @@ export default defineComponent({
       const pageIndex = e.pageIndex;
       const useDiff = e.useDiff;
       if (log.isLoggable(ESLogLevel.DEBUG)) {
-        log.d(TAG, '----------设置数据----onTabPageLoadData-->>>>pageIndex:' + pageIndex)
+        log.d(TAG, '----------设置数据----onTabPageLoadData---加载数据开始---->>>>pageIndex:' + pageIndex)
       }
       setPageStateReset(pageIndex)
       emitOnLoadTabPageDataEvent(pageIndex, useDiff, 0)
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '----------设置数据----onTabPageLoadData---加载数据结束---->>>>pageIndex:' + pageIndex)
+      }
     }
 
     function emitOnLoadTabPageDataEvent(pageIndex: number, useDiff: boolean, sectionIndex: number) {
@@ -746,7 +749,7 @@ export default defineComponent({
     function onTabPageChanged(e: QTTabEvent): void {
       const pageIndex = e.pageIndex
       if (log.isLoggable(ESLogLevel.DEBUG)) {
-        log.d(TAG, '------设置数据----onTabPageChanged--->>>>pageIndex:', pageIndex)
+        log.d(TAG, '------设置数据----onTabPageChanged---TAB切换开始-->>>>pageIndex:', pageIndex)
       }
       if (currentTabPageIndex == pageIndex) {
         return
@@ -756,7 +759,7 @@ export default defineComponent({
       for (let i = 0; i < tabItemList.length; i++) {
         const pageState = tabDataManager.getTabPageDataState(i);
         if (log.isLoggable(ESLogLevel.DEBUG)) {
-          log.d(TAG, '------设置数据--调用setPageStateRecycled--START->>>>'+
+          log.d(TAG, '------设置数据--调用setPageStateRecycled--START->>>>' +
               ' index:' + i +
               ' lastTabPageIndex:' + lastTabPageIndex +
               ' pageIndex:' + pageIndex +
@@ -765,7 +768,7 @@ export default defineComponent({
         }
 
         if ((i != pageIndex) && (i != lastTabPageIndex) && pageState &&
-          pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
+            pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '------设置数据--调用setPageStateRecycled--END->>>>' +
                 ' index:' + i +
@@ -775,6 +778,9 @@ export default defineComponent({
             )
           }
           setPageStateRecycled(i)
+        }
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+          log.d(TAG, '------设置数据----onTabPageChanged---TAB切换结束-->>>>pageIndex:', pageIndex)
         }
       }
 
