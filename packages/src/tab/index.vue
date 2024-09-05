@@ -770,7 +770,9 @@ export default defineComponent({
           )
         }
 
-        if ((i != pageIndex) && (i != lastTabPageIndex) && pageState &&
+        if ((i != pageIndex) &&
+            ((i != lastTabPageIndex) || ((i == lastTabPageIndex) && ((pageIndex - lastTabPageIndex) > 1))) &&
+            pageState &&
             pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '------设置数据--调用setPageStateRecycled--END->>>>' +
