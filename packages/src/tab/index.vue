@@ -756,6 +756,9 @@ export default defineComponent({
       }
       currentTabPageIndex = pageIndex
 
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------设置数据----onTabPageChanged---TAB重置开始-->>>>pageIndex:', pageIndex)
+      }
       for (let i = 0; i < tabItemList.length; i++) {
         const pageState = tabDataManager.getTabPageDataState(i);
         if (log.isLoggable(ESLogLevel.DEBUG)) {
@@ -779,9 +782,9 @@ export default defineComponent({
           }
           setPageStateRecycled(i)
         }
-        if (log.isLoggable(ESLogLevel.DEBUG)) {
-          log.d(TAG, '------设置数据----onTabPageChanged---TAB切换结束-->>>>pageIndex:', pageIndex)
-        }
+      }
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------设置数据----onTabPageChanged---TAB重置结束-->>>>pageIndex:', pageIndex)
       }
 
       const data = e.data
@@ -796,6 +799,10 @@ export default defineComponent({
 
       //
       lastTabPageIndex = pageIndex
+
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------设置数据----onTabPageChanged---TAB切换结束-->>>>pageIndex:', pageIndex)
+      }
     }
 
 
