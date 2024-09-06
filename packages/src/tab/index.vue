@@ -36,7 +36,7 @@
       <slot name="tab-item"/>
     </qt-nav-bar>
 
-    <recycler-view-pager v-if="contentRenderingComponents"
+    <recycler-view-pager
         :nextFocusName="contentNextFocus"
         ref="viewPager"
         :class="tabPageClass"
@@ -292,10 +292,6 @@ export default defineComponent({
     fadingEdgeLength:{
       type:Number,
       default:0
-    },
-    contentRenderingComponents:{
-      type:Boolean,
-      default:true
     },
     qtTabSectionEnable:{
       type:Object,
