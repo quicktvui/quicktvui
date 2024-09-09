@@ -77,6 +77,9 @@
         <template v-slot:item>
           <slot name="waterfall-item"/>
         </template>
+        <template v-slot:shared-item>
+          <slot name="waterfall-shared-item"/>
+        </template>
         <template v-slot:list-item>
           <slot name="waterfall-list-item"/>
         </template>
@@ -310,7 +313,8 @@ export default defineComponent({
           blankSectionEnable:true,
           cardSectionEnable:true,
           pluginSectionEnable:true,
-          vueSectionEnable:true
+          vueSectionEnable:true,
+          itemStoreEnable: false
         }
       }
     }

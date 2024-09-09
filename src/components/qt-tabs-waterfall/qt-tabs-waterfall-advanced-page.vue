@@ -6,12 +6,10 @@
         ref="tabRef"
         tabPageClass="qt-tabs-content-css"
         @onTabPageChanged="onTabPageChanged"
+        :qt-tab-section-enable="qtTabSectionEnable"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-waterfall-root-css">
-      <template v-slot:waterfall-item>
-        <app-list-item :type="1"/>
-      </template>
-      <template v-slot:waterfall-list-item>
+      <template v-slot:waterfall-shared-item>
         <app-list-item :type="1"/>
       </template>
     </qt-tabs>
@@ -38,6 +36,26 @@ export default defineComponent({
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+      const qtTabSectionEnable = {
+        tabEnable:true,
+        flexSectionEnable:true,
+        flexSection:{
+          qtPosterEnable:false,
+          qtPluginItemEnable:false,
+          cardItemEnable:false,
+        },
+        listSectionEnable:true,
+        listSectionItem:{
+          qtPosterEnable:false
+        },
+        loadingSectionEnable:true,
+        endSectionEnable:true,
+        blankSectionEnable:false,
+        cardSectionEnable:false,
+        pluginSectionEnable:false,
+        vueSectionEnable:false,
+        itemStoreEnable:true,
+      }
 
     function onESCreate() {
 
@@ -115,7 +133,7 @@ export default defineComponent({
     }
 
     return {
-      tabRef,
+      tabRef,qtTabSectionEnable,
       onESCreate,
       onTabPageLoadData,
       onTabPageChanged,

@@ -39,11 +39,11 @@
       :enablePlaceholder="enablePlaceholder"
       :flex-section="qtTabSectionEnable.flexSection"
       @focus="onItemFocused">
-      <!-- <slot name="item"/> -->
+      <slot name="item"/>
     </flex-section>
 
-    <item-store>
-      <slot name="item"/>
+    <item-store v-if="qtTabSectionEnable.itemStoreEnable">
+      <slot name="shared-item"/>
     </item-store>
 
     <!--一行滚动 多级tab-->
@@ -51,7 +51,7 @@
       :cache-pool="itemsPool"
       :list-section="qtTabSectionEnable.listSection"
       :enablePlaceholder="enablePlaceholder">
-      <!-- <slot name="list-item"/> -->
+      <slot name="list-item"/>
     </list-section>
 
     <!-- loading-->
@@ -178,7 +178,8 @@ export default defineComponent({
           blankSectionEnable:true,
           cardSectionEnable:true,
           pluginSectionEnable:true,
-          vueSectionEnable:true
+          vueSectionEnable:true,
+          itemStoreEnable: false
         }
       }
     },
