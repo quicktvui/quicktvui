@@ -38,9 +38,13 @@
       :cache-pool="itemsPool"
       :enablePlaceholder="enablePlaceholder"
       :flex-section="qtTabSectionEnable.flexSection"
-      @focus="onItemFocused">
-      <slot name="item"/>
+      @focus="onItemFocused" sharedItemStore="waterfall_item_store">
+      <!-- <slot name="item"/> -->
     </flex-section>
+
+    <item-store name="waterfall_item_store">
+      <slot name="item"/>
+    </item-store>
 
     <!--一行滚动 多级tab-->
     <list-section v-if="qtTabSectionEnable.listSectionEnable"
