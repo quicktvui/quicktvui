@@ -36,7 +36,7 @@
       <slot name="tab-item"/>
     </qt-nav-bar>
 
-    <recycler-view-pager v-if="loadContent"
+    <recycler-view-pager v-if="contentRenderingComponents"
         :nextFocusName="contentNextFocus"
         ref="viewPager"
         :class="tabPageClass"
@@ -293,6 +293,10 @@ export default defineComponent({
       type:Number,
       default:0
     },
+    contentRenderingComponents:{
+      type:Boolean,
+      default:true
+    },
     qtTabSectionEnable:{
       type:Object,
       default:()=>{
@@ -337,10 +341,8 @@ export default defineComponent({
     let lastTabPageIndex: number = -1
     let notifySectionAttachTimer: any = -1
 
-    let loadContent = ref(false)
     //--------------------------------------------------------
     function initTab(tab: QTTab): void {
-      loadContent.value = true
       let data: ESTab = {
         defaultIndex: tab.defaultIndex,
         focusIndex: tab.defaultFocusIndex,
@@ -1099,7 +1101,6 @@ export default defineComponent({
         const itemList = generateSectionList(waterfall, data)
         tabs.value?.insertPageData(tabPageIndex,sectionIndex, itemList)
       },
-      loadContent,
       onPluginLoadSuccess,
       onPluginLoadError,
       getDataManager(){
