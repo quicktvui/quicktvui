@@ -21,5 +21,6 @@
   ],
   "dependencies": {
     "@quicktvui/quicktvui3": "^1.1.37-beta.10"
-  }
+  },
+  "web-types": "web-types.json"
 }
