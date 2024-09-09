@@ -39,15 +39,19 @@
       :enablePlaceholder="enablePlaceholder"
       :flex-section="qtTabSectionEnable.flexSection"
       @focus="onItemFocused">
-      <slot name="item"/>
+      <!-- <slot name="item"/> -->
     </flex-section>
+
+    <item-store>
+      <slot name="item"/>
+    </item-store>
 
     <!--一行滚动 多级tab-->
     <list-section v-if="qtTabSectionEnable.listSectionEnable"
       :cache-pool="itemsPool"
       :list-section="qtTabSectionEnable.listSection"
       :enablePlaceholder="enablePlaceholder">
-      <slot name="list-item"/>
+      <!-- <slot name="list-item"/> -->
     </list-section>
 
     <!-- loading-->
