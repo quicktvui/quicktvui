@@ -21,6 +21,7 @@ import qt_tabs_waterfall_item_update_page from "./qt-tabs-waterfall-item-update-
 
 //
 import qt_tabs_waterfall_plugin_page from "./qt-tabs-waterfall-plugin-page.vue"
+import qt_tabs_waterfall_advanced_page from "./qt-tabs-waterfall-advanced-page.vue"
 
 const QTTabsWaterfallPageList = {
   qt_tabs_waterfall_start_page: {
@@ -38,6 +39,10 @@ const QTTabsWaterfallPageList = {
   qt_tabs_waterfall_horizontal_page: {
     name: '横向',
     component: qt_tabs_waterfall_horizontal_page,
+  },
+  qt_tabs_waterfall_advanced_page: {
+    name: '进阶用法',
+    component: qt_tabs_waterfall_advanced_page,
   },
   //---------------------TAB---------------------------
   qt_tabs_tab_item_page: {
@@ -109,5 +114,5 @@ export {
   QTTabsWaterfallPageList,
   QTTabsWaterfallSectionPageList,
   QTTabsWaterfallItemPageList,
-  QTTabsWaterfallSamplePageList
+  QTTabsWaterfallSamplePageList,
 };
