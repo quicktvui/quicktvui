@@ -34,6 +34,7 @@ import registerQTScrollView from "./scroll-view/QTScrollView";
 import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
+export {qtRef,qtWatchAll,qtGetParent} from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [

@@ -168,7 +168,7 @@ module.exports = {
       const aliases = {
         src: path.resolve('./src'),
         // '@': path.resolve('./src'),
-        // '@quicktvui/quicktvui3': path.resolve('./packages/'),
+        // '@quicktvui/quicktvui3': path.resolve('./packages/src'),
       };
       return aliases;
     })(),

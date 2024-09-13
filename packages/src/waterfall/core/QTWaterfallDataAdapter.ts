@@ -6,12 +6,12 @@ import {QTWaterfallSectionType} from "./QTWaterfallSectionType";
 
 //
 export function generateSectionList(waterfall: QTWaterfall,
-                                    sectionList: Array<QTWaterfallSection>): Array<QTWaterfallItem> {
+                                    sectionList: Array<QTWaterfallSection>, isResetSection=false): Array<QTWaterfallItem> {
   const itemList: Array<QTWaterfallItem> = []
   if (sectionList && sectionList.length > 0) {
     for (let i = 0; i < sectionList.length; i++) {
       let section = sectionList[i];
-      let item = generateSection(waterfall, section)
+      let item = generateSection(waterfall, section, isResetSection)
       itemList.push(item)
     }
   }
@@ -19,10 +19,11 @@ export function generateSectionList(waterfall: QTWaterfall,
 }
 
 export function generateSection(waterfall: QTWaterfall,
-                                section: QTWaterfallSection): QTWaterfallSection {
+                                section: QTWaterfallSection, isResetSection=false): QTWaterfallSection {
   let sectionHeight = 0
   if (section.itemList.length > 0 && section.type == QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX) {
-    sectionHeight = layoutItem(section)
+    sectionHeight = layoutItem(section,isResetSection)
+
     section.style.height = sectionHeight
   }
   //plugin
@@ -36,11 +37,19 @@ export function generateSection(waterfall: QTWaterfall,
       section.pluginStyle = section.style
     }
   }
+  if(isResetSection&&section.itemList.length===0){
+    const titleHeight = section.titleStyle?.height ?? 0
+    const titleMarginTop = section.titleStyle?.marginTop ?? 0
+    const titleMarginBottom = section.titleStyle?.marginBottom ?? 0
+    const titlePaddingTop = section.titleStyle?.paddingTop ?? 0
+    const titlePaddingBottom = section.titleStyle?.paddingBottom ?? 0
+    section.style.height = (section.style.minHeight||0) + titleHeight + titleMarginTop + titleMarginBottom + titlePaddingTop + titlePaddingBottom
+  }
   return section
 }
 
 
-function layoutItem(section: QTWaterfallSection): number {
+function layoutItem(section: QTWaterfallSection,isResetSection=false): number {
   const itemList = section.itemList
   //---------------------------------------------------------
   const itemGap = section.style?.spacing ?? 0
@@ -56,7 +65,7 @@ function layoutItem(section: QTWaterfallSection): number {
   const titlePaddingTop = titleStyle?.paddingTop ?? 0
   const titlePaddingBottom = titleStyle?.paddingBottom ?? 0
   //---------------------------------------------------------
-  let sectionHeight = section.style.height ?? 0;
+  let sectionHeight = isResetSection?0:(section.style.height ?? 0);
   let sectionWidth = section.style.width ?? 0;
   //
   const sectionDecoration = section.decoration
