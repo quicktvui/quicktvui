@@ -11,20 +11,31 @@
 
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {QTIWebView} from "@quicktvui/quicktvui3";
+import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: '使用初探',
   setup() {
     const webview = ref<QTIWebView>()
+    const toast = useESToast()
+    watch(
+        () => [webview.value] as const,
+        ([webview], [oldWebview]) => {
+          toast.showToast("实例化成功")
+          console.log('----------watch------webview--->>>>', webview)
+        },
+        {flush: 'post'}
+    )
 
     function onESCreate(params) {
       console.log('----------onESCreate------loadUrl------>>>>', qt, qt.webView)
+      toast.showToast("onESCreate")
       setTimeout(() => {
         console.log('----------onESCreate------start------>>>>')
         qt.webView.loadUrl('webview', 'https://quicktvui.com')
-      }, 1000)
+      }, 5000)
     }
 
     return {
