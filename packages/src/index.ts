@@ -34,7 +34,8 @@ import registerQTScrollView from "./scroll-view/QTScrollView";
 import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
-export {qtRef,qtWatchAll,qtGetParent} from "./qtListen/index";
+
+export {qtRef, qtWatchAll, qtGetParent} from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [
@@ -55,6 +56,13 @@ const components = [
   QTCollapse,
 ]
 
+//---------------------------------------------------------------------------
+import {createQtAPI, QtAPI} from "./QtAPI";
+
+declare global {
+  var qt: QtAPI
+}
+
 export const QuickTVUI = (Vue) => {
   registerQTLoadingViewComponent(Vue)
   registerESListViewComponent(Vue)
@@ -74,6 +82,9 @@ export const QuickTVUI = (Vue) => {
   for (let key in components) {
     Vue.component(components[key].name, components[key])
   }
+
+  const qtAPI: QtAPI = createQtAPI()
+  global.qt = qtAPI
 }
 
 //
@@ -275,4 +286,5 @@ export type {QTIAppIcon} from './app/QTIAppIcon'
 //--------------------------------QTIPluginView---------------------------------
 export type {QTIPluginView, QTPluginViewEvent} from './plugin/QTIPluginView'
 
-export { VirtualView } from './utils/VirtualView'
+export {VirtualView} from './utils/VirtualView'
+
