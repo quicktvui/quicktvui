@@ -3,7 +3,7 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <qt-web-view
-        ref="webview"
+        ref="webviewRef"
         sid="webview"
         class="es-sdk-web-view-css"/>
   </div>
@@ -18,13 +18,14 @@ import {useESToast} from "@extscreen/es3-core";
 export default defineComponent({
   name: '使用初探',
   setup() {
-    const webview = ref<QTIWebView>()
+    const webviewRef = ref<QTIWebView | undefined>()
     const toast = useESToast()
     watch(
-        () => [webview.value] as const,
+        () => [webviewRef.value] as const,
         ([webview], [oldWebview]) => {
           toast.showToast("实例化成功")
           console.log('----------watch------webview--->>>>', webview)
+          qt.webView.loadUrl(webviewRef, 'https://quicktvui.com')
         },
         {flush: 'post'}
     )
@@ -34,12 +35,12 @@ export default defineComponent({
       toast.showToast("onESCreate")
       setTimeout(() => {
         console.log('----------onESCreate------start------>>>>')
-        qt.webView.loadUrl('webview', 'https://quicktvui.com')
-      }, 5000)
+        qt.webView.loadUrl('webview', 'https://baidu.com')
+      }, 10000)
     }
 
     return {
-      webview,
+      webviewRef,
       onESCreate,
     }
   },

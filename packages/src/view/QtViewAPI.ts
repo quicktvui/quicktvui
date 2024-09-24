@@ -1,34 +1,52 @@
 import {QTIViewVisibility} from "./QTIViewVisibility";
 import {Native} from "@extscreen/es3-vue";
+import {Ref, isRef} from "@vue/reactivity";
+import {QTIView} from "./QTIView";
 
 export interface QtViewAPI {
 
-  requestFocus(sid: string)
+  requestFocus(instance: string | Ref<QTIView | undefined>)
 
-  clearFocus(sid: string)
+  clearFocus(instance: string | Ref<QTIView | undefined>)
 
-  requestFocusDirectly(sid: string)
+  requestFocusDirectly(instance: string | Ref<QTIView | undefined>)
 
-  setVisibility(sid: string, v: QTIViewVisibility)
+  setVisibility(instance: string | Ref<QTIView | undefined>, v: QTIViewVisibility)
 
 }
 
 export function createQtViewAPI(): QtViewAPI {
 
-  function requestFocus(sid: string) {
-    Native.callNative('ExtendModule', 'callFunction', [sid, 'requestFocus', []]);
+  function requestFocus(instance: string | Ref<QTIView | undefined>) {
+    if (instance instanceof String) {
+      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestFocus', []]);
+    } else if (isRef(instance)) {
+      instance.value?.requestFocus()
+    }
   }
 
-  function clearFocus(sid: string) {
-    Native.callNative('ExtendModule', 'callFunction', [sid, 'clearFocus', []]);
+  function clearFocus(instance: string | Ref<QTIView | undefined>) {
+    if (instance instanceof String) {
+      Native.callNative('ExtendModule', 'callFunction', [instance, 'clearFocus', []]);
+    } else if (isRef(instance)) {
+      instance.value?.clearFocus()
+    }
   }
 
-  function requestFocusDirectly(sid: string) {
-    Native.callNative('ExtendModule', 'callFunction', [sid, 'requestFocusDirectly', []]);
+  function requestFocusDirectly(instance: string | Ref<QTIView | undefined>) {
+    if (instance instanceof String) {
+      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestFocusDirectly', []]);
+    } else if (isRef(instance)) {
+      instance.value?.requestFocusDirectly()
+    }
   }
 
-  function setVisibility(sid: string, v: QTIViewVisibility) {
-    Native.callNative('ExtendModule', 'callFunction', [sid, 'changeVisibility', [v]]);
+  function setVisibility(instance: string | Ref<QTIView | undefined>, v: QTIViewVisibility) {
+    if (instance instanceof String) {
+      Native.callNative('ExtendModule', 'callFunction', [instance, 'changeVisibility', [v]]);
+    } else if (isRef(instance)) {
+      instance.value?.setVisibility(v)
+    }
   }
 
 
