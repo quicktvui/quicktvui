@@ -108,7 +108,7 @@ export interface QTIWebView extends QTIView {
 
   setLightTouchEnabled(value: boolean): void
 
-  setMinimumLogicalFontSize(value: number)
+  setMinimumLogicalFontSize(value: number): void
 
   setDefaultFixedFontSize(value: number): void
 
