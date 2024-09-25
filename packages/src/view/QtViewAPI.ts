@@ -10,6 +10,7 @@ import {QTFocusDirectionName} from "../focus/QTFocusDirectionName";
 import {QTEventData} from "../core/QTEventData";
 import {QTLocation} from "../core/QTLocation";
 import {QTViewState} from "./QTViewState";
+import {QT_CALL_UI_FUNCTION, QT_CALL_UI_FUNCTION_WITH_PROMISE, QT_API_MODULE} from "../qt/QtAPI";
 
 export interface QtViewAPI {
 
@@ -88,7 +89,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function requestFocus(instance: string | Ref<QTIView | undefined>, direction?: QTFocusDirection) {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestFocus', [direction]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'requestFocus', [direction]]);
     } else if (isRef(instance)) {
       instance.value?.requestFocus(direction)
     }
@@ -96,7 +97,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function requestChildFocus(instance: string | Ref<QTIView | undefined>, position: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestChildFocus', [position]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'requestChildFocus', [position]]);
     } else if (isRef(instance)) {
       instance.value?.requestChildFocus(position)
     }
@@ -104,7 +105,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function clearFocus(instance: string | Ref<QTIView | undefined>) {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'clearFocus', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'clearFocus', []]);
     } else if (isRef(instance)) {
       instance.value?.clearFocus()
     }
@@ -112,7 +113,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function requestFocusDirectly(instance: string | Ref<QTIView | undefined>, direction?: QTFocusDirection) {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestFocusDirectly', [direction]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'requestFocusDirectly', [direction]]);
     } else if (isRef(instance)) {
       instance.value?.requestFocusDirectly(direction)
     }
@@ -120,7 +121,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function setVisibility(instance: string | Ref<QTIView | undefined>, v: QTIViewVisibility) {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'changeVisibility', [v]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'changeVisibility', [v]]);
     } else if (isRef(instance)) {
       instance.value?.setVisibility(v)
     }
@@ -128,7 +129,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function requestRootLayout(instance: string | Ref<QTIView | undefined>) {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestRootLayout', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'requestRootLayout', []]);
     } else if (isRef(instance)) {
       instance.value?.requestRootLayout()
     }
@@ -136,7 +137,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function requestLayout(instance: string | Ref<QTIView | undefined>) {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestLayout', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'requestLayout', []]);
     } else if (isRef(instance)) {
       instance.value?.requestLayout()
     }
@@ -145,7 +146,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function setDescendantFocusability(instance: string | Ref<QTIView | undefined>, descendant: QTFocusDescendant): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setDescendantFocusability', [descendant]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDescendantFocusability', [descendant]]);
     } else if (isRef(instance)) {
       instance.value?.setDescendantFocusability(descendant)
     }
@@ -153,7 +154,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function changeDescendantFocusability(instance: string | Ref<QTIView | undefined>, descendant: QTDescendantFocusability): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'changeDescendantFocusability', [descendant]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'changeDescendantFocusability', [descendant]]);
     } else if (isRef(instance)) {
       instance.value?.changeDescendantFocusability(descendant)
     }
@@ -161,7 +162,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function forceUpdateRenderNode(instance: string | Ref<QTIView | undefined>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'forceUpdateRenderNode', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'forceUpdateRenderNode', []]);
     } else if (isRef(instance)) {
       instance.value?.forceUpdateRenderNode()
     }
@@ -169,7 +170,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function setBackGroundColor(instance: string | Ref<QTIView | undefined>, color: string): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setBackGroundColor', [color]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setBackGroundColor', [color]]);
     } else if (isRef(instance)) {
       instance.value?.setBackGroundColor(color)
     }
@@ -177,7 +178,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function layoutViewManual(instance: string | Ref<QTIView | undefined>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'layoutViewManual', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'layoutViewManual', []]);
     } else if (isRef(instance)) {
       instance.value?.layoutViewManual()
     }
@@ -185,7 +186,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function blockRootFocus(instance: string | Ref<QTIView | undefined>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'blockRootFocus', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'blockRootFocus', []]);
     } else if (isRef(instance)) {
       instance.value?.blockRootFocus()
     }
@@ -193,7 +194,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function unBlockRootFocus(instance: string | Ref<QTIView | undefined>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'unBlockRootFocus', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'unBlockRootFocus', []]);
     } else if (isRef(instance)) {
       instance.value?.unBlockRootFocus()
     }
@@ -201,7 +202,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function changeAlpha(instance: string | Ref<QTIView | undefined>, alpha: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'changeAlpha', [alpha]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'changeAlpha', [alpha]]);
     } else if (isRef(instance)) {
       instance.value?.changeAlpha(alpha)
     }
@@ -209,7 +210,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function setScale(instance: string | Ref<QTIView | undefined>, x: number, y: number, duration: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setScale', [x, y, duration]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setScale', [x, y, duration]]);
     } else if (isRef(instance)) {
       instance.value?.setScale(x, y, duration)
     }
@@ -217,7 +218,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function setPosition(instance: string | Ref<QTIView | undefined>, x: number, y: number, z: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setPosition', [x, y, z]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setPosition', [x, y, z]]);
     } else if (isRef(instance)) {
       instance.value?.setPosition(x, y, z)
     }
@@ -225,7 +226,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function updateLayout(instance: string | Ref<QTIView | undefined>, width: number, height: number, x: number, y: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'updateLayout', [width, height, x, y]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'updateLayout', [width, height, x, y]]);
     } else if (isRef(instance)) {
       instance.value?.updateLayout(width, height, x, y)
     }
@@ -233,7 +234,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function invalidate(instance: string | Ref<QTIView | undefined>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'invalidate', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'invalidate', []]);
     } else if (isRef(instance)) {
       instance.value?.invalidate()
     }
@@ -243,7 +244,7 @@ export function createQtViewAPI(): QtViewAPI {
                                      targetName: string, functionTargetName: string,
                                      params: Array<QTNativeParams>, delay: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'dispatchFunctionForTarget', [targetName, functionTargetName, params, delay]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'dispatchFunctionForTarget', [targetName, functionTargetName, params, delay]]);
     } else if (isRef(instance)) {
       instance.value?.dispatchFunctionForTarget(targetName, functionTargetName, params, delay)
     }
@@ -252,7 +253,7 @@ export function createQtViewAPI(): QtViewAPI {
   function setBlockFocusDirections(instance: string | Ref<QTIView | undefined>,
                                    directionList: Array<QTFocusDirectionName>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setBlockFocusDirections', [directionList]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setBlockFocusDirections', [directionList]]);
     } else if (isRef(instance)) {
       instance.value?.setBlockFocusDirections(directionList)
     }
@@ -261,7 +262,7 @@ export function createQtViewAPI(): QtViewAPI {
   function setBlockFocusDirectionsOnFail(instance: string | Ref<QTIView | undefined>,
                                          directionList: Array<QTFocusDirectionName>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setBlockFocusDirectionsOnFail', [directionList]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setBlockFocusDirectionsOnFail', [directionList]]);
     } else if (isRef(instance)) {
       instance.value?.setBlockFocusDirectionsOnFail(directionList)
     }
@@ -270,7 +271,7 @@ export function createQtViewAPI(): QtViewAPI {
   function setInitFocus(instance: string | Ref<QTIView | undefined>,
                         sid: string, delay?: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setInitFocus', [sid, delay]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setInitFocus', [sid, delay]]);
     } else if (isRef(instance)) {
       instance.value?.setInitFocus(sid, delay)
     }
@@ -278,7 +279,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function setAutoFocus(instance: string | Ref<QTIView | undefined>, sid: string, delay?: number): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setAutoFocus', [sid, delay]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAutoFocus', [sid, delay]]);
     } else if (isRef(instance)) {
       instance.value?.setAutoFocus(sid, delay)
     }
@@ -286,7 +287,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function enabledAutofocus(instance: string | Ref<QTIView | undefined>, autofocus: boolean): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'setAutoFocus', [autofocus]]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAutoFocus', [autofocus]]);
     } else if (isRef(instance)) {
       instance.value?.enabledAutofocus(autofocus)
     }
@@ -294,7 +295,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   function requestAutofocus(instance: string | Ref<QTIView | undefined>): void {
     if (instance instanceof String) {
-      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestAutofocus', []]);
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'requestAutofocus', []]);
     } else if (isRef(instance)) {
       instance.value?.requestAutofocus()
     }
@@ -303,7 +304,7 @@ export function createQtViewAPI(): QtViewAPI {
   function hasFocus(instance: string | Ref<QTIView | undefined>): Promise<boolean> {
     if (instance instanceof String) {
       return new Promise((resolve, reject) => {
-        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'hasFocus', []], (res) => {
+        Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE, [instance, 'hasFocus', []], (res) => {
           resolve(res);
         })
       });
@@ -317,7 +318,7 @@ export function createQtViewAPI(): QtViewAPI {
   function isFocused(instance: string | Ref<QTIView | undefined>): Promise<boolean> {
     if (instance instanceof String) {
       return new Promise((resolve, reject) => {
-        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'isFocused', []], (res) => {
+        Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE, [instance, 'isFocused', []], (res) => {
           resolve(res);
         })
       });
@@ -331,7 +332,7 @@ export function createQtViewAPI(): QtViewAPI {
   function getLocationOnScreen(instance: string | Ref<QTIView | undefined>): Promise<QTEventData<QTLocation>> {
     if (instance instanceof String) {
       return new Promise((resolve, reject) => {
-        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'getLocationOnScreen', []], (res) => {
+        Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE, [instance, 'getLocationOnScreen', []], (res) => {
           resolve(res);
         })
       });
@@ -345,7 +346,7 @@ export function createQtViewAPI(): QtViewAPI {
   function getViewState(instance: string | Ref<QTIView | undefined>): Promise<QTViewState> {
     if (instance instanceof String) {
       return new Promise((resolve, reject) => {
-        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'getViewState', []], (res) => {
+        Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE, [instance, 'getViewState', []], (res) => {
           resolve(res);
         })
       });
@@ -359,7 +360,7 @@ export function createQtViewAPI(): QtViewAPI {
   function getChildViewState(instance: string | Ref<QTIView | undefined>, position: number): Promise<QTViewState> {
     if (instance instanceof String) {
       return new Promise((resolve, reject) => {
-        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'getChildViewState', [position]], (res) => {
+        Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE, [instance, 'getChildViewState', [position]], (res) => {
           resolve(res);
         })
       });
