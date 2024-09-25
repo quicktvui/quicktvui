@@ -64,6 +64,9 @@ declare global {
 }
 
 export type {QTNativeParams} from './core/QTNativeParams'
+export type {QTNativeMap} from './core/QTNativeParams'
+
+//
 export {QTDescendantFocusability} from './focus/QTDescendantFocusability'
 export {QTFocusDescendant} from './focus/QTFocusDescendant'
 export {QTFocusDirection} from './focus/QTFocusDirection'
@@ -105,6 +108,8 @@ export type {QTIView} from './view/QTIView'
 export {QTIViewVisibility} from './view/QTIViewVisibility'
 export type {QTViewEvent} from './view/QTViewEvent'
 export type {QTViewState} from './view/QTViewState'
+export type {QTPosition} from './core/QTPosition'
+
 
 //QTFocusable
 export type {QTFocusable} from './core/QTFocusable'
@@ -156,6 +161,9 @@ export {QTWaterfallVisibleType} from './waterfall/core/QTWaterfallVisibleType'
 export type {QTWaterfallPluginSection} from './waterfall/core/QTWaterfallPluginSection'
 export type {QTWaterfallPluginItem} from './waterfall/core/QTWaterfallPluginItem'
 
+//List
+export type {QTListInitPosition} from './list/QTListInitPosition'
+
 //ListView
 export type {QTListViewItem} from './list-view/core/QTListViewItem'
 export type {QTListViewItemDecoration} from './list-view/core/QTListViewItemDecoration'
@@ -163,8 +171,6 @@ export type {QTListViewItemFunctionParams} from './list-view/core/QTListViewItem
 export type {QTListViewItemState} from './list-view/core/QTListViewItemState'
 
 //GridView
-export type {QTGridViewItem} from './grid-view/core/QTGridViewItem'
-export type {QTGridViewItemDecoration} from './grid-view/core/QTGridViewItemDecoration'
 export type {QTGridViewItemFunctionParams} from './grid-view/core/QTGridViewItemFunctionParams'
 
 //NavBar

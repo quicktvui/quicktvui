@@ -3,9 +3,9 @@
 import {QTWaterfallSection} from "./QTWaterfallSection";
 import {QTWaterfall} from "./QTWaterfall";
 import {QTWaterfallItem} from "./QTWaterfallItem";
-import {QTIView} from "../../view/QTIView";
+import {QTIBaseListView} from "../../list/QTIBaseListView";
 
-export interface QTIWaterfall extends QTIView {
+export interface QTIWaterfall extends QTIBaseListView {
 
   init(waterfall: QTWaterfall)
 
@@ -35,18 +35,4 @@ export interface QTIWaterfall extends QTIView {
 
   getItem(sectionIndex: number, itemIndex: number): QTWaterfallItem | undefined
 
-  //---------------------------------------------------------------------
-  clearPostTask(): void
-
-  pausePostTask(): void
-
-  resumePostTask(): void
-
-  //---------------------------------------------------------------------
-  destroy(): void
-
-  //---------------------------------------------------------------------
-  scrollToTop(): void
-
-  setListData(): void
 }

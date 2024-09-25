@@ -25,9 +25,9 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     }
   }
 
-  function requestChildFocus(position: number): void {
+  function requestChildFocus(position: number, direction?: QTFocusDirection): void {
     if (viewRef.value) {
-      Native.callUIFunction(viewRef.value, 'requestChildFocus', [position]);
+      Native.callUIFunction(viewRef.value, 'requestChildFocus', [position, direction]);
     }
   }
 

@@ -1,9 +1,5 @@
 //
-import {QTGridViewItemDecoration} from "./QTGridViewItemDecoration";
+import {QTListViewItem} from "../../list-view/core/QTListViewItem";
 
-export interface QTGridViewItem {
-  type: number
-  decoration?: QTGridViewItemDecoration
-
-  [prop: string]: any
+export interface QTGridViewItem extends QTListViewItem {
 }
