@@ -2,11 +2,15 @@ import {createQtViewAPI, QtViewAPI} from "../view/QtViewAPI";
 import {createQtWebViewAPI, QtWebViewAPI} from "../webview/QtWebViewAPI";
 import {createQtListViewAPI, QtListViewAPI} from "../list-view/QtListViewAPI";
 import {createQtBaseListViewAPI, QtBaseListViewAPI} from "../list/QtBaseListViewAPI";
+import {createQtGridViewAPI, QtGridViewAPI} from "../grid-view/QtGridViewAPI";
+import {createQtWaterfallAPI, QtWaterfallAPI} from "../waterfall/QtWaterfallAPI";
 
 export interface QtAPI {
   view: QtViewAPI
   webView: QtWebViewAPI
   listView: QtListViewAPI
+  gridView: QtGridViewAPI
+  waterfall: QtWaterfallAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -16,11 +20,15 @@ export function createQtAPI(): QtAPI {
   //
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
   const listViewAPI: QtListViewAPI = createQtListViewAPI(viewAPI, baseListViewAPI)
+  const gridViewAPI: QtGridViewAPI = createQtGridViewAPI(viewAPI, baseListViewAPI)
+  const waterfallAPI: QtWaterfallAPI = createQtWaterfallAPI(viewAPI, baseListViewAPI)
 
   return {
     view: viewAPI,
     webView: webViewAPI,
-    listView: listViewAPI
+    listView: listViewAPI,
+    gridView: gridViewAPI,
+    waterfall: waterfallAPI
   }
 }
 
