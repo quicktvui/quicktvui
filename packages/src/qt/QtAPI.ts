@@ -7,6 +7,7 @@ import {createQtWaterfallAPI, QtWaterfallAPI} from "../waterfall/QtWaterfallAPI"
 import {createQtImageAPI, QtImageAPI} from "../image/QtImageAPI";
 import {createQtULAPI, QtULAPI} from "../ul/QtULAPI";
 import {createQtScrollViewAPI, QtScrollViewAPI} from "../scroll-view/QtScrollViewAPI";
+import {createQtTextAPI, QtTextAPI} from "../text/QtTextAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -17,6 +18,7 @@ export interface QtAPI {
   image: QtImageAPI
   ul: QtULAPI
   scrollView: QtScrollViewAPI
+  text: QtTextAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -32,6 +34,7 @@ export function createQtAPI(): QtAPI {
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
   const ulAPI: QtULAPI = createQtULAPI(viewAPI)
   const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(viewAPI)
+  const textAPI: QtTextAPI = createQtTextAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -41,7 +44,8 @@ export function createQtAPI(): QtAPI {
     waterfall: waterfallAPI,
     image: imageAPI,
     ul: ulAPI,
-    scrollView: scrollViewAPI
+    scrollView: scrollViewAPI,
+    text: textAPI
   }
 }
 

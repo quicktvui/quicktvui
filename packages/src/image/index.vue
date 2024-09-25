@@ -23,15 +23,10 @@ export default defineComponent({
       Native.callUIFunction(viewRef.value, 'resizeMode', [mode]);
     }
 
-    context.expose({
+    return {
       viewRef,
       setSrc,
       resizeMode,
-      ...useBaseView(viewRef)
-    })
-
-    return {
-      viewRef,
       ...useBaseView(viewRef)
     }
   }
