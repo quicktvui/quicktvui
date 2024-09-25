@@ -127,16 +127,6 @@ function registerQTSeekBarView(app: ESApp) {
         });
       }
 
-      function requestLayout() {
-        Native.callUIFunction(viewRef.value, 'requestLayout', [], (res) => {
-        });
-      }
-
-      function invalidate() {
-        Native.callUIFunction(viewRef.value, 'invalidate', [], (res) => {
-        });
-      }
-
       function setVisible(visible: boolean) {
         Native.callUIFunction(viewRef.value, 'setVisible', [visible], (res) => {
         });
@@ -757,8 +747,6 @@ function registerQTSeekBarView(app: ESApp) {
         invalidateSeekBar,
         setFocusable,
         setClickable,
-        requestLayout,
-        invalidate,
         setVisible,
         setLeftSeekBarVisible,
         setRightSeekBarVisible,

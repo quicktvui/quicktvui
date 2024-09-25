@@ -63,6 +63,14 @@ declare global {
   var qt: QtAPI
 }
 
+export type {QTNativeParams} from './core/QTNativeParams'
+export {QTDescendantFocusability} from './focus/QTDescendantFocusability'
+export {QTFocusDescendant} from './focus/QTFocusDescendant'
+export {QTFocusDirection} from './focus/QTFocusDirection'
+export {QTFocusDirectionName} from './focus/QTFocusDirectionName'
+
+//---------------------------------------------------------------------------
+
 export const QuickTVUI = (Vue) => {
   registerQTLoadingViewComponent(Vue)
   registerESListViewComponent(Vue)

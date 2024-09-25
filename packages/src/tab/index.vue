@@ -349,10 +349,6 @@ export default defineComponent({
       tabs.value?.setTabsData(data)
     }
 
-    function setAutoFocus(tag: string, delay: number) {
-      tabs.value?.setAutoFocus(tag, delay)
-    }
-
     //--------------------------------------------------------
     function initPage(w: QTWaterfall) {
       waterfall = w;
@@ -558,13 +554,6 @@ export default defineComponent({
     }
 
     //--------------------------------------------------------
-    function blockRootFocus(): void {
-      tabs.value?.blockRootFocus()
-    }
-
-    function unBlockRootFocus(): void {
-      tabs.value?.unBlockRootFocus()
-    }
 
     function focusBackToTop(): void {
       tabs.value?.focusBackToTop()
@@ -1037,7 +1026,6 @@ export default defineComponent({
       ifTabs,
       navBarRef,
       initTab,
-      setAutoFocus,
       initPage,
       setPageState,
       setPageData,
@@ -1054,8 +1042,6 @@ export default defineComponent({
       updatePageItem,
       deletePageItem,
       //
-      blockRootFocus,
-      unBlockRootFocus,
       focusBackToTop,
       requestNodeFocus,
       reloadAll,

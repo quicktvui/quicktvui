@@ -130,7 +130,7 @@ function registerESListViewComponent(app: ESApp) {
           }
         }
       }
-      
+
       watchEffect(() => {
         if (props.openPage && !props.listData) {
           initPage()
@@ -197,7 +197,7 @@ function registerESListViewComponent(app: ESApp) {
         recordTarget.value = target
         return recordTarget.value
       }
-      
+
       //------------------------------------------------------------------------
       const startScroll = (focusPosition?: number, scrollToPosition?: number, scrollOffset?: number) => {
         Native.callUIFunction(viewRef.value, 'startScroll',
@@ -279,29 +279,13 @@ function registerESListViewComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'requestChildFocus', [position]);
       }
 
-      const blockRootFocus = () => {
-        Native.callUIFunction(viewRef.value, 'blockRootFocus', []);
-      }
-      const unBlockRootFocus = () => {
-        Native.callUIFunction(viewRef.value, 'unBlockRootFocus', []);
-      }
-      const setBlockFocusDirectionsOnFail = (data: Array<QTDirections>) => {
-        Native.callUIFunction(viewRef.value, 'setBlockFocusDirectionsOnFail', [data]);
-      }
       //----------------------------------------------------------
-      const setBackgroundColor = (color: string) => {
-        Native.callUIFunction(viewRef.value, 'setBackgroundColor', [color]);
-      }
       //----------------------------------------------------------
       const prepareForRecycle = () => {
         Native.callUIFunction(viewRef.value, 'prepareForRecycle', []);
       }
       const destroy = () => {
         Native.callUIFunction(viewRef.value, 'destroy', []);
-      }
-
-      function setAutoFocus(tag: string, delay: number) {
-        Native.callUIFunction(viewRef.value, 'setAutoFocus', [tag, delay]);
       }
 
       //----------------------------------------------------------
@@ -358,7 +342,6 @@ function registerESListViewComponent(app: ESApp) {
         scrollToIndex,
         hasFocus,
         dispatchItemFunction,
-        setBlockFocusDirectionsOnFail,
         prepareForRecycle,
         setDisplay,
         scrollToTop,
@@ -377,11 +360,7 @@ function registerESListViewComponent(app: ESApp) {
         setItemFocused,
         clearPostTask,
         setItemSelected,
-        blockRootFocus,
-        unBlockRootFocus,
-        setBackgroundColor,
         stopPage,
-        setAutoFocus,
         setListData(dataArr: Array<QTListViewItem>){
           Native.callUIFunction(viewRef.value, 'setListData', dataArr)
         },
@@ -424,13 +403,13 @@ function registerESListViewComponent(app: ESApp) {
                 if(myPreloadNo < 0 || myPreloadNo >= newList.length){
                   myPreloadNo = 0
                 }
-                
+
                 if (evt.position == newList.length - 1 - myPreloadNo) {
                   // console.log(evt.position, '---lsj--onBindItem-', newList.length)
                   loadMoreFn()
                 }
               }
-              
+
               ctx.emit('item-bind', evt);
             },
             onUnbindItem: (evt) => {
