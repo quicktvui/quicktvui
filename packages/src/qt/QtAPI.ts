@@ -8,6 +8,7 @@ import {createQtImageAPI, QtImageAPI} from "../image/QtImageAPI";
 import {createQtULAPI, QtULAPI} from "../ul/QtULAPI";
 import {createQtScrollViewAPI, QtScrollViewAPI} from "../scroll-view/QtScrollViewAPI";
 import {createQtTextAPI, QtTextAPI} from "../text/QtTextAPI";
+import {createQtReplaceChildViewAPI, QtReplaceChildViewAPI} from "../replace-child/QtReplaceChildViewAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -19,6 +20,7 @@ export interface QtAPI {
   ul: QtULAPI
   scrollView: QtScrollViewAPI
   text: QtTextAPI
+  replaceChildView: QtReplaceChildViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -35,6 +37,7 @@ export function createQtAPI(): QtAPI {
   const ulAPI: QtULAPI = createQtULAPI(viewAPI)
   const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(viewAPI)
   const textAPI: QtTextAPI = createQtTextAPI(viewAPI)
+  const replaceChildViewAPI: QtReplaceChildViewAPI = createQtReplaceChildViewAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -45,7 +48,8 @@ export function createQtAPI(): QtAPI {
     image: imageAPI,
     ul: ulAPI,
     scrollView: scrollViewAPI,
-    text: textAPI
+    text: textAPI,
+    replaceChildView: replaceChildViewAPI
   }
 }
 

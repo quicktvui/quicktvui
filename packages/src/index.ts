@@ -34,6 +34,8 @@ import registerQTScrollView from "./scroll-view/QTScrollView";
 import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
+import registerQTIReplaceChildView from "./replace-child/QTReplaceChildView";
+
 
 export {qtRef, qtWatchAll, qtGetParent} from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
@@ -89,6 +91,7 @@ export const QuickTVUI = (Vue) => {
   registerQTLottieView(Vue)
   registerAppIconView(Vue)
   registerQTPluginView(Vue)
+  registerQTIReplaceChildView(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
@@ -109,6 +112,11 @@ export {QTIViewVisibility} from './view/QTIViewVisibility'
 export type {QTViewEvent} from './view/QTViewEvent'
 export type {QTViewState} from './view/QTViewState'
 export type {QTPosition} from './core/QTPosition'
+
+//text
+export type {QTTextSpan} from './text/QTTextSpan'
+export type {QTTextSpanAttribute} from './text/QTTextSpanAttribute'
+export {QTTextSpanAttributeType} from './text/QTTextSpanAttributeType'
 
 //
 export {QTImageResizeMode} from './image/QTImageResizeMode'
