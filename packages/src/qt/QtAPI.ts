@@ -6,6 +6,7 @@ import {createQtGridViewAPI, QtGridViewAPI} from "../grid-view/QtGridViewAPI";
 import {createQtWaterfallAPI, QtWaterfallAPI} from "../waterfall/QtWaterfallAPI";
 import {createQtImageAPI, QtImageAPI} from "../image/QtImageAPI";
 import {createQtULAPI, QtULAPI} from "../ul/QtULAPI";
+import {createQtScrollViewAPI, QtScrollViewAPI} from "../scroll-view/QtScrollViewAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -15,6 +16,7 @@ export interface QtAPI {
   waterfall: QtWaterfallAPI
   image: QtImageAPI
   ul: QtULAPI
+  scrollView: QtScrollViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -28,9 +30,8 @@ export function createQtAPI(): QtAPI {
   //
   const imageAPI: QtImageAPI = createQtImageAPI(viewAPI)
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
-
-  //
   const ulAPI: QtULAPI = createQtULAPI(viewAPI)
+  const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -39,7 +40,8 @@ export function createQtAPI(): QtAPI {
     gridView: gridViewAPI,
     waterfall: waterfallAPI,
     image: imageAPI,
-    ul: ulAPI
+    ul: ulAPI,
+    scrollView: scrollViewAPI
   }
 }
 
