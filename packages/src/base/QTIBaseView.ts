@@ -15,6 +15,8 @@ export interface QTIBaseView extends ESIView {
 
   requestChildFocus(position: number, direction?: QTFocusDirection): void
 
+  requestChildFocusAtIndex(position: number): void
+
   clearFocus(): void
 
   requestFocusDirectly(direction?: QTFocusDirection): void
@@ -75,4 +77,8 @@ export interface QTIBaseView extends ESIView {
   getViewState(): Promise<QTViewState>
 
   getChildViewState(position: number): Promise<QTViewState>
+
+  clearMemoryFocused(): void
+
+  showDialog(show: boolean): void
 }

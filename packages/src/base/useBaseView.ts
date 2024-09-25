@@ -236,6 +236,23 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     }
   }
 
+  function requestChildFocusAtIndex(position: number): void {
+    if (viewRef.value) {
+      Native.callUIFunction(viewRef.value, 'requestChildFocusAtIndex', [position])
+    }
+  }
+
+  function clearMemoryFocused(): void {
+    if (viewRef.value) {
+      Native.callUIFunction(viewRef.value, 'clearMemoryFocused', [])
+    }
+  }
+
+  function showDialog(show: boolean): void {
+    if (viewRef.value) {
+      Native.callUIFunction(viewRef.value, 'showDialog', [show])
+    }
+  }
 
   return {
     dispatchFunctionBySid,
@@ -269,6 +286,9 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     isFocused,
     getLocationOnScreen,
     getViewState,
-    getChildViewState
+    getChildViewState,
+    requestChildFocusAtIndex,
+    clearMemoryFocused,
+    showDialog
   }
 }
