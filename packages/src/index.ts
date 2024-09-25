@@ -110,6 +110,9 @@ export type {QTViewEvent} from './view/QTViewEvent'
 export type {QTViewState} from './view/QTViewState'
 export type {QTPosition} from './core/QTPosition'
 
+//
+export {QTImageResizeMode} from './image/QTImageResizeMode'
+
 
 //QTFocusable
 export type {QTFocusable} from './core/QTFocusable'
