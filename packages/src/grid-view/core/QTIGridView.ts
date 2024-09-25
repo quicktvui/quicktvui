@@ -12,13 +12,13 @@ export interface QTIGridView extends QTIBaseListView {
 
   restartPage(): void
 
-  setItemFocused(pos: number): void
+  setItemFocused(position: number): void
 
-  scrollToFocused(pos: number): void
+  scrollToFocused(position: number): void
 
-  setItemSelected(pos: number, b: boolean): void
+  setItemSelected(position: number, b: boolean): void
 
-  scrollToSelected(pos: number, b: boolean): void
+  scrollToSelected(position: number, b: boolean): void
 
   setInitPosition(position: number): void
 }
