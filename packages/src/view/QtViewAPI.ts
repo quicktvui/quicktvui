@@ -7,6 +7,9 @@ import {QTFocusDescendant} from "../focus/QTFocusDescendant";
 import {QTDescendantFocusability} from "../focus/QTDescendantFocusability";
 import {QTNativeParams} from "../core/QTNativeParams";
 import {QTFocusDirectionName} from "../focus/QTFocusDirectionName";
+import {QTEventData} from "../core/QTEventData";
+import {QTLocation} from "../core/QTLocation";
+import {QTViewState} from "./QTViewState";
 
 export interface QtViewAPI {
 
@@ -65,6 +68,18 @@ export interface QtViewAPI {
   enabledAutofocus(instance: string | Ref<QTIView | undefined>, autofocus: boolean): void
 
   requestAutofocus(instance: string | Ref<QTIView | undefined>): void
+
+
+  //
+  hasFocus(instance: string | Ref<QTIView | undefined>): Promise<boolean>
+
+  isFocused(instance: string | Ref<QTIView | undefined>): Promise<boolean>
+
+  getLocationOnScreen(instance: string | Ref<QTIView | undefined>): Promise<QTEventData<QTLocation>>
+
+  getViewState(instance: string | Ref<QTIView | undefined>): Promise<QTViewState>
+
+  getChildViewState(instance: string | Ref<QTIView | undefined>, position: number): Promise<QTViewState>
 }
 
 export function createQtViewAPI(): QtViewAPI {
@@ -275,6 +290,76 @@ export function createQtViewAPI(): QtViewAPI {
     }
   }
 
+  function hasFocus(instance: string | Ref<QTIView | undefined>): Promise<boolean> {
+    if (instance instanceof String) {
+      return new Promise((resolve, reject) => {
+        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'hasFocus', []], (res) => {
+          resolve(res);
+        })
+      });
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.hasFocus()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function isFocused(instance: string | Ref<QTIView | undefined>): Promise<boolean> {
+    if (instance instanceof String) {
+      return new Promise((resolve, reject) => {
+        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'isFocused', []], (res) => {
+          resolve(res);
+        })
+      });
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.isFocused()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getLocationOnScreen(instance: string | Ref<QTIView | undefined>): Promise<QTEventData<QTLocation>> {
+    if (instance instanceof String) {
+      return new Promise((resolve, reject) => {
+        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'getLocationOnScreen', []], (res) => {
+          resolve(res);
+        })
+      });
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getLocationOnScreen()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getViewState(instance: string | Ref<QTIView | undefined>): Promise<QTViewState> {
+    if (instance instanceof String) {
+      return new Promise((resolve, reject) => {
+        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'getViewState', []], (res) => {
+          resolve(res);
+        })
+      });
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getViewState()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getChildViewState(instance: string | Ref<QTIView | undefined>, position: number): Promise<QTViewState> {
+    if (instance instanceof String) {
+      return new Promise((resolve, reject) => {
+        Native.callNative('ExtendModule', 'callUIFunctionWithPromise', [instance, 'getChildViewState', [position]], (res) => {
+          resolve(res);
+        })
+      });
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getChildViewState(position)
+    } else {
+      return Promise.reject()
+    }
+  }
+
   return {
     requestFocus,
     clearFocus,
@@ -300,6 +385,11 @@ export function createQtViewAPI(): QtViewAPI {
     setInitFocus,
     setAutoFocus,
     enabledAutofocus,
-    requestAutofocus
+    requestAutofocus,
+    hasFocus,
+    isFocused,
+    getLocationOnScreen,
+    getViewState,
+    getChildViewState
   }
 }

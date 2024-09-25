@@ -104,6 +104,7 @@ export type {QTIListView} from './list-view/core/QTIListView'
 export type {QTIView} from './view/QTIView'
 export {QTIViewVisibility} from './view/QTIViewVisibility'
 export type {QTViewEvent} from './view/QTViewEvent'
+export type {QTViewState} from './view/QTViewState'
 
 //QTFocusable
 export type {QTFocusable} from './core/QTFocusable'
@@ -122,7 +123,10 @@ export type {QTFlexStyleText} from './core/QTFlexStyleText'
 
 //
 export type {QTVisibility} from './core/QTVisibility'
-export {QTDirections} from './core/QTDirections'
+
+//
+export type {QTEventData} from './core/QTEventData'
+export type {QTLocation} from './core/QTLocation'
 
 //Poster
 export type {QTPoster} from './poster/core/QTPoster'

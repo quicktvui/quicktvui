@@ -18,8 +18,6 @@ export interface QTISeekBar extends QTIView {
 
   stopSeek(): void
 
-  isFocused(): void
-
 //--------------------------------------------------------------------
   invalidateSeekBar(): void
 

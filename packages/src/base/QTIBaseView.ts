@@ -5,6 +5,9 @@ import {QTFocusDescendant} from "../focus/QTFocusDescendant";
 import {QTDescendantFocusability} from "../focus/QTDescendantFocusability";
 import {QTNativeParams} from "../core/QTNativeParams";
 import {QTFocusDirectionName} from "../focus/QTFocusDirectionName";
+import {QTEventData} from "../core/QTEventData";
+import {QTLocation} from "../core/QTLocation";
+import {QTViewState} from "../view/QTViewState";
 
 export interface QTIBaseView extends ESIView {
 
@@ -61,4 +64,13 @@ export interface QTIBaseView extends ESIView {
 
   requestAutofocus(): void
 
+  hasFocus(): Promise<boolean>
+
+  isFocused(): Promise<boolean>
+
+  getLocationOnScreen(): Promise<QTEventData<QTLocation>>
+
+  getViewState(): Promise<QTViewState>
+
+  getChildViewState(position: number): Promise<QTViewState>
 }

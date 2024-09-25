@@ -7,6 +7,9 @@ import {QTFocusDescendant} from "../focus/QTFocusDescendant";
 import {QTDescendantFocusability} from "../focus/QTDescendantFocusability";
 import {QTNativeParams} from "../core/QTNativeParams";
 import {QTFocusDirectionName} from "../focus/QTFocusDirectionName";
+import {QTEventData} from "../core/QTEventData";
+import {QTLocation} from "../core/QTLocation";
+import {QTViewState} from "../view/QTViewState";
 
 export default function (viewRef: Ref<ESIView | undefined>) {
 
@@ -167,6 +170,66 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     }
   }
 
+  function hasFocus(): Promise<boolean> {
+    if (viewRef.value) {
+      return new Promise((resolve, reject) => {
+        Native.callUIFunction(viewRef.value!, 'hasFocus', [], (res: boolean) => {
+          resolve(res)
+        });
+      });
+    } else {
+      return Promise.reject(false)
+    }
+  }
+
+  function isFocused(): Promise<boolean> {
+    if (viewRef.value) {
+      return new Promise((resolve, reject) => {
+        Native.callUIFunction(viewRef.value!, 'isFocused', [], (res: boolean) => {
+          resolve(res)
+        });
+      });
+    } else {
+      return Promise.reject(false)
+    }
+  }
+
+  function getLocationOnScreen(): Promise<QTEventData<QTLocation>> {
+    if (viewRef.value) {
+      return new Promise((resolve, reject) => {
+        Native.callUIFunction(viewRef.value!, 'getLocationOnScreen', [], (res: QTEventData<QTLocation>) => {
+          resolve(res)
+        });
+      });
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getViewState(): Promise<QTViewState> {
+    if (viewRef.value) {
+      return new Promise((resolve, reject) => {
+        Native.callUIFunction(viewRef.value!, 'getViewState', [], (res: QTViewState) => {
+          resolve(res)
+        });
+      });
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getChildViewState(position: number): Promise<QTViewState> {
+    if (viewRef.value) {
+      return new Promise((resolve, reject) => {
+        Native.callUIFunction(viewRef.value!, 'getChildViewState', [position], (res: QTViewState) => {
+          resolve(res)
+        });
+      });
+    } else {
+      return Promise.reject()
+    }
+  }
+
 
   return {
     dispatchFunctionBySid,
@@ -194,6 +257,11 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     setInitFocus,
     setAutoFocus,
     enabledAutofocus,
-    requestAutofocus
+    requestAutofocus,
+    hasFocus,
+    isFocused,
+    getLocationOnScreen,
+    getViewState,
+    getChildViewState
   }
 }

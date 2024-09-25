@@ -29,7 +29,7 @@ function registerQTSeekBarView(app: ESApp) {
     setup(props, context) {
       const viewRef = ref()
 
-      const isSeekBarFocused = ref(false)
+      const seekBarFocused = ref(false)
       const seekBarMode = ref(1)
       const seekCount = ref(0)
       const progressCallBackTime = ref(0)
@@ -61,7 +61,7 @@ function registerQTSeekBarView(app: ESApp) {
       }
 
       function startSeek(forward) {
-        if (isSeekBarFocused.value) {
+        if (seekBarFocused.value) {
           seekBarMode.value = QT_SEEK_BAR_MODE_SEEK;
           context.emit("onSeekStart", progress.value);
           seekCount.value += 1;
@@ -107,8 +107,8 @@ function registerQTSeekBarView(app: ESApp) {
         seekBarMode.value = QT_SEEK_BAR_MODE_PROGRESS;
       }
 
-      function isFocused() {
-        return isSeekBarFocused.value;
+      function isSeekBarFocused() {
+        return seekBarFocused.value;
       }
 
       //--------------------------------------------------------------------
@@ -734,7 +734,7 @@ function registerQTSeekBarView(app: ESApp) {
 
       context.expose({
         viewRef,
-        isSeekBarFocused,
+        seekBarFocused,
         seekBarMode,
         seekCount,
         progressCallBackTime,
@@ -742,7 +742,7 @@ function registerQTSeekBarView(app: ESApp) {
         progress,
         startSeek,
         stopSeek,
-        isFocused,
+        isSeekBarFocused,
         resetSeekbar,
         invalidateSeekBar,
         setFocusable,
@@ -879,7 +879,7 @@ function registerQTSeekBarView(app: ESApp) {
           {
             ref: viewRef,
             onFocus: (evt) => {
-              isSeekBarFocused.value = evt.isFocused;
+              seekBarFocused.value = evt.isFocused;
               context.emit("onFocusChanged", evt.isFocused)
             },
             onSeekBarChange: (evt) => {

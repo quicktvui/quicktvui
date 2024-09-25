@@ -2,7 +2,6 @@ import {defineComponent, h, ref, onBeforeUnmount, onMounted, toRaw, watchEffect,
 import {ESApp, Native} from "@extscreen/es3-vue";
 import {QTListViewItem} from "./core/QTListViewItem";
 import {QTListViewItemFunctionParams} from "./core/QTListViewItemFunctionParams";
-import {QTDirections} from "../core/QTDirections";
 import useBaseView from '../base/useBaseView'
 import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
 
@@ -270,11 +269,6 @@ function registerESListViewComponent(app: ESApp) {
         setItemFocused(pos);
       }
       //----------------------------------------------------------
-      const hasFocus = (callback: (value: boolean) => void) => {
-        Native.callUIFunction(viewRef.value, 'hasFocus', (res) => {
-          callback(res);
-        });
-      }
       const setItemFocused = (position: number) => {
         Native.callUIFunction(viewRef.value, 'requestChildFocus', [position]);
       }
@@ -340,7 +334,6 @@ function registerESListViewComponent(app: ESApp) {
         viewRef,
         init,
         scrollToIndex,
-        hasFocus,
         dispatchItemFunction,
         prepareForRecycle,
         setDisplay,
