@@ -5,6 +5,7 @@ import {createQtBaseListViewAPI, QtBaseListViewAPI} from "../list/QtBaseListView
 import {createQtGridViewAPI, QtGridViewAPI} from "../grid-view/QtGridViewAPI";
 import {createQtWaterfallAPI, QtWaterfallAPI} from "../waterfall/QtWaterfallAPI";
 import {createQtImageAPI, QtImageAPI} from "../image/QtImageAPI";
+import {createQtULAPI, QtULAPI} from "../ul/QtULAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -13,6 +14,7 @@ export interface QtAPI {
   gridView: QtGridViewAPI
   waterfall: QtWaterfallAPI
   image: QtImageAPI
+  ul: QtULAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -27,13 +29,17 @@ export function createQtAPI(): QtAPI {
   const imageAPI: QtImageAPI = createQtImageAPI(viewAPI)
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
 
+  //
+  const ulAPI: QtULAPI = createQtULAPI(viewAPI)
+
   return {
     view: viewAPI,
     webView: webViewAPI,
     listView: listViewAPI,
     gridView: gridViewAPI,
     waterfall: waterfallAPI,
-    image: imageAPI
+    image: imageAPI,
+    ul: ulAPI
   }
 }
 

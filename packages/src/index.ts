@@ -113,6 +113,10 @@ export type {QTPosition} from './core/QTPosition'
 //
 export {QTImageResizeMode} from './image/QTImageResizeMode'
 
+//ul
+export type {QTULInitPosition} from './ul/QTULInitPosition'
+export type {QTIUL} from './ul/QTIUL'
+
 
 //QTFocusable
 export type {QTFocusable} from './core/QTFocusable'
