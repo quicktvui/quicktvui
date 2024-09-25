@@ -13,19 +13,21 @@ import {QTViewState} from "./QTViewState";
 
 export interface QtViewAPI {
 
-  requestFocus(instance: string | Ref<QTIView | undefined>, direction?: QTFocusDirection)
+  requestFocus(instance: string | Ref<QTIView | undefined>, direction?: QTFocusDirection): void
 
-  clearFocus(instance: string | Ref<QTIView | undefined>)
+  requestChildFocus(instance: string | Ref<QTIView | undefined>, position: number): void
 
-  requestFocusDirectly(instance: string | Ref<QTIView | undefined>, direction?: QTFocusDirection)
+  clearFocus(instance: string | Ref<QTIView | undefined>): void
 
-  setVisibility(instance: string | Ref<QTIView | undefined>, v: QTIViewVisibility)
+  requestFocusDirectly(instance: string | Ref<QTIView | undefined>, direction?: QTFocusDirection): void
+
+  setVisibility(instance: string | Ref<QTIView | undefined>, v: QTIViewVisibility): void
 
   requestRootLayout(instance: string | Ref<QTIView | undefined>): void
 
   requestLayout(instance: string | Ref<QTIView | undefined>): void
 
-
+  //
   setDescendantFocusability(instance: string | Ref<QTIView | undefined>, descendant: QTFocusDescendant): void
 
   changeDescendantFocusability(instance: string | Ref<QTIView | undefined>, descendant: QTDescendantFocusability): void
@@ -89,6 +91,14 @@ export function createQtViewAPI(): QtViewAPI {
       Native.callNative('ExtendModule', 'callFunction', [instance, 'requestFocus', [direction]]);
     } else if (isRef(instance)) {
       instance.value?.requestFocus(direction)
+    }
+  }
+
+  function requestChildFocus(instance: string | Ref<QTIView | undefined>, position: number): void {
+    if (instance instanceof String) {
+      Native.callNative('ExtendModule', 'callFunction', [instance, 'requestChildFocus', [position]]);
+    } else if (isRef(instance)) {
+      instance.value?.requestChildFocus(position)
     }
   }
 
@@ -362,6 +372,7 @@ export function createQtViewAPI(): QtViewAPI {
 
   return {
     requestFocus,
+    requestChildFocus,
     clearFocus,
     requestFocusDirectly,
     setVisibility,

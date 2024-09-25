@@ -25,6 +25,12 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     }
   }
 
+  function requestChildFocus(position: number): void {
+    if (viewRef.value) {
+      Native.callUIFunction(viewRef.value, 'requestChildFocus', [position]);
+    }
+  }
+
   function clearFocus(): void {
     if (viewRef.value) {
       Native.callUIFunction(viewRef.value, 'clearFocus');
@@ -234,6 +240,7 @@ export default function (viewRef: Ref<ESIView | undefined>) {
   return {
     dispatchFunctionBySid,
     requestFocus,
+    requestChildFocus,
     clearFocus,
     requestFocusDirectly,
     setVisibility,

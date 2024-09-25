@@ -13,6 +13,8 @@ export interface QTIBaseView extends ESIView {
 
   requestFocus(direction?: QTFocusDirection): void
 
+  requestChildFocus(position: number): void
+
   clearFocus(): void
 
   requestFocusDirectly(direction?: QTFocusDirection): void
