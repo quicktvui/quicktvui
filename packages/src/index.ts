@@ -57,7 +57,7 @@ const components = [
 ]
 
 //---------------------------------------------------------------------------
-import {createQtAPI, QtAPI} from "./QtAPI";
+import {createQtAPI, QtAPI} from "./qt/QtAPI";
 
 declare global {
   var qt: QtAPI
