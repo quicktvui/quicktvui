@@ -21,6 +21,7 @@ import {createQtProgressBarAPI, QtProgressBarAPI} from "../progressbar/QtProgres
 import {createQtSeekBarAPI, QtSeekBarAPI} from "../seekbar/QtSeekBarAPI";
 import {createQtMediaSeriesAPI, QtMediaSeriesAPI} from "../series/QtMediaSeriesAPI";
 import {createQtTabAPI, QtTabAPI} from "../tab/QtTabAPI";
+import {createQtX5WebViewAPI, QtX5WebViewAPI} from "../x5webview/QtX5WebViewAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -44,7 +45,8 @@ export interface QtAPI {
   progressBar: QtProgressBarAPI
   seekBar: QtSeekBarAPI
   mediaSeries: QtMediaSeriesAPI,
-  tabs: QtTabAPI
+  tabs: QtTabAPI,
+  x5WebView: QtX5WebViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -58,6 +60,8 @@ export function createQtAPI(): QtAPI {
   //
   const imageAPI: QtImageAPI = createQtImageAPI(viewAPI)
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
+  const x5WebViewAPI: QtX5WebViewAPI = createQtX5WebViewAPI(viewAPI)
+
   const ulAPI: QtULAPI = createQtULAPI(viewAPI)
   const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(viewAPI)
   const textAPI: QtTextAPI = createQtTextAPI(viewAPI)
@@ -97,7 +101,8 @@ export function createQtAPI(): QtAPI {
     progressBar: progressBarAPI,
     seekBar: seekBarAPI,
     mediaSeries: mediaSeriesAPI,
-    tabs: tabAPI
+    tabs: tabAPI,
+    x5WebView: x5WebViewAPI
   }
 }
 

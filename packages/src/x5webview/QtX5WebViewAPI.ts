@@ -1,149 +1,149 @@
 import {QtViewAPI} from "../view/QtViewAPI";
 import {Native} from "@extscreen/es3-vue";
 import {isRef, Ref} from "@vue/reactivity";
-import {QTIWebView} from "./QTIWebView";
+import {QTIX5WebView} from "./QTIX5WebView";
 import {QT_CALL_UI_FUNCTION, QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPI";
 import {isString} from "../utils/type";
 
-export interface QtWebViewAPI extends QtViewAPI {
+export interface QtX5WebViewAPI extends QtViewAPI {
 
-  loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
+  loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void
 
-  evaluateJavascript(instance: string | Ref<QTIWebView | undefined>, value: string): Promise<string | undefined | null>
+  evaluateJavascript(instance: string | Ref<QTIX5WebView | undefined>, value: string): Promise<string | undefined | null>
 
-  canGoBack(instance: string | Ref<QTIWebView | undefined>): void
+  canGoBack(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  goBack(instance: string | Ref<QTIWebView | undefined>): void
+  goBack(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  canGoForward(instance: string | Ref<QTIWebView | undefined>): void
+  canGoForward(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  goForward(instance: string | Ref<QTIWebView | undefined>): void
+  goForward(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  canGoBackOrForward(instance: string | Ref<QTIWebView | undefined>, steps: number): void
+  canGoBackOrForward(instance: string | Ref<QTIX5WebView | undefined>, steps: number): void
 
-  goBackOrForward(instance: string | Ref<QTIWebView | undefined>, steps: number): void
+  goBackOrForward(instance: string | Ref<QTIX5WebView | undefined>, steps: number): void
 
-  onResume(instance: string | Ref<QTIWebView | undefined>): void
+  onResume(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  onPause(instance: string | Ref<QTIWebView | undefined>): void
+  onPause(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  pauseTimers(instance: string | Ref<QTIWebView | undefined>): void
+  pauseTimers(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  resumeTimers(instance: string | Ref<QTIWebView | undefined>): void
+  resumeTimers(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  destroy(instance: string | Ref<QTIWebView | undefined>): void
+  destroy(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  setJavaScriptEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setJavaScriptEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setPluginState(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setPluginState(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setJavaScriptCanOpenWindowsAutomatically(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setJavaScriptCanOpenWindowsAutomatically(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setUseWideViewPort(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setUseWideViewPort(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setLoadWithOverviewMode(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setLoadWithOverviewMode(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setSupportZoom(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setSupportZoom(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setBuiltInZoomControls(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setBuiltInZoomControls(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setDisplayZoomControls(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setDisplayZoomControls(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAllowFileAccess(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAllowFileAccess(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setDomStorageEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setDomStorageEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setDatabaseEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setDatabaseEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAppCacheEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAppCacheEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAppCachePath(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setStandardFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setStandardFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setFixedFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setFixedFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setSansSerifFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setSansSerifFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setSerifFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setSerifFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setCursiveFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setCursiveFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setFantasyFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setFantasyFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setTextZoom(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setTextZoom(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setMinimumFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setMinimumFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setDefaultFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setDefaultFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setLayoutAlgorithm(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setLayoutAlgorithm(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setLoadsImagesAutomatically(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setLoadsImagesAutomatically(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setDefaultTextEncodingName(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setDefaultTextEncodingName(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setNeedInitialFocus(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setNeedInitialFocus(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setGeolocationEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setGeolocationEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setBlockNetworkLoads(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setBlockNetworkLoads(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setSupportMultipleWindows(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setSupportMultipleWindows(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAppCacheMaxSize(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setAppCacheMaxSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setRenderPriority(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setRenderPriority(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setCacheMode(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setCacheMode(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
 //-----------------------------------------------
-  setAllowContentAccess(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAllowContentAccess(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setEnableSmoothTransition(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setEnableSmoothTransition(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setSaveFormData(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setSaveFormData(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setSavePassword(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setSavePassword(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setTextSize(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setTextSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setDefaultZoom(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setDefaultZoom(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setLightTouchEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setLightTouchEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setMinimumLogicalFontSize(instance: string | Ref<QTIWebView | undefined>, value: number)
+  setMinimumLogicalFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number)
 
-  setDefaultFixedFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setDefaultFixedFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setBlockNetworkImage(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setBlockNetworkImage(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAllowUniversalAccessFromFileURLs(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAllowUniversalAccessFromFileURLs(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAllowFileAccessFromFileURLs(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAllowFileAccessFromFileURLs(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setDatabasePath(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setDatabasePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setGeolocationDatabasePath(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setGeolocationDatabasePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setUserAgentString(instance: string | Ref<QTIWebView | undefined>, value: string): void
+  setUserAgentString(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
-  setMixedContentMode(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setMixedContentMode(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setOffscreenPreRaster(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setOffscreenPreRaster(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setSafeBrowsingEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setSafeBrowsingEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setForceDark(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setForceDark(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
-  setDisabledActionModeMenuItems(instance: string | Ref<QTIWebView | undefined>, value: number): void
+  setDisabledActionModeMenuItems(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 }
 
-export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
+export function createQtX5WebViewAPI(viewAPI: QtViewAPI): QtX5WebViewAPI {
 
-  function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
+  function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]]);
     } else if (isRef(instance) && instance.value) {
@@ -151,7 +151,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function evaluateJavascript(instance: string | Ref<QTIWebView | undefined>, value: string): Promise<string | undefined | null> {
+  function evaluateJavascript(instance: string | Ref<QTIX5WebView | undefined>, value: string): Promise<string | undefined | null> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
         Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE, [instance, 'evaluateJavascript', []], (res) => {
@@ -165,7 +165,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function canGoBack(instance: string | Ref<QTIWebView | undefined>): void {
+  function canGoBack(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoBack', []]);
     } else if (isRef(instance) && instance.value) {
@@ -173,7 +173,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function goBack(instance: string | Ref<QTIWebView | undefined>): void {
+  function goBack(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'goBack', []]);
     } else if (isRef(instance) && instance.value) {
@@ -181,7 +181,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function canGoForward(instance: string | Ref<QTIWebView | undefined>): void {
+  function canGoForward(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoForward', []]);
     } else if (isRef(instance) && instance.value) {
@@ -189,7 +189,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function goForward(instance: string | Ref<QTIWebView | undefined>): void {
+  function goForward(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'goForward', []]);
     } else if (isRef(instance) && instance.value) {
@@ -197,7 +197,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function canGoBackOrForward(instance: string | Ref<QTIWebView | undefined>, steps: number): void {
+  function canGoBackOrForward(instance: string | Ref<QTIX5WebView | undefined>, steps: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoBackOrForward', [steps]]);
     } else if (isRef(instance) && instance.value) {
@@ -205,7 +205,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function goBackOrForward(instance: string | Ref<QTIWebView | undefined>, steps: number): void {
+  function goBackOrForward(instance: string | Ref<QTIX5WebView | undefined>, steps: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'goBackOrForward', [steps]]);
     } else if (isRef(instance) && instance.value) {
@@ -213,7 +213,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function onResume(instance: string | Ref<QTIWebView | undefined>): void {
+  function onResume(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'onResume', []]);
     } else if (isRef(instance) && instance.value) {
@@ -221,7 +221,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function onPause(instance: string | Ref<QTIWebView | undefined>): void {
+  function onPause(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'onPause', []]);
     } else if (isRef(instance) && instance.value) {
@@ -229,7 +229,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function pauseTimers(instance: string | Ref<QTIWebView | undefined>): void {
+  function pauseTimers(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'pauseTimers', []]);
     } else if (isRef(instance) && instance.value) {
@@ -237,7 +237,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function resumeTimers(instance: string | Ref<QTIWebView | undefined>): void {
+  function resumeTimers(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resumeTimers', []]);
     } else if (isRef(instance) && instance.value) {
@@ -245,7 +245,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function destroy(instance: string | Ref<QTIWebView | undefined>): void {
+  function destroy(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'destroy', []]);
     } else if (isRef(instance) && instance.value) {
@@ -253,7 +253,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setJavaScriptEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setJavaScriptEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setJavaScriptEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -261,7 +261,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setPluginState(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setPluginState(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setPluginState', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -269,7 +269,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setJavaScriptCanOpenWindowsAutomatically(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setJavaScriptCanOpenWindowsAutomatically(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setJavaScriptCanOpenWindowsAutomatically', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -277,7 +277,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setUseWideViewPort(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setUseWideViewPort(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setUseWideViewPort', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -285,7 +285,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setLoadWithOverviewMode(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setLoadWithOverviewMode(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLoadWithOverviewMode', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -293,7 +293,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSupportZoom(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setSupportZoom(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSupportZoom', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -301,7 +301,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setBuiltInZoomControls(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setBuiltInZoomControls(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setBuiltInZoomControls', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -309,7 +309,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDisplayZoomControls(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setDisplayZoomControls(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDisplayZoomControls', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -317,7 +317,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAllowFileAccess(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAllowFileAccess(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAllowFileAccess', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -325,7 +325,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDomStorageEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setDomStorageEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDomStorageEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -333,7 +333,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDatabaseEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setDatabaseEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDatabaseEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -341,7 +341,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAppCacheEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAppCacheEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAppCacheEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -349,7 +349,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAppCachePath(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAppCachePath', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -357,7 +357,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setMediaPlaybackRequiresUserGesture', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -365,7 +365,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setStandardFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setStandardFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setStandardFontFamily', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -373,7 +373,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setFixedFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setFixedFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setFixedFontFamily', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -381,7 +381,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSansSerifFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setSansSerifFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSansSerifFontFamily', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -389,7 +389,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSerifFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setSerifFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSerifFontFamily', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -397,7 +397,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setCursiveFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setCursiveFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setCursiveFontFamily', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -405,7 +405,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setFantasyFontFamily(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setFantasyFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setFantasyFontFamily', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -413,7 +413,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setTextZoom(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setTextZoom(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setTextZoom', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -421,7 +421,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setMinimumFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setMinimumFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setMinimumFontSize', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -429,7 +429,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDefaultFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setDefaultFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDefaultFontSize', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -437,7 +437,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setLayoutAlgorithm(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setLayoutAlgorithm(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLayoutAlgorithm', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -445,7 +445,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setLoadsImagesAutomatically(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setLoadsImagesAutomatically(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLoadsImagesAutomatically', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -453,7 +453,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDefaultTextEncodingName(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setDefaultTextEncodingName(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDefaultTextEncodingName', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -461,7 +461,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setNeedInitialFocus(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setNeedInitialFocus(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setNeedInitialFocus', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -469,7 +469,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setGeolocationEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setGeolocationEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setGeolocationEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -477,7 +477,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setBlockNetworkLoads(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setBlockNetworkLoads(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setBlockNetworkLoads', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -485,7 +485,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSupportMultipleWindows(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setSupportMultipleWindows(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSupportMultipleWindows', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -493,7 +493,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAppCacheMaxSize(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setAppCacheMaxSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAppCacheMaxSize', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -501,7 +501,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setRenderPriority(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setRenderPriority(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setRenderPriority', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -509,7 +509,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setCacheMode(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setCacheMode(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setCacheMode', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -518,7 +518,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
   }
 
 //-----------------------------------------------
-  function setAllowContentAccess(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAllowContentAccess(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAllowContentAccess', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -526,7 +526,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setEnableSmoothTransition(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setEnableSmoothTransition(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setEnableSmoothTransition', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -534,7 +534,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSaveFormData(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setSaveFormData(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSaveFormData', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -542,7 +542,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSavePassword(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setSavePassword(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSavePassword', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -550,7 +550,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setTextSize(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setTextSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setTextSize', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -558,7 +558,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDefaultZoom(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setDefaultZoom(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDefaultZoom', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -566,7 +566,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setLightTouchEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setLightTouchEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLightTouchEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -574,7 +574,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setMinimumLogicalFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setMinimumLogicalFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setMinimumLogicalFontSize', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -582,7 +582,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDefaultFixedFontSize(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setDefaultFixedFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDefaultFixedFontSize', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -590,7 +590,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setBlockNetworkImage(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setBlockNetworkImage(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setBlockNetworkImage', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -598,7 +598,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAllowUniversalAccessFromFileURLs(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAllowUniversalAccessFromFileURLs(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAllowUniversalAccessFromFileURLs', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -606,7 +606,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAllowFileAccessFromFileURLs(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAllowFileAccessFromFileURLs(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAllowFileAccessFromFileURLs', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -614,7 +614,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDatabasePath(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setDatabasePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDatabasePath', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -622,7 +622,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setGeolocationDatabasePath(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setGeolocationDatabasePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setGeolocationDatabasePath', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -630,7 +630,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setUserAgentString(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+  function setUserAgentString(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setUserAgentString', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -638,7 +638,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setMixedContentMode(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setMixedContentMode(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setMixedContentMode', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -646,7 +646,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setOffscreenPreRaster(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setOffscreenPreRaster(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setOffscreenPreRaster', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -654,7 +654,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setSafeBrowsingEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setSafeBrowsingEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSafeBrowsingEnabled', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -662,7 +662,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setForceDark(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setForceDark(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setForceDark', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -670,7 +670,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setDisabledActionModeMenuItems(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+  function setDisabledActionModeMenuItems(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setDisabledActionModeMenuItems', [value]]);
     } else if (isRef(instance) && instance.value) {
