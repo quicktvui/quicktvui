@@ -17,6 +17,7 @@ import {createQtListItemAPI, QtListItemAPI} from "../list-item/QtListItemAPI";
 import {createQtLottieViewAPI, QtLottieViewAPI} from "../lottie/QtLottieViewAPI";
 import {createQtNavBarAPI, QtNavBarAPI} from "../nav-bar/QtNavBarAPI";
 import {createQtPluginViewAPI, QtPluginViewAPI} from "../plugin/QtPluginViewAPI";
+import {createQtProgressBarAPI, QtProgressBarAPI} from "../progressbar/QtProgressBarAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -37,6 +38,7 @@ export interface QtAPI {
   lottieView: QtLottieViewAPI
   navBar: QtNavBarAPI
   pluginView: QtPluginViewAPI
+  progressBar: QtProgressBarAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -62,6 +64,7 @@ export function createQtAPI(): QtAPI {
   const lottieViewAPI: QtLottieViewAPI = createQtLottieViewAPI(viewAPI)
   const navBarAPI: QtNavBarAPI = createQtNavBarAPI(viewAPI)
   const pluginViewAPI: QtPluginViewAPI = createQtPluginViewAPI(viewAPI)
+  const progressBarAPI: QtProgressBarAPI = createQtProgressBarAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -81,7 +84,8 @@ export function createQtAPI(): QtAPI {
     listItem: listItemAPI,
     lottieView: lottieViewAPI,
     navBar: navBarAPI,
-    pluginView: pluginViewAPI
+    pluginView: pluginViewAPI,
+    progressBar: progressBarAPI
   }
 }
 
