@@ -117,7 +117,7 @@ export default defineComponent({
       for (let i = (length - 1); i >= 0; i--) {
         const item = collapseItemList[i]
         try {
-          const itemRef: QTICollapseItem = getItem(i)
+          const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
             itemRef.onCollapseItemExpand(true)
           }
@@ -143,7 +143,7 @@ export default defineComponent({
         const itemCollapseHeight = item.collapseHeight
         itemTotalY = itemTotalY + itemCollapseHeight
         try {
-          const itemRef: QTICollapseItem = getItem(i)
+          const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
             itemRef.onCollapseItemExpand(false)
           }
@@ -179,7 +179,7 @@ export default defineComponent({
         }
 
         try {
-          const itemRef: QTICollapseItem = getItem(i)
+          const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
             itemRef.onCollapseItemExpand(i == index)
           }
