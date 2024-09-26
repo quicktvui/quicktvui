@@ -222,7 +222,7 @@ export default defineComponent({
       item.__translationY = toY
     }
 
-    function getItem(index: number): QTICollapseItem {
+    function getItem(index: number): QTICollapseItem | undefined {
       return componentRefs[`${index}`]
     }
 

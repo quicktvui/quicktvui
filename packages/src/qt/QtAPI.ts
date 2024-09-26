@@ -9,6 +9,13 @@ import {createQtULAPI, QtULAPI} from "../ul/QtULAPI";
 import {createQtScrollViewAPI, QtScrollViewAPI} from "../scroll-view/QtScrollViewAPI";
 import {createQtTextAPI, QtTextAPI} from "../text/QtTextAPI";
 import {createQtReplaceChildViewAPI, QtReplaceChildViewAPI} from "../replace-child/QtReplaceChildViewAPI";
+import {createQtAnimationAPI, QtAnimationAPI} from "../animation/QtAnimationAPI";
+import {createQtAppIconAPI, QtAppIconAPI} from "../app/QtAppIconAPI";
+import {createQtClassifiedListViewAPI, QtClassifiedListViewAPI} from "../classified-list-view/QtClassifiedListViewAPI";
+import {createQtCollapseAPI, QtCollapseAPI} from "../collapse/QtCollapseAPI";
+import {createQtListItemAPI, QtListItemAPI} from "../list-item/QtListItemAPI";
+import {createQtLottieViewAPI, QtLottieViewAPI} from "../lottie/QtLottieViewAPI";
+import {createQtNavBarAPI, QtNavBarAPI} from "../nav-bar/QtNavBarAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -21,6 +28,13 @@ export interface QtAPI {
   scrollView: QtScrollViewAPI
   text: QtTextAPI
   replaceChildView: QtReplaceChildViewAPI
+  animation: QtAnimationAPI
+  appIcon: QtAppIconAPI
+  classifiedListView: QtClassifiedListViewAPI
+  collapse: QtCollapseAPI
+  listItem: QtListItemAPI
+  lottieView: QtLottieViewAPI
+  navBar: QtNavBarAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -38,6 +52,13 @@ export function createQtAPI(): QtAPI {
   const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(viewAPI)
   const textAPI: QtTextAPI = createQtTextAPI(viewAPI)
   const replaceChildViewAPI: QtReplaceChildViewAPI = createQtReplaceChildViewAPI(viewAPI)
+  const animationAPI: QtAnimationAPI = createQtAnimationAPI(viewAPI)
+  const appIconAPI: QtAppIconAPI = createQtAppIconAPI(viewAPI)
+  const classifiedListViewAPI: QtClassifiedListViewAPI = createQtClassifiedListViewAPI(viewAPI)
+  const collapseAPI: QtCollapseAPI = createQtCollapseAPI(viewAPI)
+  const listItemAPI: QtListItemAPI = createQtListItemAPI(viewAPI)
+  const lottieViewAPI: QtLottieViewAPI = createQtLottieViewAPI(viewAPI)
+  const navBarAPI: QtNavBarAPI = createQtNavBarAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -49,7 +70,14 @@ export function createQtAPI(): QtAPI {
     ul: ulAPI,
     scrollView: scrollViewAPI,
     text: textAPI,
-    replaceChildView: replaceChildViewAPI
+    replaceChildView: replaceChildViewAPI,
+    animation: animationAPI,
+    appIcon: appIconAPI,
+    classifiedListView: classifiedListViewAPI,
+    collapse: collapseAPI,
+    listItem: listItemAPI,
+    lottieView: lottieViewAPI,
+    navBar: navBarAPI
   }
 }
 
