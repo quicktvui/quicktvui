@@ -512,7 +512,7 @@ export default defineComponent({
       return tabDataManager.getSection(pageIndex, sectionIndex)
     }
 
-    function getPageSectionList(pageIndex: number): Array<QTWaterfallSection> {
+    function getPageSectionList(pageIndex: number): Array<QTWaterfallSection> | undefined {
       return tabDataManager.getSectionList(pageIndex)
     }
 

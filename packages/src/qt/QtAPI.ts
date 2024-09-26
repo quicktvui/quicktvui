@@ -20,6 +20,7 @@ import {createQtPluginViewAPI, QtPluginViewAPI} from "../plugin/QtPluginViewAPI"
 import {createQtProgressBarAPI, QtProgressBarAPI} from "../progressbar/QtProgressBarAPI";
 import {createQtSeekBarAPI, QtSeekBarAPI} from "../seekbar/QtSeekBarAPI";
 import {createQtMediaSeriesAPI, QtMediaSeriesAPI} from "../series/QtMediaSeriesAPI";
+import {createQtTabAPI, QtTabAPI} from "../tab/QtTabAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -42,7 +43,8 @@ export interface QtAPI {
   pluginView: QtPluginViewAPI
   progressBar: QtProgressBarAPI
   seekBar: QtSeekBarAPI
-  mediaSeries: QtMediaSeriesAPI
+  mediaSeries: QtMediaSeriesAPI,
+  tabs: QtTabAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -71,6 +73,7 @@ export function createQtAPI(): QtAPI {
   const progressBarAPI: QtProgressBarAPI = createQtProgressBarAPI(viewAPI)
   const seekBarAPI: QtSeekBarAPI = createQtSeekBarAPI(viewAPI)
   const mediaSeriesAPI: QtMediaSeriesAPI = createQtMediaSeriesAPI(viewAPI)
+  const tabAPI: QtTabAPI = createQtTabAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -93,7 +96,8 @@ export function createQtAPI(): QtAPI {
     pluginView: pluginViewAPI,
     progressBar: progressBarAPI,
     seekBar: seekBarAPI,
-    mediaSeries: mediaSeriesAPI
+    mediaSeries: mediaSeriesAPI,
+    tabs: tabAPI
   }
 }
 

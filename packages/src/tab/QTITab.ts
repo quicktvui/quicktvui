@@ -6,7 +6,7 @@ import {QTWaterfallSection} from "../waterfall/core/QTWaterfallSection";
 import {QTWaterfallItem} from "../waterfall/core/QTWaterfallItem";
 import {QTTabPage} from "./QTTabPage";
 import {QTIView} from "../view/QTIView";
-import { QTTabDataManager } from "./QTTabDataManager";
+import {QTTabDataManager} from "./QTTabDataManager";
 
 export interface QTITab extends QTIView {
 //------------------------TAB-----------------------------
@@ -23,7 +23,9 @@ export interface QTITab extends QTIView {
   setPageData(pageIndex: number, tabPage: QTTabPageData): void
 
   addPageData(pageIndex: number, tabPageData: QTTabPageData, deleteCount: number): void
+
   insertPageData(tabPageIndex: number, sectionIndex: number, data: any[]): void
+
   //update
   updatePageData(pageIndex: number, tabPageData: QTTabPageData): void
 
@@ -95,7 +97,7 @@ export interface QTITab extends QTIView {
 
   destroy(): void
 
-  cancelAll():void
+  cancelAll(): void
 
-  getDataManager(): QTTabDataManager
+  getDataManager(): QTTabDataManager | undefined
 }
