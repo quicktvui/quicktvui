@@ -16,6 +16,7 @@ import {createQtCollapseAPI, QtCollapseAPI} from "../collapse/QtCollapseAPI";
 import {createQtListItemAPI, QtListItemAPI} from "../list-item/QtListItemAPI";
 import {createQtLottieViewAPI, QtLottieViewAPI} from "../lottie/QtLottieViewAPI";
 import {createQtNavBarAPI, QtNavBarAPI} from "../nav-bar/QtNavBarAPI";
+import {createQtPluginViewAPI, QtPluginViewAPI} from "../plugin/QtPluginViewAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -35,6 +36,7 @@ export interface QtAPI {
   listItem: QtListItemAPI
   lottieView: QtLottieViewAPI
   navBar: QtNavBarAPI
+  pluginView: QtPluginViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -59,6 +61,7 @@ export function createQtAPI(): QtAPI {
   const listItemAPI: QtListItemAPI = createQtListItemAPI(viewAPI)
   const lottieViewAPI: QtLottieViewAPI = createQtLottieViewAPI(viewAPI)
   const navBarAPI: QtNavBarAPI = createQtNavBarAPI(viewAPI)
+  const pluginViewAPI: QtPluginViewAPI = createQtPluginViewAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -77,7 +80,8 @@ export function createQtAPI(): QtAPI {
     collapse: collapseAPI,
     listItem: listItemAPI,
     lottieView: lottieViewAPI,
-    navBar: navBarAPI
+    navBar: navBarAPI,
+    pluginView: pluginViewAPI
   }
 }
 
