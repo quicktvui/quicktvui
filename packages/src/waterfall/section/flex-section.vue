@@ -33,6 +33,8 @@
       :useDiff='useDiff'
       keyName="_id"
       sid="${listSID}"
+      flexStyle="${contentStyle}"
+      layout="${contentLayout}"
       :enablePlaceholder="enablePlaceholder"
       focusScrollTarget="${isFocusScrollTarget==true}"
       enableFirstFocusAtStart="${enableFirstFocusAtStart}"
@@ -145,6 +147,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  position: absolute;
 }
 
 .standard-section-title-text-css {

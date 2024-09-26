@@ -22,7 +22,7 @@ export function generateSection(waterfall: QTWaterfall,
                                 section: QTWaterfallSection, isResetSection=false): QTWaterfallSection {
   let sectionHeight = 0
   if (section.itemList.length > 0 && section.type == QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX) {
-    sectionHeight = layoutItem(section,isResetSection)
+    sectionHeight = layoutItem(section, isResetSection)
 
     section.style.height = sectionHeight
   }
@@ -37,14 +37,27 @@ export function generateSection(waterfall: QTWaterfall,
       section.pluginStyle = section.style
     }
   }
-  if(isResetSection&&section.itemList.length===0){
-    const titleHeight = section.titleStyle?.height ?? 0
-    const titleMarginTop = section.titleStyle?.marginTop ?? 0
-    const titleMarginBottom = section.titleStyle?.marginBottom ?? 0
-    const titlePaddingTop = section.titleStyle?.paddingTop ?? 0
-    const titlePaddingBottom = section.titleStyle?.paddingBottom ?? 0
-    section.style.height = (section.style.minHeight||0) + titleHeight + titleMarginTop + titleMarginBottom + titlePaddingTop + titlePaddingBottom
+
+  const titleHeight = section.titleStyle?.height ?? 0
+  const titleMarginTop = section.titleStyle?.marginTop ?? 0
+  const titleMarginBottom = section.titleStyle?.marginBottom ?? 0
+  const titlePaddingTop = section.titleStyle?.paddingTop ?? 0
+  const titlePaddingBottom = section.titleStyle?.paddingBottom ?? 0
+
+  if (isResetSection && section.itemList.length === 0) {
+    section.style.height = (section.style.minHeight || 0) + titleHeight + titleMarginTop + titleMarginBottom + titlePaddingTop + titlePaddingBottom
   }
+
+  const titleTotalHeight = titleHeight + titleMarginTop + titleMarginBottom + titlePaddingTop + titlePaddingBottom
+  const contentHeight = (section.style.height) ? (section.style.height - titleTotalHeight) : 0
+  if (!section.contentStyle) {
+    section.contentStyle = {
+      width: section.style.width,
+      height: contentHeight,
+    }
+  }
+  section.contentLayout = [0, titleTotalHeight, section.contentStyle.width, section.contentStyle.height]
+
   return section
 }
 
@@ -114,7 +127,7 @@ function layoutItem(section: QTWaterfallSection,isResetSection=false): number {
         item.layout[0] = rightMost + decorationLeft
         item.layout[1] = downMost + decorationTop
       }
-      
+
       if (decorationTop > lineDecorationTop) {
         lineDecorationTop = decorationTop;
       }
