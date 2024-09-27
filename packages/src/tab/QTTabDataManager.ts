@@ -98,7 +98,14 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
 
   //--------------------------------------------------------------------
   function getSectionList(pageIndex: number): Array<QTWaterfallSection> {
-    return pageDataMap.get(pageIndex) ?? []
+    const sectionList = pageDataMap.get(pageIndex) ?? []
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '-----QTTabDataManager---dumpTabWaterfallData---###getSectionList---->>' +
+        ' pageIndex:' + pageIndex +
+        ' sectionList: ', sectionList
+      )
+    }
+    return sectionList
   }
 
   function addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>, deleteCount: number = 0): QTTabIndex {
@@ -123,7 +130,8 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
     if (log.isLoggable(ESLogLevel.DEBUG)) {
       log.d(TAG, '-----QTTabDataManager---dumpTabWaterfallData---###addSectionList---->>' +
         ' pageIndex:' + pageIndex +
-        ' sections: ', sections
+        ' sections: ', sections +
+        ' 增加以后的sectionList: ', sectionList
       )
     }
     dumpWaterfallData('addSectionList: ' + pageIndex)
@@ -358,31 +366,39 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
   }
 
   function getSectionListItemCount(sections: Array<QTWaterfallSection>): number {
-    if (sections.length <= 0) {
-      return 0
-    }
     let itemTotal = 0
-    for (let i = 0; i < sections.length; i++) {
-      const s = sections[i]
-      itemTotal += getSectionItemCount(s)
+    try {
+      if (sections.length <= 0) {
+        return 0
+      }
+
+      for (let i = 0; i < sections.length; i++) {
+        const s = sections[i]
+        itemTotal += getSectionItemCount(s)
+      }
+    } catch (e) {
     }
     return itemTotal
   }
 
   function getRangeSectionListItemCount(sectionList: Array<QTWaterfallSection>,
                                         startPosition: number, count: number): number {
-    const sectionCount = sectionList.length;
-    if (startPosition < 0 || startPosition >= sectionCount) {
-      return 0
-    }
-    let endPosition = (startPosition + count);
-    if (startPosition + count > sectionCount) {
-      endPosition = sectionCount
-    }
     let itemTotal = 0
-    for (let i = startPosition; i < endPosition; i++) {
-      const section = sectionList[i]
-      itemTotal += getSectionItemCount(section)
+    try {
+      const sectionCount = sectionList.length;
+      if (startPosition < 0 || startPosition >= sectionCount) {
+        return 0
+      }
+      let endPosition = (startPosition + count);
+      if (startPosition + count > sectionCount) {
+        endPosition = sectionCount
+      }
+
+      for (let i = startPosition; i < endPosition; i++) {
+        const section = sectionList[i]
+        itemTotal += getSectionItemCount(section)
+      }
+    } catch (e) {
     }
     return itemTotal;
   }
