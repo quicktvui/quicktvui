@@ -1,10 +1,9 @@
 import {defineComponent, h, ref, onBeforeUnmount, onMounted, toRaw, watchEffect,onUnmounted} from "vue";
 import {ESApp, Native} from "@extscreen/es3-vue";
 import {QTListViewItem} from "./core/QTListViewItem";
-import {QTListViewItemFunctionParams} from "./core/QTListViewItemFunctionParams";
-import {QTDirections} from "../core/QTDirections";
 import useBaseView from '../base/useBaseView'
 import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
+import useBaseListView from "../list/useBaseListView";
 
 function registerESListViewComponent(app: ESApp) {
 
@@ -70,6 +69,16 @@ function registerESListViewComponent(app: ESApp) {
           }, 300 + datas.length * 10);
         }
       }
+
+      const {
+        scrollToPosition,
+        setSelectChildPosition,
+      } = useBaseListView(viewRef);
+
+      const {
+        requestChildFocus,
+      } = useBaseView(viewRef);
+
       onMounted(()=>{
         if(getRecord().length&&viewRef.value&& !isinitValue && !newList.length){
           newList = getRecord()
@@ -130,7 +139,7 @@ function registerESListViewComponent(app: ESApp) {
           }
         }
       }
-      
+
       watchEffect(() => {
         if (props.openPage && !props.listData) {
           initPage()
@@ -197,60 +206,10 @@ function registerESListViewComponent(app: ESApp) {
         recordTarget.value = target
         return recordTarget.value
       }
-      
-      //------------------------------------------------------------------------
-      const startScroll = (focusPosition?: number, scrollToPosition?: number, scrollOffset?: number) => {
-        Native.callUIFunction(viewRef.value, 'startScroll',
-          [{
-            focusPosition: focusPosition,
-            scrollToPosition: scrollToPosition,
-            scrollOffset: scrollOffset
-          }]
-        );
-      }
-      //----------------------------------------------------------
-      const dispatchItemFunction = (position: number, name: string,
-                                    funcName: string, params: QTListViewItemFunctionParams) => {
-        Native.callUIFunction(viewRef.value, 'dispatchItemFunction', [position, name, funcName, params]);
-      }
-      //----------------------------------------------------------
-      const setDisplay = (value: Boolean) => {
-        Native.callUIFunction(viewRef.value, 'setDisplay', [value]);
-      }
-      const changeDisplayState = (display: string, autoDataState: any) => {
-        Native.callUIFunction(viewRef.value, 'changeDisplayState', [display, autoDataState]);
-      }
-      //----------------------------------------------------------
-      const notifySaveInstance = () => {
-        Native.callUIFunction(viewRef.value, 'notifySaveInstance', []);
-      }
-      const notifyRestoreInstance = () => {
-        Native.callUIFunction(viewRef.value, 'notifyRestoreInstance', []);
-      }
-      //----------------------------------------------------------
-      const scrollToTop = () => {
-        Native.callUIFunction(viewRef.value, 'scrollToTop', []);
-      }
-      const getScrollOffset = (callback: () => void) => {
-        Native.callUIFunction(viewRef.value, 'getScrollOffset', [], callback);
-      }
-      //----------------------------------------------------------
-      const clearPostTask = () => {
-        Native.callUIFunction(viewRef.value, 'clearAllPostTask', []);
-      }
-      const pausePostTask = () => {
-        Native.callUIFunction(viewRef.value, 'pausePostTask', []);
-      }
-      const resumePostTask = () => {
-        Native.callUIFunction(viewRef.value, 'resumePostTask', []);
-      }
-      //----------------------------------------------------------
 
-      const scrollToIndex = (y: number, anim: Boolean, offset: number) => {
-        Native.callUIFunction(viewRef.value, 'scrollToPositionWithOffset', [y, offset, anim]);
-      }
-      const setItemSelected = (position: number, requestFocus: Boolean) => {
-        Native.callUIFunction(viewRef.value, 'setSelectChildPosition', [position, requestFocus]);
+      //----------------------------------------------------------
+      const setItemSelected = (position: number, requestFocus: boolean) => {
+        setSelectChildPosition(position, requestFocus)
       }
 
       const scrollToSelected = (pos: number, b: boolean) => {
@@ -258,50 +217,14 @@ function registerESListViewComponent(app: ESApp) {
         setItemSelected(pos, b)
       }
 
-      const scrollToPosition = (index: number) => {
-        Native.callUIFunction(viewRef.value, 'scrollToPosition', [index]);
-      }
-      const scrollToPositionOffset = (x: number, y: number, anim: Boolean, offset: number, duration: number) => {
-        Native.callUIFunction(viewRef.value, 'scrollToPositionWithOffset', [y, offset, anim]);
-      }
-
       const scrollToFocused = (pos: number) => {
         scrollToPosition(pos);
         setItemFocused(pos);
       }
       //----------------------------------------------------------
-      const hasFocus = (callback: (value: boolean) => void) => {
-        Native.callUIFunction(viewRef.value, 'hasFocus', (res) => {
-          callback(res);
-        });
-      }
       const setItemFocused = (position: number) => {
+        requestChildFocus(position)
         Native.callUIFunction(viewRef.value, 'requestChildFocus', [position]);
-      }
-
-      const blockRootFocus = () => {
-        Native.callUIFunction(viewRef.value, 'blockRootFocus', []);
-      }
-      const unBlockRootFocus = () => {
-        Native.callUIFunction(viewRef.value, 'unBlockRootFocus', []);
-      }
-      const setBlockFocusDirectionsOnFail = (data: Array<QTDirections>) => {
-        Native.callUIFunction(viewRef.value, 'setBlockFocusDirectionsOnFail', [data]);
-      }
-      //----------------------------------------------------------
-      const setBackgroundColor = (color: string) => {
-        Native.callUIFunction(viewRef.value, 'setBackgroundColor', [color]);
-      }
-      //----------------------------------------------------------
-      const prepareForRecycle = () => {
-        Native.callUIFunction(viewRef.value, 'prepareForRecycle', []);
-      }
-      const destroy = () => {
-        Native.callUIFunction(viewRef.value, 'destroy', []);
-      }
-
-      function setAutoFocus(tag: string, delay: number) {
-        Native.callUIFunction(viewRef.value, 'setAutoFocus', [tag, delay]);
       }
 
       //----------------------------------------------------------
@@ -328,74 +251,18 @@ function registerESListViewComponent(app: ESApp) {
       const hasChanged = (value, oldValue) => {
         return value !== oldValue && (value === value || oldValue === oldValue)
       }
-      const updateItem = (position: number, data: QTListViewItem) => {
-        Native.callUIFunction(viewRef.value, 'updateItem', [position, data]);
-      }
-      const updateItemList = (position: number, count: number, data: Array<QTListViewItem>) => {
-        Native.callUIFunction(viewRef.value, 'updateItemRange', [position, count, data]);
-      }
-      const updateItemProps = (position: number, name: string, toUpdateMap: Object) => {
-        Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
-      }
-      const insertItem = (position: number, data: Array<QTListViewItem>) => {
-        Native.callUIFunction(viewRef.value, 'insertItemRange', [position, data]);
-      }
-      const addListData = (data: Array<QTListViewItem>) => {
-        Native.callUIFunction(viewRef.value, 'addListData', data);
-      }
-      const addListDataWithParams = (data: Array<QTListViewItem>, deleteCount: number) => {
-        Native.callUIFunction(viewRef.value, 'addListDataWithParams', [data, deleteCount]);
-      }
-      const deleteItem = (position: number, count: number) => {
-        Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count]);
-      }
-      const setListDataWithParams = (data: Array<QTListViewItem>, autoChangeVisible: Boolean) => {
-        Native.callUIFunction(viewRef.value, 'setListDataWithParams', [data, autoChangeVisible]);
-      }
       ctx.expose({
         viewRef,
         init,
-        scrollToIndex,
-        hasFocus,
-        dispatchItemFunction,
-        setBlockFocusDirectionsOnFail,
-        prepareForRecycle,
-        setDisplay,
-        scrollToTop,
-        changeDisplayState,
-        notifySaveInstance,
-        notifyRestoreInstance,
-        pausePostTask,
-        resumePostTask,
-        getScrollOffset,
-        scrollToPosition,
         scrollToFocused,
         scrollToSelected,
-        scrollToPositionOffset,
-        destroy,
-        startScroll,
         setItemFocused,
-        clearPostTask,
         setItemSelected,
-        blockRootFocus,
-        unBlockRootFocus,
-        setBackgroundColor,
         stopPage,
-        setAutoFocus,
-        setListData(dataArr: Array<QTListViewItem>){
-          Native.callUIFunction(viewRef.value, 'setListData', dataArr)
-        },
         updateItemName,
         hasChanged,
-        updateItem,
-        updateItemList,
-        updateItemProps,
-        insertItem,
-        addListData,
-        addListDataWithParams,
-        deleteItem,
-        setListDataWithParams,
-        ...useBaseView(viewRef)
+        ...useBaseView(viewRef),
+        ...useBaseListView(viewRef),
       })
       return () => {
         const children = ctx.slots.default && ctx.slots.default()
@@ -424,13 +291,13 @@ function registerESListViewComponent(app: ESApp) {
                 if(myPreloadNo < 0 || myPreloadNo >= newList.length){
                   myPreloadNo = 0
                 }
-                
+
                 if (evt.position == newList.length - 1 - myPreloadNo) {
                   // console.log(evt.position, '---lsj--onBindItem-', newList.length)
                   loadMoreFn()
                 }
               }
-              
+
               ctx.emit('item-bind', evt);
             },
             onUnbindItem: (evt) => {

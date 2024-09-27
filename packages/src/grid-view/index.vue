@@ -1,5 +1,5 @@
 <template>
-  <tv-list 
+  <tv-list
     class="tv_list" ref="tv_list" name="tv_list" :spanCount="spanCount"
     @item-bind="onItemBind" @item-click="onItemClick" @item-focused="onItemFocused"
     @item-unbind="onItemUnbind" @scroll="onScroll" @scroll-state-changed="onScrollStateChanged"
@@ -14,12 +14,14 @@
 
 <script lang="ts">
 import {defineComponent, ref, onBeforeUnmount, onMounted, toRaw, watchEffect, onUnmounted} from "vue";
-import {QTGridViewItem} from "./core/QTGridViewItem";
+import {QTListViewItem} from "../list-view/core/QTListViewItem";
 import useBaseView from "../base/useBaseView";
 import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
 import {
   ESIListView
 } from "@extscreen/es3-component";
+
+import useBaseListView from "../list/useBaseListView";
 
 export default defineComponent({
   name: "qt-grid-view",
@@ -156,7 +158,7 @@ export default defineComponent({
           }
         }
       }
-    
+
     const watchRes = qtWatchAll(getRecord(), {
       resetValue(newData){
         newList = newData
@@ -206,12 +208,10 @@ export default defineComponent({
         tv_list.value!.setListDataWithParams([], true, true)
         loadingPosition = 0
       }
-    })  
+    })
     const {
-      requestFocus,
-      requestFocusDirectly,
-      setVisibility
-    } = useBaseView(tv_list);
+      scrollToPosition,
+    } = useBaseListView(tv_list);
 
     watchEffect(() => {
       if (props.openPage && !props.listData) {
@@ -220,7 +220,7 @@ export default defineComponent({
       }
     })
     //初始化组件 监听list操作
-    const init = (target: Array<QTGridViewItem>, isInit?: boolean): Array<QTGridViewItem> => {
+    const init = (target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> => {
       if(props.listData){ return [] }//listData的优先级高于init函数，不可同时使用，推荐使用listData
       if(!target){ return recordTarget.value }
       if(isInit){
@@ -231,7 +231,7 @@ export default defineComponent({
       recordTarget.value = target
       return recordTarget.value
     }
-    
+
     const onItemClick = (e) => {
       context.emit('item-click', e);
     }
@@ -241,7 +241,7 @@ export default defineComponent({
         if(myPreloadNo < 0 || myPreloadNo >= newList.length){
           myPreloadNo = 0
         }
-        
+
         if (e.position == newList.length - 1 - myPreloadNo) {
           // console.log(e.position, '---lsj--onBindItem-', newList.length)
           loadMoreFn()
@@ -261,28 +261,6 @@ export default defineComponent({
     const onScrollStateChanged = (e) => {
       context.emit('scroll-state-changed', e)
     }
-    
-    const scrollToTop = () => {
-      tv_list.value.scrollToTop()
-    }
-    const clearFocus = () => {
-      tv_list.value.clearFocus()
-    }
-    const blockRootFocus = () => {
-      tv_list.value.blockRootFocus()
-    }
-    const unBlockRootFocus = () => {
-      tv_list.value.unBlockRootFocus()
-    }
-    const setDisplay = (display: boolean) => {
-      tv_list.value.setDisplay(display)
-    }
-    const scrollToPosition = (index: number) => {
-      tv_list.value.scrollToPosition(index)
-    }
-    const scrollToIndex = (y: number, anim: Boolean, offset: number) => {
-      tv_list.value.scrollToPositionOffset(0, y, anim, offset)
-    }
     const setItemFocused = (pos: number) => {
       tv_list.value.requestFocus(pos);
     }
@@ -300,15 +278,7 @@ export default defineComponent({
     const setInitPosition = (pos: number) => {
       tv_list.value.setInitPosition(pos)
     }
-    const setListData = (dataArr: Array<QTGridViewItem>) => {
-      tv_list.value.setListData(dataArr)
-    }
-    const clearPostTask = () => {
-      tv_list.value.clearPostTask();
-    }
-    const destroy = () => {
-      tv_list.value.destroy()
-    }
+
     const resetData = () => {
       isRestartPage.value = false
       isStopPage = false
@@ -340,11 +310,13 @@ export default defineComponent({
     const updateItemProps = (pos: number, name: string, dataObj: object) => {
       tv_list.value.updateItemProps(pos, name, dataObj)
     }
-    const insertItem = (pos: number, data: Array<QTGridViewItem>) => {
+    const insertItem = (pos: number, data: Array<QTListViewItem>) => {
       tv_list.value.addItem(pos, data)
     }
     return {
       tv_list,
+      ...useBaseView(tv_list),
+      ...useBaseListView(tv_list),
       init,
       onItemClick,
       onItemBind,
@@ -355,27 +327,14 @@ export default defineComponent({
       onScroll,
       onScrollStateChanged,
       stopPage,
-      scrollToTop,
-      clearFocus,
-      blockRootFocus,
-      unBlockRootFocus,
-      setDisplay,
-      scrollToPosition,
-      scrollToIndex,
       setItemFocused,
       scrollToFocused,
       setItemSelected,
       scrollToSelected,
       setInitPosition,
-      setListData,
-      clearPostTask,
-      destroy,
-      requestFocus,
-      requestFocusDirectly,
-      setVisibility,
       apkVersion,
       updateItemProps,
-      insertItem
+      insertItem,
     }
   },
 });

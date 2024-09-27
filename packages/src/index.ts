@@ -34,7 +34,10 @@ import registerQTScrollView from "./scroll-view/QTScrollView";
 import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
-export {qtRef,qtWatchAll,qtGetParent} from "./qtListen/index";
+import registerQTIReplaceChildView from "./replace-child/QTReplaceChildView";
+
+
+export {qtRef, qtWatchAll, qtGetParent} from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [
@@ -55,6 +58,24 @@ const components = [
   QTCollapse,
 ]
 
+//---------------------------------------------------------------------------
+import {createQtAPI, QtAPI} from "./qt/QtAPI";
+
+declare global {
+  var qt: QtAPI
+}
+
+export type {QTNativeParams} from './core/QTNativeParams'
+export type {QTNativeMap} from './core/QTNativeParams'
+
+//
+export {QTDescendantFocusability} from './focus/QTDescendantFocusability'
+export {QTFocusDescendant} from './focus/QTFocusDescendant'
+export {QTFocusDirection} from './focus/QTFocusDirection'
+export {QTFocusDirectionName} from './focus/QTFocusDirectionName'
+
+//---------------------------------------------------------------------------
+
 export const QuickTVUI = (Vue) => {
   registerQTLoadingViewComponent(Vue)
   registerESListViewComponent(Vue)
@@ -70,10 +91,14 @@ export const QuickTVUI = (Vue) => {
   registerQTLottieView(Vue)
   registerAppIconView(Vue)
   registerQTPluginView(Vue)
+  registerQTIReplaceChildView(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
   }
+
+  const qtAPI: QtAPI = createQtAPI()
+  global.qt = qtAPI
 }
 
 //
@@ -85,6 +110,21 @@ export type {QTIListView} from './list-view/core/QTIListView'
 export type {QTIView} from './view/QTIView'
 export {QTIViewVisibility} from './view/QTIViewVisibility'
 export type {QTViewEvent} from './view/QTViewEvent'
+export type {QTViewState} from './view/QTViewState'
+export type {QTPosition} from './core/QTPosition'
+
+//text
+export type {QTTextSpan} from './text/QTTextSpan'
+export type {QTTextSpanAttribute} from './text/QTTextSpanAttribute'
+export {QTTextSpanAttributeType} from './text/QTTextSpanAttributeType'
+
+//
+export {QTImageResizeMode} from './image/QTImageResizeMode'
+
+//ul
+export type {QTULInitPosition} from './ul/QTULInitPosition'
+export type {QTIUL} from './ul/QTIUL'
+
 
 //QTFocusable
 export type {QTFocusable} from './core/QTFocusable'
@@ -103,7 +143,10 @@ export type {QTFlexStyleText} from './core/QTFlexStyleText'
 
 //
 export type {QTVisibility} from './core/QTVisibility'
-export {QTDirections} from './core/QTDirections'
+
+//
+export type {QTEventData} from './core/QTEventData'
+export type {QTLocation} from './core/QTLocation'
 
 //Poster
 export type {QTPoster} from './poster/core/QTPoster'
@@ -133,6 +176,9 @@ export {QTWaterfallVisibleType} from './waterfall/core/QTWaterfallVisibleType'
 export type {QTWaterfallPluginSection} from './waterfall/core/QTWaterfallPluginSection'
 export type {QTWaterfallPluginItem} from './waterfall/core/QTWaterfallPluginItem'
 
+//List
+export type {QTListInitPosition} from './list/QTListInitPosition'
+
 //ListView
 export type {QTListViewItem} from './list-view/core/QTListViewItem'
 export type {QTListViewItemDecoration} from './list-view/core/QTListViewItemDecoration'
@@ -140,8 +186,6 @@ export type {QTListViewItemFunctionParams} from './list-view/core/QTListViewItem
 export type {QTListViewItemState} from './list-view/core/QTListViewItemState'
 
 //GridView
-export type {QTGridViewItem} from './grid-view/core/QTGridViewItem'
-export type {QTGridViewItemDecoration} from './grid-view/core/QTGridViewItemDecoration'
 export type {QTGridViewItemFunctionParams} from './grid-view/core/QTGridViewItemFunctionParams'
 
 //NavBar
@@ -275,4 +319,5 @@ export type {QTIAppIcon} from './app/QTIAppIcon'
 //--------------------------------QTIPluginView---------------------------------
 export type {QTIPluginView, QTPluginViewEvent} from './plugin/QTIPluginView'
 
-export { VirtualView } from './utils/VirtualView'
+export {VirtualView} from './utils/VirtualView'
+

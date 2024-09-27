@@ -24,6 +24,7 @@ import qt_nav_collapse_page from './qt-nav-collapse-page.vue'
 import qt_nav_scroll_view_page from './qt-nav-scroll-view-page.vue'
 import qt_nav_app_icon_page from './qt-nav-app-icon-page.vue'
 import qt_nav_plugin_view_page from './qt-nav-plugin-view-page.vue'
+import qt_nav_api_page from './qt-nav-api-page.vue'
 
 const QTAPINavPageList = {
   qt_nav_view_page: {
@@ -129,6 +130,10 @@ const QTAPINavPageList = {
   qt_nav_plugin_view_page: {
     name: 'QTPluginView',
     component: qt_nav_plugin_view_page,
+  },
+  qt_nav_api_page: {
+    name: 'QTAPI',
+    component: qt_nav_api_page,
   },
 };
 

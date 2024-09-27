@@ -221,10 +221,6 @@ export default defineComponent({
       }
     }
 
-    function setAutoFocus(tag: string, delay: number) {
-      waterfallRef.value?.setAutoFocus(tag, delay)
-    }
-
     function getSectionList(): Array<QTWaterfallSection> {
       return dataManager.getSectionList()
     }
@@ -493,7 +489,6 @@ export default defineComponent({
       waterfallRef,
       visibleType,
       init,
-      setAutoFocus,
       getSectionList,
       setSectionList,
       addSectionList,

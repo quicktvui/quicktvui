@@ -25,6 +25,7 @@ import QTCollapsePageList from "./components/qt-collapse";
 import QTScrollViewPageList from "./components/qt-scroll-view";
 import QTAppIconPageList from "./components/qt-app-icon";
 import QTPluginViewPageList from "./components/qt-plugin-view";
+import QTAPIPageList from "./components/qt-api";
 
 import {
   QTWaterfallPageList,
@@ -249,6 +250,12 @@ const routes = [
       path: `/plugin-view${item}`,
       name: `plugin-view/${item}`,
       component: QTPluginViewPageList[item].component,
+    })),
+  ...Object.keys(QTAPIPageList)
+    .map(item => ({
+      path: `/api${item}`,
+      name: `api/${item}`,
+      component: QTAPIPageList[item].component,
     })),
 ]
 
