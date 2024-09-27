@@ -28,6 +28,7 @@ import {createQtLoadingAPI, QtLoadingAPI} from "../loading/QtLoadingAPI";
 import {createQtPosterAPI, QtPosterAPI} from "../poster/QtPosterAPI";
 import {createQtQRCodeAPI, QtQRCodeAPI} from "../qrcode/QtQRCodeAPI";
 import {createQtRowAPI, QtRowAPI} from "../row/QtRowAPI";
+import {createQtVirtualViewAPI, QtVirtualViewAPI} from "../utils/QtVirtualViewAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -59,6 +60,7 @@ export interface QtAPI {
   poster: QtPosterAPI
   qrCode: QtQRCodeAPI
   row: QtRowAPI
+  virtualView: QtVirtualViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -96,6 +98,7 @@ export function createQtAPI(): QtAPI {
   const posterAPI: QtPosterAPI = createQtPosterAPI(viewAPI)
   const qrCodeAPI: QtQRCodeAPI = createQtQRCodeAPI(viewAPI)
   const rowAPI: QtRowAPI = createQtRowAPI(viewAPI)
+  const virtualViewAPI: QtVirtualViewAPI = createQtVirtualViewAPI()
 
   return {
     view: viewAPI,
@@ -126,7 +129,8 @@ export function createQtAPI(): QtAPI {
     loading: loadingAPI,
     poster: posterAPI,
     qrCode: qrCodeAPI,
-    row: rowAPI
+    row: rowAPI,
+    virtualView: virtualViewAPI
   }
 }
 
