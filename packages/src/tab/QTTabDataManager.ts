@@ -7,6 +7,7 @@ import {QTTabPageDataState} from "./QTTabPageDataState";
 import {QTTabPageState} from "./QTTabPageState";
 import {QTTab} from "./QTTab";
 import {QTListViewItemState} from "../list-view/core/QTListViewItemState";
+import {ESLog, ESLogLevel} from "@extscreen/es3-core";
 
 export interface QTTabDataManager {
 
@@ -21,7 +22,8 @@ export interface QTTabDataManager {
   //-------------------------------------------------------------------------------------
   getSectionList(pageIndex: number): Array<QTWaterfallSection>
 
-  insertSectionList(pageIndex: number, sectionIndex:number,sections: Array<QTWaterfallSection>): QTTabIndex
+  insertSectionList(pageIndex: number, sectionIndex: number, sections: Array<QTWaterfallSection>): QTTabIndex
+
   addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>, deleteCount: number): QTTabIndex
 
   deleteSection(pageIndex: number, sectionIndex: number, count: number): QTTabIndex
@@ -54,7 +56,9 @@ export interface QTTabDataManager {
 }
 
 
-export function createQTTabDataManager(): QTTabDataManager {
+export function createQTTabDataManager(log: ESLog): QTTabDataManager {
+
+  const TAG = 'qt-tabs'
 
   const pageMap = new Map<number, QTTabPageDataState>()
   const pageDataMap = new Map<number, Array<QTWaterfallSection>>()
@@ -79,6 +83,12 @@ export function createQTTabDataManager(): QTTabDataManager {
   }
 
   function setPageDataState(pageIndex: number, pageData: QTTabPageDataState): void {
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '---QTTabDataManager----setPageStateReset----->>' +
+        ' pageIndex:' + pageIndex +
+        " pageData:", pageData
+      )
+    }
     pageMap.set(pageIndex, pageData)
   }
 
@@ -93,8 +103,8 @@ export function createQTTabDataManager(): QTTabDataManager {
 
   function addSectionList(pageIndex: number, sections: Array<QTWaterfallSection>, deleteCount: number = 0): QTTabIndex {
     let sectionList = pageDataMap.get(pageIndex) ?? []
-    if(deleteCount > 0) {
-      sectionList = sectionList.slice(0,sectionList.length - deleteCount)
+    if (deleteCount > 0) {
+      sectionList = sectionList.slice(0, sectionList.length - deleteCount)
       pageDataMap.set(pageIndex, sectionList)
     }
     const sectionListLength = sectionList.length
@@ -109,7 +119,14 @@ export function createQTTabDataManager(): QTTabDataManager {
         page.state = QTTabPageState.QT_TAB_PAGE_STATE_IDLE
       }
     }
-    dumpWaterfallData()
+
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '-----QTTabDataManager---dumpTabWaterfallData---###addSectionList---->>' +
+        ' pageIndex:' + pageIndex +
+        ' sections: ', sections
+      )
+    }
+    dumpWaterfallData('addSectionList: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -119,7 +136,8 @@ export function createQTTabDataManager(): QTTabDataManager {
       itemCount: itemCount,
     }
   }
-  function insertSectionList(pageIndex: number, sectionIndex: number,sections: Array<QTWaterfallSection>): QTTabIndex {
+
+  function insertSectionList(pageIndex: number, sectionIndex: number, sections: Array<QTWaterfallSection>): QTTabIndex {
     const sectionList = pageDataMap.get(pageIndex) ?? []
     const sectionListLength = sectionList.length
     const previousItemCount = getRangeSectionListItemCount(sectionList, 0, sectionListLength)
@@ -133,7 +151,15 @@ export function createQTTabDataManager(): QTTabDataManager {
         page.state = QTTabPageState.QT_TAB_PAGE_STATE_IDLE
       }
     }
-    dumpWaterfallData()
+
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '----QTTabDataManager----dumpTabWaterfallData---###insertSectionList---->>' +
+        ' pageIndex:' + pageIndex +
+        ' sectionIndex: ', sectionIndex +
+        ' sections: ', sections
+      )
+    }
+    dumpWaterfallData('insertSectionList: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -150,7 +176,14 @@ export function createQTTabDataManager(): QTTabDataManager {
     const deleteItemCount = getRangeSectionListItemCount(sectionList, sectionIndex, count)
     sectionList.splice(sectionIndex, count)
 
-    dumpWaterfallData()
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '----QTTabDataManager----dumpTabWaterfallData---###deleteSection---->>' +
+        ' pageIndex:' + pageIndex +
+        ' sectionIndex: ', sectionIndex +
+        ' count: ', count
+      )
+    }
+    dumpWaterfallData('deleteSection: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -167,7 +200,14 @@ export function createQTTabDataManager(): QTTabDataManager {
     const itemCount = getSectionItemCount(section)
     sectionList.splice(sectionIndex, 1, section)
 
-    dumpWaterfallData()
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '-----QTTabDataManager---dumpTabWaterfallData---###updateSection---->>' +
+        ' pageIndex:' + pageIndex +
+        ' sectionIndex: ', sectionIndex +
+        ' section: ', section
+      )
+    }
+    dumpWaterfallData('updateSection: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -180,8 +220,12 @@ export function createQTTabDataManager(): QTTabDataManager {
 
   function updateSectionList(pageIndex: number, sectionList: Array<QTWaterfallSection>): QTTabIndex {
     pageDataMap.set(pageIndex, sectionList)
-
-    dumpWaterfallData()
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '----QTTabDataManager----dumpTabWaterfallData---###updateSectionList---->>' +
+        ' pageIndex:' + pageIndex +
+        ' sectionIndex: ', sectionList)
+    }
+    dumpWaterfallData('updateSectionList: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -234,7 +278,7 @@ export function createQTTabDataManager(): QTTabDataManager {
     //
     section.itemList.push(...itemList)
 
-    dumpWaterfallData()
+    dumpWaterfallData('addItemList: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -251,7 +295,7 @@ export function createQTTabDataManager(): QTTabDataManager {
     const section = sectionList[sectionIndex]
     section.itemList.splice(itemIndex, count)
 
-    dumpWaterfallData()
+    dumpWaterfallData('deleteItem: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -268,7 +312,7 @@ export function createQTTabDataManager(): QTTabDataManager {
     const section = sectionList[sectionIndex]
     section.itemList.splice(itemIndex, 1, data)
 
-    dumpWaterfallData()
+    dumpWaterfallData('updateItem: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -285,7 +329,7 @@ export function createQTTabDataManager(): QTTabDataManager {
     const section = sectionList[sectionIndex]
     section.itemList.splice(itemIndex, count, ...itemList)
 
-    dumpWaterfallData()
+    dumpWaterfallData('updateItemList: ' + pageIndex)
 
     return {
       pageIndex: pageIndex,
@@ -335,7 +379,6 @@ export function createQTTabDataManager(): QTTabDataManager {
     if (startPosition + count > sectionCount) {
       endPosition = sectionCount
     }
-    console.log('----3--------getRangeSectionListItemCount----------------->>>>')
     let itemTotal = 0
     for (let i = startPosition; i < endPosition; i++) {
       const section = sectionList[i]
@@ -345,11 +388,16 @@ export function createQTTabDataManager(): QTTabDataManager {
   }
 
   function destroy() {
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '----QTTabDataManager---destroy----->>')
+    }
     pageDataMap.clear()
   }
 
-  function dumpWaterfallData() {
-    console.log('--------dumpTabWaterfallData--------->>>>', pageDataMap)
+  function dumpWaterfallData(tag: string) {
+    if (log.isLoggable(ESLogLevel.DEBUG)) {
+      log.d(TAG, '-----QTTabDataManager---dumpTabWaterfallData---- ' + tag + ' :----->>>>', pageDataMap)
+    }
   }
 
   return {

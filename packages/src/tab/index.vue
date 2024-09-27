@@ -328,7 +328,7 @@ export default defineComponent({
     const devices = useESDevice()
     const navBarRef = ref<QTINavBar>()
     //
-    const tabDataManager = createQTTabDataManager()
+    const tabDataManager = createQTTabDataManager(log)
 
     let tabItemList: Array<QTTabItem> = []
 
@@ -388,7 +388,7 @@ export default defineComponent({
 
       //重置缓存数据
       const list = tabDataManager.getSectionList(pageIndex);
-      tabDataManager.deleteSection(pageIndex, 0, (list.length - 1))
+      tabDataManager.deleteSection(pageIndex, 0, list.length)
 
       //重置页码
       resetTabPageDataNo(pageIndex)
