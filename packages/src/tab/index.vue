@@ -729,7 +729,7 @@ export default defineComponent({
         const sectionList = tabDataManager.getSectionList(pageIndex)
         if (sectionIndex >= (sectionList.length - props.preloadNumber - 1)) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
-            log.d(TAG, '---------设置数据-----加载更多数据----->>>>' +
+            log.d(TAG, '---------设置数据-----<<<<<加载更多数据>>>>>----->>>>' +
               ' pageIndex:' + pageIndex +
               ' pageNo:' + pageNo +
               ' sectionIndex:' + sectionIndex +

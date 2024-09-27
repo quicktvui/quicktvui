@@ -130,7 +130,7 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
     if (log.isLoggable(ESLogLevel.DEBUG)) {
       log.d(TAG, '-----QTTabDataManager---dumpTabWaterfallData---###addSectionList---->>' +
         ' pageIndex:' + pageIndex +
-        ' sections: ', sections +
+        ' 需要增加的sections: ', sections,
         ' 增加以后的sectionList: ', sectionList
       )
     }
@@ -163,7 +163,7 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
     if (log.isLoggable(ESLogLevel.DEBUG)) {
       log.d(TAG, '----QTTabDataManager----dumpTabWaterfallData---###insertSectionList---->>' +
         ' pageIndex:' + pageIndex +
-        ' sectionIndex: ', sectionIndex +
+        ' sectionIndex: ', sectionIndex,
         ' sections: ', sections
       )
     }
