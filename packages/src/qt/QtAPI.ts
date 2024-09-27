@@ -22,6 +22,12 @@ import {createQtSeekBarAPI, QtSeekBarAPI} from "../seekbar/QtSeekBarAPI";
 import {createQtMediaSeriesAPI, QtMediaSeriesAPI} from "../series/QtMediaSeriesAPI";
 import {createQtTabAPI, QtTabAPI} from "../tab/QtTabAPI";
 import {createQtX5WebViewAPI, QtX5WebViewAPI} from "../x5webview/QtX5WebViewAPI";
+import {createQtButtonAPI, QtButtonAPI} from "../button/QtButtonAPI";
+import {createQtColumnAPI, QtColumnAPI} from "../column/QtColumnAPI";
+import {createQtLoadingAPI, QtLoadingAPI} from "../loading/QtLoadingAPI";
+import {createQtPosterAPI, QtPosterAPI} from "../poster/QtPosterAPI";
+import {createQtQRCodeAPI, QtQRCodeAPI} from "../qrcode/QtQRCodeAPI";
+import {createQtRowAPI, QtRowAPI} from "../row/QtRowAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -44,9 +50,15 @@ export interface QtAPI {
   pluginView: QtPluginViewAPI
   progressBar: QtProgressBarAPI
   seekBar: QtSeekBarAPI
-  mediaSeries: QtMediaSeriesAPI,
-  tabs: QtTabAPI,
+  mediaSeries: QtMediaSeriesAPI
+  tabs: QtTabAPI
   x5WebView: QtX5WebViewAPI
+  button: QtButtonAPI
+  column: QtColumnAPI
+  loading: QtLoadingAPI
+  poster: QtPosterAPI
+  qrCode: QtQRCodeAPI
+  row: QtRowAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -78,6 +90,12 @@ export function createQtAPI(): QtAPI {
   const seekBarAPI: QtSeekBarAPI = createQtSeekBarAPI(viewAPI)
   const mediaSeriesAPI: QtMediaSeriesAPI = createQtMediaSeriesAPI(viewAPI)
   const tabAPI: QtTabAPI = createQtTabAPI(viewAPI)
+  const buttonAPI: QtButtonAPI = createQtButtonAPI(viewAPI)
+  const columnAPI: QtColumnAPI = createQtColumnAPI(viewAPI)
+  const loadingAPI: QtLoadingAPI = createQtLoadingAPI(viewAPI)
+  const posterAPI: QtPosterAPI = createQtPosterAPI(viewAPI)
+  const qrCodeAPI: QtQRCodeAPI = createQtQRCodeAPI(viewAPI)
+  const rowAPI: QtRowAPI = createQtRowAPI(viewAPI)
 
   return {
     view: viewAPI,
@@ -102,7 +120,13 @@ export function createQtAPI(): QtAPI {
     seekBar: seekBarAPI,
     mediaSeries: mediaSeriesAPI,
     tabs: tabAPI,
-    x5WebView: x5WebViewAPI
+    x5WebView: x5WebViewAPI,
+    button: buttonAPI,
+    column: columnAPI,
+    loading: loadingAPI,
+    poster: posterAPI,
+    qrCode: qrCodeAPI,
+    row: rowAPI
   }
 }
 
