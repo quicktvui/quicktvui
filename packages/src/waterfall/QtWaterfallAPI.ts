@@ -46,7 +46,7 @@ export function createQtWaterfallAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseList
   //---------------------------------------------------------------------
   function getSectionList(instance: Ref<QTIWaterfall | undefined>): Array<QTWaterfallSection> {
     if (instance.value) {
-      return instance.value?.getSectionList()
+      return instance.value!.getSectionList()
     }
     return []
   }
