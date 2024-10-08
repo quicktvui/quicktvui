@@ -52,6 +52,7 @@ export function createQtClassifiedListViewAPI(viewAPI: QtViewAPI): QtClassifiedL
   }
 
   return {
+    ...viewAPI,
     init,
     scrollToIndex,
     setItemFocused,
@@ -59,6 +60,5 @@ export function createQtClassifiedListViewAPI(viewAPI: QtViewAPI): QtClassifiedL
     setItemSelected,
     scrollToSelected,
     updateItem,
-    ...viewAPI
   }
 }

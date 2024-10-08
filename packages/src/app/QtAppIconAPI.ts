@@ -31,8 +31,8 @@ export function createQtAppIconAPI(viewAPI: QtViewAPI): QtAppIconAPI {
   }
 
   return {
+    ...viewAPI,
     setPackageName,
     setRoundingRadius,
-    ...viewAPI
   }
 }

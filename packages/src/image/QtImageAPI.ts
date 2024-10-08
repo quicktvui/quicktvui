@@ -30,8 +30,8 @@ export function createQtImageAPI(viewAPI: QtViewAPI): QtImageAPI {
   }
 
   return {
+    ...viewAPI,
     setSrc,
     resizeMode,
-    ...viewAPI
   }
 }

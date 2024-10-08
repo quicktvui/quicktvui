@@ -100,6 +100,8 @@ export function createQtWaterfallAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseList
   }
 
   return {
+    ...viewAPI,
+    ...listViewAPI,
     init,
     getSectionList,
     setSectionList,
@@ -113,7 +115,5 @@ export function createQtWaterfallAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseList
     updateItem,
     updateItemList,
     getItem,
-    ...viewAPI,
-    ...listViewAPI
   }
 }

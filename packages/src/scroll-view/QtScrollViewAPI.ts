@@ -32,8 +32,8 @@ export function createQtScrollViewAPI(viewAPI: QtViewAPI): QtScrollViewAPI {
   }
 
   return {
+    ...viewAPI,
     scrollTo,
     scrollToWithOptions,
-    ...viewAPI
   }
 }

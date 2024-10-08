@@ -41,11 +41,11 @@ export function createQtCollapseAPI(viewAPI: QtViewAPI): QtCollapseAPI {
   }
 
   return {
+    ...viewAPI,
     init,
     getItem,
     expandItem,
     collapse,
     expand,
-    ...viewAPI
   }
 }

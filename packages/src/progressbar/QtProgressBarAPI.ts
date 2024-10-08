@@ -1278,6 +1278,7 @@ export function createQtProgressBarAPI(viewAPI: QtViewAPI): QtProgressBarAPI {
   }
 
   return {
+    ...viewAPI,
     invalidateProgressBar,
     setFocusable,
     setClickable,
@@ -1404,6 +1405,5 @@ export function createQtProgressBarAPI(viewAPI: QtViewAPI): QtProgressBarAPI {
     setStepsAutoBonding,
     setStepsDrawable,
     setStepsUrl,
-    ...viewAPI
   }
 }

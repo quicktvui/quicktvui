@@ -274,6 +274,7 @@ export function createQtLottieViewAPI(viewAPI: QtViewAPI): QtLottieViewAPI {
   }
 
   return {
+    ...viewAPI,
     loadRaw,
     loadFile,
     loadUrl,
@@ -300,6 +301,5 @@ export function createQtLottieViewAPI(viewAPI: QtViewAPI): QtLottieViewAPI {
     cancelAnimation,
     cacheComposition,
     removeAllListener,
-    ...viewAPI
   }
 }

@@ -1296,6 +1296,7 @@ export function createQtSeekBarAPI(viewAPI: QtViewAPI): QtSeekBarAPI {
   }
 
   return {
+    ...viewAPI,
     resetSeekbar,
     startSeek,
     stopSeek,
@@ -1425,6 +1426,5 @@ export function createQtSeekBarAPI(viewAPI: QtViewAPI): QtSeekBarAPI {
     setStepsAutoBonding,
     setStepsDrawable,
     setStepsUrl,
-    ...viewAPI
   }
 }

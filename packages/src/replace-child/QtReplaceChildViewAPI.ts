@@ -21,7 +21,7 @@ export function createQtReplaceChildViewAPI(viewAPI: QtViewAPI): QtReplaceChildV
   }
 
   return {
+    ...viewAPI,
     setChildSID,
-    ...viewAPI
   }
 }

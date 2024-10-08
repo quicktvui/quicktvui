@@ -27,9 +27,9 @@ export function createQtNavBarAPI(viewAPI: QtViewAPI): QtNavBarAPI {
   }
 
   return {
+    ...viewAPI,
     init,
     scrollToPosition,
     scrollToTop,
-    ...viewAPI
   }
 }

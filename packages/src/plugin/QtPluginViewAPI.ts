@@ -28,7 +28,7 @@ export function createQtPluginViewAPI(viewAPI: QtViewAPI): QtPluginViewAPI {
   }
 
   return {
+    ...viewAPI,
     dispatchFunction,
-    ...viewAPI
   }
 }

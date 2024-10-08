@@ -53,10 +53,10 @@ export function createQtTextAPI(viewAPI: QtViewAPI): QtTextAPI {
   }
 
   return {
+    ...viewAPI,
     setText,
     setTextSize,
     setTextColor,
     textSpan,
-    ...viewAPI
   }
 }

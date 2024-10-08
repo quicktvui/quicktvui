@@ -52,10 +52,10 @@ export function createQtListItemAPI(viewAPI: QtViewAPI): QtListItemAPI {
   }
 
   return {
+    ...viewAPI,
     updateItem,
     dispatchItemFunction,
     updateItemProps,
     batch,
-    ...viewAPI
   }
 }

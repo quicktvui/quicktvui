@@ -114,6 +114,7 @@ export function createQtULAPI(viewAPI: QtViewAPI): QtULAPI {
   }
 
   return {
+    ...viewAPI,
     scrollToIndex,
     setInitPosition,
     clearInitPosition,
@@ -123,6 +124,5 @@ export function createQtULAPI(viewAPI: QtViewAPI): QtULAPI {
     setTargetFocusChildPosition,
     refreshListData,
     getScrollOffset,
-    ...viewAPI
   }
 }

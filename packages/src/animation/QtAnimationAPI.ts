@@ -771,6 +771,7 @@ export function createQtAnimationAPI(viewAPI: QtViewAPI): QtAnimationAPI {
   }
 
   return {
+    ...viewAPI,
     setPivotX,
     setPivotY,
     resetPivot,
@@ -808,6 +809,5 @@ export function createQtAnimationAPI(viewAPI: QtViewAPI): QtAnimationAPI {
     objectAnimator8,
     objectAnimator9,
     objectAnimator10,
-    ...viewAPI
   }
 }

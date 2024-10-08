@@ -61,6 +61,8 @@ export function createQtGridViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListV
   }
 
   return {
+    ...viewAPI,
+    ...listViewAPI,
     init,
     stopPage,
     restartPage,
@@ -69,7 +71,5 @@ export function createQtGridViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListV
     setItemSelected,
     scrollToSelected,
     setInitPosition,
-    ...viewAPI,
-    ...listViewAPI
   }
 }

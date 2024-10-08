@@ -49,13 +49,13 @@ export function createQtListViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListV
   }
 
   return {
+    ...viewAPI,
+    ...listViewAPI,
     init,
     stopPage,
     setItemFocused,
     scrollToFocused,
     setItemSelected,
     scrollToSelected,
-    ...viewAPI,
-    ...listViewAPI
   }
 }
