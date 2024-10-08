@@ -10,7 +10,7 @@ import {QTSeekBarTickMarkLayoutGravity} from "../seekbar/QTSeekBarTickMarkLayout
 import {QTIProgressBar} from "./QTIProgressBar";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
-import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPI";
+import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 
 export interface QtProgressBarAPI extends QtViewAPI {
 

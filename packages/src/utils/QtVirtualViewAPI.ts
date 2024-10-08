@@ -1,5 +1,5 @@
 import {Native} from "@extscreen/es3-vue";
-import {QT_API_MODULE} from "../qt/QtAPI";
+import {QT_API_MODULE} from "../qt/QtAPIModule";
 import {QTListViewItem} from "../list-view/core/QTListViewItem";
 
 export interface QtVirtualViewAPI {

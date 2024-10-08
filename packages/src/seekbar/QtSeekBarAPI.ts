@@ -9,7 +9,7 @@ import {QTSeekBarTickMarkGravity} from "../seekbar/QTSeekBarTickMarkGravity";
 import {QTSeekBarTickMarkLayoutGravity} from "../seekbar/QTSeekBarTickMarkLayoutGravity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
-import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPI";
+import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTISeekBar} from "./QTISeekBar";
 
 export interface QtSeekBarAPI extends QtViewAPI {

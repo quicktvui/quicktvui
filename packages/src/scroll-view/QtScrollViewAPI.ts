@@ -2,7 +2,7 @@ import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
-import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPI";
+import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTIScrollView} from "./QTIScrollView";
 
 export interface QtScrollViewAPI extends QtViewAPI {

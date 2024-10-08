@@ -10,7 +10,7 @@ import {QTFocusDirectionName} from "../focus/QTFocusDirectionName";
 import {QTEventData} from "../core/QTEventData";
 import {QTLocation} from "../core/QTLocation";
 import {QTViewState} from "./QTViewState";
-import {QT_CALL_UI_FUNCTION, QT_CALL_UI_FUNCTION_WITH_PROMISE, QT_API_MODULE} from "../qt/QtAPI";
+import {QT_CALL_UI_FUNCTION, QT_CALL_UI_FUNCTION_WITH_PROMISE, QT_API_MODULE} from "../qt/QtAPIModule";
 import {isString} from "../utils/type";
 
 export interface QtViewAPI {

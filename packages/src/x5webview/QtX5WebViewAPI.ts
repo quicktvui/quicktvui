@@ -2,7 +2,7 @@ import {QtViewAPI} from "../view/QtViewAPI";
 import {Native} from "@extscreen/es3-vue";
 import {isRef, Ref} from "@vue/reactivity";
 import {QTIX5WebView} from "./QTIX5WebView";
-import {QT_CALL_UI_FUNCTION, QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPI";
+import {QT_CALL_UI_FUNCTION, QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPIModule";
 import {isString} from "../utils/type";
 
 export interface QtX5WebViewAPI extends QtViewAPI {

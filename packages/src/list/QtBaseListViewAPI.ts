@@ -6,7 +6,7 @@ import {isRef, Ref} from "@vue/reactivity";
 import {QTIListView} from "../list-view/core/QTIListView";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
-import {QT_API_MODULE, QT_CALL_UI_FUNCTION, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPI";
+import {QT_API_MODULE, QT_CALL_UI_FUNCTION, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPIModule";
 
 export interface QtBaseListViewAPI {
   scrollToIndex(instance: string | Ref<QTIListView | undefined>, x: number, y: number, animated?: boolean, duration?: number, offset?: number): void
