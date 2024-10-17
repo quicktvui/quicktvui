@@ -5,6 +5,7 @@
     <qt-tabs
       ref="tabRef"
       :outOfDateTime="120000000"
+      :datas="tabData"
       tabNavBarClass="qt-tabs-waterfall-tab-css"
       tabPageClass="qt-tabs-waterfall-css"
       @onTabPageLoadData="onTabPageLoadData">
@@ -20,7 +21,12 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTTabPageState, QTWaterfallSectionType
+  QTITab,
+  QTWaterfallSection,
+  QTTabItem,
+  QTTabPageState,
+  QTWaterfallSectionType,
+  qtTabsRef
 } from "@quicktvui/quicktvui3";
 import {generatorPageAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
@@ -31,13 +37,14 @@ export default defineComponent({
     'app-list-item': app_list_item
   },
   setup(props, context) {
+
+    const tabData = qtTabsRef()
     const tabRef = ref<QTITab>()
-    //tab item list
-    const tabItemList: Array<QTTabItem> = []
 
-    function onESCreate() {
-
-      for (let i = 0; i < 10; i++) {
+    function buildTabItemList() {
+      //tab item list
+      const tabItemList: Array<QTTabItem> = []
+      for (let i = 0; i < 15; i++) {
         let tabItem: QTTabItem = {
           _id: '' + i,
           type: 20000,
@@ -46,26 +53,18 @@ export default defineComponent({
           decoration: {
             left: 40,
             right: 20,
-          }
+          },
+          sections: []
         }
         tabItemList.push(tabItem)
       }
-
-      //tab
-      const tab: QTTab = {
-        defaultFocusIndex: 0,
-        defaultIndex: 0,
-        itemList: tabItemList,
-
-      }
-      tabRef.value?.initTab(tab)
+      return tabItemList
+    }
 
 
-      let waterfallData: QTWaterfall = {
-        width: 1920,
-        height: 800
-      }
-      tabRef.value?.initPage(waterfallData)
+    function onESCreate() {
+      const data = buildTabItemList()
+      tabData.value = data //初始化数据
     }
 
     //-----------------------------------------------------
@@ -89,19 +88,28 @@ export default defineComponent({
             "Tab:" + pageIndex + " PageNo:" + pageNo + "的应用")
           sectionList.push(section)
         }
-        const tabPage: QTTabPageData = {
-          useDiff: useDiff,
-          data: sectionList
-        }
-        tabRef.value?.addPageData(pageIndex, tabPage, 0)
+
+        //---------------------------旧写法--------------------------------------
+        // const tabPage: QTTabPageData = {
+        //   useDiff: useDiff,
+        //   data: sectionList
+        // }
+        // tabRef.value?.addPageData(pageIndex, tabPage, 0)
+        //----------------------------新写法-------------------------------------
+        tabData.value[pageIndex].sections.push(...sectionList) //添加tab页数据
+        //---------------------------------------------------------------------
       }
       //
       else {
-        const tabPage: QTTabPageData = {
-          useDiff: useDiff,
-          data: [buildEndSection()]
-        }
-        tabRef.value?.addPageData(pageIndex, tabPage, 0)
+        //---------------------------旧写法--------------------------------------
+        // const tabPage: QTTabPageData = {
+        //   useDiff: useDiff,
+        //   data: [buildEndSection()]
+        // }
+        // tabRef.value?.addPageData(pageIndex, tabPage, 0)
+        // tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
+        //---------------------------新写法--------------------------------------
+        tabData.value[pageIndex].sections.push(buildEndSection()) //添加tab页数据
         tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
       }
     }
@@ -130,6 +138,7 @@ export default defineComponent({
 
     return {
       tabRef,
+      tabData,
       onESCreate,
       onTabPageLoadData,
     }
