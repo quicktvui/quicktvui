@@ -4,6 +4,7 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
       ref="tabRef"
+      :datas="tabData"
       @onTabPageLoadData="onTabPageLoadData"
       class="qt-tabs-css">
       <template v-slot:waterfall-section>
@@ -19,10 +20,11 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import text_section from './section/text-section'
 import img_section from './section/img-section'
+import {generatorAppWaterfallSection} from "../__mocks__/app";
 
 export default defineComponent({
   name: 'DataBinding 自定义Section',
@@ -31,10 +33,9 @@ export default defineComponent({
     'img-section': img_section,
   },
   setup(props, context) {
-    const tabRef = ref<QTITab>()
+    const tabData = qtTabsRef()
 
-    function onESCreate() {
-
+    function buildTabItemList() {
       //tab item list
       const tabItemList: Array<QTTabItem> = []
 
@@ -47,25 +48,16 @@ export default defineComponent({
           decoration: {
             left: 40,
             right: 20,
-          }
+          },
+          sections: []
         }
         tabItemList.push(tabItem)
       }
+      return tabItemList
+    }
 
-      //tab
-      const tab: QTTab = {
-        defaultFocusIndex: 0,
-        defaultIndex: 0,
-        itemList: tabItemList
-      }
-      tabRef.value?.initTab(tab)
-
-
-      let waterfallData: QTWaterfall = {
-        width: 1920,
-        height: 1080
-      }
-      tabRef.value?.initPage(waterfallData)
+    function onESCreate() {
+      tabData.value = buildTabItemList() //初始化数据
     }
 
     let pageIndexLast = -1
@@ -110,15 +102,18 @@ export default defineComponent({
         section_2,
       ]
 
-      const tabPage: QTTabPageData = {
-        useDiff: useDiff,
-        data: sectionList
-      }
-      tabRef.value?.setPageData(pageIndex, tabPage)
+      //--------------------------------旧写法---------------------------------------
+      // const tabPage: QTTabPageData = {
+      //   useDiff: useDiff,
+      //   data: sectionList
+      // }
+      // tabRef.value?.setPageData(pageIndex, tabPage)
+      //--------------------------------新写法---------------------------------------
+      tabData.value[pageIndex].sections.push(...sectionList) //添加tab页数据
     }
 
     return {
-      tabRef,
+      tabData,
       onESCreate,
       onTabPageLoadData,
     }

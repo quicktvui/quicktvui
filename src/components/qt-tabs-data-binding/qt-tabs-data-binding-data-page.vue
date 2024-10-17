@@ -63,8 +63,7 @@ export default defineComponent({
 
 
     function onESCreate() {
-      const data = buildTabItemList()
-      tabData.value = data //初始化数据
+      tabData.value = buildTabItemList() //初始化数据
     }
 
     //-----------------------------------------------------
