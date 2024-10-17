@@ -10,6 +10,7 @@ import qt_nav_poster_view_page from './qt-nav-poster-view-page.vue';
 import qt_nav_bar_page from './qt-nav-bar-page.vue';
 import qt_nav_waterfall_page from './qt-nav-waterfall-page.vue';
 import qt_nav_tabs_waterfall_page from './qt-nav-tabs-waterfall-page.vue';
+import qt_nav_tabs_data_binding_page from './qt-nav-tabs-data-binding-page.vue';
 import qt_nav_classified_list_view_page from './qt-nav-classified-list-view-page.vue';
 import qt_nav_text_view_page from './qt-nav-text-view-page.vue';
 import qt_nav_loading_page from './qt-nav-loading-page.vue';
@@ -110,6 +111,10 @@ const QTAPINavPageList = {
   qt_nav_tabs_waterfall_page: {
     name: 'QTTabsWaterfall',
     component: qt_nav_tabs_waterfall_page,
+  },
+  qt_nav_tabs_data_binding_page: {
+    name: 'QTTabsDataBinding',
+    component: qt_nav_tabs_data_binding_page,
   },
   qt_nav_classified_list_view_page: {
     name: 'QTClassifiedListView',
