@@ -122,7 +122,7 @@ import {QTTabItem} from "./QTTabItem";
 import {QTListViewItemState} from "../list-view/core/QTListViewItemState";
 import useBaseView from "../base/useBaseView";
 import {QTPluginViewEvent} from "../plugin/QTIPluginView";
-import { useQtTabWatch } from './useQtTabWatch'
+import {useQtTabWatch} from './useQtTabWatch'
 
 const TAG = 'qt-tabs'
 
@@ -165,9 +165,9 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    tabNavBarSid:{
-      type:String,
-      default:''
+    tabNavBarSid: {
+      type: String,
+      default: ''
     },
     tabClass: {
       type: String,
@@ -268,75 +268,77 @@ export default defineComponent({
       type: Number,
       default: 5 * 60 * 1000
     },
-    customPool:{
+    customPool: {
       type: Object,
-      default:() => {}
+      default: () => {
+      }
     },
-    customItemPool:{
+    customItemPool: {
       type: Object,
-      default:() => {}
+      default: () => {
+      }
     },
-    navBarNextFocusName:{
+    navBarNextFocusName: {
       type: Object,
       default: () => ({
-        down:'content'
+        down: 'content'
       })
     },
-    horizontalFadingEdgeEnabled:{
+    horizontalFadingEdgeEnabled: {
       type: Boolean,
       default: false
     },
-    verticalFadingEdgeEnabled:{
+    verticalFadingEdgeEnabled: {
       type: Boolean,
       default: false
     },
-    fadingEdgeLength:{
-      type:Number,
-      default:0
+    fadingEdgeLength: {
+      type: Number,
+      default: 0
     },
-    qtTabSectionEnable:{
-      type:Object,
-      default:()=>{
+    qtTabSectionEnable: {
+      type: Object,
+      default: () => {
         return {
-          tabEnable:true,
+          tabEnable: true,
           flexSectionEnable: true,
-          flexSection:{
-            qtPosterEnable:true,
-            qtPluginItemEnable:true,
-            cardItemEnable:true,
+          flexSection: {
+            qtPosterEnable: true,
+            qtPluginItemEnable: true,
+            cardItemEnable: true,
           },
-          listSectionEnable:true,
-          listSection:{
-            qtPosterEnable:true
+          listSectionEnable: true,
+          listSection: {
+            qtPosterEnable: true
           },
-          loadingSectionEnable:true,
-          endSectionEnable:true,
-          blankSectionEnable:true,
-          cardSectionEnable:true,
-          pluginSectionEnable:true,
-          vueSectionEnable:true,
+          loadingSectionEnable: true,
+          endSectionEnable: true,
+          blankSectionEnable: true,
+          cardSectionEnable: true,
+          pluginSectionEnable: true,
+          vueSectionEnable: true,
           itemStoreEnable: false
         }
       }
     },
-    tabConfigs:{
+    tabConfigs: {
       type: Object,
-      default: ()=>({
+      default: () => ({
         defaultFocusIndex: 0,
         defaultIndex: 0,
       })
     },
-    waterfallConfig:{
+    waterfallConfig: {
       type: Object,
-      default: ()=>({width: 1920, height: 1080})
+      default: () => ({width: 1920, height: 1080})
     },
     datas: {
-      type: Array<any>,
-      default:()=>[]
+      type: Array < any >,
+      default: () => []
     }
   },
   setup(props, context) {
-    let ttTabWatchInstance:ReturnType<typeof useQtTabWatch>|undefined;
+    let ttTabWatchInstance: ReturnType<typeof useQtTabWatch> | undefined;
     const tabs = ref<ESITab>()
     const viewPager = ref<ESIViewPager>()
     const ifTabs = ref(true)
@@ -458,8 +460,8 @@ export default defineComponent({
       }
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '---------设置数据-----setPageData------>>>>' +
-          ' pageIndex:' + pageIndex +
-          ' data:', data
+            ' pageIndex:' + pageIndex +
+            ' data:', data
         )
       }
       //
@@ -482,20 +484,20 @@ export default defineComponent({
         if (pageNo == 0) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '---------设置数据------setPageData--->>>>' +
-              ' pageIndex:' + pageIndex +
-              ' pageNo:' + pageNo +
-              ' data:', data,
-              ' deleteCount:' + deleteCount
+                ' pageIndex:' + pageIndex +
+                ' pageNo:' + pageNo +
+                ' data:', data,
+                ' deleteCount:' + deleteCount
             )
           }
           tabs.value?.setPageData(pageIndex, data)
         } else {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '---------设置数据------addPageData--->>>>' +
-              ' pageIndex:' + pageIndex +
-              ' pageNo:' + pageNo +
-              ' data:', data,
-              ' deleteCount:' + deleteCount
+                ' pageIndex:' + pageIndex +
+                ' pageNo:' + pageNo +
+                ' data:', data,
+                ' deleteCount:' + deleteCount
             )
           }
           tabs.value?.addPageData(pageIndex, data, deleteCount)
@@ -551,8 +553,8 @@ export default defineComponent({
     }
 
     //add
-    function addPageItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>,insertIndex?:number,deleteCount?:number): void {
-      tabDataManager.addItemList(pageIndex, sectionIndex, itemList,insertIndex,deleteCount)
+    function addPageItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>, insertIndex?: number, deleteCount?: number): void {
+      tabDataManager.addItemList(pageIndex, sectionIndex, itemList, insertIndex, deleteCount)
       const section = tabDataManager.getSection(pageIndex, sectionIndex)
       if (section) {
         const updateSection = generateSection(waterfall, section)
@@ -640,7 +642,7 @@ export default defineComponent({
       tabs.value?.destroy()
     }
 
-    function cancelAll():void{
+    function cancelAll(): void {
       tabs.value?.cancelAll()
     }
 
@@ -731,19 +733,19 @@ export default defineComponent({
       let pageNo = getTabPageDataNo(pageIndex)
       let pageData = tabDataManager.getTabPageDataState(pageIndex)
       if (pageData && (pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_IDLE
-        || pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_INIT)) {
+          || pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_INIT)) {
         const sectionList = tabDataManager.getSectionList(pageIndex)
         if (sectionIndex >= (sectionList.length - props.preloadNumber - 1)) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '---------设置数据-----<<<<<加载更多数据>>>>>----->>>>' +
-              ' pageIndex:' + pageIndex +
-              ' pageNo:' + pageNo +
-              ' sectionIndex:' + sectionIndex +
-              ' sectionListLength:' + sectionList.length
+                ' pageIndex:' + pageIndex +
+                ' pageNo:' + pageNo +
+                ' sectionIndex:' + sectionIndex +
+                ' sectionListLength:' + sectionList.length
             )
           }
           setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_BUSY)
-          if(!ttTabWatchInstance?.checkIsStaticDatas(pageIndex, pageNo)){
+          if (!ttTabWatchInstance?.checkIsStaticDatas(pageIndex, pageNo)) {
             context.emit('onTabPageLoadData', pageIndex, pageNo, useDiff);
           }
         } else {
@@ -948,8 +950,8 @@ export default defineComponent({
       }
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '---------设置数据-----绑定回调---->>>>' +
-          ' pageIndex:' + pageIndex +
-          ' sectionIndex:' + sectionIndex
+            ' pageIndex:' + pageIndex +
+            ' sectionIndex:' + sectionIndex
         )
       }
       //
@@ -1039,11 +1041,18 @@ export default defineComponent({
     function onPluginLoadError(event: QTPluginViewEvent) {
       context.emit('onPluginLoadError', event)
     }
-    const insertPageData = (tabPageIndex: number,sectionIndex: number, data: any[]) => {
+
+    const insertPageData = (tabPageIndex: number, sectionIndex: number, data: any[]) => {
       const tabIndex = tabDataManager.insertSectionList(tabPageIndex, sectionIndex, data)
       const itemList = generateSectionList(waterfall, data)
-      tabs.value?.insertPageData(tabPageIndex,sectionIndex, itemList)
+      tabs.value?.insertPageData(tabPageIndex, sectionIndex, itemList)
     }
+
+    function getDataManager() {
+      return tabDataManager;
+    }
+
+    //--------------------------------------------------------------------
     ttTabWatchInstance = useQtTabWatch(props, {
       initPage, initTab,
       setPageData, addPageData, updatePageData, insertPageData,
@@ -1110,9 +1119,7 @@ export default defineComponent({
       insertPageData,
       onPluginLoadSuccess,
       onPluginLoadError,
-      getDataManager(){
-        return tabDataManager;
-      },
+      getDataManager,
       ...useBaseView(tabs)
     }
   },
