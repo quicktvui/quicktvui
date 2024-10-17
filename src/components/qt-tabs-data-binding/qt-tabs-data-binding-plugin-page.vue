@@ -4,6 +4,7 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
+        :datas="tabData"
         tabPageClass="qt-tabs-content-css"
         @onTabPageChanged="onTabPageChanged"
         @onTabPageLoadData="onTabPageLoadData"
@@ -19,11 +20,12 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTPluginViewEvent
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTPluginViewEvent, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import app_list_item from './item/app-list-item'
 import {buildPluginSection, buildPluginFlexSection} from "../__mocks__/plugin";
 import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
+import {buildTabItemList} from "../__mocks__/tab";
 
 const TAG = 'QTPluginView'
 
@@ -36,40 +38,10 @@ export default defineComponent({
     const tabRef = ref<QTITab>()
     const toast = useESToast()
     const log = useESLog()
+    const tabData = qtTabsRef()
 
     function onESCreate() {
-
-      //tab item list
-      const tabItemList: Array<QTTabItem> = []
-
-      for (let i = 0; i < 5; i++) {
-        let tabItem: QTTabItem = {
-          _id: '' + i,
-          type: 20000,
-          text: 'Tab:' + i,
-          titleSize: 20,
-          decoration: {
-            left: 40,
-            right: 20,
-          }
-        }
-        tabItemList.push(tabItem)
-      }
-
-      //tab
-      const tab: QTTab = {
-        defaultFocusIndex: 0,
-        defaultIndex: 0,
-        itemList: tabItemList
-      }
-      tabRef.value?.initTab(tab)
-
-
-      let waterfallData: QTWaterfall = {
-        width: 1920,
-        height: 1080
-      }
-      tabRef.value?.initPage(waterfallData)
+      tabData.value = buildTabItemList()
     }
 
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
@@ -85,12 +57,7 @@ export default defineComponent({
         buildPluginSection("3", 'TextView插件板块', 'plugin-textview/HuanTextView', 500),
         buildPluginFlexSection('4', "插件Item板块"),
       ]
-
-      const tabPage: QTTabPageData = {
-        useDiff: useDiff,
-        data: sectionList
-      }
-      tabRef.value?.setPageData(pageIndex, tabPage)
+      tabData.value[pageIndex].sections.push(...sectionList)
     }
 
     function onTabPageChanged(pageIndex: number, data: QTTabItem) {
@@ -123,6 +90,7 @@ export default defineComponent({
 
     return {
       tabRef,
+      tabData,
       onESCreate,
       onTabPageLoadData,
       onTabPageChanged,
@@ -139,6 +107,7 @@ export default defineComponent({
   width: 1920px;
   height: 1080px;
 }
+
 .qt-tabs-css .qt-tabs-content-css {
   width: 1920px;
   height: 800px;
