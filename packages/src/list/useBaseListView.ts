@@ -93,7 +93,7 @@ export default function (viewRef: Ref<QTIListView | undefined>) {
 
   function setListData(itemList: Array<QTListViewItem>): void {
     if (viewRef.value) {
-      Native.callUIFunction(viewRef.value, 'setListData', [itemList])
+      Native.callUIFunction(viewRef.value, 'setListData', [...itemList])
     }
   }
 
