@@ -2,14 +2,14 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
-    <div class="es-sdk-content-row-css">
-      <s-text-button text="添加Item" @onButtonClicked="onButtonClicked"/>
-    </div>
     <qt-tabs
-      ref="tabRef"
-      @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-css">
-      <template v-slot:waterfall-item>
+        ref="tabRef"
+        tabPageClass="qt-tabs-content-css"
+        @onTabPageChanged="onTabPageChanged"
+        :qt-tab-section-enable="qtTabSectionEnable"
+        @onTabPageLoadData="onTabPageLoadData"
+        class="qt-tabs-waterfall-root-css">
+      <template v-slot:waterfall-shared-item>
         <app-list-item :type="1"/>
       </template>
     </qt-tabs>
@@ -23,21 +23,39 @@ import {ref} from "vue";
 import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import {generatorAppQuestionWaterfallItemList, generatorAppWaterfallSection} from "../__mocks__/app";
+import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 
+/**
+ *
+ */
 export default defineComponent({
-  name: '添加Item',
+  name: 'DataBinding 进阶用法',
   components: {
     'app-list-item': app_list_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
-
-    function onButtonClicked() {
-      const itemList = generatorAppQuestionWaterfallItemList('0', 2)
-      tabRef.value?.addPageItemList(0, 0, itemList)
-    }
+      const qtTabSectionEnable = {
+        tabEnable:true,
+        flexSectionEnable:true,
+        flexSection:{
+          qtPosterEnable:false,
+          qtPluginItemEnable:false,
+          cardItemEnable:false,
+        },
+        listSectionEnable:true,
+        listSectionItem:{
+          qtPosterEnable:false
+        },
+        loadingSectionEnable:true,
+        endSectionEnable:true,
+        blankSectionEnable:false,
+        cardSectionEnable:false,
+        pluginSectionEnable:false,
+        vueSectionEnable:false,
+        itemStoreEnable:true,
+      }
 
     function onESCreate() {
 
@@ -69,7 +87,7 @@ export default defineComponent({
 
       let waterfallData: QTWaterfall = {
         width: 1920,
-        height: 1080
+        height: 100
       }
       tabRef.value?.initPage(waterfallData)
     }
@@ -79,8 +97,8 @@ export default defineComponent({
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
-        '  pageIndex:' + pageIndex +
-        '  useDiff:' + useDiff
+          '  pageIndex:' + pageIndex +
+          '  useDiff:' + useDiff
       )
       if (pageIndexLast === pageIndex) {
         return
@@ -88,9 +106,10 @@ export default defineComponent({
       pageIndexLast = pageIndex
 
       let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-
+      let section1: QTWaterfallSection = generatorAppWaterfallSection('1', "一行滚动应用")
+      section1.type = 1003
       let sectionList: Array<QTWaterfallSection> = [
-        section,
+        section,section1
       ]
 
       const tabPage: QTTabPageData = {
@@ -100,11 +119,24 @@ export default defineComponent({
       tabRef.value?.setPageData(pageIndex, tabPage)
     }
 
+    function onTabPageChanged(pageIndex: number, data: QTTabItem) {
+      console.log('---------onTabPageChanged---------->>>' +
+          '  pageIndex:' + pageIndex +
+          '  data:', data
+      )
+
+      tabRef.value?.getCurrentTabIndex().then((index: number) => {
+        console.log('---------onTabPageChanged---------->>>' +
+            '  index:' + index
+        )
+      })
+    }
+
     return {
-      tabRef,
+      tabRef,qtTabSectionEnable,
       onESCreate,
       onTabPageLoadData,
-      onButtonClicked,
+      onTabPageChanged,
     }
   },
 });
@@ -112,8 +144,16 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-tabs-css {
+.qt-tabs-waterfall-root-css {
   width: 1920px;
-  height: 1080px;
+  height: 900px;
+  background-color: red;
 }
+
+.qt-tabs-waterfall-root-css .qt-tabs-content-css {
+  width: 1920px;
+  height: 800px;
+  background-color: #7415B1;
+}
+
 </style>

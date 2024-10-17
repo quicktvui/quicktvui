@@ -4,12 +4,10 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
       ref="tabRef"
-      tabNavBarClass="qt-tabs-nav-bar-css"
-      tabPageClass="qt-tabs-content-css"
       @onTabPageLoadData="onTabPageLoadData"
-      class="qt-single-tab-css">
-      <template v-slot:waterfall-item>
-        <app-list-item :type="1"/>
+      class="qt-tabs-css">
+      <template v-slot:tab-item>
+        <tab-item :type="1"/>
       </template>
     </qt-tabs>
   </div>
@@ -20,15 +18,15 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTWaterfallSectionType, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
-import app_list_item from './item/app-list-item.vue'
+import tab_item from './item/tab-item.vue'
+import {buildWaterfallItemList} from "./data/mock";
 
 export default defineComponent({
-  name: '单Tab',
+  name: 'DataBinding 自定义TabItem',
   components: {
-    'app-list-item': app_list_item
+    'tab-item': tab_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
@@ -37,17 +35,20 @@ export default defineComponent({
 
       //tab item list
       const tabItemList: Array<QTTabItem> = []
-      let tabItem: QTTabItem = {
-        _id: '1',
-        type: 20000,
-        text: 'Tab',
-        titleSize: 20,
-        decoration: {
-          left: 40,
-          right: 20,
+
+      for (let i = 0; i < 15; i++) {
+        let tabItem: QTTabItem = {
+          _id: '' + i,
+          type: 1,
+          text: 'Tab:' + i,
+          titleSize: 20,
+          decoration: {
+            left: 40,
+            right: 20,
+          }
         }
+        tabItemList.push(tabItem)
       }
-      tabItemList.push(tabItem)
 
       //tab
       const tab: QTTab = {
@@ -78,11 +79,29 @@ export default defineComponent({
       }
       pageIndexLast = pageIndex
 
-      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
 
-      let sectionList: Array<QTWaterfallSection> = [
-        section,
-      ]
+      let sectionList: Array<QTWaterfallSection> = []
+      for (let i = 0; i < 3; i++) {
+        let section: QTWaterfallSection = {
+          _id: '' + i,
+          type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX,
+          title: '板块',
+          titleStyle: {
+            width: 1920,
+            height: 60,
+            marginLeft: 90,
+            marginTop: 40,
+            marginBottom: 40,
+            fontSize: 50
+          },
+          style: {
+            width: 1920,
+            height: -1,
+          },
+          itemList: buildWaterfallItemList('' + i)
+        }
+        sectionList.push(section)
+      }
 
       const tabPage: QTTabPageData = {
         useDiff: useDiff,
@@ -102,20 +121,8 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-single-tab-css {
+.qt-tabs-css {
   width: 1920px;
-  height: 1080px;
-}
-
-.es-sdk-root-css .qt-tabs-nav-bar-css {
-  width: 1920px;
-  height: 0;
-  background-color: red;
-}
-
-.qt-tabs-content-css {
-  width: 1920px;
-  height: 1080px;
-  background-color: #7415B1;
+  height: 900px;
 }
 </style>

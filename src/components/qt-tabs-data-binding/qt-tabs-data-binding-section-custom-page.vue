@@ -2,15 +2,13 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
-    <div class="es-sdk-content-row-css">
-      <s-text-button text="删除第一个page第一个section" @onButtonClicked="onButtonClicked"/>
-    </div>
     <qt-tabs
       ref="tabRef"
       @onTabPageLoadData="onTabPageLoadData"
       class="qt-tabs-css">
-      <template v-slot:waterfall-item>
-        <app-list-item :type="1"/>
+      <template v-slot:waterfall-section>
+        <text-section :type="1"/>
+        <!-- <img-section :type="2"/> -->
       </template>
     </qt-tabs>
   </div>
@@ -23,20 +21,17 @@ import {ref} from "vue";
 import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
-import app_list_item from './item/app-list-item'
+import text_section from './section/text-section'
+import img_section from './section/img-section'
 
 export default defineComponent({
-  name: '删除Section',
+  name: 'DataBinding 自定义Section',
   components: {
-    'app-list-item': app_list_item
+    'text-section': text_section,
+    'img-section': img_section,
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
-
-    function onButtonClicked() {
-      tabRef.value?.deletePageSection(0, 0, 1)
-    }
 
     function onESCreate() {
 
@@ -86,12 +81,33 @@ export default defineComponent({
       }
       pageIndexLast = pageIndex
 
-      let section_1: QTWaterfallSection = generatorAppWaterfallSection('0', "应用:1")
-      let section_2: QTWaterfallSection = generatorAppWaterfallSection('1', "应用:2")
+      let section_1: QTWaterfallSection = {
+        _id: '1',
+        type: 1,
+        itemList: [],
+        style: {
+          width: 1920,
+          height: 320,
+        },
+        decoration: {
+          top: 200,
+          bottom: 20,
+          left: 500,
+        }
+      }
+      let section_2: QTWaterfallSection = {
+        _id: '2',
+        type: 2,
+        itemList: [],
+        style: {
+          width: 1920,
+          height: 320,
+        },
+      }
 
       let sectionList: Array<QTWaterfallSection> = [
         section_1,
-        section_2
+        section_2,
       ]
 
       const tabPage: QTTabPageData = {
@@ -105,7 +121,6 @@ export default defineComponent({
       tabRef,
       onESCreate,
       onTabPageLoadData,
-      onButtonClicked
     }
   },
 });

@@ -6,10 +6,9 @@
         ref="tabRef"
         tabPageClass="qt-tabs-content-css"
         @onTabPageChanged="onTabPageChanged"
-        :qt-tab-section-enable="qtTabSectionEnable"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-waterfall-root-css">
-      <template v-slot:waterfall-shared-item>
+      <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
     </qt-tabs>
@@ -30,32 +29,12 @@ import app_list_item from './item/app-list-item'
  *
  */
 export default defineComponent({
-  name: '进阶用法',
+  name: 'DataBinding 使用初探',
   components: {
     'app-list-item': app_list_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
-      const qtTabSectionEnable = {
-        tabEnable:true,
-        flexSectionEnable:true,
-        flexSection:{
-          qtPosterEnable:false,
-          qtPluginItemEnable:false,
-          cardItemEnable:false,
-        },
-        listSectionEnable:true,
-        listSectionItem:{
-          qtPosterEnable:false
-        },
-        loadingSectionEnable:true,
-        endSectionEnable:true,
-        blankSectionEnable:false,
-        cardSectionEnable:false,
-        pluginSectionEnable:false,
-        vueSectionEnable:false,
-        itemStoreEnable:true,
-      }
 
     function onESCreate() {
 
@@ -106,10 +85,9 @@ export default defineComponent({
       pageIndexLast = pageIndex
 
       let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-      let section1: QTWaterfallSection = generatorAppWaterfallSection('1', "一行滚动应用")
-      section1.type = 1003
+
       let sectionList: Array<QTWaterfallSection> = [
-        section,section1
+        section,
       ]
 
       const tabPage: QTTabPageData = {
@@ -133,7 +111,7 @@ export default defineComponent({
     }
 
     return {
-      tabRef,qtTabSectionEnable,
+      tabRef,
       onESCreate,
       onTabPageLoadData,
       onTabPageChanged,

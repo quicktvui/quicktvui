@@ -24,7 +24,7 @@ import waterfall_item from './item/waterfall-item'
 import {buildCustomWaterfallItemList} from "./data/mock";
 
 export default defineComponent({
-  name: '自定义Item',
+  name: 'DataBinding 自定义Item',
   components: {
     'waterfall-item': waterfall_item
   },

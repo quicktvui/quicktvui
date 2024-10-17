@@ -2,12 +2,13 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
+    <div class="es-sdk-content-row-css">
+      <s-text-button text="删除Item" @onButtonClicked="onButtonClicked"/>
+    </div>
     <qt-tabs
-        ref="tabRef"
-        tabPageClass="qt-tabs-content-css"
-        @onTabPageChanged="onTabPageChanged"
-        @onTabPageLoadData="onTabPageLoadData"
-        class="qt-tabs-waterfall-root-css">
+      ref="tabRef"
+      @onTabPageLoadData="onTabPageLoadData"
+      class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -25,16 +26,17 @@ import {
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 
-/**
- *
- */
 export default defineComponent({
-  name: '使用初探',
+  name: 'DataBinding 删除Item',
   components: {
     'app-list-item': app_list_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+
+    function onButtonClicked() {
+      tabRef.value?.deletePageItem(0, 0, 0, 1)
+    }
 
     function onESCreate() {
 
@@ -66,7 +68,7 @@ export default defineComponent({
 
       let waterfallData: QTWaterfall = {
         width: 1920,
-        height: 100
+        height: 1080
       }
       tabRef.value?.initPage(waterfallData)
     }
@@ -76,8 +78,8 @@ export default defineComponent({
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
-          '  pageIndex:' + pageIndex +
-          '  useDiff:' + useDiff
+        '  pageIndex:' + pageIndex +
+        '  useDiff:' + useDiff
       )
       if (pageIndexLast === pageIndex) {
         return
@@ -97,24 +99,11 @@ export default defineComponent({
       tabRef.value?.setPageData(pageIndex, tabPage)
     }
 
-    function onTabPageChanged(pageIndex: number, data: QTTabItem) {
-      console.log('---------onTabPageChanged---------->>>' +
-          '  pageIndex:' + pageIndex +
-          '  data:', data
-      )
-
-      tabRef.value?.getCurrentTabIndex().then((index: number) => {
-        console.log('---------onTabPageChanged---------->>>' +
-            '  index:' + index
-        )
-      })
-    }
-
     return {
       tabRef,
       onESCreate,
       onTabPageLoadData,
-      onTabPageChanged,
+      onButtonClicked,
     }
   },
 });
@@ -122,16 +111,8 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-tabs-waterfall-root-css {
+.qt-tabs-css {
   width: 1920px;
-  height: 900px;
-  background-color: red;
+  height: 1080px;
 }
-
-.qt-tabs-waterfall-root-css .qt-tabs-content-css {
-  width: 1920px;
-  height: 800px;
-  background-color: #7415B1;
-}
-
 </style>

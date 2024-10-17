@@ -2,15 +2,12 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
-    <div class="es-sdk-content-row-css">
-      <s-text-button text="更新Item" @onButtonClicked="onButtonClicked"/>
-    </div>
     <qt-tabs
       ref="tabRef"
       @onTabPageLoadData="onTabPageLoadData"
       class="qt-tabs-css">
-      <template v-slot:waterfall-item>
-        <app-list-item :type="1"/>
+      <template v-slot:waterfall-vue-section>
+        <vue-one-section/>
       </template>
     </qt-tabs>
   </div>
@@ -21,27 +18,19 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTWaterfallItemType, QTWaterfallSectionType
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
-import app_list_item from './item/app-list-item'
+import vue_one_section from './section/vue-one-section'
+import vue_two_section from './section/vue-two-section'
 
 export default defineComponent({
-  name: '更新Item',
+  name: 'DataBinding VueSection',
   components: {
-    'app-list-item': app_list_item
+    'vue-one-section': vue_one_section,
+    'vue-two-section': vue_two_section,
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
-
-    function onButtonClicked() {
-      const item = tabRef.value?.getPageItem(0, 0, 2)
-      if (item) {
-        item.appName = '小恐龙'
-        item.appIcon = 'http://qcloudimg.a311.ottcn.com/data_center/files/2022/11/07/854f47b2-fdbe-4543-a2c3-1f8754dcb13e.jpg'
-        tabRef.value?.updatePageItem(0, 0, 2, item)
-      }
-    }
 
     function onESCreate() {
 
@@ -78,23 +67,28 @@ export default defineComponent({
       tabRef.value?.initPage(waterfallData)
     }
 
-    let pageIndexLast = -1
-
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
         '  pageIndex:' + pageIndex +
         '  useDiff:' + useDiff
       )
-      if (pageIndexLast === pageIndex) {
-        return
+
+      let section_1: QTWaterfallSection = {
+        _id: '1',
+        type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_VUE,
+        itemList: [],
+        style: {
+          width: 1920,
+          height: 320,
+        },
+        decoration: {
+          top: 20,
+          bottom: 20
+        }
       }
-      pageIndexLast = pageIndex
-
-      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-
       let sectionList: Array<QTWaterfallSection> = [
-        section,
+        section_1,
       ]
 
       const tabPage: QTTabPageData = {
@@ -107,7 +101,6 @@ export default defineComponent({
     return {
       tabRef,
       onESCreate,
-      onButtonClicked,
       onTabPageLoadData,
     }
   },

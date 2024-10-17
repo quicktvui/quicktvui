@@ -3,7 +3,7 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <div class="es-sdk-content-row-css">
-      <s-text-button text="添加Section" @onButtonClicked="onButtonClicked"/>
+      <s-text-button text="添加Item" @onButtonClicked="onButtonClicked"/>
     </div>
     <qt-tabs
       ref="tabRef"
@@ -21,13 +21,13 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, QTTabPageState
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
+import {generatorAppQuestionWaterfallItemList, generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 
 export default defineComponent({
-  name: '添加Section',
+  name: 'DataBinding 添加Item',
   components: {
     'app-list-item': app_list_item
   },
@@ -35,14 +35,8 @@ export default defineComponent({
     const tabRef = ref<QTITab>()
 
     function onButtonClicked() {
-      let sectionList: Array<QTWaterfallSection> = [
-        generatorAppWaterfallSection('0', "新添加应用"),
-      ]
-      const tabPage: QTTabPageData = {
-        useDiff: true,
-        data: sectionList
-      }
-      tabRef.value?.addPageData(0, tabPage, 0)
+      const itemList = generatorAppQuestionWaterfallItemList('0', 2)
+      tabRef.value?.addPageItemList(0, 0, itemList)
     }
 
     function onESCreate() {
@@ -80,51 +74,37 @@ export default defineComponent({
       tabRef.value?.initPage(waterfallData)
     }
 
-    let pageNum = 0
+    let pageIndexLast = -1
 
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
-      if (pageIndex !== 0) {
-        return;
-      }
       console.log('---------loadPageData---------->>>' +
         '  pageIndex:' + pageIndex +
-        '  useDiff:' + useDiff +
-        '  date:' + new Date().getTime()
+        '  useDiff:' + useDiff
       )
+      if (pageIndexLast === pageIndex) {
+        return
+      }
+      pageIndexLast = pageIndex
 
-      setTimeout(() => {
-        let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
+      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
 
-        let sectionList: Array<QTWaterfallSection> = [
-          section,
-        ]
+      let sectionList: Array<QTWaterfallSection> = [
+        section,
+      ]
 
-        const tabPage: QTTabPageData = {
-          useDiff: useDiff,
-          data: sectionList
-        }
-
-        if (pageNum == 0) {
-          console.log('------设置数据-----setPageData------------->>>>>')
-          tabRef.value?.setPageData(pageIndex, tabPage)
-        } else {
-          console.log('-------设置数据----addPageData------------->>>>>')
-          tabRef.value?.addPageData(pageIndex, tabPage, 0)
-        }
-        pageNum++;
-
-        if (pageNum === 2) {
-          tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
-        }
-      }, 2000)
+      const tabPage: QTTabPageData = {
+        useDiff: useDiff,
+        data: sectionList
+      }
+      tabRef.value?.setPageData(pageIndex, tabPage)
     }
 
     return {
       tabRef,
       onESCreate,
       onTabPageLoadData,
-      onButtonClicked
+      onButtonClicked,
     }
   },
 });

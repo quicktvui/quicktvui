@@ -28,7 +28,7 @@ import {ESLogLevel, useESLog, useESToast} from "@extscreen/es3-core";
 const TAG = 'QTPluginView'
 
 export default defineComponent({
-  name: '插件',
+  name: 'DataBinding 插件',
   components: {
     'app-list-item': app_list_item
   },

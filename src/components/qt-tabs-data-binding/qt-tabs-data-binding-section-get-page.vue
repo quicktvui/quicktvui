@@ -2,14 +2,13 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
+    <div class="es-sdk-content-row-css">
+      <s-text-button text="查询Section" @onButtonClicked="onGetButtonClicked"/>
+    </div>
     <qt-tabs
       ref="tabRef"
-      :horizontal="false"
-      tabClass="qt-tabs-horizontal-css"
-      tabNavBarClass="qt-tabs-tab-css"
-      tabPageClass="qt-tabs-page-css"
       @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-horizontal-css">
+      class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -23,17 +22,26 @@ import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
-} from "../../../packages";
+} from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
+import {useESLog} from "@extscreen/es3-core";
+
+const TAG = 'TabWaterfallTAG'
 
 export default defineComponent({
-  name: '横向',
+  name: 'DataBinding 查询Section',
   components: {
     'app-list-item': app_list_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+    const log = useESLog()
+
+    function onGetButtonClicked() {
+      const sectionList = tabRef.value?.getPageSectionList(0)
+      log.d(TAG, '-------获取sectionList-------->>>>', sectionList)
+    }
 
     function onESCreate() {
 
@@ -64,7 +72,7 @@ export default defineComponent({
 
 
       let waterfallData: QTWaterfall = {
-        width: 1670,
+        width: 1920,
         height: 1080
       }
       tabRef.value?.initPage(waterfallData)
@@ -100,6 +108,7 @@ export default defineComponent({
       tabRef,
       onESCreate,
       onTabPageLoadData,
+      onGetButtonClicked
     }
   },
 });
@@ -107,22 +116,8 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-tabs-horizontal-css {
+.qt-tabs-css {
   width: 1920px;
-  height: 1080px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.qt-tabs-tab-css {
-  width: 250px;
-  height: 800px;
-}
-
-.qt-tabs-page-css {
-  width: 1670px;
   height: 1080px;
 }
 </style>

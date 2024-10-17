@@ -4,26 +4,26 @@
     <qt-view class="es-sdk-content-divider-css"/>
     <qt-view class="quick-ui-content-row-css">
       <s-nav-button
-        v-for="item in pageList"
-        :key="item.id"
-        :text="item.name"
-        :url="`tabs-data-binding/${item.id}`"/>
+          v-for="item in pageList"
+          :key="item.id"
+          :text="item.name"
+          :url="`tabs-data-binding/${item.id}`"/>
     </qt-view>
     <qt-view class="quick-ui-content-divider-css"/>
     <qt-view class="quick-ui-content-row-css">
       <s-nav-button
-        v-for="item in sectionPageList"
-        :key="item.id"
-        :text="item.name"
-        :url="`tabs-data-binding/${item.id}`"/>
+          v-for="item in sectionPageList"
+          :key="item.id"
+          :text="item.name"
+          :url="`tabs-data-binding/${item.id}`"/>
     </qt-view>
     <qt-view class="quick-ui-content-divider-css"/>
     <qt-view class="quick-ui-content-row-css">
       <s-nav-button
-        v-for="item in itemPageList"
-        :key="item.id"
-        :text="item.name"
-        :url="`tabs-data-binding/${item.id}`"/>
+          v-for="item in itemPageList"
+          :key="item.id"
+          :text="item.name"
+          :url="`tabs-data-binding/${item.id}`"/>
     </qt-view>
     <qt-view class="quick-ui-content-divider-css"/>
     <qt-view class="quick-ui-content-row-css">
@@ -39,30 +39,30 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import {
-  QTTabsWaterfallPageList,
-  QTTabsWaterfallSectionPageList,
-  QTTabsWaterfallItemPageList,
-  QTTabsWaterfallSamplePageList
-} from "../../components/qt-tabs-waterfall";
+  QTTabsWaterfallDataBindingPageList,
+  QTTabsWaterfallDataBindingSectionPageList,
+  QTTabsWaterfallDataBindingItemPageList,
+  QTTabsWaterfallDataBindingSamplePageList,
+} from "../../components/qt-tabs-data-binding";
 
 export default defineComponent({
   name: 'QTTabsDataBinding',
   setup() {
-    const pageList = Object.keys(QTTabsWaterfallPageList).map(data => ({
+    const pageList = Object.keys(QTTabsWaterfallDataBindingPageList).map(data => ({
       id: data,
-      name: QTTabsWaterfallPageList[data].name
+      name: QTTabsWaterfallDataBindingPageList[data].name
     }))
-    const sectionPageList = Object.keys(QTTabsWaterfallSectionPageList).map(data => ({
+    const sectionPageList = Object.keys(QTTabsWaterfallDataBindingSectionPageList).map(data => ({
       id: data,
-      name: QTTabsWaterfallSectionPageList[data].name
+      name: QTTabsWaterfallDataBindingSectionPageList[data].name
     }))
-    const itemPageList = Object.keys(QTTabsWaterfallItemPageList).map(data => ({
+    const itemPageList = Object.keys(QTTabsWaterfallDataBindingItemPageList).map(data => ({
       id: data,
-      name: QTTabsWaterfallItemPageList[data].name
+      name: QTTabsWaterfallDataBindingItemPageList[data].name
     }))
-    const samplePageList = Object.keys(QTTabsWaterfallSamplePageList).map(data => ({
+    const samplePageList = Object.keys(QTTabsWaterfallDataBindingSamplePageList).map(data => ({
       id: data,
-      name: QTTabsWaterfallSamplePageList[data].name
+      name: QTTabsWaterfallDataBindingSamplePageList[data].name
     }))
     return {
       pageList,

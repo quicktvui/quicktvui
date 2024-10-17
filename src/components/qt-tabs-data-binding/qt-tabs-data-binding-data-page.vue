@@ -26,7 +26,7 @@ import {generatorPageAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 
 export default defineComponent({
-  name: '设置数据',
+  name: 'DataBinding 设置数据',
   components: {
     'app-list-item': app_list_item
   },

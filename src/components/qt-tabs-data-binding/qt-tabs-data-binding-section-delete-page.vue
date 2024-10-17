@@ -3,7 +3,7 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <div class="es-sdk-content-row-css">
-      <s-text-button text="删除Item" @onButtonClicked="onButtonClicked"/>
+      <s-text-button text="删除第一个page第一个section" @onButtonClicked="onButtonClicked"/>
     </div>
     <qt-tabs
       ref="tabRef"
@@ -27,7 +27,7 @@ import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 
 export default defineComponent({
-  name: '删除Item',
+  name: 'DataBinding 删除Section',
   components: {
     'app-list-item': app_list_item
   },
@@ -35,7 +35,7 @@ export default defineComponent({
     const tabRef = ref<QTITab>()
 
     function onButtonClicked() {
-      tabRef.value?.deletePageItem(0, 0, 0, 1)
+      tabRef.value?.deletePageSection(0, 0, 1)
     }
 
     function onESCreate() {
@@ -86,10 +86,12 @@ export default defineComponent({
       }
       pageIndexLast = pageIndex
 
-      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
+      let section_1: QTWaterfallSection = generatorAppWaterfallSection('0', "应用:1")
+      let section_2: QTWaterfallSection = generatorAppWaterfallSection('1', "应用:2")
 
       let sectionList: Array<QTWaterfallSection> = [
-        section,
+        section_1,
+        section_2
       ]
 
       const tabPage: QTTabPageData = {
@@ -103,7 +105,7 @@ export default defineComponent({
       tabRef,
       onESCreate,
       onTabPageLoadData,
-      onButtonClicked,
+      onButtonClicked
     }
   },
 });

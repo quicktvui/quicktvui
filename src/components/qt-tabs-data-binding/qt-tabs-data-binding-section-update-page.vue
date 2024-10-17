@@ -3,7 +3,7 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <div class="es-sdk-content-row-css">
-      <s-text-button text="查询Section" @onButtonClicked="onGetButtonClicked"/>
+      <s-text-button text="更新Section" @onButtonClicked="onButtonClicked"/>
     </div>
     <qt-tabs
       ref="tabRef"
@@ -23,24 +23,26 @@ import {ref} from "vue";
 import {
   QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import {generatorAppWaterfallSection} from "../__mocks__/app";
+import {
+  generatorAppQuestionWaterfallItemList,
+  generatorAppWaterfallSection,
+  generatorWaterfallSection
+} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
-import {useESLog} from "@extscreen/es3-core";
-
-const TAG = 'TabWaterfallTAG'
 
 export default defineComponent({
-  name: '查询Section',
+  name: 'DataBinding 更新Section',
   components: {
     'app-list-item': app_list_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
-    const log = useESLog()
 
-    function onGetButtonClicked() {
-      const sectionList = tabRef.value?.getPageSectionList(0)
-      log.d(TAG, '-------获取sectionList-------->>>>', sectionList)
+    function onButtonClicked() {
+
+      const itemList = generatorAppQuestionWaterfallItemList('0', 5)
+      let section: QTWaterfallSection = generatorWaterfallSection('0', "应用更新", itemList)
+      tabRef.value?.updatePageSection(0, 0, section)
     }
 
     function onESCreate() {
@@ -91,10 +93,11 @@ export default defineComponent({
       }
       pageIndexLast = pageIndex
 
-      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
+      let section_1: QTWaterfallSection = generatorAppWaterfallSection('0', "应用：1")
+      let section_2: QTWaterfallSection = generatorAppWaterfallSection('1', "应用：2")
 
       let sectionList: Array<QTWaterfallSection> = [
-        section,
+        section_1, section_2
       ]
 
       const tabPage: QTTabPageData = {
@@ -108,7 +111,7 @@ export default defineComponent({
       tabRef,
       onESCreate,
       onTabPageLoadData,
-      onGetButtonClicked
+      onButtonClicked,
     }
   },
 });

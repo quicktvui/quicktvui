@@ -2,12 +2,15 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
+    <div class="es-sdk-content-row-css">
+      <s-text-button text="更新Item" @onButtonClicked="onButtonClicked"/>
+    </div>
     <qt-tabs
       ref="tabRef"
       @onTabPageLoadData="onTabPageLoadData"
       class="qt-tabs-css">
-      <template v-slot:tab-item>
-        <tab-item :type="1"/>
+      <template v-slot:waterfall-item>
+        <app-list-item :type="1"/>
       </template>
     </qt-tabs>
   </div>
@@ -18,18 +21,27 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTWaterfallSectionType, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
 } from "@quicktvui/quicktvui3";
-import tab_item from './item/tab-item.vue'
-import {buildWaterfallItemList} from "./data/mock";
+import {generatorAppWaterfallSection} from "../__mocks__/app";
+import app_list_item from './item/app-list-item'
 
 export default defineComponent({
-  name: '自定义TabItem',
+  name: 'DataBinding 更新Item',
   components: {
-    'tab-item': tab_item
+    'app-list-item': app_list_item
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+
+    function onButtonClicked() {
+      const item = tabRef.value?.getPageItem(0, 0, 2)
+      if (item) {
+        item.appName = '小恐龙'
+        item.appIcon = 'http://qcloudimg.a311.ottcn.com/data_center/files/2022/11/07/854f47b2-fdbe-4543-a2c3-1f8754dcb13e.jpg'
+        tabRef.value?.updatePageItem(0, 0, 2, item)
+      }
+    }
 
     function onESCreate() {
 
@@ -39,7 +51,7 @@ export default defineComponent({
       for (let i = 0; i < 15; i++) {
         let tabItem: QTTabItem = {
           _id: '' + i,
-          type: 1,
+          type: 20000,
           text: 'Tab:' + i,
           titleSize: 20,
           decoration: {
@@ -79,29 +91,11 @@ export default defineComponent({
       }
       pageIndexLast = pageIndex
 
+      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
 
-      let sectionList: Array<QTWaterfallSection> = []
-      for (let i = 0; i < 3; i++) {
-        let section: QTWaterfallSection = {
-          _id: '' + i,
-          type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX,
-          title: '板块',
-          titleStyle: {
-            width: 1920,
-            height: 60,
-            marginLeft: 90,
-            marginTop: 40,
-            marginBottom: 40,
-            fontSize: 50
-          },
-          style: {
-            width: 1920,
-            height: -1,
-          },
-          itemList: buildWaterfallItemList('' + i)
-        }
-        sectionList.push(section)
-      }
+      let sectionList: Array<QTWaterfallSection> = [
+        section,
+      ]
 
       const tabPage: QTTabPageData = {
         useDiff: useDiff,
@@ -113,6 +107,7 @@ export default defineComponent({
     return {
       tabRef,
       onESCreate,
+      onButtonClicked,
       onTabPageLoadData,
     }
   },
@@ -123,6 +118,6 @@ export default defineComponent({
 <style>
 .qt-tabs-css {
   width: 1920px;
-  height: 900px;
+  height: 1080px;
 }
 </style>
