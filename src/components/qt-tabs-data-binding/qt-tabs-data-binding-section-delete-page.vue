@@ -6,9 +6,10 @@
       <s-text-button text="删除第一个page第一个section" @onButtonClicked="onButtonClicked"/>
     </div>
     <qt-tabs
-      ref="tabRef"
-      @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-css">
+        ref="tabRef"
+        :datas="tabData"
+        @onTabPageLoadData="onTabPageLoadData"
+        class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -21,10 +22,11 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
+import {buildTabItemList} from "../__mocks__/tab";
 
 export default defineComponent({
   name: 'DataBinding 删除Section',
@@ -33,44 +35,14 @@ export default defineComponent({
   },
   setup(props, context) {
     const tabRef = ref<QTITab>()
+    const tabData = qtTabsRef()
 
     function onButtonClicked() {
-      tabRef.value?.deletePageSection(0, 0, 1)
+      tabData.value[0].sections.splice(0, 1)
     }
 
     function onESCreate() {
-
-      //tab item list
-      const tabItemList: Array<QTTabItem> = []
-
-      for (let i = 0; i < 15; i++) {
-        let tabItem: QTTabItem = {
-          _id: '' + i,
-          type: 20000,
-          text: 'Tab:' + i,
-          titleSize: 20,
-          decoration: {
-            left: 40,
-            right: 20,
-          }
-        }
-        tabItemList.push(tabItem)
-      }
-
-      //tab
-      const tab: QTTab = {
-        defaultFocusIndex: 0,
-        defaultIndex: 0,
-        itemList: tabItemList
-      }
-      tabRef.value?.initTab(tab)
-
-
-      let waterfallData: QTWaterfall = {
-        width: 1920,
-        height: 1080
-      }
-      tabRef.value?.initPage(waterfallData)
+      tabData.value = buildTabItemList()
     }
 
     let pageIndexLast = -1
@@ -78,8 +50,8 @@ export default defineComponent({
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
-        '  pageIndex:' + pageIndex +
-        '  useDiff:' + useDiff
+          '  pageIndex:' + pageIndex +
+          '  useDiff:' + useDiff
       )
       if (pageIndexLast === pageIndex) {
         return
@@ -93,16 +65,12 @@ export default defineComponent({
         section_1,
         section_2
       ]
-
-      const tabPage: QTTabPageData = {
-        useDiff: useDiff,
-        data: sectionList
-      }
-      tabRef.value?.setPageData(pageIndex, tabPage)
+      tabData.value[pageIndex].sections.push(...sectionList)
     }
 
     return {
       tabRef,
+      tabData,
       onESCreate,
       onTabPageLoadData,
       onButtonClicked
