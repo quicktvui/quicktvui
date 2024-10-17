@@ -1,3 +1,5 @@
+import { isObject, isArray } from "@vue/shared"
+
 export class QtChangeData {
   datas:Map<any,any> = new Map()
   names:Map<any,Set<any>> = new Map()
@@ -10,7 +12,7 @@ export class QtChangeData {
     // this.datas.clear()
     this.start = -1
     this.end = -1
-    this.deleteCount = 1
+    this.deleteCount = -1
     if(this.datas.size){
       this.datas = new Map()
     }
@@ -30,7 +32,8 @@ export const typeEnum = {
   isInit: '__qt_is_init',
   shift: 'shift',
   unshift: 'unshift',
-  newDatas: '__qt_new_datas'
+  newDatas: '__qt_new_datas',
+  arrChangeProp: '__qt_splice_change_prop',
 }
 
 /**
@@ -56,7 +59,6 @@ export const qtLongestSequenceSplit= (maps:QtChangeData)=>{
   let _preStart = -1
   maps.datas.forEach((mdv, mdi)=>{
     const _start = Array.isArray(mdi)?Number(mdi[0]):Number(mdi)
-    console.log(_start,'--_start')
     let changeVal = changes.get(_preStart)
     if(changeVal && _start >= changeVal.start && _start <= changeVal.end+1){
       changeVal.updateCount++
@@ -82,6 +84,58 @@ export const qtLongestSequenceSplit= (maps:QtChangeData)=>{
     }
   })
   return changes
+}
+
+interface IparseChildUpdateRef {
+  isArr:boolean,arrDeeps:number[], oldData:any,newData:any,ouData:any,
+  k:any
+}
+/**
+ * 解析子列表更新层级
+ */
+export const parseChildUpdate = (changeData:QtChangeData, orData:any,exFn:(res:IparseChildUpdateRef)=>void) => {
+  const maps = changeData.names.size?changeData.names:changeData.datas
+  maps.forEach((v,k)=>{
+    let orUdata:any
+    let newUdata:any
+    const cvalue = changeData.datas.get(k)
+    const res:IparseChildUpdateRef = {
+      isArr: false, arrDeeps: [], ouData: cvalue,
+      newData: null, oldData:null, k
+    }
+    if(Array.isArray(k)){
+      for (let kindex = 0; kindex < k.length; kindex++) {
+        const kitem = k[kindex];
+        if(!isNaN(Number(kitem))){
+          res.arrDeeps.push(Number(kitem))
+        }
+        if(res.arrDeeps.length>3){
+          break
+        } else {
+          orUdata = orUdata ? orUdata[kitem] : orData[kitem]
+          if(kindex>0){
+            newUdata = newUdata ? newUdata[kitem] : cvalue[kitem]
+          } else {
+            newUdata = cvalue
+          }
+        }
+      }
+      if(changeData.names.size && changeData.names.get(k)?.size == 1){
+        const namev = changeData.names.get(k)?.values().next().value
+        if(isObject(orUdata) && isObject(newUdata) && isArray(orUdata[namev]) && isArray(newUdata[namev])){
+          orUdata = orUdata[namev]
+          newUdata = newUdata[namev]
+        }
+      }
+      res.oldData = orUdata
+      res.newData = newUdata
+    } else {
+      res.oldData = orData[k]
+      res.newData = v
+    }
+    res.isArr = Array.isArray(newUdata)
+    exFn(res)
+  })
 }
 
 class QtType {
@@ -122,6 +176,10 @@ class QtType {
       this.targetMaps.delete(target)
     }
   }
+  clear(){
+    this.targetFlags = new WeakMap()
+    this.targetMaps = new WeakMap()
+  }
   changeTypeData(target:any, prop:any, value:any){
     if(this.getFlag(target).get(typeEnum.currentType) === typeEnum.pop){
       return false
@@ -147,7 +205,7 @@ class QtType {
   changeOfsetType(target:any, prop:any, value:any, name?:any, deth = 1){
     let cacheTypes = this.getTargetType(target,typeEnum.qtSet)
     if(!cacheTypes){
-      const start = Array.isArray(prop) ? Number(prop[0]) : Number(prop)
+      const start = (Array.isArray(prop) ? Number(prop[0]) : Number(prop))||0
       cacheTypes = new QtChangeData(start, start)
       cacheTypes.datas.set(prop, value)
       cacheTypes.updateCount = 1
@@ -155,7 +213,7 @@ class QtType {
       cacheTypes.deth = deth
       this.setType(target, typeEnum.qtSet, cacheTypes)
     } else {
-      const pos = Array.isArray(prop) ? Number(prop[0]) : Number(prop)
+      const pos = (Array.isArray(prop) ? Number(prop[0]) : Number(prop))||0
       if(!cacheTypes.datas.has(prop)){
         if(pos !== cacheTypes.end){
           cacheTypes.rootUpdateCount++
@@ -181,23 +239,49 @@ class QtType {
       }
     }
   }
-  recordNewData(target:any, items:any[]){
+  /**
+   * 记录splice操作数据时，具体哪些索引是真的被修改了
+   */
+  recordArrChangeProps(target:any, start:number, end:number){
     const flag = this.getFlag(target)
-    let newDatas:WeakSet<any> = flag.get(typeEnum.newDatas)
-    if(!newDatas){
-      flag.set(typeEnum.newDatas, newDatas = new WeakSet())
+    let changeProps:Set<any> = flag.get(typeEnum.arrChangeProp)
+    if(!changeProps){
+      changeProps = new Set()
+      flag.set(typeEnum.arrChangeProp, changeProps)
     }
-    items.forEach(item=>{
-      newDatas.add(item)
-    })
+    if(end > start){
+      for (let index = start; index < end; index++) {
+        changeProps.add(index)
+      }
+    }
   }
-  checkIsNewData(target:any, data:any):boolean{
+  /**
+   * 检测指定prop是否是由splice操作而修改的
+   * 返回true时，要么没有做splice操作，要么做了splice操作但是指定prop并不是真正被修改的索引
+   */
+  checkArrChangeProps(target:any, prop:any){
     const flag = this.getFlag(target)
-    let newDatas:WeakSet<any> = flag.get(typeEnum.newDatas)
-    if(newDatas){
-      return newDatas.has(data)
+    const ctype = flag.get(typeEnum.currentType)
+
+    if(ctype === typeEnum.splice){
+      let changeProps:Set<any> = flag.get(typeEnum.arrChangeProp)
+      prop = Number(prop)
+      if(!changeProps) {
+        return true
+      } else if(!isNaN(prop) && changeProps.has(prop)){
+        changeProps.delete(prop)//只可被识别一次，即销毁
+        return true
+      } else {
+        return false
+      }
     }
-    return false
+    if(ctype === typeEnum.shift){
+      return false
+    }
+    if(ctype === typeEnum.unshift){
+      return false
+    }
+    return true
   }
 }
 const qtType = new QtType()

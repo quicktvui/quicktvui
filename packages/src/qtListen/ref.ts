@@ -2,12 +2,12 @@ import { qtIsTracking, qtTrackEffects, qtTrigger, qtTriggerEffects } from "./eff
 import { qtToReactive, emReactiveFlags } from "./reactive";
 import { qtCloneObj } from "./watch";
 
-class QtRefImpl<T extends Array<any>> {
+class QtRefImpl<T extends Object> {
   public dep:Set<any> = new Set();
   public __v_isRef = true
   public _value:any;
   public _rawValue:any
-  constructor(_rawValue:any = []){
+  constructor(_rawValue:object){
     this._rawValue = qtCloneObj(_rawValue)
     this._value = qtToReactive(this._rawValue)
   }
@@ -36,8 +36,43 @@ export interface IQtRef<T = any> {
 }
 
 function qtCreateRef<T extends Array<any>>(value?:T):QtRefImpl<T>{
-  return new QtRefImpl<T>(value)
+  return new QtRefImpl<T>(value||[])
 }
 export function qtRef<T extends Array<any>>(value?:T):IQtRef<T>{
   return qtCreateRef<T>(value)
+}
+function qtCreateRefObject<T extends object>(value?:T):QtRefImpl<T>{
+  return new QtRefImpl<T>(value||{})
+}
+export function qtRefObject<T extends object>(value?:T):IQtRef<T>{
+  return qtCreateRefObject<T>(value)
+}
+
+export interface IQtTabDatas {
+  // tab
+  _id: string,
+  type: number,
+  text: string,
+  titleSize: number,
+  decoration: { left: number, right: number },
+  // tab-waterfall
+  useDiff?: boolean;
+  disableScrollOnFirstScreen?: boolean;
+  firstFocusTargetID?: string;
+  bindingPlayer?: string;
+  sections: Array<{
+    title?: string;
+    titleStyle?: any;
+    itemList: Array<{
+      style: any;
+      [prop: string]: any;
+    }>;
+    style: any;
+    placeholder?: {enable: boolean},
+    [k:string]:any
+  }>,
+  [k:string]:any
+}
+export function qtTabsRef(value?:Array<IQtTabDatas>):IQtRef<Array<IQtTabDatas>>{
+  return qtCreateRef<Array<IQtTabDatas>>(value)
 }

@@ -41,7 +41,7 @@ export interface QTTabDataManager {
   getSectionListByState(pageIndex: number, state: QTListViewItemState): Array<QTWaterfallSection>
 
   //-------------------------------------------------------------------------------------
-  addItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>): QTTabIndex
+  addItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>,insertIndex?:number,deleteCount?:number): QTTabIndex
 
   deleteItem(pageIndex: number, sectionIndex: number, itemIndex: number, count: number): QTTabIndex
 
@@ -268,7 +268,7 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
   }
 
   //-------------------------------------------------------------------------------
-  function addItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>)
+  function addItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>,insertIndex?:number,deleteCount?:number)
     : QTTabIndex {
     const sectionList = pageDataMap.get(pageIndex) ?? []
     const sectionLength = sectionList.length
@@ -284,8 +284,11 @@ export function createQTTabDataManager(log: ESLog): QTTabDataManager {
     const section = sectionList[sectionIndex]
     const previousItemCount = section.itemList.length
     //
-    section.itemList.push(...itemList)
-
+    if(insertIndex !== undefined){
+      section.itemList.splice(insertIndex, deleteCount||0, ...itemList)
+    } else {
+      section.itemList.push(...itemList)
+    }
     dumpWaterfallData('addItemList: ' + pageIndex)
 
     return {

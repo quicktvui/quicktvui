@@ -37,7 +37,8 @@ import registerAppIconView from "./app/QTAppIcon";
 import registerQTIReplaceChildView from "./replace-child/QTReplaceChildView";
 
 
-export {qtRef, qtWatchAll, qtGetParent} from "./qtListen/index";
+export {qtRef, qtWatchAll, qtGetParent, qtTabsRef, parseChildUpdate, qtDiff} from "./qtListen/index";
+export type { IQtTabDatas } from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [
@@ -62,6 +63,7 @@ const components = [
 import {createQtAPI, QtAPI} from "./qt/QtAPI";
 
 declare global {
+  // @ts-ignore
   var qt: QtAPI
 }
 

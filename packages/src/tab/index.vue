@@ -122,6 +122,7 @@ import {QTTabItem} from "./QTTabItem";
 import {QTListViewItemState} from "../list-view/core/QTListViewItemState";
 import useBaseView from "../base/useBaseView";
 import {QTPluginViewEvent} from "../plugin/QTIPluginView";
+import { useQtTabWatch } from './useQtTabWatch'
 
 const TAG = 'qt-tabs'
 
@@ -317,9 +318,25 @@ export default defineComponent({
           itemStoreEnable: false
         }
       }
+    },
+    tabConfigs:{
+      type: Object,
+      default: ()=>({
+        defaultFocusIndex: 0,
+        defaultIndex: 0,
+      })
+    },
+    waterfallConfig:{
+      type: Object,
+      default: ()=>({width: 1920, height: 1080})
+    },
+    datas: {
+      type: Array<any>,
+      default:()=>[]
     }
   },
   setup(props, context) {
+    let ttTabWatchInstance:ReturnType<typeof useQtTabWatch>|undefined;
     const tabs = ref<ESITab>()
     const viewPager = ref<ESIViewPager>()
     const ifTabs = ref(true)
@@ -534,8 +551,8 @@ export default defineComponent({
     }
 
     //add
-    function addPageItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>): void {
-      tabDataManager.addItemList(pageIndex, sectionIndex, itemList)
+    function addPageItemList(pageIndex: number, sectionIndex: number, itemList: Array<QTWaterfallItem>,insertIndex?:number,deleteCount?:number): void {
+      tabDataManager.addItemList(pageIndex, sectionIndex, itemList,insertIndex,deleteCount)
       const section = tabDataManager.getSection(pageIndex, sectionIndex)
       if (section) {
         const updateSection = generateSection(waterfall, section)
@@ -726,7 +743,9 @@ export default defineComponent({
             )
           }
           setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_BUSY)
-          context.emit('onTabPageLoadData', pageIndex, pageNo, useDiff);
+          if(!ttTabWatchInstance?.checkIsStaticDatas(pageIndex, pageNo)){
+            context.emit('onTabPageLoadData', pageIndex, pageNo, useDiff);
+          }
         } else {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '----设置数据------loadPageData--preloadNumber错误-->>>>', pageIndex)
@@ -1020,7 +1039,17 @@ export default defineComponent({
     function onPluginLoadError(event: QTPluginViewEvent) {
       context.emit('onPluginLoadError', event)
     }
-
+    const insertPageData = (tabPageIndex: number,sectionIndex: number, data: any[]) => {
+      const tabIndex = tabDataManager.insertSectionList(tabPageIndex, sectionIndex, data)
+      const itemList = generateSectionList(waterfall, data)
+      tabs.value?.insertPageData(tabPageIndex,sectionIndex, itemList)
+    }
+    ttTabWatchInstance = useQtTabWatch(props, {
+      initPage, initTab,
+      setPageData, addPageData, updatePageData, insertPageData,
+      updatePageSection, deletePageSection, getPageSectionList,
+      addPageItemList, updatePageItem, deletePageItem
+    })
     return {
       tabs,
       ifTabs,
@@ -1078,11 +1107,7 @@ export default defineComponent({
       onTabClick,
       getCurrentPageIndex,
       getCurrentTabIndex,
-      insertPageData(tabPageIndex: number,sectionIndex: number, data: any[]): void {
-        const tabIndex = tabDataManager.insertSectionList(tabPageIndex, sectionIndex, data)
-        const itemList = generateSectionList(waterfall, data)
-        tabs.value?.insertPageData(tabPageIndex,sectionIndex, itemList)
-      },
+      insertPageData,
       onPluginLoadSuccess,
       onPluginLoadError,
       getDataManager(){

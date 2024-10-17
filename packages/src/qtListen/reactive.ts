@@ -3,7 +3,7 @@ import { qtTrack, qtTrigger } from "./effect";
 import QtArray from './qtArray'
 import qtType, { typeEnum } from "./types"
 import { isReactive, toRaw } from "vue";
-import { qtCreateUid } from "./watch";
+import { qtRefUid } from "./watch";
 
 export const enum emReactiveFlags {
   IS_REACTIVE = '__v_isReactive',
@@ -24,6 +24,12 @@ export const isTrackProp = (target:object, prop:string | symbol)=>{
 }
 const reactiveMap = new WeakMap()
 
+/**
+ * 获取指定层级的父级对象
+ * @param root 根对象
+ * @param paths 路径
+ * @param layer 指定要获取哪一级的对象
+ */
 export const qtGetParent = (root:object, paths:any[], layer:number) => {
   if(!isObject(root)) return
   if(layer >= paths.length-1){
@@ -79,21 +85,16 @@ const getReactiveConfig = (root?:any, paths:any[] = [], __qt_arr_deth=1): ProxyH
       if(isReactive(value)){
         value = toRaw(value)
       }
-      // console.log(prop, '-r-set--')
       if(isObject(value) && !isArray(value) && typeof(prop)==='string'){
         if(!value.__qt_key_){
-          if(isObject(oldValue)){
-            if(qtType.checkIsNewData(target,value)){
-              value.__qt_key_ = qtCreateUid(prop)
-            } else {
-              value.__qt_key_ = oldValue.__qt_key_ || qtCreateUid(prop)//标记唯一值，diff对比时使用
-            }
+          if(isObject(oldValue)){// && !isArray(target)
+            value.__qt_key_ = oldValue.__qt_key_ || qtRefUid.createUid(prop)//标记唯一值，diff对比时使用
           }else{
-            value.__qt_key_ = qtCreateUid(prop)
+            value.__qt_key_ = qtRefUid.createUid(prop)
           }
         }
         if(!value.__qt_change_num_){
-          if(isObject(oldValue)){
+          if(isObject(oldValue)){// && !isArray(target)
             value.__qt_change_num_ = oldValue.__qt_change_num_ || 1//标记唯一值，diff对比时使用
           }else{
             value.__qt_change_num_ = 1//标记节点是否被修改，diff对比使用
@@ -105,7 +106,7 @@ const getReactiveConfig = (root?:any, paths:any[] = [], __qt_arr_deth=1): ProxyH
       try {
         if(isTrackProp(target, prop)){
           if(oldValue != value){
-            if(isObject(value) && value.__qt_change_num_){
+            if(isObject(value) && value.__qt_change_num_ && qtType.checkArrChangeProps(target,prop)){
               value.__qt_change_num_++
             }
             const _root = receiver[emReactiveFlags.qtRoot]
@@ -127,12 +128,13 @@ const getReactiveConfig = (root?:any, paths:any[] = [], __qt_arr_deth=1): ProxyH
               if(!isCollect){ qtType.changeOfsetType(target, prop, value) }
               qtTrigger(target, prop, value, typeEnum.set, oldValue)
             } else {
+              qtType.changeOfsetType(target, prop, value)//对象的操作类型记录-带验证
               qtTrigger(target, prop, value, typeEnum.set, oldValue)
             }
           }
         }
       } catch (error) {
-        
+        console.warn(error)
       }
       return res
     }

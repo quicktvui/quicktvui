@@ -1,8 +1,9 @@
 import qtType, { typeEnum, QtChangeData } from "./types"
+import { qtRefUid } from "./watch"
 
 class QtArray extends Array {
+  __v_raw: any
   shift(){
-    // @ts-ignore
     if(this.__v_raw.length){
       // @ts-ignore
       const start = 0
@@ -38,9 +39,8 @@ class QtArray extends Array {
         // console.log(changeData.start, changeData.end)
         // changeData.end += items.length
       }
+      qtRefUid.addUidBatch(items)
     }
-    // @ts-ignore
-    qtType.recordNewData(this.__v_raw, items)
     return super.unshift(...items)
   }
   push(...items: any[]) {
@@ -57,6 +57,7 @@ class QtArray extends Array {
         // @ts-ignore
         qtType.setType(this.__v_raw, typeEnum.push, datas)
       }
+      qtRefUid.addUidBatch(items)
     }
     return super.push(...items)
   }
@@ -79,14 +80,24 @@ class QtArray extends Array {
       end = -1
     }
     
-    // @ts-ignore
     let changeData = qtType.getTargetType(this.__v_raw, typeEnum.splice)
     if (!changeData) {
       changeData = new QtChangeData(start, end, deleteCount)
-      // @ts-ignore
       qtType.setType(this.__v_raw, typeEnum.splice, changeData)
-      // @ts-ignore
       qtType.getFlag(this.__v_raw).set(typeEnum.expectCangeNum, this.__v_raw.length + items.length - deleteCount - start)
+    }
+    if(deleteCount<=0){
+      qtType.recordArrChangeProps(this.__v_raw, start, start+items.length)
+    } else if(items && items.length) {
+      qtType.recordArrChangeProps(this.__v_raw, start, start+deleteCount)
+    } else {
+      qtType.recordArrChangeProps(this.__v_raw, start, start)
+    }
+
+    if(items){
+      for (let i = deleteCount; i < items.length; i++) {
+        qtRefUid.addUid(items[i])
+      }
     }
     return super.splice(start, deleteCount, ...items)
   }
@@ -125,6 +136,7 @@ class QtArray extends Array {
         // @ts-ignore
         qtType.setType(this.__v_raw, typeEnum.concat, changeData)
       }
+      qtRefUid.addUidBatch(items)
     }
     return super.concat(...items)
   }
