@@ -5,8 +5,7 @@
     <qt-tabs
         ref="tabRef"
         tabPageClass="qt-tabs-content-css"
-        @onTabPageChanged="onTabPageChanged"
-        @onTabPageLoadData="onTabPageLoadData"
+        :datas="tabData"
         class="qt-tabs-waterfall-root-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
@@ -18,12 +17,12 @@
 <script lang="ts">
 
 import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTWaterfallSection, QTTabItem
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
+import {qtTabsRef} from '@quicktvui/quicktvui3'
 
 /**
  *
@@ -34,14 +33,15 @@ export default defineComponent({
     'app-list-item': app_list_item
   },
   setup(props, context) {
-    const tabRef = ref<QTITab>()
 
-    function onESCreate() {
+    const tabData = qtTabsRef()
 
+    function buildTabItemList() {
       //tab item list
       const tabItemList: Array<QTTabItem> = []
 
       for (let i = 0; i < 15; i++) {
+        const section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
         let tabItem: QTTabItem = {
           _id: '' + i,
           type: 20000,
@@ -50,71 +50,22 @@ export default defineComponent({
           decoration: {
             left: 40,
             right: 20,
-          }
+          },
+          sections: [section]
         }
         tabItemList.push(tabItem)
       }
-
-      //tab
-      const tab: QTTab = {
-        defaultFocusIndex: 0,
-        defaultIndex: 0,
-        itemList: tabItemList
-      }
-      tabRef.value?.initTab(tab)
-
-
-      let waterfallData: QTWaterfall = {
-        width: 1920,
-        height: 100
-      }
-      tabRef.value?.initPage(waterfallData)
+      return tabItemList
     }
 
-    let pageIndexLast = -1
-
-    //-----------------------------------------------------
-    function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
-      console.log('---------loadPageData---------->>>' +
-          '  pageIndex:' + pageIndex +
-          '  useDiff:' + useDiff
-      )
-      if (pageIndexLast === pageIndex) {
-        return
-      }
-      pageIndexLast = pageIndex
-
-      let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-
-      let sectionList: Array<QTWaterfallSection> = [
-        section,
-      ]
-
-      const tabPage: QTTabPageData = {
-        useDiff: useDiff,
-        data: sectionList
-      }
-      tabRef.value?.setPageData(pageIndex, tabPage)
+    function onESCreate() {
+      const data = buildTabItemList()
+      console.log('------------onESCreate--------data----->>>>>', data)
+      tabData.value = data //初始化数据
     }
-
-    function onTabPageChanged(pageIndex: number, data: QTTabItem) {
-      console.log('---------onTabPageChanged---------->>>' +
-          '  pageIndex:' + pageIndex +
-          '  data:', data
-      )
-
-      tabRef.value?.getCurrentTabIndex().then((index: number) => {
-        console.log('---------onTabPageChanged---------->>>' +
-            '  index:' + index
-        )
-      })
-    }
-
     return {
-      tabRef,
       onESCreate,
-      onTabPageLoadData,
-      onTabPageChanged,
+      tabData
     }
   },
 });
