@@ -20,7 +20,6 @@
 <script lang="ts">
 
 import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
 import {
   QTWaterfallSection, qtTabsRef
 } from "@quicktvui/quicktvui3";

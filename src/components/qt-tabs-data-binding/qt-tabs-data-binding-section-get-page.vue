@@ -6,10 +6,10 @@
       <s-text-button text="查询Section" @onButtonClicked="onGetButtonClicked"/>
     </div>
     <qt-tabs
-      ref="tabRef"
-      :datas="tabData"
-      @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-css">
+        ref="tabRef"
+        :datas="tabData"
+        @onTabPageLoadData="onTabPageLoadData"
+        class="qt-tabs-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -22,7 +22,7 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, qtTabsRef
+  QTITab, QTWaterfallSection, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
@@ -56,8 +56,8 @@ export default defineComponent({
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
-        '  pageIndex:' + pageIndex +
-        '  useDiff:' + useDiff
+          '  pageIndex:' + pageIndex +
+          '  useDiff:' + useDiff
       )
       if (pageIndexLast === pageIndex) {
         return

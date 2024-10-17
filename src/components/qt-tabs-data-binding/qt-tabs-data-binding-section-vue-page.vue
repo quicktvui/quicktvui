@@ -18,12 +18,7 @@
 
 import {defineComponent} from "@vue/runtime-core";
 import {
-  QTTabPageData,
-  QTWaterfall,
   QTWaterfallSection,
-  QTTabItem,
-  QTTab,
-  QTWaterfallItemType,
   QTWaterfallSectionType,
   qtTabsRef
 } from "@quicktvui/quicktvui3";

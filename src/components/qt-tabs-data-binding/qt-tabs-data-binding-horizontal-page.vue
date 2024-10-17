@@ -25,7 +25,7 @@ import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
 import {
   qtTabsRef,
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab
+  QTWaterfallSection, QTTabItem
 } from "@quicktvui/quicktvui3";
 
 export default defineComponent({

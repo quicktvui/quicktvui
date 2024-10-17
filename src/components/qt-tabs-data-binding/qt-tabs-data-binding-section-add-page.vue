@@ -22,7 +22,7 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTWaterfallSection, QTTabPageState, qtTabsRef
+  QTITab, QTWaterfallSection, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'

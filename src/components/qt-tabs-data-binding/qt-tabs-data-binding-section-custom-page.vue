@@ -3,10 +3,10 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
-      ref="tabRef"
-      :datas="tabData"
-      @onTabPageLoadData="onTabPageLoadData"
-      class="qt-tabs-css">
+        ref="tabRef"
+        :datas="tabData"
+        @onTabPageLoadData="onTabPageLoadData"
+        class="qt-tabs-css">
       <template v-slot:waterfall-section>
         <text-section :type="1"/>
         <!-- <img-section :type="2"/> -->
@@ -18,13 +18,11 @@
 <script lang="ts">
 
 import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
 import {
-  QTITab, QTTabPageData, QTWaterfall, QTWaterfallSection, QTTabItem, QTTab, qtTabsRef
+  QTWaterfallSection, QTTabItem, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import text_section from './section/text-section'
 import img_section from './section/img-section'
-import {generatorAppWaterfallSection} from "../__mocks__/app";
 
 export default defineComponent({
   name: 'DataBinding 自定义Section',
@@ -65,8 +63,8 @@ export default defineComponent({
     //-----------------------------------------------------
     function onTabPageLoadData(pageIndex: number, pageNo: number, useDiff: boolean): void {
       console.log('---------loadPageData---------->>>' +
-        '  pageIndex:' + pageIndex +
-        '  useDiff:' + useDiff
+          '  pageIndex:' + pageIndex +
+          '  useDiff:' + useDiff
       )
       if (pageIndexLast === pageIndex) {
         return
