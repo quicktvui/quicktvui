@@ -33,7 +33,7 @@ import app_list_item from './item/app-list-item'
 import {buildTabItemList} from "../__mocks__/tab";
 
 export default defineComponent({
-  name: 'DataBinding 更新Section ?',
+  name: 'DataBinding 更新Section',
   components: {
     'app-list-item': app_list_item
   },

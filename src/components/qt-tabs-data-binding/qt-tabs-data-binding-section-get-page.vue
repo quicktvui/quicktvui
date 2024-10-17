@@ -32,7 +32,7 @@ import {buildTabItemList} from "../__mocks__/tab";
 const TAG = 'TabWaterfallTAG'
 
 export default defineComponent({
-  name: 'DataBinding 查询Section ?',
+  name: 'DataBinding 查询Section',
   components: {
     'app-list-item': app_list_item
   },

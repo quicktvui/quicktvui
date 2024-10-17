@@ -62,7 +62,7 @@ const QTTabsWaterfallDataBindingSectionPageList = {
     component: qt_tabs_data_binding_section_vue_page,
   },
   qt_tabs_data_binding_section_add_page: {
-    name: '添加Section',
+    name: '添加Section ?',
     component: qt_tabs_data_binding_section_add_page,
   },
   qt_tabs_data_binding_section_delete_page: {
@@ -70,11 +70,11 @@ const QTTabsWaterfallDataBindingSectionPageList = {
     component: qt_tabs_data_binding_section_delete_page,
   },
   qt_tabs_data_binding_section_get_page: {
-    name: '查询Section',
+    name: '查询Section ?',
     component: qt_tabs_data_binding_section_get_page,
   },
   qt_tabs_data_binding_section_update_page: {
-    name: '更新Section',
+    name: '更新Section ?',
     component: qt_tabs_data_binding_section_update_page,
   },
 };
@@ -90,7 +90,7 @@ const QTTabsWaterfallDataBindingItemPageList = {
     component: qt_tabs_data_binding_item_add_page,
   },
   qt_tabs_data_binding_item_delete_page: {
-    name: '删除Item',
+    name: '删除Item ?',
     component: qt_tabs_data_binding_item_delete_page,
   },
   qt_tabs_data_binding_item_get_page: {

@@ -29,7 +29,7 @@ import app_list_item from './item/app-list-item'
 import {buildTabItemList} from "../__mocks__/tab";
 
 export default defineComponent({
-  name: 'DataBinding 删除Item ?',
+  name: 'DataBinding 删除Item',
   components: {
     'app-list-item': app_list_item
   },
