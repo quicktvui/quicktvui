@@ -30,6 +30,7 @@ import {
 } from "@quicktvui/quicktvui3";
 import {generatorPageAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
+import {buildTabItemList} from "../__mocks__/tab";
 
 export default defineComponent({
   name: 'DataBinding 设置数据',
@@ -39,28 +40,6 @@ export default defineComponent({
   setup(props, context) {
 
     const tabData = qtTabsRef()
-    const tabRef = ref<QTITab>()
-
-    function buildTabItemList() {
-      //tab item list
-      const tabItemList: Array<QTTabItem> = []
-      for (let i = 0; i < 15; i++) {
-        let tabItem: QTTabItem = {
-          _id: '' + i,
-          type: 20000,
-          text: 'Tab:' + i,
-          titleSize: 20,
-          decoration: {
-            left: 40,
-            right: 20,
-          },
-          sections: []
-        }
-        tabItemList.push(tabItem)
-      }
-      return tabItemList
-    }
-
 
     function onESCreate() {
       tabData.value = buildTabItemList() //初始化数据
@@ -136,7 +115,6 @@ export default defineComponent({
     }
 
     return {
-      tabRef,
       tabData,
       onESCreate,
       onTabPageLoadData,

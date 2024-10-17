@@ -22,6 +22,7 @@ import {
 } from "@quicktvui/quicktvui3";
 import tab_item from './item/tab-item.vue'
 import {buildWaterfallItemList} from "./data/mock";
+import {buildTabItemList} from "../__mocks__/tab";
 
 export default defineComponent({
   name: 'DataBinding 自定义TabItem',
@@ -30,26 +31,6 @@ export default defineComponent({
   },
   setup(props, context) {
     const tabData = qtTabsRef()
-
-    function buildTabItemList() {
-      //tab item list
-      const tabItemList: Array<QTTabItem> = []
-      for (let i = 0; i < 15; i++) {
-        let tabItem: QTTabItem = {
-          _id: '' + i,
-          type: 20000,
-          text: 'Tab:' + i,
-          titleSize: 20,
-          decoration: {
-            left: 40,
-            right: 20,
-          },
-          sections: []
-        }
-        tabItemList.push(tabItem)
-      }
-      return tabItemList
-    }
 
     function onESCreate() {
       const data = buildTabItemList()
