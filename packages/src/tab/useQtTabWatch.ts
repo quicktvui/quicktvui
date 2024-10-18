@@ -135,13 +135,13 @@ export const useQtTabWatch = (props: any, instance: any) => {
       // console.log('lsj-clear')
     }
   }
-  const watchRes = qtWatchAll(props.tabData, watchOptions)
+  const watchRes = qtWatchAll(props.tabs, watchOptions)
   onMounted(()=>{
     if(props.waterfallConfig){
       instance.initPage(props.waterfallConfig)
     }
-    if(props.tabData&&props.tabData.length){
-      initTabData = cloneObj(toRaw(props.tabData))
+    if(props.tabs&&props.tabs.length){
+      initTabData = cloneObj(toRaw(props.tabs))
       watchOptions.init(initTabData)
     }
   })
