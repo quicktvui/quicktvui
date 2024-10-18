@@ -135,13 +135,13 @@ export const useQtTabWatch = (props: any, instance: any) => {
       // console.log('lsj-clear')
     }
   }
-  const watchRes = qtWatchAll(props.content, watchOptions)
+  const watchRes = qtWatchAll(props.tabData, watchOptions)
   onMounted(()=>{
     if(props.waterfallConfig){
       instance.initPage(props.waterfallConfig)
     }
-    if(props.content&&props.content.length){
-      initTabData = cloneObj(toRaw(props.content))
+    if(props.tabData&&props.tabData.length){
+      initTabData = cloneObj(toRaw(props.tabData))
       watchOptions.init(initTabData)
     }
   })
@@ -153,10 +153,10 @@ export const useQtTabWatch = (props: any, instance: any) => {
     checkIsStaticDatas(pageIndex: number, pageNo: number) {
       if (pageNo === 0 && initTabData && initTabData.length) {
         const pageData = initTabData[pageIndex]
-        if (pageData && pageData.sections && pageData.sections.length) {
+        if (pageData && pageData.content && pageData.content.length) {
           instance.setPageData(pageIndex, {
             useDiff: false,// pageNo==0是不可useDiff必须是false，因为没有旧数据可进行diff对比
-            data: pageData.sections
+            data: pageData.content
           })
           return true
         }
