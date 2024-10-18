@@ -7,7 +7,7 @@
     </div>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
@@ -43,7 +43,7 @@ export default defineComponent({
     function onButtonClicked() {
       const itemList = generatorAppQuestionWaterfallItemList('0', 5)
       let section: QTWaterfallSection = generatorWaterfallSection('0', "应用更新", itemList)
-      tabData.value[0].sections[0] = section
+      tabData.value[0].content[0] = section
     }
 
     function onESCreate() {
@@ -69,7 +69,7 @@ export default defineComponent({
       let sectionList: Array<QTWaterfallSection> = [
         section_1, section_2
       ]
-      tabData.value[pageIndex].sections.push(...sectionList)
+      tabData.value[pageIndex].content.push(...sectionList)
     }
 
     return {

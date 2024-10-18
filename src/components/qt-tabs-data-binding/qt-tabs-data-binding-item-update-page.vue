@@ -7,7 +7,7 @@
     </div>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
@@ -38,8 +38,8 @@ export default defineComponent({
     const tabData = qtTabsRef()
 
     function onButtonClicked() {
-      tabData.value[0].sections[0].itemList[1].appName = '小恐龙'
-      tabData.value[0].sections[0].itemList[1].appIcon = 'http://qcloudimg.a311.ottcn.com/data_center/files/2022/11/07/854f47b2-fdbe-4543-a2c3-1f8754dcb13e.jpg'
+      tabData.value[0].content[0].itemList[1].appName = '小恐龙'
+      tabData.value[0].content[0].itemList[1].appIcon = 'http://qcloudimg.a311.ottcn.com/data_center/files/2022/11/07/854f47b2-fdbe-4543-a2c3-1f8754dcb13e.jpg'
     }
 
     function onESCreate() {
@@ -60,7 +60,7 @@ export default defineComponent({
       pageIndexLast = pageIndex
 
       let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-      tabData.value[pageIndex].sections.push(section)
+      tabData.value[pageIndex].content.push(section)
     }
 
     return {

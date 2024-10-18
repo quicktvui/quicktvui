@@ -13,7 +13,7 @@ export function buildTabItemList(count: number = 15) {
         left: 40,
         right: 20,
       },
-      sections: []
+      content: []
     }
     tabItemList.push(tabItem)
   }

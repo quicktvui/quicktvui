@@ -4,7 +4,7 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
@@ -73,7 +73,7 @@ export default defineComponent({
         }
         sectionList.push(section)
       }
-      tabData.value[pageIndex].sections.push(...sectionList)
+      tabData.value[pageIndex].content.push(...sectionList)
     }
 
     return {

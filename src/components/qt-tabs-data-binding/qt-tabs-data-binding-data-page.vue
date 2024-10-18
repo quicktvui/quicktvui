@@ -5,7 +5,7 @@
     <qt-tabs
       ref="tabRef"
       :outOfDateTime="120000000"
-      :datas="tabData"
+      :tabs="tabData"
       tabNavBarClass="qt-tabs-waterfall-tab-css"
       tabPageClass="qt-tabs-waterfall-css"
       @onTabPageLoadData="onTabPageLoadData">
@@ -40,6 +40,7 @@ export default defineComponent({
   setup(props, context) {
 
     const tabData = qtTabsRef()
+    const tabRef = ref<QTITab>()
 
     function onESCreate() {
       tabData.value = buildTabItemList() //初始化数据
@@ -74,7 +75,7 @@ export default defineComponent({
         // }
         // tabRef.value?.addPageData(pageIndex, tabPage, 0)
         //----------------------------新写法-------------------------------------
-        tabData.value[pageIndex].sections.push(...sectionList) //添加tab页数据
+        tabData.value[pageIndex].content.push(...sectionList) //添加tab页数据
         //---------------------------------------------------------------------
       }
       //
@@ -87,7 +88,7 @@ export default defineComponent({
         // tabRef.value?.addPageData(pageIndex, tabPage, 0)
         // tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
         //---------------------------新写法--------------------------------------
-        tabData.value[pageIndex].sections.push(buildEndSection()) //添加tab页数据
+        tabData.value[pageIndex].content.push(buildEndSection()) //添加tab页数据
         tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
       }
     }
@@ -116,6 +117,7 @@ export default defineComponent({
 
     return {
       tabData,
+      tabRef,
       onESCreate,
       onTabPageLoadData,
     }

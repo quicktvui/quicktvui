@@ -5,7 +5,7 @@
     <qt-tabs
         ref="tabRef"
         tabPageClass="qt-tabs-content-css"
-        :datas="tabData"
+        :tabs="tabData"
         class="qt-tabs-waterfall-root-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
@@ -51,7 +51,7 @@ export default defineComponent({
             left: 40,
             right: 20,
           },
-          sections: [section]
+          content: [section]
         }
         tabItemList.push(tabItem)
       }

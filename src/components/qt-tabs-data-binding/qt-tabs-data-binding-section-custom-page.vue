@@ -4,7 +4,7 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-section>
@@ -47,7 +47,7 @@ export default defineComponent({
             left: 40,
             right: 20,
           },
-          sections: []
+          content: []
         }
         tabItemList.push(tabItem)
       }
@@ -107,7 +107,7 @@ export default defineComponent({
       // }
       // tabRef.value?.setPageData(pageIndex, tabPage)
       //--------------------------------新写法---------------------------------------
-      tabData.value[pageIndex].sections.push(...sectionList) //添加tab页数据
+      tabData.value[pageIndex].content.push(...sectionList) //添加tab页数据
     }
 
     return {

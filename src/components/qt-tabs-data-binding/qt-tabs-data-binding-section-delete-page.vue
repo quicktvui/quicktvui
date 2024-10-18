@@ -7,7 +7,7 @@
     </div>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
@@ -38,7 +38,7 @@ export default defineComponent({
     const tabData = qtTabsRef()
 
     function onButtonClicked() {
-      tabData.value[0].sections.splice(0, 1)
+      tabData.value[0].content.splice(0, 1)
     }
 
     function onESCreate() {
@@ -65,7 +65,7 @@ export default defineComponent({
         section_1,
         section_2
       ]
-      tabData.value[pageIndex].sections.push(...sectionList)
+      tabData.value[pageIndex].content.push(...sectionList)
     }
 
     return {

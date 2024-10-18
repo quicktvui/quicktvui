@@ -4,7 +4,7 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         tabPageClass="qt-tabs-content-css"
         @onTabPageChanged="onTabPageChanged"
         @onTabPageLoadData="onTabPageLoadData"
@@ -57,7 +57,7 @@ export default defineComponent({
         buildPluginSection("3", 'TextView插件板块', 'plugin-textview/HuanTextView', 500),
         buildPluginFlexSection('4', "插件Item板块"),
       ]
-      tabData.value[pageIndex].sections.push(...sectionList)
+      tabData.value[pageIndex].content.push(...sectionList)
     }
 
     function onTabPageChanged(pageIndex: number, data: QTTabItem) {

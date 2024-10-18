@@ -5,7 +5,7 @@
     <qt-tabs
         ref="tabRef"
         @onTabPageLoadData="onTabPageLoadData"
-        :datas="tabData"
+        :tabs="tabData"
         class="qt-tabs-css">
       <template v-slot:tab-item>
         <tab-item :type="1"/>
@@ -73,7 +73,7 @@ export default defineComponent({
         sectionList.push(section)
       }
       //--------------------------新写法---------------------------------------
-      tabData.value[pageIndex].sections.push(...sectionList) //添加tab页数据
+      tabData.value[pageIndex].content.push(...sectionList) //添加tab页数据
     }
 
     return {

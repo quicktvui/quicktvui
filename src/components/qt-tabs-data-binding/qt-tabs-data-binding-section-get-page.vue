@@ -7,7 +7,7 @@
     </div>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
@@ -65,7 +65,7 @@ export default defineComponent({
       pageIndexLast = pageIndex
 
       let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-      tabData.value[pageIndex].sections.push(section)
+      tabData.value[pageIndex].content.push(section)
     }
 
     return {

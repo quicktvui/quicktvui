@@ -6,7 +6,7 @@
         ref="tabRef"
         tabNavBarClass="qt-tabs-nav-bar-css"
         tabPageClass="qt-tabs-content-css"
-        :datas="tabData"
+        :tabs="tabData"
         class="qt-single-tab-css">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
@@ -54,7 +54,7 @@ export default defineComponent({
             left: 40,
             right: 20,
           },
-          sections: [section]
+          content: [section]
         }
         tabItemList.push(tabItem)
       }

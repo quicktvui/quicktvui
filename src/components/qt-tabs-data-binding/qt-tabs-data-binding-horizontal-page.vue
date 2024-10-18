@@ -4,6 +4,7 @@
     <div class="es-sdk-content-divider-css"/>
     <qt-tabs
         ref="tabRef"
+        :tabs="tabData"
         :horizontal="false"
         tabClass="qt-tabs-horizontal-css"
         tabNavBarClass="qt-tabs-tab-css"
@@ -51,7 +52,7 @@ export default defineComponent({
             left: 40,
             right: 20,
           },
-          sections: [section]
+          content: [section]
         }
         tabItemList.push(tabItem)
       }
@@ -79,7 +80,7 @@ export default defineComponent({
       pageIndexLast = pageIndex
 
       let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-      tabData.value[pageIndex].sections.push(section) //添加tab页数据
+      tabData.value[pageIndex].content.push(section) //添加tab页数据
     }
 
     return {

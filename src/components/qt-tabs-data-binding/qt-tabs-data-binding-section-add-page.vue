@@ -7,7 +7,7 @@
     </div>
     <qt-tabs
         ref="tabRef"
-        :datas="tabData"
+        :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
         class="qt-tabs-css">
       <template v-slot:waterfall-item>
@@ -40,7 +40,7 @@ export default defineComponent({
     function onButtonClicked() {
       const section = generatorAppWaterfallSection('0', "新添加应用")
       console.log('---------loadPageData---------->>>', section)
-      tabData.value[0].sections.push(section)
+      tabData.value[0].content.push(section)
     }
 
     function onESCreate() {
@@ -62,7 +62,7 @@ export default defineComponent({
 
       setTimeout(() => {
         let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
-        tabData.value[pageIndex].sections.push(section) //添加tab页数据
+        tabData.value[pageIndex].content.push(section) //添加tab页数据
         pageNum++;
 
         if (pageNum === 2) {
