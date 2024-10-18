@@ -57,7 +57,7 @@ export interface QtWebViewAPI extends QtViewAPI {
 
   setAppCacheEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
 
-  setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: string): void
 
   setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
 
@@ -349,7 +349,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAppCachePath', [value]]);
     } else if (isRef(instance) && instance.value) {

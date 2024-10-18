@@ -52,7 +52,7 @@ export interface QTIX5WebView extends QTIView {
 
   setAppCacheEnabled(value: boolean): void
 
-  setAppCachePath(value: boolean): void
+  setAppCachePath(value: string): void
 
   setMediaPlaybackRequiresUserGesture(value: boolean): void
 

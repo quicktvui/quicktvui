@@ -57,7 +57,7 @@ export interface QtX5WebViewAPI extends QtViewAPI {
 
   setAppCacheEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
-  setAppCachePath(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+  setAppCachePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
   setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
@@ -349,7 +349,7 @@ export function createQtX5WebViewAPI(viewAPI: QtViewAPI): QtX5WebViewAPI {
     }
   }
 
-  function setAppCachePath(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
+  function setAppCachePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAppCachePath', [value]]);
     } else if (isRef(instance) && instance.value) {

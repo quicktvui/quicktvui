@@ -166,7 +166,7 @@ function registerQTWebView(app: ESApp) {
             'setAppCacheEnabled', [value], (res) => {
             });
         }
-        const setAppCachePath = (value: boolean) => {
+        const setAppCachePath = (value: string) => {
           Native.callUIFunction(webViewRef.value,
             'setAppCachePath', [value], (res) => {
             });
