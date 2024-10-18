@@ -60,7 +60,7 @@ export interface IQtTabDatas {
   disableScrollOnFirstScreen?: boolean;
   firstFocusTargetID?: string;
   bindingPlayer?: string;
-  sections: Array<{
+  sectionList: Array<{
     title?: string;
     titleStyle?: any;
     itemList: Array<{

@@ -321,7 +321,7 @@ export default defineComponent({
         }
       }
     },
-    tabConfigs: {
+    tabConfig:{
       type: Object,
       default: () => ({
         defaultFocusIndex: 0,
@@ -332,9 +332,9 @@ export default defineComponent({
       type: Object,
       default: () => ({width: 1920, height: 1080})
     },
-    datas: {
-      type: Array < any >,
-      default: () => []
+    content: {
+      type: Array<any>,
+      default:()=>[]
     }
   },
   setup(props, context) {

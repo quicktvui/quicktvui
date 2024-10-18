@@ -51,7 +51,7 @@ export const useQtTabWatch = (props: any, instance: any) => {
     },
     init(datas) {
       instance.initTab({
-        ...props.tabConfigs,
+        ...props.tabConfig,
         itemList: cloneObj(datas)
       })
       initTabData = datas
@@ -135,13 +135,13 @@ export const useQtTabWatch = (props: any, instance: any) => {
       // console.log('lsj-clear')
     }
   }
-  const watchRes = qtWatchAll(props.datas, watchOptions)
-  onMounted(() => {
-    if (props.waterfallConfig) {
+  const watchRes = qtWatchAll(props.content, watchOptions)
+  onMounted(()=>{
+    if(props.waterfallConfig){
       instance.initPage(props.waterfallConfig)
     }
-    if (props.datas && props.datas.length) {
-      initTabData = cloneObj(toRaw(props.datas))
+    if(props.content&&props.content.length){
+      initTabData = cloneObj(toRaw(props.content))
       watchOptions.init(initTabData)
     }
   })
