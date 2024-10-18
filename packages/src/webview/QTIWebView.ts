@@ -133,4 +133,10 @@ export interface QTIWebView extends QTIView {
   setForceDark(value: number): void
 
   setDisabledActionModeMenuItems(value: number): void
+
+  initJavaScriptInterface(): void;
+
+  removeJavaScriptInterface(): void;
+
+  initWebViewFocus(delayTime: number, x: number, y: number): void;
 }
