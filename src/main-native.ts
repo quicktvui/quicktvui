@@ -31,5 +31,5 @@ app.use(QuickTVUI);
 
 // import {QuickTVUI} from "../packages/src";
 // import '../packages/src/theme/button.css';
-
+import '../packages/dist/index.css';
 

@@ -20,7 +20,7 @@
 <script lang="ts">
 
 import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
+import {ref, toRaw} from "vue";
 import {
   QTITab, QTWaterfallSection, qtTabsRef
 } from "@quicktvui/quicktvui3";
@@ -43,8 +43,11 @@ export default defineComponent({
     const log = useESLog()
 
     function onGetButtonClicked() {
-      const sectionList = tabRef.value?.getPageSectionList(0)
-      log.d(TAG, '-------获取sectionList-------->>>>', sectionList)
+      // const sectionList = tabRef.value?.getPageSectionList(0)//通过方法获取
+      // log.d(TAG, '-------获取sectionList-------->>>>', sectionList)
+      const sectionList2 = tabData.value[0].content//通过数据获取
+      log.d(TAG, '-------获取sectionList-------->>>>', sectionList2)
+      // log.d(TAG, '-------获取sectionList-------->>>>', toRaw(sectionList2))
     }
 
     function onESCreate() {

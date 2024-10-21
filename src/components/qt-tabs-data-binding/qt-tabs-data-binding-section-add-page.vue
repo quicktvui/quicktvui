@@ -22,7 +22,7 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {
-  QTITab, QTWaterfallSection, qtTabsRef
+  QTITab, QTTabPageState, QTWaterfallSection, qtTabsRef
 } from "@quicktvui/quicktvui3";
 import {generatorAppWaterfallSection} from "../__mocks__/app";
 import app_list_item from './item/app-list-item'
@@ -54,20 +54,15 @@ export default defineComponent({
       if (pageIndex !== 0) {
         return;
       }
-      console.log('---------loadPageData---------->>>' +
-          '  pageIndex:' + pageIndex +
-          '  useDiff:' + useDiff +
-          '  date:' + new Date().getTime()
-      )
+      if (pageNum >= 1) {
+        tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
+        return
+      }
 
       setTimeout(() => {
-        let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用")
+        let section: QTWaterfallSection = generatorAppWaterfallSection('0', "应用", 5)
         tabData.value[pageIndex].content.push(section) //添加tab页数据
         pageNum++;
-
-        if (pageNum === 2) {
-          // tabRef.value?.setPageState(pageIndex, QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE)
-        }
       }, 2000)
     }
 

@@ -9,7 +9,8 @@
         ref="tabRef"
         :tabs="tabData"
         @onTabPageLoadData="onTabPageLoadData"
-        class="qt-tabs-css">
+        class="qt-tabs-ref-delete-item-css"
+        tabPageClass="qt-tabs-ref-delete-item-waterfall">
       <template v-slot:waterfall-item>
         <app-list-item :type="1"/>
       </template>
@@ -73,8 +74,13 @@ export default defineComponent({
 </script>
 
 <style>
-.qt-tabs-css {
+.qt-tabs-ref-delete-item-css {
   width: 1920px;
-  height: 1080px;
+  height: 800px;
+}
+.qt-tabs-ref-delete-item-waterfall{
+  width: 1920px;
+  height: 810px;
+  background-color: transparent;
 }
 </style>

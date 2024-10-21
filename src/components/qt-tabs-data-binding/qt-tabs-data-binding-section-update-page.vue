@@ -44,6 +44,7 @@ export default defineComponent({
       const itemList = generatorAppQuestionWaterfallItemList('0', 5)
       let section: QTWaterfallSection = generatorWaterfallSection('0', "应用更新", itemList)
       tabData.value[0].content[0] = section
+      // 更新是正确的，只是第一个板块高度变小后，下面的板块没有顶上来，这个是底层的bug，鹏哥正在解决
     }
 
     function onESCreate() {

@@ -92,7 +92,7 @@ export const useQtTabWatch = (props: any, instance: any) => {
               }
             },
             insert(difPosition, difDatas) {
-              console.log('lsj-insert2-', difPosition, difDatas)
+              // console.log('lsj-insert2-', difPosition, difDatas)
 
               if (updateRes.arrDeeps.length == 1) {
                 instance.insertPageData(pageIndex, difPosition, cloneObj(difDatas))
