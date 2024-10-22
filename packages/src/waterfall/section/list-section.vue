@@ -74,6 +74,10 @@
             style="height: 50px"
             text="${text}"/>
         </div>
+
+        <!-- card -->
+       <card-item v-if="listSection.cardItemEnable" @focus="onFocus"/>
+
         <slot/>
       </tv-list>
     </div>
