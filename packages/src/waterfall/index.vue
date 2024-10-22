@@ -171,7 +171,8 @@ export default defineComponent({
           },
           listSectionEnable:true,
           listSection:{
-            qtPosterEnable:true
+            qtPosterEnable:true,
+            cardItemEnable:true,
           },
           loadingSectionEnable:true,
           endSectionEnable:true,
