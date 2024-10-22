@@ -57,7 +57,7 @@ export interface QtWebViewAPI extends QtViewAPI {
 
   setAppCacheEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
 
-  setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+  setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: string): void
 
   setMediaPlaybackRequiresUserGesture(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
 
@@ -139,6 +139,12 @@ export interface QtWebViewAPI extends QtViewAPI {
   setForceDark(instance: string | Ref<QTIWebView | undefined>, value: number): void
 
   setDisabledActionModeMenuItems(instance: string | Ref<QTIWebView | undefined>, value: number): void
+
+  initJavaScriptInterface(instance: string | Ref<QTIWebView | undefined>,): void;
+
+  removeJavaScriptInterface(instance: string | Ref<QTIWebView | undefined>,): void;
+
+  initWebViewFocus(instance: string | Ref<QTIWebView | undefined>, delayTime: number, x: number, y: number): void;
 }
 
 export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
@@ -349,7 +355,7 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
-  function setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+  function setAppCachePath(instance: string | Ref<QTIWebView | undefined>, value: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setAppCachePath', [value]]);
     } else if (isRef(instance) && instance.value) {
@@ -678,6 +684,30 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     }
   }
 
+  function initJavaScriptInterface(instance: string | Ref<QTIWebView | undefined>,): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initJavaScriptInterface', []]);
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.initJavaScriptInterface()
+    }
+  }
+
+  function removeJavaScriptInterface(instance: string | Ref<QTIWebView | undefined>,): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'removeJavaScriptInterface', []]);
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.removeJavaScriptInterface()
+    }
+  }
+
+  function initWebViewFocus(instance: string | Ref<QTIWebView | undefined>, delayTime: number, x: number, y: number): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initWebViewFocus', [delayTime, x, y]]);
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.initWebViewFocus(delayTime, x, y)
+    }
+  }
+
   return {
     ...viewAPI,
     loadUrl,
@@ -746,5 +776,8 @@ export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
     setSafeBrowsingEnabled,
     setForceDark,
     setDisabledActionModeMenuItems,
+    initJavaScriptInterface,
+    removeJavaScriptInterface,
+    initWebViewFocus,
   }
 }

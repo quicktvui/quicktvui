@@ -51,7 +51,7 @@ export interface QTIWebView extends QTIView {
 
   setAppCacheEnabled(value: boolean): void
 
-  setAppCachePath(value: boolean): void
+  setAppCachePath(value: string): void
 
   setMediaPlaybackRequiresUserGesture(value: boolean): void
 
@@ -133,4 +133,10 @@ export interface QTIWebView extends QTIView {
   setForceDark(value: number): void
 
   setDisabledActionModeMenuItems(value: number): void
+
+  initJavaScriptInterface(): void;
+
+  removeJavaScriptInterface(): void;
+
+  initWebViewFocus(delayTime: number, x: number, y: number): void;
 }
