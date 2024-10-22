@@ -8,32 +8,97 @@
                     @item-bind="onItemBind" horizontal :padding="'0,0,30,0'" :defaultFocus="defaultFocus"
                     :blockFocusDirections="['left','right']">
         <!-- item -->
-        <qt-poster />
+        <qt-poster/>
 
         <tv-item
-            :type="6"
-                 flexStyle="${style}"
-                 :focusable="false"
-                 :clipChildren="false"
-                 class="loop-img-root-css">
+            :type="7"
+            flexStyle="${style}"
+            :focusable="false"
+            :clipChildren="false"
+            class="loop-img-root-css">
           <div flexStyle="${style}"
                :clipChildren="true"
-               style="background-color: red">
-            <qt-indicator-list-view class="loop-img-list-css" horizontal
+               style="background-color: transparent">
+            <qt-list-view class="loop-img-list-css" horizontal
                           :clipChildren="true"
                           :clipPadding="true"
                           :focusable="false"
+                          :setIndicatorType="0"
+                          :setIndicatorEnable="true"
                           flexStyle="${style}" list="${itemList}">
-              <qt-view :type="66" flexStyle="${style}" style="background-color: #669966;" name="loop_img_item"
-                       :focusable="true" eventClick eventFocus >
+              <qt-view :type="77" flexStyle="${style}" style="background-color: transparent;" name="loop_img_item"
+                       :focusable="true" eventClick eventFocus>
                 <img class="item-loop-img-css" :postDelay="200" src="${image.img}" :focusable="false"
-                     flexStyle="${image.style}" />
-                <div duplicateParentState showOnState="focused" style="position: absolute;top: -1px;left: -1px;right: -1px;bottom: -1px; background-color: transparent;border-color: white;border-radius: 9px;border-width: 3px;border-style: solid"/>
+                     flexStyle="${image.style}"/>
+                <div duplicateParentState showOnState="focused"
+                     style="position: absolute;top: -1px;left: -1px;right: -1px;bottom: -1px; background-color: transparent;border-color: white;border-radius: 9px;border-width: 3px;border-style: solid"/>
+              </qt-view>
+            </qt-list-view>
+          </div>
+        </tv-item>
+
+        <tv-item
+            :type="6"
+            flexStyle="${style}"
+            :focusable="false"
+            :clipChildren="false"
+            class="loop-img-root-css">
+          <div flexStyle="${style}"
+               :clipChildren="true"
+               :focusable="false"
+               style="background-color: transparent">
+            <qt-indicator-list-view
+                class="loop-img-list-css" horizontal
+                :clipChildren="true"
+                :clipPadding="true"
+                :focusable="true"
+                :setIndicatorType="0"
+                :setIndicatorEnable="true"
+                :isAutoLoop="true"
+                flexStyle="${style}" indList="${itemList}">
+              <qt-view :type="66" flexStyle="${style}" style="background-color: transparent;" name="loop_img_item"
+                       :focusable="false" eventClick eventFocus>
+                <img class="item-loop-img-css" :postDelay="200" src="${image.img}" :focusable="false"
+                     flexStyle="${image.style}"/>
+                <div duplicateParentState showOnState="focused"
+                     style="position: absolute;top: -1px;left: -1px;right: -1px;bottom: -1px; background-color: transparent;border-color: white;border-radius: 9px;border-width: 3px;border-style: solid"/>
+              </qt-view>
+            </qt-indicator-list-view>
+          </div>
+        </tv-item>
+
+
+        <tv-item
+            :type="5"
+            flexStyle="${style}"
+            :clipChildren="false"
+            :focusable="false"
+            class="loop-img-root-css">
+          <div flexStyle="${style}"
+               :clipChildren="true"
+               :focusable="false"
+               style="background-color: transparent">
+            <qt-indicator-list-view
+                class="loop-img-list-css" horizontal
+                :clipChildren="true"
+                :clipPadding="true"
+                :focusable="true"
+                :setIndicatorType="1"
+                :setIndicatorEnable="true"
+                :isAutoLoop="true"
+                flexStyle="${style}" indList="${itemList}">
+              <qt-view :type="55" flexStyle="${style}" style="background-color: transparent;" name="loop_img_item"
+                       :focusable="false" eventClick eventFocus>
+                <img class="item-loop-img-css" :postDelay="200" src="${image.img}" :focusable="false"
+                     flexStyle="${image.style}"/>
+                <div duplicateParentState showOnState="focused"
+                     style="position: absolute;top: -1px;left: -1px;right: -1px;bottom: -1px; background-color: transparent;border-color: white;border-radius: 9px;border-width: 3px;border-style: solid"/>
               </qt-view>
             </qt-indicator-list-view>
           </div>
 
         </tv-item>
+
       </qt-list-view>
 
     </qt-view>
@@ -42,10 +107,9 @@
 
 <script lang="ts">
 
-import {defineComponent, nextTick} from "@vue/runtime-core";
-import {ref, reactive, watch, watchEffect} from "vue";
+import {defineComponent} from "@vue/runtime-core";
+import {ref} from "vue";
 import {QTIListView, QTListViewItem, QTPoster, qtRef} from "@quicktvui/quicktvui3";
-import {ElementFlags} from "typescript";
 
 export default defineComponent({
   name: '使用初探',
@@ -57,12 +121,12 @@ export default defineComponent({
     const listData = qtRef()
     const onESCreate = (params) => {
       let arr: Array<QTListViewItem> = []
-      let arr1:any = []
-      for (let i = 0; i < 3; i++) {
+      let arr1: any = []
+      for (let i = 0; i < 4; i++) {
         let imgSrc = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
-        if (i == 1){
+        if (i == 2) {
           const poster1: QTPoster = {
-            type:6,
+            type: 6,
             style: {
               width: 260,
               height: 320,
@@ -73,7 +137,7 @@ export default defineComponent({
               right: 20,
               bottom: 20
             },
-            itemList:[{
+            itemList: [{
               type: 66,
               style: {
                 width: 260,
@@ -86,7 +150,7 @@ export default defineComponent({
                   height: 320
                 }
               },
-            },{
+            }, {
               type: 66,
               style: {
                 width: 260,
@@ -102,7 +166,104 @@ export default defineComponent({
             }]
           }
           arr1.push(poster1)
-        } else {
+        } else if (i == 1) {
+          const poster1: QTPoster = {
+            type: 7,
+            style: {
+              width: 260,
+              height: 320,
+            },
+            decoration: {
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 20
+            },
+            itemList: [{
+              type: 77,
+              style: {
+                width: 260,
+                height: 320,
+              },
+              image: {
+                img: 'http://cms.hmon.tv/common/static/file/2024/05/31/ce5b63bc-5f2f-4171-871c-b709b9cb822a.png',
+                style: {
+                  width: 260,
+                  height: 320
+                }
+              },
+            }, {
+              type: 77,
+              style: {
+                width: 260,
+                height: 320,
+              },
+              image: {
+                img: 'http://cms.hmon.tv/common/static/file/2024/05/31/ce5b63bc-5f2f-4171-871c-b709b9cb822a.png',
+                style: {
+                  width: 260,
+                  height: 320
+                }
+              },
+            }]
+          }
+          arr1.push(poster1)
+        } else if (i == 3){
+          const poster1: QTPoster = {
+            type: 5,
+            style: {
+              width: 260,
+              height: 320,
+            },
+            decoration: {
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 20
+            },
+            itemList: [{
+              type: 55,
+              style: {
+                width: 260,
+                height: 320,
+              },
+              image: {
+                img: imgSrc,
+                style: {
+                  width: 260,
+                  height: 320
+                }
+              },
+            }, {
+              type: 55,
+              style: {
+                width: 260,
+                height: 320,
+              },
+              image: {
+                img: 'http://cms.hmon.tv/common/static/file/2024/05/31/ce5b63bc-5f2f-4171-871c-b709b9cb822a.png',
+                style: {
+                  width: 260,
+                  height: 320
+                }
+              },
+            },{
+              type: 55,
+              style: {
+                width: 260,
+                height: 320,
+              },
+              image: {
+                img: imgSrc,
+                style: {
+                  width: 260,
+                  height: 320
+                }
+              },
+            },]
+          }
+          arr1.push(poster1)
+        }else {
           const poster: QTPoster = {
             type: 10001,
             focus: {
@@ -215,12 +376,12 @@ export default defineComponent({
 }
 
 .loop-img-list-css {
-  background-color: yellow;
+  background-color: transparent;
 }
 
 .item-loop-img-css {
   border-radius: 9px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .quick-list-view {
@@ -235,6 +396,6 @@ export default defineComponent({
   width: 1800px;
   height: 800px;
   margin-left: 60px;
-  background-color: #0D71FF;
+  background-color: transparent;
 }
 </style>

@@ -1,4 +1,4 @@
-import {QTListViewItem} from "./QTListViewItem";
+import {QTListViewItem} from "../../list-view/core/QTListViewItem";
 import {QTIBaseListView} from "../../list/QTIBaseListView";
 
 export interface QTIIndicatorView extends QTIBaseListView {

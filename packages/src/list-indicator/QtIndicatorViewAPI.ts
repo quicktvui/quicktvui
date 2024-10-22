@@ -1,6 +1,6 @@
 import {QtViewAPI} from "../view/QtViewAPI";
 import {QtBaseListViewAPI} from "../list/QtBaseListViewAPI";
-import {QTListViewItem} from "./core/QTListViewItem";
+import {QTListViewItem} from "../list-view/core/QTListViewItem";
 import {Ref} from "@vue/reactivity";
 import {QTIIndicatorView} from "./core/QTIIndicatorView";
 

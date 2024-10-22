@@ -3,7 +3,7 @@ import {ESApp, Native, registerElement} from "@extscreen/es3-vue";
 import useBaseView from '../base/useBaseView'
 import {qtWatchAll, qtRef, qtFilterChangeMap} from "../qtListen";
 import useBaseListView from "../list/useBaseListView";
-import {QTListViewItem} from "./core/QTListViewItem";
+import {QTListViewItem} from "../list-view/core/QTListViewItem";
 
 function registerESIndicatorListViewComponent(app: ESApp) {
 
