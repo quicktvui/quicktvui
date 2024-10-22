@@ -48,7 +48,7 @@
 
     <!--一行滚动 多级tab-->
     <list-section v-if="qtTabSectionEnable.listSectionEnable"
-      :cache-pool="itemsPool"
+      :cache-pool="itemsPool" @focus="onItemFocused"
       :list-section="qtTabSectionEnable.listSection"
       :enablePlaceholder="enablePlaceholder">
       <slot name="list-item"/>
