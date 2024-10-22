@@ -76,7 +76,7 @@
         </div>
 
         <!-- card -->
-       <card-item v-if="listSection.cardItemEnable" @focus="onFocus"/>
+        <card-item v-if="listSection.cardItemEnable" @focus="onFocus"/>
 
         <slot/>
       </tv-list>
@@ -89,11 +89,15 @@
 import {QTWaterfallSectionType} from "../core/QTWaterfallSectionType";
 import {defineComponent} from "@vue/runtime-core";
 import {ESLogLevel, useESLog} from "@extscreen/es3-core";
+import card_item from '../item/card-item.vue'
 
 const TAG = "list-section"
 
 export default defineComponent({
   name: "list-section",
+  components: {
+    'card-item': card_item,
+  },
   props: {
     enablePlaceholder: {
       type: Boolean,
@@ -137,6 +141,7 @@ export default defineComponent({
       }
     }
   },
+  emits: ['focus'],
   setup(props, context) {
 
     const log = useESLog()
@@ -166,12 +171,20 @@ export default defineComponent({
       }
     }
 
+    function onFocus(e) {
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '------onFocus--------->>>>', e)
+      }
+      context.emit('focus', e)
+    }
+
     return {
       blockDirections,
       onItemBind,
       onItemClick,
       onItemRecycled,
-      onItemFocused
+      onItemFocused,
+      onFocus,
     }
   },
 });
