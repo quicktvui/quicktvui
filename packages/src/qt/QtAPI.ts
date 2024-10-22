@@ -29,6 +29,7 @@ import {createQtPosterAPI, QtPosterAPI} from "../poster/QtPosterAPI";
 import {createQtQRCodeAPI, QtQRCodeAPI} from "../qrcode/QtQRCodeAPI";
 import {createQtRowAPI, QtRowAPI} from "../row/QtRowAPI";
 import {createQtVirtualViewAPI, QtVirtualViewAPI} from "../utils/QtVirtualViewAPI";
+import {createQtIndicatorViewAPI, QtIndicatorViewAPI} from "../list-indicator/QtIndicatorViewAPI";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -61,6 +62,7 @@ export interface QtAPI {
   qrCode: QtQRCodeAPI
   row: QtRowAPI
   virtualView: QtVirtualViewAPI
+  indicator:QtIndicatorViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -71,6 +73,7 @@ export function createQtAPI(): QtAPI {
   const listViewAPI: QtListViewAPI = createQtListViewAPI(viewAPI, baseListViewAPI)
   const gridViewAPI: QtGridViewAPI = createQtGridViewAPI(viewAPI, baseListViewAPI)
   const waterfallAPI: QtWaterfallAPI = createQtWaterfallAPI(viewAPI, baseListViewAPI)
+  const indicatorViewAPI: QtIndicatorViewAPI = createQtIndicatorViewAPI(viewAPI,baseListViewAPI)
   //
   const imageAPI: QtImageAPI = createQtImageAPI(viewAPI)
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
@@ -106,6 +109,7 @@ export function createQtAPI(): QtAPI {
     listView: listViewAPI,
     gridView: gridViewAPI,
     waterfall: waterfallAPI,
+    indicator:indicatorViewAPI,
     image: imageAPI,
     ul: ulAPI,
     scrollView: scrollViewAPI,

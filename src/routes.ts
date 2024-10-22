@@ -26,6 +26,7 @@ import QTScrollViewPageList from "./components/qt-scroll-view";
 import QTAppIconPageList from "./components/qt-app-icon";
 import QTPluginViewPageList from "./components/qt-plugin-view";
 import QTAPIPageList from "./components/qt-api";
+import QTIndicatorPageList from "./components/qt-indicator-list-view";
 
 import {
   QTWaterfallPageList,
@@ -256,6 +257,12 @@ const routes = [
       path: `/api${item}`,
       name: `api/${item}`,
       component: QTAPIPageList[item].component,
+    })),
+  ...Object.keys(QTIndicatorPageList)
+    .map(item => ({
+      path: `/qt-indicator-list${item}`,
+      name: `qt-indicator-list/${item}`,
+      component: QTIndicatorPageList[item].component,
     })),
 ]
 
