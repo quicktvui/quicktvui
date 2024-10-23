@@ -27,6 +27,7 @@ import qt_nav_plugin_view_page from './qt-nav-plugin-view-page.vue'
 import qt_nav_api_page from './qt-nav-api-page.vue'
 import qt_indictor_list_view_page from './qt-nav-indicator-list-view-page.vue'
 import qt_nav_swiper_page from './qt-nav-swiper-page.vue'
+import qt_nav_lottie_page from './qt-nav-lottie-page.vue'
 
 const QTAPINavPageList = {
   qt_indictor_list_view_page: {
@@ -144,6 +145,10 @@ const QTAPINavPageList = {
   qt_nav_swiper_page: {
     name: 'QTSwiper',
     component: qt_nav_swiper_page,
+  },
+  qt_nav_lottie_page: {
+    name: 'QTLottie',
+    component: qt_nav_lottie_page,
   },
 };
 
