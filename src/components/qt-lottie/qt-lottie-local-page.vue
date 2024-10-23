@@ -11,14 +11,12 @@
         <s-text-button text="设置进度" @onButtonClicked="setProgress"/>
       </div>
 
-<!--      https://gaeacdn.jiliguala.com/jlgl/pages/animation/finger02.json-->
       <qt-lottie-view
           ref="lottieRef"
           class="lottie-view-root-css"
           :lottie_loop="true"
           :lottie_speed="10"
-          :lottie_autoPlay="true"
-          :lottie_url="'https://extcdn.hsrc.tv/channelzero_image/web_static/extend_screen/mood/lottie1.json'"/>
+          :lottie_autoPlay="true"/>
     </qt-column>
   </div>
 </template>
@@ -27,12 +25,19 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {QTILottieView} from "@quicktvui/quicktvui3";
+import {useES} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: '使用初探',
   setup() {
 
     const lottieRef = ref<QTILottieView>()
+    const es = useES()
+
+    const onESCreate = (params) => {
+      const runtimePath = es.getESAppRuntimePath()
+      lottieRef.value?.loadFile(runtimePath + "/assets/d05079474695b25d2078.json")
+    }
 
     function startAnimation() {
       lottieRef.value?.playAnimation()
@@ -57,6 +62,7 @@ export default defineComponent({
 
     return {
       lottieRef,
+      onESCreate,
       startAnimation,
       pauseAnimation,
       cancelAnimation,
