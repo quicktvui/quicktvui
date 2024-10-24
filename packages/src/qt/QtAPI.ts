@@ -62,7 +62,7 @@ export interface QtAPI {
   qrCode: QtQRCodeAPI
   row: QtRowAPI
   virtualView: QtVirtualViewAPI
-  indicator:QtIndicatorViewAPI
+  indicator: QtIndicatorViewAPI
 }
 
 export function createQtAPI(): QtAPI {
@@ -73,7 +73,7 @@ export function createQtAPI(): QtAPI {
   const listViewAPI: QtListViewAPI = createQtListViewAPI(viewAPI, baseListViewAPI)
   const gridViewAPI: QtGridViewAPI = createQtGridViewAPI(viewAPI, baseListViewAPI)
   const waterfallAPI: QtWaterfallAPI = createQtWaterfallAPI(viewAPI, baseListViewAPI)
-  const indicatorViewAPI: QtIndicatorViewAPI = createQtIndicatorViewAPI(viewAPI,baseListViewAPI)
+  const indicatorViewAPI: QtIndicatorViewAPI = createQtIndicatorViewAPI(viewAPI, baseListViewAPI)
   //
   const imageAPI: QtImageAPI = createQtImageAPI(viewAPI)
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
@@ -109,7 +109,6 @@ export function createQtAPI(): QtAPI {
     listView: listViewAPI,
     gridView: gridViewAPI,
     waterfall: waterfallAPI,
-    indicator:indicatorViewAPI,
     image: imageAPI,
     ul: ulAPI,
     scrollView: scrollViewAPI,
@@ -134,6 +133,7 @@ export function createQtAPI(): QtAPI {
     poster: posterAPI,
     qrCode: qrCodeAPI,
     row: rowAPI,
-    virtualView: virtualViewAPI
+    virtualView: virtualViewAPI,
+    indicator: indicatorViewAPI,
   }
 }

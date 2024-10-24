@@ -25,7 +25,7 @@ export function createQtIndicatorViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBase
 
   function init(instance: Ref<QTIIndicatorView | undefined>, target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> {
     if (instance.value) {
-      return instance.value.init(target, isInit)
+      return instance.value!.init(target, isInit)
     }
     return []
   }

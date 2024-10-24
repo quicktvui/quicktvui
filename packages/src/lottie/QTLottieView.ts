@@ -28,6 +28,12 @@ function registerQTLottieView(app: ESApp) {
       const loadUrl = (url) => {
         Native.callUIFunction(viewRef.value, 'lottie_url', [url]);
       }
+      const loadJsonFile = (fileName) => {
+        Native.callUIFunction(viewRef.value, 'lottie_localRes', [fileName]);
+      }
+      const loadZipFile = (filePath, keyCache) => {
+        Native.callUIFunction(viewRef.value, 'lottie_zipPath', [filePath, keyCache]);
+      }
       const loadCacheUrl = (url, cacheKey) => {
         Native.callUIFunction(viewRef.value, 'lottie_cache_url', [url, cacheKey]);
       }
@@ -100,6 +106,8 @@ function registerQTLottieView(app: ESApp) {
       context.expose({
         loadRaw,
         loadFile,
+        loadJsonFile,
+        loadZipFile,
         loadUrl,
         loadCacheUrl,
         setFallbackResource,
