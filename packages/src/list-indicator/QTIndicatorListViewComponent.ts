@@ -26,8 +26,11 @@ function registerESIndicatorListViewComponent(app: ESApp) {
         direction: string;
         contentOffset: any;
         state: any;
+        currentIndex:number;
+        currentList:any;
       }) {
         const {handler: event, __evt: nativeEventName} = evtData;
+        //console.log('nativeEventName-------------->'+nativeEventName)
         switch (nativeEventName) {
           case 'onItemClick':
             if (nativeEventParams) {
@@ -145,6 +148,13 @@ function registerESIndicatorListViewComponent(app: ESApp) {
               event.position = nativeEventParams.position;
             }
             break;
+          case 'onCurrentIndicatorPageIndex':
+            if (nativeEventParams) {
+              event.name = nativeEventParams.name;
+              event.currentIndex = nativeEventParams.currentIndex;
+              event.currentList = nativeEventParams.currentList;
+            }
+            break;
           default:
             break;
         }
@@ -194,6 +204,7 @@ function registerESIndicatorListViewComponent(app: ESApp) {
       'focus-search-failed',
       'scrollYGreaterReference',
       'scrollYLesserReference',
+      'current-indicator-page-index'
     ],
     setup(props, ctx) {
       const viewRef = ref()
@@ -471,6 +482,10 @@ function registerESIndicatorListViewComponent(app: ESApp) {
             },
             onScrollYLesserReference: (evt) => {
               ctx.emit('scrollYLesserReference', evt);
+            },
+            onCurrentIndicatorPageIndex: (evt) => {
+              //console.log('onCurrentIndicatorPageIndex-------------->'+evt)
+              ctx.emit('current-indicator-page-index', evt);
             },
           },
           children

@@ -45,10 +45,11 @@
             class="loop-img-root-css">
           <div flexStyle="${style}"
                :clipChildren="true"
-               :focusable="false"
+               :focusable="true"
+               duplicateParentState
                style="background-color: transparent">
             <qt-indicator-list-view
-                class="loop-img-list-css" horizontal
+                class="loop-img-list-css" horizontal duplicateParentState
                 :clipChildren="true"
                 :clipPadding="true"
                 :focusable="true"
@@ -86,6 +87,7 @@
                 :setIndicatorType="1"
                 :setIndicatorEnable="true"
                 :isAutoLoop="true"
+                @current-indicator-page-index="onPageIndexFunction"
                 flexStyle="${style}" indList="${itemList}">
               <qt-view :type="55" flexStyle="${style}" style="background-color: transparent;" name="loop_img_item"
                        :focusable="false" eventClick eventFocus>
@@ -110,15 +112,28 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {QTIListView, QTListViewItem, QTPoster, qtRef} from "@quicktvui/quicktvui3";
+import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: '使用初探',
+  emits: [
+    'item-click',
+    'scroll',
+    'item-unbind',
+    'scroll-state-changed',
+    'item-bind',
+    'item-focused',
+    'current-indicator-page-index',
+    'onCurrentIndicatorPageIndex',
+  ],
   setup(props, context) {
     const listViewRef = ref<QTIListView>()
     const cmdListViewRef = ref<QTIListView>()
     let defaultFocus = ref(0)
     let listDataRec: Array<QTListViewItem> = [];
     const listData = qtRef()
+    let toast = useESToast()
+
     const onESCreate = (params) => {
       let arr: Array<QTListViewItem> = []
       let arr1: any = []
@@ -353,6 +368,9 @@ export default defineComponent({
     }
     const onItemBind = () => {
     }
+    function onPageIndexFunction(e) {
+      toast.showToast('----->'+JSON.stringify(e))
+    }
     return {
       listViewRef,
       cmdListViewRef,
@@ -362,6 +380,7 @@ export default defineComponent({
       onESCreate,
       onItemBind,
       onItemClick,
+      onPageIndexFunction
     }
   },
 });
