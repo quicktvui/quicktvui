@@ -212,8 +212,8 @@ export default defineComponent({
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
   position: absolute;
-  focus-border-color: white;
-  focus-border-style: solid;
+  /* focus-border-color: white;
+  focus-border-style: solid; */
 }
 
 .qt-ui-poster-score-css {

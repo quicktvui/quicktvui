@@ -7,8 +7,8 @@
       <div :type="10001" name="clv_item" class="clv_item" :focusable="true" :enableFocusBorder="true"
            :clipChildren="false" eventClick eventFocus :focusScale="focusScale">
         <img class="coverV" src="${coverV}" :focusable="false" :postDelay="300"/>
-        <div  class="titMask" :focusable="false" showIf="${isPlaying}" 
-          :gradientBackground = "{colors:['#00000000', '#FF000000'], cornerRadii4: [0, 0, 18, 18]}"/>
+        <div  class="titMask" :focusable="false" showIf="${isPlaying}"
+          :gradientBackground = "{colors:['#00000000', '#FF000000'], cornerRadii4: [0, 0, 8, 8]}"/>
         <div :focusable="false" class="clv_item_text_box" showIf="${isPlaying}">
           <div class="playMark" :focusable="false">
             <play-mark :style="{width:'28px',height:'20px'}" :markColor="'#ffffff'" :gap="-1" style="margin-left: 16px;"
@@ -145,11 +145,11 @@ export default defineComponent({
             if (recordCurrentIndex > -1) {
               let updateItem = recordList[recordCurrentIndex]
               updateItem.isPlaying = false
-              content_list_view.value?.updateItem(recordCurrentIndex, updateItem)
+              content_list_view.value?.updateItemTraverse(recordCurrentIndex, updateItem)
             }
             let updateItem = recordList[e.position]
             updateItem.isPlaying = true
-            content_list_view.value?.updateItem(e.position, updateItem)
+            content_list_view.value?.updateItemTraverse(e.position, updateItem)
           }
           recordCurrentIndex = e.position
           if (recordCurrentNavIndex != e.item.navIndex) {
@@ -171,7 +171,7 @@ export default defineComponent({
           descendantFocusability.value = 2
           recordCurrentNavIndex = e.position
           if (recordList[e.item.startIndex].isNeedFocus) {
-            content_list_view.value?.scrollToIndex(e.item.startIndex, false, props.yOffest)
+            content_list_view.value?.scrollToIndex(-1, e.item.startIndex, false, -1, props.yOffest)
             fItemSelectedTimer = setTimeout(() => {
               content_list_view.value?.setItemSelected(e.item.startIndex, true)
               fItemFocusedTimer = setTimeout(() => {
@@ -179,7 +179,7 @@ export default defineComponent({
               }, 200)
             }, 400)
           } else {
-            content_list_view.value?.scrollToIndex(e.item.startIndex + 1, false, props.yOffest)
+            content_list_view.value?.scrollToIndex(-1, e.item.startIndex + 1, false, -1, props.yOffest)
             fItemSelectedTimer = setTimeout(() => {
               content_list_view.value?.setItemSelected(e.item.startIndex + 1, true)
               fItemFocusedTimer = setTimeout(() => {
@@ -190,8 +190,8 @@ export default defineComponent({
         }
       }
     }
-    const scrollToIndex = (index: number, anim: Boolean = true, offset: number = 802) => {
-      content_list_view.value?.scrollToIndex(index, anim, offset)
+    const scrollToIndex = (index: number, anim: boolean = true, offset: number = 802) => {
+      content_list_view.value?.scrollToIndex(-1, index, anim, -1,  offset)
     }
     const scrollToFocused = (index: number) => {
       descendantFocusability.value = 1
@@ -214,7 +214,7 @@ export default defineComponent({
     const updateItem = (position: number, data: QTClassifiedListViewItem) => {
       recordList[position] = data
       recordList.forEach((el, index) => {
-       
+
         for (let i = 0; i < navList.length; i++) {
           const item = navList[i];
           if (el.categoryname == item.categoryname) {
@@ -222,7 +222,7 @@ export default defineComponent({
           }
         }
       });
-      content_list_view.value?.updateItem(position, recordList[position])
+      content_list_view.value?.updateItemTraverse(position, recordList[position])
     }
     const onSItemClick = (e) => {
       context.emit('item-click', e);

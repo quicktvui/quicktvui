@@ -166,7 +166,7 @@ function registerQTWebView(app: ESApp) {
             'setAppCacheEnabled', [value], (res) => {
             });
         }
-        const setAppCachePath = (value: boolean) => {
+        const setAppCachePath = (value: string) => {
           Native.callUIFunction(webViewRef.value,
             'setAppCachePath', [value], (res) => {
             });
@@ -372,6 +372,23 @@ function registerQTWebView(app: ESApp) {
             'setDisabledActionModeMenuItems', [value], (res) => {
             });
         }
+
+        const initJavaScriptInterface = () => {
+          Native.callUIFunction(webViewRef.value,
+            'initJavaScriptInterface', [], (res) => {
+            });
+        }
+        const removeJavaScriptInterface = () => {
+          Native.callUIFunction(webViewRef.value,
+            'removeJavaScriptInterface', [], (res) => {
+            });
+        }
+        const initWebViewFocus = (delayTime: number, x: number, y: number) => {
+          Native.callUIFunction(webViewRef.value,
+            'initWebViewFocus', [delayTime, x, y], (res) => {
+            });
+        }
+
         context.expose({
           loadUrl,
           evaluateJavascript,
@@ -439,6 +456,9 @@ function registerQTWebView(app: ESApp) {
           setSafeBrowsingEnabled,
           setForceDark,
           setDisabledActionModeMenuItems,
+          initJavaScriptInterface,
+          removeJavaScriptInterface,
+          initWebViewFocus,
           ...useBaseView(webViewRef)
         });
         return () => {

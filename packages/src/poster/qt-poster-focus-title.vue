@@ -14,7 +14,7 @@
       gradientBackground="${floatTitle.background}"
       style="height: 64px;color: #ffffff"
       flexStyle="${floatTitle.style}"
-      text="${floatTitle}"
+      text="${floatTitle.text}"
       showIf="${floatTitle.enable}"
       gravity="left"
       :postDelay="250"/>

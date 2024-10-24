@@ -10,6 +10,7 @@ export interface QTWaterfallSection extends QTListViewItem {
   titleStyle?: QTWaterfallFlexStyle & QTFlexStyleText
   itemList: Array<QTWaterfallItem>,
   style: QTWaterfallFlexStyle
+  contentStyle?: QTWaterfallFlexStyle
   placeholder?: QTWaterfallPlaceholder
 
   [prop: string]: any

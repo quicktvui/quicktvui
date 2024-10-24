@@ -1,15 +1,18 @@
 <template>
-  <qt-list-view v-if="horizontal"
-                ref="navList"
-                :clipChildren="false"
-                :clipPadding="false"
-                :horizontalFadingEdgeEnabled="horizontalFadingEdgeEnabled"
-                :fadingEdgeLength="fadingEdgeLength"
-                horizontal
-                :class="tabNavBarClass"
-                @item-click="onTabClick"
-                @item-focused="onTabChange">
+  <qt-list-view
+    ref="navList"
+    :clipChildren="false"
+    :clipPadding="false"
+    :horizontalFadingEdgeEnabled="horizontal?horizontalFadingEdgeEnabled:false"
+    :verticalFadingEdgeEnabled="!horizontal?verticalFadingEdgeEnabled:false"
+    :fadingEdgeLength="fadingEdgeLength"
+    :horizontal="horizontal?true:undefined"
+    :class="tabNavBarClass"
+    @item-click="onTabClick"
+    @item-focused="onTabChange"
+  >
     <div class="qt-ui-nav-bar-item-css"
+         v-if="tabEnable"
          :type="20000"
          autoWidth
          :focusable="true"
@@ -18,34 +21,6 @@
          :clipChildren="false"
          :stateTextColor="textColor"
          :sateBackgroundPadding="bgPadding">
-      <text-view autoWidth
-                 gravity="center"
-                 :lines="1"
-                 :fontSize="44"
-                 class="qt-ui-nav-bar-item-text-css"
-                 :duplicateParentState="true"
-                 text="${text}"/>
-    </div>
-    <slot/>
-  </qt-list-view>
-  <qt-list-view v-else
-                ref="navList"
-                :clipChildren="false"
-                :clipPadding="false"
-                :class="tabNavBarClass"
-                :verticalFadingEdgeEnabled="verticalFadingEdgeEnabled"
-                :fadingEdgeLength="fadingEdgeLength"
-                @item-click="onTabClick"
-                @item-focused="onTabChange">
-    <div class="qt-ui-nav-bar-item-css"
-         :type="20000"
-         flexStyle="${style}"
-         eventFocus
-         autoWidth
-         :focusable="true"
-         :stateTextColor="textColor"
-         :sateBackgroundPadding="bgPadding"
-         :clipChildren="false">
       <text-view autoWidth
                  gravity="center"
                  :lines="1"
@@ -107,6 +82,10 @@ export default defineComponent({
     fadingEdgeLength:{
       type:Number,
       default:0
+    },
+    tabEnable:{
+      type:Boolean,
+      default:true
     }
   },
   setup(props, context) {

@@ -7,19 +7,13 @@ import {QTSeekBarTickMarkGravity} from "../seekbar/QTSeekBarTickMarkGravity";
 import {QTSeekBarTickMarkLayoutGravity} from "../seekbar/QTSeekBarTickMarkLayoutGravity";
 import {QTIView} from "../view/QTIView";
 
-export interface QTIProgressBar extends QTIView{
+export interface QTIProgressBar extends QTIView {
 
   invalidateProgressBar(): void
 
   setFocusable(focusable: boolean): void
 
   setClickable(clickable: boolean): void
-
-  requestFocus(): void
-
-  requestLayout(): void
-
-  invalidate(): void
 
   setVisible(visible: boolean): void
 

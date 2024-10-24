@@ -1,41 +1,20 @@
 import {QTListViewItem} from "./QTListViewItem";
-import {QTIView} from "../../view/QTIView";
+import {QTIBaseListView} from "../../list/QTIBaseListView";
 
-export interface QTIListView extends QTIView {
+export interface QTIListView extends QTIBaseListView {
 
-  init(target: Array<QTListViewItem>, isInit? : boolean): Array<QTListViewItem>
+  /**
+   * @deprecated 不再推荐使用，请使用最新的:list-data语法绑定数据
+   */
+  init(target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem>
 
-  scrollToTop(): void
+  stopPage(isTip?: boolean): void
 
-  clearFocus(): void
+  setItemFocused(position: number): void
 
-  stopPage(): void
+  scrollToFocused(position: number): void
 
-  blockRootFocus(): void
+  setItemSelected(position: number, b: boolean): void
 
-  unBlockRootFocus(): void
-
-  setDisplay(value: Boolean): void
-
-  scrollToPosition(index: number): void
-
-  scrollToIndex(y: number, anim: Boolean, offset: number): void
-
-  setItemFocused(pos: number): void
-
-  scrollToFocused(pos: number): void
-
-  setItemSelected(pos: number, b: boolean): void
-
-  scrollToSelected(pos: number, b: boolean): void
-
-  startScroll(focusPosition?: number,scrollToPosition?: number,scrollOffset?: number): void
-
-  setListData(itemList: Array<QTListViewItem>): void
-
-  clearPostTask(): void
-
-  destroy(): void
-
-  updateItem(position: number, data: QTListViewItem): void
+  scrollToSelected(position: number, b: boolean): void
 }

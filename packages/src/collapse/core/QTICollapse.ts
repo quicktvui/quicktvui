@@ -6,7 +6,7 @@ export interface QTICollapse extends QTIView {
 
   init(collapse: QTCollapse): void
 
-  getItem(index: number): QTICollapseItem
+  getItem(index: number): QTICollapseItem | undefined
 
   expandItem(index: number): void
 

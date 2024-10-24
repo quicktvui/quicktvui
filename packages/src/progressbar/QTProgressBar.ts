@@ -30,16 +30,6 @@ function registerQTProgressBarView(app: ESApp) {
         });
       }
 
-      function requestLayout() {
-        Native.callUIFunction(viewRef.value, 'requestLayout', [], (res) => {
-        });
-      }
-
-      function invalidate() {
-        Native.callUIFunction(viewRef.value, 'invalidate', [], (res) => {
-        });
-      }
-
       function setVisible(visible: boolean) {
         Native.callUIFunction(viewRef.value, 'setVisible', [visible], (res) => {
         });
@@ -660,8 +650,6 @@ function registerQTProgressBarView(app: ESApp) {
         invalidateProgressBar,
         setFocusable,
         setClickable,
-        requestLayout,
-        invalidate,
         setVisible,
         setLeftSeekBarVisible,
         setRightSeekBarVisible,

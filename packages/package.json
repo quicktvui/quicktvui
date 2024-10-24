@@ -1,6 +1,6 @@
 {
   "name": "@quicktvui/quicktvui3",
-  "version": "1.1.33",
+  "version": "1.2.0",
   "description": "ExtScreen framework",
   "author": "ExtScreen Team",
   "homepage": "http://extscreen.com",
@@ -16,6 +16,8 @@
     "compiler"
   ],
   "files": [
-    "dist"
-  ]
+    "dist",
+    "web-types.json"
+  ],
+  "web-types": "web-types.json"
 }

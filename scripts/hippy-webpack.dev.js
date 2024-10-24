@@ -36,8 +36,8 @@ module.exports = {
     multiple: false,
     // by default hot and liveReload option are true, you could set only liveReload to true
     // to use live reload
-    hot: true,
-    liveReload: true,
+    hot: false,
+    liveReload: false,
     client: {
       overlay: false,
     },
@@ -168,7 +168,8 @@ module.exports = {
       const aliases = {
         src: path.resolve('./src'),
         // '@': path.resolve('./src'),
-        // '@quicktvui/quicktvui3': path.resolve('./packages/'),
+        // '@quicktvui/quicktvui3': path.resolve('./packages/src'),
+        '@quicktvui/quicktvui3': path.resolve('./packages'),
       };
       return aliases;
     })(),

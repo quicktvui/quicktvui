@@ -14,6 +14,7 @@
 import {defineComponent} from "@vue/runtime-core";
 import {useESRouter} from "@extscreen/es3-router";
 import logo from '../../assets/logo.png'
+import lottie from '../../assets/lottie-logo.json'
 
 export default defineComponent({
   name: "es-splash-page",
@@ -28,6 +29,7 @@ export default defineComponent({
     return {
       onESCreate,
       logo,
+      lottie
     }
   },
 });
