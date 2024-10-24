@@ -14,6 +14,10 @@ export interface QtLottieViewAPI extends QtViewAPI {
 
   loadFile(instance: string | Ref<QTILottieView | undefined>, fileName: string): void
 
+  loadJsonFile(instance: string | Ref<QTILottieView | undefined>, fileName: string): void
+
+  loadZipFile(instance: string | Ref<QTILottieView | undefined>, filePath: string, keyCache: string): void
+
   loadUrl(instance: string | Ref<QTILottieView | undefined>, url: string): void
 
   loadCacheUrl(instance: string | Ref<QTILottieView | undefined>, url: string, cacheKey: string): void
@@ -78,6 +82,22 @@ export function createQtLottieViewAPI(viewAPI: QtViewAPI): QtLottieViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'lottie_localRes', [fileName]]);
     } else if (isRef(instance)) {
       instance.value?.loadFile(fileName)
+    }
+  }
+
+  function loadJsonFile(instance: string | Ref<QTILottieView | undefined>, fileName: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'lottie_localRes', [fileName]]);
+    } else if (isRef(instance)) {
+      instance.value?.loadJsonFile(fileName)
+    }
+  }
+
+  function loadZipFile(instance: string | Ref<QTILottieView | undefined>, filePath: string, keyCache: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'lottie_zipPath', [filePath, keyCache]]);
+    } else if (isRef(instance)) {
+      instance.value?.loadZipFile(filePath, keyCache)
     }
   }
 
@@ -277,6 +297,8 @@ export function createQtLottieViewAPI(viewAPI: QtViewAPI): QtLottieViewAPI {
     ...viewAPI,
     loadRaw,
     loadFile,
+    loadZipFile,
+    loadJsonFile,
     loadUrl,
     loadCacheUrl,
     setFallbackResource,

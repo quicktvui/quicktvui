@@ -260,6 +260,18 @@ const routes = [
       name: `api/${item}`,
       component: QTAPIPageList[item].component,
     })),
+  ...Object.keys(QTSwiperPageList)
+    .map(item => ({
+      path: `/swiper${item}`,
+      name: `swiper/${item}`,
+      component: QTSwiperPageList[item].component,
+    })),
+  ...Object.keys(QTLottiePageList)
+    .map(item => ({
+      path: `/lottie${item}`,
+      name: `lottie/${item}`,
+      component: QTLottiePageList[item].component,
+    })),
   ...Object.keys(QTIndicatorPageList)
     .map(item => ({
       path: `/qt-indicator-list${item}`,
