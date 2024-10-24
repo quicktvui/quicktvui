@@ -280,6 +280,7 @@ export type {QTIScrollView} from './scroll-view/QTIScrollView'
 export type {QTILottieView} from './lottie/QTILottieView'
 export {QTLottieRepeatMode} from './lottie/QTLottieRepeatMode'
 export {QTLottieAsyncUpdates} from './lottie/QTLottieAsyncUpdates'
+export {QTLottieEvent} from './lottie/QTLottieEvent'
 
 //--------------------------------QTGradient---------------------------------
 export type {QTGradient} from './gradient/QTGradient'

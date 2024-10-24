@@ -142,7 +142,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|json)$/i,
         type: 'asset/resource',
         generator: {
           outputPath: 'assets/',

@@ -26,6 +26,8 @@ import QTScrollViewPageList from "./components/qt-scroll-view";
 import QTAppIconPageList from "./components/qt-app-icon";
 import QTPluginViewPageList from "./components/qt-plugin-view";
 import QTAPIPageList from "./components/qt-api";
+import QTSwiperPageList from "./components/qt-swiper";
+import QTLottiePageList from "./components/qt-lottie";
 import QTIndicatorPageList from "./components/qt-indicator-list-view";
 
 import {
@@ -257,6 +259,18 @@ const routes = [
       path: `/api${item}`,
       name: `api/${item}`,
       component: QTAPIPageList[item].component,
+    })),
+  ...Object.keys(QTSwiperPageList)
+    .map(item => ({
+      path: `/swiper${item}`,
+      name: `swiper/${item}`,
+      component: QTSwiperPageList[item].component,
+    })),
+  ...Object.keys(QTLottiePageList)
+    .map(item => ({
+      path: `/lottie${item}`,
+      name: `lottie/${item}`,
+      component: QTLottiePageList[item].component,
     })),
   ...Object.keys(QTIndicatorPageList)
     .map(item => ({
