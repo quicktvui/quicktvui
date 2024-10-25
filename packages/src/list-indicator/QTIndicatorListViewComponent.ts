@@ -30,7 +30,7 @@ function registerESIndicatorListViewComponent(app: ESApp) {
         currentList:any;
       }) {
         const {handler: event, __evt: nativeEventName} = evtData;
-        //console.log('nativeEventName-------------->'+nativeEventName)
+        console.log('nativeEventName-------------->'+nativeEventName)
         switch (nativeEventName) {
           case 'onItemClick':
             if (nativeEventParams) {
@@ -484,7 +484,7 @@ function registerESIndicatorListViewComponent(app: ESApp) {
               ctx.emit('scrollYLesserReference', evt);
             },
             onCurrentIndicatorPageIndex: (evt) => {
-              //console.log('onCurrentIndicatorPageIndex-------------->'+evt)
+              console.log('onCurrentIndicatorPageIndex-------------->'+evt)
               ctx.emit('current-indicator-page-index', evt);
             },
           },

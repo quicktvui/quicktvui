@@ -369,7 +369,7 @@ export default defineComponent({
     const onItemBind = () => {
     }
     function onPageIndexFunction(e) {
-      toast.showToast('----->'+JSON.stringify(e))
+      toast.showToast('----->'+ e.currentIndex + '------->'+e.currentList.image)
     }
     return {
       listViewRef,
