@@ -93,7 +93,7 @@ interface IparseChildUpdateRef {
 /**
  * 解析子列表更新层级
  */
-export const parseChildUpdate = (changeData:QtChangeData, orData:any,exFn:(res:IparseChildUpdateRef)=>void) => {
+export const parseChildUpdate = (changeData:QtChangeData, orData:any,exFn:(res:IparseChildUpdateRef)=>void,maxDeep?:number) => {
   const maps = changeData.names.size?changeData.names:changeData.datas
   maps.forEach((v,k)=>{
     let orUdata:any
@@ -104,25 +104,34 @@ export const parseChildUpdate = (changeData:QtChangeData, orData:any,exFn:(res:I
       newData: null, oldData:null, k
     }
     if(Array.isArray(k)){
+      let isOver = false
       for (let kindex = 0; kindex < k.length; kindex++) {
         const kitem = k[kindex];
         if(!isNaN(Number(kitem))){
           res.arrDeeps.push(Number(kitem))
         }
-        if(res.arrDeeps.length>3){
-          break
+        orUdata = orUdata ? orUdata[kitem] : orData[kitem]
+        let nexNewData;
+        if(kindex>0){
+          nexNewData = newUdata ? newUdata[kitem] : cvalue[kitem]
         } else {
-          orUdata = orUdata ? orUdata[kitem] : orData[kitem]
-          if(kindex>0){
-            newUdata = newUdata ? newUdata[kitem] : cvalue[kitem]
-          } else {
-            newUdata = cvalue
-          }
+          nexNewData = cvalue
+        }
+        if(isNaN(Number(kitem)) && isObject(nexNewData) && !Array.isArray(nexNewData)){
+          break
+        }
+        newUdata = nexNewData
+        if(maxDeep && res.arrDeeps.length >= maxDeep){
+          isOver = true
+          break
         }
       }
-      if(changeData.names.size && changeData.names.get(k)?.size == 1){
+      if(!isOver && changeData.names.size && changeData.names.get(k)?.size == 1){
         const namev = changeData.names.get(k)?.values().next().value
         if(isObject(orUdata) && isObject(newUdata) && isArray(orUdata[namev]) && isArray(newUdata[namev])){
+          orUdata = orUdata[namev]
+          newUdata = newUdata[namev]
+        } else if(!isNaN(Number(namev)) && orUdata[namev]){
           orUdata = orUdata[namev]
           newUdata = newUdata[namev]
         }

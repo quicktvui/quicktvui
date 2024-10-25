@@ -8,6 +8,7 @@
     :listenBoundEvent="true"
     negativeKeyTime="30"
     postContentDelay="500"
+    :sid="tvItemListName ? undefined :tvSid"
     @scroll="onScroll"
     @item-click="onItemClick"
     @item-focused="onItemFocused"
@@ -83,7 +84,7 @@
 
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
-import { qtWatchAll, qtFilterChangeMap } from "../qtListen/index";
+import { qtWatchAll, qtFilterChangeMap, parseChildUpdate, qtRefUid } from "../qtListen/index";
 
 import flex_section from './section/flex-section.vue'
 import list_section from './section/list-section.vue'
@@ -108,6 +109,7 @@ import {QTWaterfallEvent} from "./core/QTWaterfallEvent";
 import {QTWaterfallVisibleType} from "./core/QTWaterfallVisibleType";
 import useBaseView from "../base/useBaseView";
 import {QTPluginViewEvent} from "../plugin/QTIPluginView";
+import { VirtualView } from "../utils/VirtualView";
 
 const TAG = 'qt-waterfall'
 
@@ -186,7 +188,10 @@ export default defineComponent({
     },
     tvItemListName: {
       type: String, required: false
-    }
+    },
+    tvSid:{
+      type: String, default: qtRefUid.createUid('tv-waterfall-sid')
+    },
   },
   setup(props, context) {
     const log = useESLog()
@@ -451,17 +456,31 @@ export default defineComponent({
         const itemList = generateSectionList(waterfall, datas, true)
         waterfallRef.value?.addListData(itemList)
       },
-      update(position, dataMaps){
+      update(position, dataMaps, oldt){
         const datas = qtFilterChangeMap(1, dataMaps.datas)
-        // console.log('lsj-update---', position, datas, dataMaps.names)
+        // console.log('lsj-update---', position, dataMaps)
+        // dataManager.updateItemList(sectionIndex, itemIndex, count, itemList)
         // if(dataMaps.deth === 1 && dataMaps.names.size){
         //   const updateSection = generateSection(waterfall, _propsListData[0], true)
         //   waterfallRef.value?.updateItemProps(0, 'title', oldSection)
         // } else {
-          const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
-          waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
-          // waterfallRef.value?.updateItem(position, sectionUpdateList[0]) //updateItem无法更新板块的layout高度
+        //   const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
+        //   waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
+        //   waterfallRef.value?.updateItem(position, sectionUpdateList[0]) //updateItem无法更新板块的layout高度
         // }
+        parseChildUpdate(dataMaps, oldt, (updateRes) => {
+          // console.log(updateRes, 'lsj-updateRes-arrDeeps')
+          if(updateRes.isArr){
+            const sectionUpdateList = generateSectionList(waterfall, Array.from(datas.values()), true)
+            waterfallRef.value?.updateItemList(position, datas.size, sectionUpdateList)
+          } else {
+            const sid = updateRes.newData._id// updateRes.newData.listSID || 
+            const newdata = JSON.parse(JSON.stringify(updateRes.newData))
+            if(sid){
+              VirtualView.updateChild(props.tvSid, sid, newdata)
+            }
+          }
+        }, 2)
       },
       insert(position, datas){
         const sectionList = generateSectionList(waterfall, datas, true)

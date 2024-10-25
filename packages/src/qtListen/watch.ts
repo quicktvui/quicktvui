@@ -15,32 +15,44 @@ export interface IQtWatchOptions {
   resetValue?:(datas:any[])=>void;
   [k: string]: any
 }
-export const qtRefUid = {
-  pointer: 0,
+export class QtRefUid {
+  private pointer = 0
+  /**
+   * 生成全局唯一id
+   */
   createUid(key:string='_'){
     this.pointer++
     return this.pointer + key + Date.now()
-  },
+  }
   /**
    * 对象添加uid
    */
-  addUid(data:any, uk?:string){
+  addUid(data:any, uk?:string, oldData?:any){
     if(data !== null && typeof data === 'object'){
       if(!data.__qt_key_){
         data.__qt_key_ = this.createUid(uk)
       }
+      if(!data._id){
+        if(oldData && oldData._id){
+          data._id = oldData._id
+        } else {
+          data._id = 'sid-'+data.__qt_key_
+        }
+        // data.listSID = 'listSID_'+data.__qt_key_
+      }
     }
     return data
-  },
+  }
   /**
    * 批量添加uid
    */
-  addUidBatch(arr:any[], uk?:string){
+  addUidBatch(arr:any[], uk?:string, oldArr?:any[]){
     for (let i = 0; i < arr.length; i++) {
-      this.addUid(arr[i])
+      this.addUid(arr[i], uk, oldArr?oldArr[i]:null)
     }
   }
 }
+export const qtRefUid = new QtRefUid()
 
 export const qtCloneObj = (target: object, isKey=true) => {
   if (isObject(target)) {
@@ -51,7 +63,7 @@ export const qtCloneObj = (target: object, isKey=true) => {
         if (isObject(targetItem)) {
           if(!isArray(targetItem)){
             if(!targetItem.__qt_key_){
-              targetItem.__qt_key_ = qtRefUid.createUid(k)//标记唯一值，diff对比时使用
+              qtRefUid.addUid(targetItem, k) //标记唯一值，diff对比时使用
             }
             if(!targetItem.__qt_change_num_){
               targetItem.__qt_change_num_ = 1//标记节点是否被修改，diff对比使用
@@ -90,7 +102,6 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
       qtTrack(__v_raw, emReactiveFlags.WATCH_ALL)
     },
     (target, prop, newValue, type, oldValue) => {
-      // console.log(type,'-------',prop)
       const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target 
       const _currentType = qtType.getFlag(target).get(typeEnum.currentType)
       if (type === emReactiveFlags.RESET_REF_VALUE) {

@@ -29,6 +29,7 @@ import {createQtPosterAPI, QtPosterAPI} from "../poster/QtPosterAPI";
 import {createQtQRCodeAPI, QtQRCodeAPI} from "../qrcode/QtQRCodeAPI";
 import {createQtRowAPI, QtRowAPI} from "../row/QtRowAPI";
 import {createQtVirtualViewAPI, QtVirtualViewAPI} from "../utils/QtVirtualViewAPI";
+import { qtRefUid, QtRefUid } from "../qtListen/index";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -60,7 +61,8 @@ export interface QtAPI {
   poster: QtPosterAPI
   qrCode: QtQRCodeAPI
   row: QtRowAPI
-  virtualView: QtVirtualViewAPI
+  virtualView: QtVirtualViewAPI,
+  uid: QtRefUid
 }
 
 export function createQtAPI(): QtAPI {
@@ -130,6 +132,7 @@ export function createQtAPI(): QtAPI {
     poster: posterAPI,
     qrCode: qrCodeAPI,
     row: rowAPI,
-    virtualView: virtualViewAPI
+    virtualView: virtualViewAPI,
+    uid: qtRefUid
   }
 }

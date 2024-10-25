@@ -85,17 +85,21 @@ const getReactiveConfig = (root?:any, paths:any[] = [], __qt_arr_deth=1): ProxyH
       if(isReactive(value)){
         value = toRaw(value)
       }
+      if(isArray(value) && isArray(oldValue)){
+        qtRefUid.addUidBatch(value, '', oldValue)
+      }
       if(isObject(value) && !isArray(value) && typeof(prop)==='string'){
         if(!value.__qt_key_){
-          if(isObject(oldValue)){// && !isArray(target)
-            value.__qt_key_ = oldValue.__qt_key_ || qtRefUid.createUid(prop)//标记唯一值，diff对比时使用
+          if(isObject(oldValue) && oldValue.__qt_key_){// && !isArray(target)
+            value.__qt_key_ = oldValue.__qt_key_ 
+            value._id = oldValue._id 
           }else{
-            value.__qt_key_ = qtRefUid.createUid(prop)
+            qtRefUid.addUid(value, prop)//标记唯一值，diff对比时使用
           }
         }
         if(!value.__qt_change_num_){
           if(isObject(oldValue)){// && !isArray(target)
-            value.__qt_change_num_ = oldValue.__qt_change_num_ || 1//标记唯一值，diff对比时使用
+            value.__qt_change_num_ = oldValue.__qt_change_num_ || 1
           }else{
             value.__qt_change_num_ = 1//标记节点是否被修改，diff对比使用
           }

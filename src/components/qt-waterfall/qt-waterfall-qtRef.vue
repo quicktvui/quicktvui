@@ -15,6 +15,7 @@
         <qt-button @click="deleteItemFn" size="mini" text="删除海报" class="menus_btn"></qt-button>
         <qt-button @click="insertFn" size="mini" text="插入板块" class="menus_btn"></qt-button>
         <qt-button @click="insertItemFn" size="mini" text="插入海报" class="menus_btn"></qt-button>
+        <qt-button @click="resetItemFn" size="mini" text="重置单个item" class="menus_btn"></qt-button>
         <qt-button @click="clearFn" size="mini" text="清空" class="menus_btn"></qt-button>
       </div>
       <qt-waterfall ref="waterfall" :list-data="waterfallDatas" class="qt-waterfall-css" />
@@ -36,12 +37,12 @@ import { qtRef, QTIWaterfall, QTWaterfallItem } from '@quicktvui/quicktvui3';
 const waterfall = ref<QTIWaterfall>()
 const waterfallDatas = qtRef<QTWaterfallSection[]>()
 
-function buildPosterItemList(sectionId: string, size = 15): Array<QTWaterfallItem> {
+function buildPosterItemList(sectionId: string, size = 15, isRandom=false): Array<QTWaterfallItem> {
   let data: Array<QTWaterfallItem> = []
   let imgURL = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
   for (let i = 0; i < size; i++) {
     const poster: QTPoster = {
-      _id: sectionId + '_' + i,
+      _id: qt.uid.createUid('poster'),
       focus: {
         enable: true,
         scale: 1.1,
@@ -53,7 +54,7 @@ function buildPosterItemList(sectionId: string, size = 15): Array<QTWaterfallIte
         bottom: 20
       },
       title: {
-        text: '主标题'+i,
+        text: isRandom ? Math.random()+'' : '主标题'+i,
         enable: true,
         style: {
           width: 260,
@@ -125,7 +126,7 @@ const getList = (flag = '', num = 1) => {
   let sectionList: Array<QTWaterfallSection> = []
   for (let i = 0; i < num; i++) {
     let section: QTWaterfallSection = {
-      _id: '' + i,
+      _id: qt.uid.createUid('section'),
       type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX,
       title: 'qtRef:' + i + flag,
       titleStyle: {
@@ -181,8 +182,11 @@ const updateAllItemFn = () => {
     item.title.text = Math.random() + '-updateAllItemFn'
   })
 }
+const resetItemFn = () => {
+  waterfallDatas.value[0].itemList[0] = buildPosterItemList('resetItemFn', 1,true)[0]
+}
 const resetItemAllFn = () => {
-  waterfallDatas.value[0].itemList = buildPosterItemList('resetItemAllFn', 5)
+  waterfallDatas.value[0].itemList = buildPosterItemList('resetItemAllFn', 5,true)
 }
 const deleteFn = () => {
   waterfallDatas.value.splice(1, 1)
