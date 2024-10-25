@@ -22,8 +22,13 @@ import qt_tabs_waterfall_item_update_page from "./qt-tabs-waterfall-item-update-
 //
 import qt_tabs_waterfall_plugin_page from "./qt-tabs-waterfall-plugin-page.vue"
 import qt_tabs_waterfall_advanced_page from "./qt-tabs-waterfall-advanced-page.vue"
+import qt_tabs_qtref from "./qt-tabs-qtref.vue"
 
 const QTTabsWaterfallPageList = {
+  qt_tabs_qtref: {
+    name: 'tabs-ref',
+    component: qt_tabs_qtref,
+  },
   qt_tabs_waterfall_start_page: {
     name: '使用初探',
     component: qt_tabs_waterfall_start_page,

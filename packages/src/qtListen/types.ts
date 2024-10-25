@@ -134,6 +134,7 @@ export const parseChildUpdate = (changeData:QtChangeData, orData:any,exFn:(res:I
         } else if(!isNaN(Number(namev)) && orUdata[namev]){
           orUdata = orUdata[namev]
           newUdata = newUdata[namev]
+          res.arrDeeps.push(Number(namev))
         }
       }
       res.oldData = orUdata
