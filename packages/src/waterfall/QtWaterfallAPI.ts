@@ -114,6 +114,6 @@ export function createQtWaterfallAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseList
     deleteItem,
     updateItem,
     updateItemList,
-    getItem,
+    getItem
   }
 }

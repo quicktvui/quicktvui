@@ -43,6 +43,13 @@ import {
 } from "./components/qt-tabs-waterfall";
 import QTClassifiedListViewPageList from "./components/qt-classified-list-view"
 
+import {
+  QTTabsWaterfallDataBindingPageList,
+  QTTabsWaterfallDataBindingSectionPageList,
+  QTTabsWaterfallDataBindingItemPageList,
+  QTTabsWaterfallDataBindingSamplePageList,
+} from "./components/qt-tabs-data-binding";
+
 const routes = [
   {
     path: '/splash',
@@ -176,12 +183,40 @@ const routes = [
       name: `tabs-waterfall/${item}`,
       component: QTTabsWaterfallSamplePageList[item].component,
     })),
+
+  //----------------------------Tabs 数据绑定------------------------------------
+  ...Object.keys(QTTabsWaterfallDataBindingPageList)
+    .map(item => ({
+      path: `/tabs-data-binding/${item}`,
+      name: `tabs-data-binding/${item}`,
+      component: QTTabsWaterfallDataBindingPageList[item].component,
+    })),
+  ...Object.keys(QTTabsWaterfallDataBindingSectionPageList)
+    .map(item => ({
+      path: `/tabs-data-binding/${item}`,
+      name: `tabs-data-binding/${item}`,
+      component: QTTabsWaterfallDataBindingSectionPageList[item].component,
+    })),
+  ...Object.keys(QTTabsWaterfallDataBindingItemPageList)
+    .map(item => ({
+      path: `/tabs-data-binding/${item}`,
+      name: `tabs-data-binding/${item}`,
+      component: QTTabsWaterfallDataBindingItemPageList[item].component,
+    })),
+  ...Object.keys(QTTabsWaterfallDataBindingSamplePageList)
+    .map(item => ({
+      path: `/tabs-data-binding/${item}`,
+      name: `tabs-data-binding/${item}`,
+      component: QTTabsWaterfallDataBindingSamplePageList[item].component,
+    })),
+  //----------------------------------------------------------------------------
   ...Object.keys(QTClassifiedListViewPageList)
     .map(item => ({
       path: `/classified-list-view/${item}`,
       name: `classified-list-view/${item}`,
       component: QTClassifiedListViewPageList[item].component,
     })),
+
   ...Object.keys(QTLoadingPageList)
     .map(item => ({
       path: `/loading${item}`,
