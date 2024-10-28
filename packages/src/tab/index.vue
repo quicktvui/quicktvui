@@ -723,18 +723,30 @@ export default defineComponent({
         log.d(TAG, '----------设置数据----onTabPageLoadData---加载数据开始---->>>>pageIndex:' + pageIndex)
       }
       setPageStateReset(pageIndex)
-      emitOnLoadTabPageDataEvent(pageIndex, useDiff, 0)
+      emitOnLoadTabPageDataEvent('onTabPageLoadData', pageIndex, useDiff, 0)
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '----------设置数据----onTabPageLoadData---加载数据结束---->>>>pageIndex:' + pageIndex)
       }
     }
 
-    function emitOnLoadTabPageDataEvent(pageIndex: number, useDiff: boolean, sectionIndex: number) {
+    function emitOnLoadTabPageDataEvent(caller: string, pageIndex: number, useDiff: boolean, sectionIndex: number) {
       let pageNo = getTabPageDataNo(pageIndex)
       let pageData = tabDataManager.getTabPageDataState(pageIndex)
       if (pageData && (pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_IDLE
           || pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_INIT)) {
         const sectionList = tabDataManager.getSectionList(pageIndex)
+
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+          log.d(TAG, '----emitOnLoadTabPageDataEvent---设置数据--->>>>'
+              + ' caller: ' + caller
+              + ' pageIndex: ' + pageIndex
+              + ' sectionIndex: ' + sectionIndex
+              + ' preloadNumber: ' + props.preloadNumber
+              + ' sectionLength: ' + sectionList.length
+              + ' section: ', sectionList
+          )
+        }
+
         if (sectionIndex >= (sectionList.length - props.preloadNumber - 1)) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '---------设置数据-----<<<<<加载更多数据>>>>>----->>>>' +
@@ -750,7 +762,9 @@ export default defineComponent({
           }
         } else {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
-            log.d(TAG, '----设置数据------loadPageData--preloadNumber错误-->>>>', pageIndex)
+            log.d(TAG, '----设置数据------loadPageData--preloadNumber错误-->>>>',
+                pageIndex
+            )
           }
         }
       } else {
@@ -809,7 +823,7 @@ export default defineComponent({
       //
       const pageData = tabDataManager.getTabPageDataState(pageIndex)
       if (pageData && pageData.sectionBindIndex >= -1) {
-        emitOnLoadTabPageDataEvent(pageIndex, false, pageData.sectionBindIndex)
+        emitOnLoadTabPageDataEvent('onTabPageChanged', pageIndex, false, pageData.sectionBindIndex)
       }
       notifyTabContentSectionAttached()
 
@@ -961,7 +975,7 @@ export default defineComponent({
         if (log.isLoggable(ESLogLevel.DEBUG)) {
           log.d(TAG, '----------loadPageData----bind-->>>>pageIndex:' + pageIndex)
         }
-        emitOnLoadTabPageDataEvent(pageIndex, false, sectionIndex)
+        emitOnLoadTabPageDataEvent('onTabPageChanged', pageIndex, false, sectionIndex)
       }
     }
 
