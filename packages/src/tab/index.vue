@@ -333,7 +333,7 @@ export default defineComponent({
       default: () => ({width: 1920, height: 1080})
     },
     tabs: {
-      type: Array<any>,
+      type: Array,
       default:()=>[]
     }
   },
