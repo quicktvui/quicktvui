@@ -377,6 +377,25 @@ export default defineComponent({
       const pageData = tabDataManager.getTabPageDataState(pageIndex)
       if (pageData) {
         pageData.state = state
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+
+          let st = ""
+          if (state == QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
+            st = '初始化'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_IDLE) {
+            st = '空闲'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_BUSY) {
+            st = '加载中'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE) {
+            st = '完成'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_ERROR) {
+            st = '错误'
+          }
+          log.d(TAG, '---------设置数据-----设置状态----->>>>' +
+              ' pageIndex:' + pageIndex +
+              ' state:' + st
+          )
+        }
         tabDataManager.setPageDataState(pageIndex, pageData)
       }
     }
@@ -732,12 +751,24 @@ export default defineComponent({
     function emitOnLoadTabPageDataEvent(caller: string, pageIndex: number, useDiff: boolean, sectionIndex: number) {
       let pageNo = getTabPageDataNo(pageIndex)
       let pageData = tabDataManager.getTabPageDataState(pageIndex)
+
+
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--1--emitOnLoadTabPageDataEvent---设置数据--->>>>'
+            + ' caller: ' + caller
+            + ' pageIndex: ' + pageIndex
+            + ' sectionIndex: ' + sectionIndex
+            + ' preloadNumber: ' + props.preloadNumber
+            + ' state: ' + pageData?.state
+        )
+      }
+
       if (pageData && (pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_IDLE
           || pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_INIT)) {
         const sectionList = tabDataManager.getSectionList(pageIndex)
 
         if (log.isLoggable(ESLogLevel.DEBUG)) {
-          log.d(TAG, '----emitOnLoadTabPageDataEvent---设置数据--->>>>'
+          log.d(TAG, '--2--emitOnLoadTabPageDataEvent---设置数据--->>>>'
               + ' caller: ' + caller
               + ' pageIndex: ' + pageIndex
               + ' sectionIndex: ' + sectionIndex
@@ -801,6 +832,7 @@ export default defineComponent({
         if ((i != pageIndex) &&
             ((i != lastTabPageIndex) || ((i == lastTabPageIndex) && ((pageIndex - lastTabPageIndex) > 1))) &&
             pageState &&
+            Math.abs(i - pageIndex) > 1 &&
             pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '------设置数据--调用setPageStateRecycled--END->>>>' +
