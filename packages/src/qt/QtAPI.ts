@@ -30,6 +30,43 @@ import {createQtQRCodeAPI, QtQRCodeAPI} from "../qrcode/QtQRCodeAPI";
 import {createQtRowAPI, QtRowAPI} from "../row/QtRowAPI";
 import {createQtVirtualViewAPI, QtVirtualViewAPI} from "../utils/QtVirtualViewAPI";
 import {createQtIndicatorViewAPI, QtIndicatorViewAPI} from "../list-indicator/QtIndicatorViewAPI";
+import {
+  ES,
+  ESActionBar,
+  ESAppList,
+  ESAudio,
+  ESBrightness,
+  ESBroadcast,
+  ESContentProvider,
+  ESDevelop,
+  ESDevice,
+  ESDisplay,
+  ESDownload,
+  ESEventBus,
+  ESFocus,
+  ESIAC,
+  ESLocalStorage,
+  ESLocation,
+  ESLog,
+  ESLogUpload,
+  ESNetwork,
+  ESPermission,
+  ESPlugin,
+  ESPower,
+  ESRuntime,
+  ESService,
+  ESShareData,
+  ESToast,
+  ESUpload,
+  ESUsbDevice,
+  ESXLog,
+  log, es, develop, toast, storage,
+  device, display, network, appList, power,
+  permission, usbDevice, broadcast, audio, shareData,
+  runtime, plugin, download, upload, actionBar,
+  iac, location, focus, provider, eventBus,
+  xlog, logUpload, brightness, service,
+} from "@extscreen/es3-core";
 
 export interface QtAPI {
   view: QtViewAPI
@@ -63,6 +100,35 @@ export interface QtAPI {
   row: QtRowAPI
   virtualView: QtVirtualViewAPI
   indicator: QtIndicatorViewAPI
+  log: ESLog
+  es: ES
+  develop: ESDevelop
+  toast: ESToast
+  storage: ESLocalStorage
+  device: ESDevice
+  display: ESDisplay
+  network: ESNetwork
+  appList: ESAppList
+  power: ESPower
+  permission: ESPermission
+  usbDevice: ESUsbDevice
+  broadcast: ESBroadcast
+  audio: ESAudio
+  shareData: ESShareData
+  runtime: ESRuntime
+  plugin: ESPlugin
+  download: ESDownload
+  upload: ESUpload
+  actionBar: ESActionBar
+  iac: ESIAC
+  location: ESLocation
+  focus: ESFocus
+  provider: ESContentProvider
+  eventBus: ESEventBus
+  xlog: ESXLog
+  logUpload: ESLogUpload
+  brightness: ESBrightness
+  service: ESService
 }
 
 export function createQtAPI(): QtAPI {
@@ -135,5 +201,34 @@ export function createQtAPI(): QtAPI {
     row: rowAPI,
     virtualView: virtualViewAPI,
     indicator: indicatorViewAPI,
+    log: log,
+    es: es,
+    develop: develop,
+    toast: toast,
+    storage: storage,
+    device: device,
+    display: display,
+    network: network,
+    appList: appList,
+    power: power,
+    permission: permission,
+    usbDevice: usbDevice,
+    broadcast: broadcast,
+    audio: audio,
+    shareData: shareData,
+    runtime: runtime,
+    plugin: plugin,
+    download: download,
+    upload: upload,
+    actionBar: actionBar,
+    iac: iac,
+    location: location,
+    focus: focus,
+    provider: provider,
+    eventBus: eventBus,
+    xlog: xlog,
+    logUpload: logUpload,
+    brightness: brightness,
+    service: service,
   }
 }
