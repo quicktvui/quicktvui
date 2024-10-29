@@ -17,11 +17,8 @@ import {defineComponent, ref, onBeforeUnmount, onMounted, toRaw, watchEffect, on
 import {QTListViewItem} from "../list-view/core/QTListViewItem";
 import useBaseView from "../base/useBaseView";
 import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
-import {
-  ESIListView
-} from "@extscreen/es3-component";
 
-import useBaseListView from "../list/useBaseListView";
+import useListView from "../list/useListView";
 
 export default defineComponent({
   name: "qt-grid-view",
@@ -211,7 +208,7 @@ export default defineComponent({
     })
     const {
       scrollToPosition,
-    } = useBaseListView(tv_list);
+    } = useListView(tv_list);
 
     watchEffect(() => {
       if (props.openPage && !props.listData) {
@@ -316,7 +313,7 @@ export default defineComponent({
     return {
       tv_list,
       ...useBaseView(tv_list),
-      ...useBaseListView(tv_list),
+      ...useListView(tv_list),
       init,
       onItemClick,
       onItemBind,
