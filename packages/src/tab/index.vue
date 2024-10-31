@@ -333,7 +333,7 @@ export default defineComponent({
       default: () => ({width: 1920, height: 1080})
     },
     tabs: {
-      type: Array<any>,
+      type: Array,
       default:()=>[]
     }
   },
@@ -377,6 +377,25 @@ export default defineComponent({
       const pageData = tabDataManager.getTabPageDataState(pageIndex)
       if (pageData) {
         pageData.state = state
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+
+          let st = ""
+          if (state == QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
+            st = '初始化'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_IDLE) {
+            st = '空闲'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_BUSY) {
+            st = '加载中'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_COMPLETE) {
+            st = '完成'
+          } else if (state == QTTabPageState.QT_TAB_PAGE_STATE_ERROR) {
+            st = '错误'
+          }
+          log.d(TAG, '---------设置数据-----设置状态----->>>>' +
+              ' pageIndex:' + pageIndex +
+              ' state:' + st
+          )
+        }
         tabDataManager.setPageDataState(pageIndex, pageData)
       }
     }
@@ -723,18 +742,42 @@ export default defineComponent({
         log.d(TAG, '----------设置数据----onTabPageLoadData---加载数据开始---->>>>pageIndex:' + pageIndex)
       }
       setPageStateReset(pageIndex)
-      emitOnLoadTabPageDataEvent(pageIndex, useDiff, 0)
+      emitOnLoadTabPageDataEvent('onTabPageLoadData', pageIndex, useDiff, 0)
       if (log.isLoggable(ESLogLevel.DEBUG)) {
         log.d(TAG, '----------设置数据----onTabPageLoadData---加载数据结束---->>>>pageIndex:' + pageIndex)
       }
     }
 
-    function emitOnLoadTabPageDataEvent(pageIndex: number, useDiff: boolean, sectionIndex: number) {
+    function emitOnLoadTabPageDataEvent(caller: string, pageIndex: number, useDiff: boolean, sectionIndex: number) {
       let pageNo = getTabPageDataNo(pageIndex)
       let pageData = tabDataManager.getTabPageDataState(pageIndex)
+
+
+      if (log.isLoggable(ESLogLevel.DEBUG)) {
+        log.d(TAG, '--1--emitOnLoadTabPageDataEvent---设置数据--->>>>'
+            + ' caller: ' + caller
+            + ' pageIndex: ' + pageIndex
+            + ' sectionIndex: ' + sectionIndex
+            + ' preloadNumber: ' + props.preloadNumber
+            + ' state: ' + pageData?.state
+        )
+      }
+
       if (pageData && (pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_IDLE
           || pageData.state === QTTabPageState.QT_TAB_PAGE_STATE_INIT)) {
         const sectionList = tabDataManager.getSectionList(pageIndex)
+
+        if (log.isLoggable(ESLogLevel.DEBUG)) {
+          log.d(TAG, '--2--emitOnLoadTabPageDataEvent---设置数据--->>>>'
+              + ' caller: ' + caller
+              + ' pageIndex: ' + pageIndex
+              + ' sectionIndex: ' + sectionIndex
+              + ' preloadNumber: ' + props.preloadNumber
+              + ' sectionLength: ' + sectionList.length
+              + ' section: ', sectionList
+          )
+        }
+
         if (sectionIndex >= (sectionList.length - props.preloadNumber - 1)) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '---------设置数据-----<<<<<加载更多数据>>>>>----->>>>' +
@@ -750,7 +793,9 @@ export default defineComponent({
           }
         } else {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
-            log.d(TAG, '----设置数据------loadPageData--preloadNumber错误-->>>>', pageIndex)
+            log.d(TAG, '----设置数据------loadPageData--preloadNumber错误-->>>>',
+                pageIndex
+            )
           }
         }
       } else {
@@ -787,6 +832,7 @@ export default defineComponent({
         if ((i != pageIndex) &&
             ((i != lastTabPageIndex) || ((i == lastTabPageIndex) && ((pageIndex - lastTabPageIndex) > 1))) &&
             pageState &&
+            Math.abs(i - pageIndex) > 1 &&
             pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(TAG, '------设置数据--调用setPageStateRecycled--END->>>>' +
@@ -809,7 +855,7 @@ export default defineComponent({
       //
       const pageData = tabDataManager.getTabPageDataState(pageIndex)
       if (pageData && pageData.sectionBindIndex >= -1) {
-        emitOnLoadTabPageDataEvent(pageIndex, false, pageData.sectionBindIndex)
+        emitOnLoadTabPageDataEvent('onTabPageChanged', pageIndex, false, pageData.sectionBindIndex)
       }
       notifyTabContentSectionAttached()
 
@@ -961,7 +1007,7 @@ export default defineComponent({
         if (log.isLoggable(ESLogLevel.DEBUG)) {
           log.d(TAG, '----------loadPageData----bind-->>>>pageIndex:' + pageIndex)
         }
-        emitOnLoadTabPageDataEvent(pageIndex, false, sectionIndex)
+        emitOnLoadTabPageDataEvent('onTabPageChanged', pageIndex, false, sectionIndex)
       }
     }
 

@@ -9,6 +9,10 @@ export interface QTILottieView extends QTIView {
 
   loadFile(fileName: string): void
 
+  loadJsonFile(fileName: string): void
+
+  loadZipFile(filePath: string, keyCache: string): void
+
   loadUrl(url: string): void
 
   loadCacheUrl(url: string, cacheKey: string): void

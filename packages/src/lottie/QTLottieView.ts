@@ -1,12 +1,21 @@
 import {h, ref} from "vue";
 import {ESApp, Native} from "@extscreen/es3-vue";
 import {QTLottieRepeatMode} from "./QTLottieRepeatMode";
+import {QTLottieEvent} from "./QTLottieEvent";
 
 import useBaseView from '../base/useBaseView'
 
 function registerQTLottieView(app: ESApp) {
   app.component('qt-lottie-view', {
-    emits: ['animation-event'],
+    emits: [
+      'onAnimationStart',
+      'onAnimationEnd',
+      'onAnimationCancel',
+      'onAnimationRepeat',
+      'onAnimationUpdate',
+      'onAnimationPause',
+      'onAnimationResume',
+    ],
     setup(props, context) {
       const viewRef = ref()
 
@@ -18,6 +27,12 @@ function registerQTLottieView(app: ESApp) {
       }
       const loadUrl = (url) => {
         Native.callUIFunction(viewRef.value, 'lottie_url', [url]);
+      }
+      const loadJsonFile = (fileName) => {
+        Native.callUIFunction(viewRef.value, 'lottie_localRes', [fileName]);
+      }
+      const loadZipFile = (filePath, keyCache) => {
+        Native.callUIFunction(viewRef.value, 'lottie_zipPath', [filePath, keyCache]);
       }
       const loadCacheUrl = (url, cacheKey) => {
         Native.callUIFunction(viewRef.value, 'lottie_cache_url', [url, cacheKey]);
@@ -91,6 +106,8 @@ function registerQTLottieView(app: ESApp) {
       context.expose({
         loadRaw,
         loadFile,
+        loadJsonFile,
+        loadZipFile,
         loadUrl,
         loadCacheUrl,
         setFallbackResource,
@@ -123,8 +140,31 @@ function registerQTLottieView(app: ESApp) {
           'ESLottieViewComponent',
           {
             ref: viewRef,
-            onAnimationEvent: (evt) => {
-              context.emit('animation-event', evt);
+            onAnimationEvent: (evt: QTLottieEvent) => {
+              const value = evt.value ?? ''
+              switch (evt.eventName) {
+                case 'onAnimationStart':
+                  context.emit('onAnimationStart')
+                  break
+                case 'onAnimationEnd':
+                  context.emit('onAnimationEnd')
+                  break
+                case 'onAnimationCancel':
+                  context.emit('onAnimationCancel')
+                  break
+                case 'onAnimationRepeat':
+                  context.emit('onAnimationRepeat')
+                  break
+                case 'onAnimationUpdate':
+                  context.emit('onAnimationUpdate', value)
+                  break
+                case 'onAnimationPause':
+                  context.emit('onAnimationPause')
+                  break
+                case 'onAnimationResume':
+                  context.emit('onAnimationResume')
+                  break
+              }
             },
           },
           children

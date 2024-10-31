@@ -22,6 +22,7 @@ import {QTTabPage} from "./tab/QTTabPage";
 //
 import registerESListViewComponent from "./list-view/QTListViewComponent";
 import registerESListItemComponent from "./list-item/ESListItemComponent";
+import registerESIndicatorListViewComponent from "./list-indicator/QTIndicatorListViewComponent";
 import registerQTLoadingViewComponent from "./loading/QTLoadingView";
 import registerQTWebView from "./webview/QTWebView";
 import registerQTX5WebView from "./x5webview/QTX5WebView";
@@ -35,7 +36,6 @@ import registerQTLottieView from "./lottie/QTLottieView";
 import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
 import registerQTIReplaceChildView from "./replace-child/QTReplaceChildView";
-
 
 export {qtRef, qtWatchAll, qtGetParent, qtTabsRef, parseChildUpdate, qtDiff} from "./qtListen/index";
 export type { IQtTabDatas } from "./qtListen/index";
@@ -82,6 +82,7 @@ export const QuickTVUI = (Vue) => {
   registerQTLoadingViewComponent(Vue)
   registerESListViewComponent(Vue)
   registerESListItemComponent(Vue)
+  registerESIndicatorListViewComponent(Vue)
   registerQTWebView(Vue)
   registerQTX5WebView(Vue)
   registerQTQRCodeView(Vue)
@@ -100,6 +101,7 @@ export const QuickTVUI = (Vue) => {
   }
 
   const qtAPI: QtAPI = createQtAPI()
+  // @ts-ignore
   global.qt = qtAPI
 }
 
@@ -281,6 +283,7 @@ export type {QTIScrollView} from './scroll-view/QTIScrollView'
 export type {QTILottieView} from './lottie/QTILottieView'
 export {QTLottieRepeatMode} from './lottie/QTLottieRepeatMode'
 export {QTLottieAsyncUpdates} from './lottie/QTLottieAsyncUpdates'
+export {QTLottieEvent} from './lottie/QTLottieEvent'
 
 //--------------------------------QTGradient---------------------------------
 export type {QTGradient} from './gradient/QTGradient'

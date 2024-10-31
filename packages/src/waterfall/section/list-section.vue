@@ -43,6 +43,8 @@
         enableFirstFocusAtStart="${enableFirstFocusAtStart}"
         firstFocusChild="${firstFocusChild}"
         sid="${listSID}"
+        flexStyle="${contentStyle}"
+        layout="${contentLayout}"
         :cachePool="cachePool"
         :onScrollEnable="false"
         :setSelectChildPosition="0"
@@ -215,6 +217,7 @@ export default defineComponent({
 }
 
 .tab-list-section-list-css {
+  position: absolute;
 }
 
 .tab-list-section-title-text-css {
