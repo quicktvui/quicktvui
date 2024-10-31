@@ -28,10 +28,14 @@ import {ESComponent} from "@extscreen/es3-component";
 
 app.use(ESComponent);
 
-import '@quicktvui/quicktvui3/dist/index.css';
-import {QuickTVUI} from "@quicktvui/quicktvui3";
 
+import {QuickTVUI} from "@quicktvui/quicktvui3";
+// import '@quicktvui/quicktvui3/dist/index.css';
 app.use(QuickTVUI);
+
+// import {QuickTVUI} from "../packages/src";
+// import '../packages/src/theme/button.css';
+import '../packages/dist/index.css';
 
 
 
