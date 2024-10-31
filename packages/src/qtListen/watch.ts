@@ -8,11 +8,11 @@ import qtType, { qtLongestSequenceSplit, typeEnum, QtChangeData } from './types'
 export interface IQtWatchOptions {
   init: (datas: any[]) => void;
   add: (datas: any[]) => void;
-  update: (position: number, dataMaps: QtChangeData, oldTarget:any[]) => void;//keyPath?:Map<any,any[]>
+  update: (position: number, dataMaps: QtChangeData, oldTarget: any[]) => void;//keyPath?:Map<any,any[]>
   insert: (position: number, datas: any[]) => void;
   delete: (position: number, count: number) => void;
   clear: () => void;
-  resetValue?:(datas:any[])=>void;
+  resetValue?: (datas: any[]) => void;
   [k: string]: any
 }
 export class QtRefUid {
@@ -20,23 +20,23 @@ export class QtRefUid {
   /**
    * 生成全局唯一id
    */
-  createUid(key:string='_'){
+  createUid(key: string = '_') {
     this.pointer++
     return this.pointer + key + Date.now()
   }
   /**
    * 对象添加uid
    */
-  addUid(data:any, uk?:string, oldData?:any){
-    if(data !== null && typeof data === 'object'){
-      if(!data.__qt_key_){
+  addUid(data: any, uk?: string, oldData?: any) {
+    if (data !== null && typeof data === 'object') {
+      if (!data.__qt_key_) {
         data.__qt_key_ = this.createUid(uk)
       }
-      if(!data._id){
-        if(oldData && oldData._id){
+      if (!data._id) {
+        if (oldData && oldData._id) {
           data._id = oldData._id
         } else {
-          data._id = 'sid-'+data.__qt_key_
+          data._id = 'sid-' + data.__qt_key_
         }
         // data.listSID = 'listSID_'+data.__qt_key_
       }
@@ -46,26 +46,26 @@ export class QtRefUid {
   /**
    * 批量添加uid
    */
-  addUidBatch(arr:any[], uk?:string, oldArr?:any[]){
+  addUidBatch(arr: any[], uk?: string, oldArr?: any[]) {
     for (let i = 0; i < arr.length; i++) {
-      this.addUid(arr[i], uk, oldArr?oldArr[i]:null)
+      this.addUid(arr[i], uk, oldArr ? oldArr[i] : null)
     }
   }
 }
 export const qtRefUid = new QtRefUid()
 
-export const qtCloneObj = (target: object, isKey=true) => {
+export const qtCloneObj = (target: object, isKey = true) => {
   if (isObject(target)) {
     const res: any = isArray(target) ? [] : {}
     for (const k in target) {
       if (Object.prototype.hasOwnProperty.call(target, k)) {
         const targetItem = (target as any)[k]
         if (isObject(targetItem)) {
-          if(!isArray(targetItem)){
-            if(!targetItem.__qt_key_){
+          if (!isArray(targetItem)) {
+            if (!targetItem.__qt_key_) {
               qtRefUid.addUid(targetItem, k) //标记唯一值，diff对比时使用
             }
-            if(!targetItem.__qt_change_num_){
+            if (!targetItem.__qt_change_num_) {
               targetItem.__qt_change_num_ = 1//标记节点是否被修改，diff对比使用
             }
           }
@@ -88,30 +88,30 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
 
   let watchNextTickFlag = false
   const watchNextTick = (fn: any) => {
-    if(!watchNextTickFlag){
+    if (!watchNextTickFlag) {
       watchNextTickFlag = true
-      nextTick(()=>{
+      nextTick(() => {
         watchNextTickFlag = false
         fn()
       })
     }
   }
-  
+
   const _effect = new QtReactiveEffect(
     () => {
       qtTrack(__v_raw, emReactiveFlags.WATCH_ALL)
     },
     (target, prop, newValue, type, oldValue) => {
-      const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target 
+      const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target
       const _currentType = qtType.getFlag(target).get(typeEnum.currentType)
       if (type === emReactiveFlags.RESET_REF_VALUE) {
         options.resetValue?.(newValue)
       }
-      if(type === emReactiveFlags.RESET_REF_VALUE && !(_currentType === typeEnum.concat && oldTarget && (oldTarget.length||Object.keys(newValue).length))){
+      if (type === emReactiveFlags.RESET_REF_VALUE && !(_currentType === typeEnum.concat && oldTarget && (oldTarget.length || Object.keys(newValue).length))) {
         // if (_isInit && !((oldTarget && oldTarget.length) && _currentType === typeEnum.concat)) {
         // 初始化数据和清空数据时，不走异步，否则页面会有闪烁或卡顿的情况
         if (newValue && (newValue.length || Object.keys(newValue).length)) {
-          options.init(qtCloneObj(newValue,false))
+          options.init(qtCloneObj(newValue, false))
         } else {
           options.clear()
         }
@@ -122,10 +122,10 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
         qtType.deleteType(__v_raw)
         qtType.deleteType(_target)
         qtType.clear()
-        oldTarget = qtCloneObj(__v_raw) 
-      } else  if (!(oldTarget && (oldTarget.length || Object.keys(newValue).length)) && _target) {
-        watchNextTick(()=>{
-          options.init(qtCloneObj(_target,false))
+        oldTarget = qtCloneObj(__v_raw)
+      } else if (!(oldTarget && (oldTarget.length || Object.keys(newValue).length)) && _target) {
+        watchNextTick(() => {
+          options.init(qtCloneObj(_target, false))
           __v_raw = _target
 
           qtType.deleteType(oldTarget)
@@ -133,9 +133,9 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
           qtType.deleteType(__v_raw)
           qtType.deleteType(_target)
           qtType.clear()
-          oldTarget = qtCloneObj(__v_raw) 
+          oldTarget = qtCloneObj(__v_raw)
         })
-      } else if(_currentType === typeEnum.splice && !(target && (target.length||Object.keys(newValue).length))){
+      } else if (_currentType === typeEnum.splice && !(target && (target.length || Object.keys(newValue).length))) {
         options.clear()
         __v_raw = target
 
@@ -144,10 +144,10 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
         qtType.deleteType(__v_raw)
         qtType.deleteType(_target)
         qtType.clear()
-        oldTarget = qtCloneObj(__v_raw) 
+        oldTarget = qtCloneObj(__v_raw)
       } else {
         watchNextTick(() => {
-          const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target        
+          const _target = type === emReactiveFlags.RESET_REF_VALUE ? newValue : target
           const types = qtType.getType(target)
           // console.log('--type', type, target, types?.size, '异步1',_currentType)
           // 如果单个时间片段内只进行了一种类型的数组操作，则优先执行数组操作，否则就需要进行diff算法对比
@@ -162,18 +162,18 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
               }
               if (key === typeEnum.qtSet) {
                 // console.log(tvalue,'-tvalue')
-                if(tvalue.end-tvalue.start +1 == tvalue.rootUpdateCount){
-                  options.update(tvalue.start, tvalue,oldTarget)
-                }else{
+                if (tvalue.end - tvalue.start + 1 == tvalue.rootUpdateCount) {
+                  options.update(tvalue.start, tvalue, oldTarget)
+                } else {
                   const equence = qtLongestSequenceSplit(tvalue)
-                  equence.forEach((evalue, epos)=>{
+                  equence.forEach((evalue, epos) => {
                     // console.log(evalue,'-epos',epos)
-                    options.update(evalue.start, evalue,oldTarget)
+                    options.update(evalue.start, evalue, oldTarget)
                   })
                 }
               }
               if (key === typeEnum.splice) {
-                if(tvalue.deleteCount){
+                if (tvalue.deleteCount) {
                   options.delete(tvalue.start, tvalue.deleteCount)
                 }
                 if (tvalue.datas.size) {
@@ -190,15 +190,15 @@ export function qtWatchAll(target: any, options: IQtWatchOptions) {
           } else {
             qtDiff(oldTarget, _target, options)
           }
-  
+
           // if(type === emReactiveFlags.RESET_REF_VALUE){}
           qtType.deleteType(oldTarget)
           qtType.deleteType(target)
           qtType.deleteType(__v_raw)
           qtType.deleteType(_target)
           qtType.clear()
-  
-          oldTarget = qtCloneObj(__v_raw) 
+
+          oldTarget = qtCloneObj(__v_raw)
         })
       }
 

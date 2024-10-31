@@ -32,6 +32,7 @@ import qt_waterfall_item_card_page from "./qt-waterfall-item-card-page.vue"
 import qt_waterfall_item_card_place_holder_page from "./qt-waterfall-item-card-place-holder-page.vue"
 import qt_waterfall_qtRef_page from "./qt-waterfall-qtRef.vue"
 import qt_waterfall_item_plugin_page from "./qt-waterfall-item-plugin-page.vue"
+import qt_waterfall_qtRef_sid from "./qt-waterfall-qtRef-sid.vue"
 
 
 const QTWaterfallPageList = {
@@ -46,6 +47,10 @@ const QTWaterfallPageList = {
   qt_waterfall_qtRef_page: {
     name: 'qtRef-waterfall',
     component: qt_waterfall_qtRef_page,
+  },
+  qt_waterfall_qtRef_sid: {
+    name: 'qtRef-waterfall-sid',
+    component: qt_waterfall_qtRef_sid,
   },
 };
 
