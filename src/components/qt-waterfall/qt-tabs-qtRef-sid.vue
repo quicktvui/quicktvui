@@ -9,10 +9,12 @@
     <template #waterfall-item>
       <SidItem1 />
       <SidItem3 />
+      <SidItem4 />
     </template>
     <template v-slot:waterfall-list-item>
       <SidItem2 />
       <SidItem3 />
+      <SidItem4 />
     </template>
     <template v-slot:waterfall-section>
       <SidSection101 />
@@ -25,6 +27,7 @@ import { QTWaterfallItem, QTWaterfallSection, QTWaterfallSectionType, qtTabsRef 
 import SidItem1 from './item/sid-item1.vue'
 import SidItem2 from './item/sid-item2.vue'
 import SidItem3 from './item/sid-item3.vue'
+import SidItem4 from './item/sid-item4.vue'
 import SidSection101 from './item/sid-section101.vue'
 import { useESToast } from '@extscreen/es3-core'
 import { Native } from '@extscreen/es3-vue'
@@ -57,9 +60,15 @@ const onTabPageItemClickFn = (pageIndex, sectionIndex, itemIndex, item, e) => {
     ])
   } else if (e.name === 'del-list'){
     deleteBySid(sid)
+  } else if(e.name === 'del-list-item'){
+    sid = e.item.list[0]._id
+    deleteBySid(sid)
   } else if (e.name === 'add-section'){
     sid = tabDatas.value[pageIndex]._id
     addBySid(sid, [getFlexSection('addsection')])
+  } else if(e.name === 'del-section'){
+    sid = tabDatas.value[pageIndex].content[sectionIndex]._id//板块id
+    deleteBySid(sid)
   }
 }
 
@@ -73,7 +82,7 @@ const deleteBySid = (sid) => {
 }
 // 更新
 const updateBySid = (sid, newData) => {
-  Native.callNativeWithPromise('ExtendModule', 'updateVirtualNode', sid, newData, (res)=>{
+  Native.callNativeWithPromise('FastListModule', 'updateVirtualNode', sid, newData, (res)=>{
     if(res && res.result){
       toast.showShortToast('成功')
     } else {
@@ -129,6 +138,7 @@ function buildPosterItemList(size = 15, type=1): Array<QTWaterfallItem> {
     data.push(opCellData(type))
   }
   data.push(opCellData(3))
+  data.push(opCellData(4))
   return data;
 }
 const getFlexSection = (flag = ''):QTWaterfallSection => {
@@ -143,7 +153,7 @@ const getFlexSection = (flag = ''):QTWaterfallSection => {
       marginBottom: 10,
       fontSize: 50
     },
-    itemList: buildPosterItemList(5),
+    itemList: buildPosterItemList(4),
     style: {
       width: 1920,
       height: -1,

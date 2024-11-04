@@ -49,6 +49,10 @@ const QTWaterfallPageList = {
     name: 'qtRef-waterfall',
     component: qt_waterfall_qtRef_page,
   },
+  qt_waterfall_qtRef_sid: {
+    name: 'qt-waterfall-qtRef-sid',
+    component: qt_waterfall_qtRef_sid,
+  },
   qt_tabs_qtRef_sid: {
     name: 'qtRef-tabs-sid',
     component: qt_tabs_qtRef_sid,

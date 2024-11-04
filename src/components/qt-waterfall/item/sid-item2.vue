@@ -8,9 +8,10 @@
     </div>
   </tv-list>
   <div :focusable="false" class="qt-waterfall-css-ref-sid-list-btn">
-    <text-view name="add-list" :focusable="true" text="增加" gravity="center" class="qt-waterfall-css-ref-sid-list-btn-txt" />
+    <text-view name="add-list" :focusable="true" text="加一条" gravity="center" class="qt-waterfall-css-ref-sid-list-btn-txt" />
     <text-view name="update-list" :focusable="true" text="更新" gravity="center" class="qt-waterfall-css-ref-sid-list-btn-txt" />
-    <text-view name="del-list" :focusable="true" text="删除" gravity="center" class="qt-waterfall-css-ref-sid-list-btn-txt" />
+    <text-view name="del-list" :focusable="true" text="删格子" gravity="center" class="qt-waterfall-css-ref-sid-list-btn-txt" />
+    <text-view name="del-list-item" :focusable="true" text="删一条" gravity="center" class="qt-waterfall-css-ref-sid-list-btn-txt" />
   </div>
 </div>
 </template>
@@ -39,9 +40,16 @@
 .qt-waterfall-css-ref-sid-list-btn-txt{
   width: 80px;
   height: 30px;
-  font-size: 26px;
+  font-size: 20px;
   color: #000000;
   background-color: #ffffff;
   focus-color: red;
+}
+.itl_box_list_item_txt{
+  height: 50px;
+  font-size: 30px;
+  color: #000000;
+  focus-color: #ffffff;
+  background-color: transparent;
 }
 </style>

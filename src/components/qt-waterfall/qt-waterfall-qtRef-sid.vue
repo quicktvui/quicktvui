@@ -70,9 +70,9 @@ const addBySid = (sid, newList) => {
 const deleteBySid = (sid) => {
   toast.showShortToast(sid)
 }
-// 更新
+// 更新 ExtendModule
 const updateBySid = (sid, newData) => {
-  Native.callNativeWithPromise('ExtendModule', 'updateVirtualNode', sid, newData, (res)=>{
+  Native.callNativeWithPromise('FastListModule', 'updateVirtualNode', sid, newData, (res)=>{
     if(res && res.result){
       toast.showShortToast('成功')
     } else {
