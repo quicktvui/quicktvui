@@ -1,44 +1,42 @@
 <template>
-  <qt-waterfall 
-    sid="waterfall-ref-sid-1028" 
-    :list-data="waterfallDatas" 
-    class="qt-waterfall-css-ref-sid"
-    @item-click="onItemClickFn"
+  <qt-tabs
+    ref="tabRef"
+    class="tabs-sid-css" sid="tabs-ref-sid-1104"
+    :tabs="tabDatas"
+    tabPageClass="tabs-sid-css-page"
+    @onTabPageItemClick="onTabPageItemClickFn"
   >
-    <template v-slot:item>
+    <template #waterfall-item>
       <SidItem1 />
       <SidItem3 />
     </template>
-    <template v-slot:list-item>
+    <template v-slot:waterfall-list-item>
       <SidItem2 />
       <SidItem3 />
     </template>
-  </qt-waterfall>
+    <template v-slot:waterfall-section>
+      <SidSection101 />
+    </template>
+  </qt-tabs>
 </template>
-
 <script lang="ts" setup>
-import { ref, onMounted, toRaw } from "vue";
-import {
-  QTWaterfall,
-  QTPoster,
-  QTWaterfallSection,
-  QTWaterfallSectionType
-} from "@quicktvui/quicktvui3";
-import { qtRef, QTIWaterfall, QTWaterfallItem, VirtualView } from '@quicktvui/quicktvui3';
-import { useESToast } from "@extscreen/es3-core";
-import { Native } from "@extscreen/es3-vue";
+import { onMounted } from 'vue'
+import { QTWaterfallItem, QTWaterfallSection, QTWaterfallSectionType, qtTabsRef } from '@quicktvui/quicktvui3'
 import SidItem1 from './item/sid-item1.vue'
 import SidItem2 from './item/sid-item2.vue'
 import SidItem3 from './item/sid-item3.vue'
+import SidSection101 from './item/sid-section101.vue'
+import { useESToast } from '@extscreen/es3-core'
+import { Native } from '@extscreen/es3-vue'
 
-const waterfallDatas = qtRef<QTWaterfallSection[]>()
 const toast = useESToast()
+const tabDatas = qtTabsRef()
 
-const onItemClickFn = (e) => {
-  // console.log(e, '-lsj-e')
+const onTabPageItemClickFn = (pageIndex, sectionIndex, itemIndex, item, e) => {
+  console.log(pageIndex, sectionIndex, itemIndex, item, e, '--lsj-click')
   let sid = e.item._id//获取自己sid
   if(e.name == 'add'){
-    sid = waterfallDatas.value[e.parentPosition]._id//获取父级sid
+    sid = tabDatas.value[pageIndex].content[sectionIndex]._id//获取父级sid
     addBySid(sid, [opCellData()])
   } else if(e.name == 'del'){
     deleteBySid(sid)
@@ -59,6 +57,9 @@ const onItemClickFn = (e) => {
     ])
   } else if (e.name === 'del-list'){
     deleteBySid(sid)
+  } else if (e.name === 'add-section'){
+    sid = tabDatas.value[pageIndex]._id
+    addBySid(sid, [getFlexSection('addsection')])
   }
 }
 
@@ -80,11 +81,26 @@ const updateBySid = (sid, newData) => {
     }
   })
 }
-onMounted(()=>{
-  waterfallDatas.value = getList('initFn')
-  console.log(waterfallDatas.value,'-lsj-waterfallDatas.value')
+
+onMounted(() => {
+  tabDatas.value = mockNavData() //初始化数据
+  // console.log(tabDatas.value,'-lsj-tabDatas.value')
 })
 
+// 模拟接口数据
+const mockNavData = () => {
+  return new Array(10).fill(1)
+    .map((item, index) => {
+      return {
+        _id: qt.uid.createUid('tab'),
+        type: 20000,
+        text: `tab${index}`,
+        titleSize: 20,
+        decoration: { left: 40, right: 20 },
+        content: getList(`tab${index}`, index)
+      }
+    })
+}
 const opCellData = (type=1) => {
   return {
     _id: qt.uid.createUid('poster'),
@@ -130,7 +146,7 @@ const getFlexSection = (flag = ''):QTWaterfallSection => {
     itemList: buildPosterItemList(5),
     style: {
       width: 1920,
-      // height: -1,
+      height: -1,
     }
   }
 }
@@ -149,19 +165,36 @@ const getListSection = (flag = ''):QTWaterfallSection => {
     itemList: buildPosterItemList(3, 2),
     style: {
       width: 1920,
-      // height: -1,
+      height: 450,
     }
   }
 }
-const getList = (flag = '') => {
-  return [getFlexSection(flag),getListSection(flag)]
+const getList = (flag = '', size=0) => {
+  const res = new Array(size+2).fill(1).map((item,index)=>{
+    return index%2==0 ?  getFlexSection(flag) : getListSection(flag)
+  })
+  res.push({
+    _id: qt.uid.createUid('section'),
+    type: 101, title: '',
+    titleStyle: { width: 0, height: 0 },
+    itemList: [],
+    style: {
+      width: 1920,
+      height: 60,
+    }
+  })
+  return res
 }
 </script>
-
 <style>
-.qt-waterfall-css-ref-sid {
+.tabs-sid-css {
   width: 1920px;
   height: 1080px;
+  background-color: transparent;
+}
+.tabs-sid-css-page {
+  width: 1920px;
+  height: 980px;
   background-color: transparent;
 }
 </style>
