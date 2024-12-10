@@ -26,7 +26,7 @@ export default defineComponent({
     }
 
     function onESCreate(params) {
-      webview.value?.loadUrl('https://juejin.cn')
+      webview.value?.loadUrl('https://quicktvui.com/zh-CN/guide/basic/installation.html')
     }
 
     return {
