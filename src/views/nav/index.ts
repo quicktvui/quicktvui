@@ -30,6 +30,9 @@ import qt_nav_swiper_page from './qt-nav-swiper-page.vue'
 import qt_nav_lottie_page from './qt-nav-lottie-page.vue'
 import qt_indicator_list_view_page from './qt-nav-indicator-list-view-page.vue'
 
+//
+import qt_nav_module_page from './qt-nav-module-page';
+
 const QTAPINavPageList = {
   qt_nav_view_page: {
     name: 'QTView',
@@ -155,6 +158,11 @@ const QTAPINavPageList = {
   //   name: 'QTIndicatorListView',
   //   component: qt_indicator_list_view_page,
   // },
+
+  qt_nav_module_page: {
+    name: 'QTModule',
+    component: qt_nav_module_page,
+  },
 };
 
 export default QTAPINavPageList;
