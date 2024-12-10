@@ -131,30 +131,30 @@ const QTAPINavPageList = {
     name: 'QTCollapse',
     component: qt_nav_collapse_page,
   },
-  qt_nav_scroll_view_page: {
-    name: 'QTScrollView',
-    component: qt_nav_scroll_view_page,
-  },
+  // qt_nav_scroll_view_page: {
+  //   name: 'QTScrollView',
+  //   component: qt_nav_scroll_view_page,
+  // },
   qt_nav_plugin_view_page: {
     name: 'QTPluginView',
     component: qt_nav_plugin_view_page,
   },
-  qt_nav_api_page: {
-    name: 'QTAPI',
-    component: qt_nav_api_page,
-  },
-  qt_nav_swiper_page: {
-    name: 'QTSwiper',
-    component: qt_nav_swiper_page,
-  },
+  // qt_nav_api_page: {
+  //   name: 'QTAPI',
+  //   component: qt_nav_api_page,
+  // },
+  // qt_nav_swiper_page: {
+  //   name: 'QTSwiper',
+  //   component: qt_nav_swiper_page,
+  // },
   qt_nav_lottie_page: {
     name: 'QTLottie',
     component: qt_nav_lottie_page,
   },
-  qt_indicator_list_view_page: {
-    name: 'QTIndicatorListView',
-    component: qt_indicator_list_view_page,
-  },
+  // qt_indicator_list_view_page: {
+  //   name: 'QTIndicatorListView',
+  //   component: qt_indicator_list_view_page,
+  // },
 };
 
 export default QTAPINavPageList;
