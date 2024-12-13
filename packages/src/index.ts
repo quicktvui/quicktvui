@@ -191,6 +191,7 @@ export type {QTListViewItemState} from './list-view/core/QTListViewItemState'
 
 //GridView
 export type {QTGridViewItemFunctionParams} from './grid-view/core/QTGridViewItemFunctionParams'
+export type {QTGridViewItem} from './grid-view/core/QTGridViewItem'
 
 //NavBar
 export type {QTINavBar} from './nav-bar/QTINavBar'
