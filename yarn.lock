@@ -1084,10 +1084,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-service-player/-/es3-audio-service-player-0.0.5.tgz#caa764c135148f9e498527ffcf72c50e733bc55f"
   integrity sha512-DqwYyXEioDAyJQkQby3+Bkwqq9q7xFJ+JzBUxGnSELR4CtW5Mg4SWNZZ73ZB/DmZPkB8m+MsDBNZM5qkTIKB9A==
 
-"@extscreen/es3-component@1.0.29":
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.29.tgz#ac91419b313acc1514d763a80ecef980d83906c0"
-  integrity sha512-2XTpZi7gquQpFK16QqGG3qQgACCMX9/xSqqC6W9g5EZPbqsmXr10n5r76/UWZ20BmXTwPWlHN9RCP9c/OHbBJg==
+"@extscreen/es3-component@1.0.32":
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.32.tgz#433c0389f3a6e5f4a3ea7f806d8fe1fb14b1a2dc"
+  integrity sha512-+5uxU0GYW5RkdIwua+AHkuuOxMDmL067QyRqxt8hUvlG5zDhh5OiCVA0kcrdiJvaVlOXQgedmEKWru6bq1lBCw==
 
 "@extscreen/es3-core@1.1.25":
   version "1.1.25"
