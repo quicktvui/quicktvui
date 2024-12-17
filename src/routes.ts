@@ -51,6 +51,7 @@ import {
 } from "./components/qt-tabs-data-binding";
 
 import QtModulePageList from "./components/qt-module";
+import QtComponentPageList from "./components/qt-component";
 
 const routes = [
     {
@@ -332,6 +333,12 @@ const routes = [
             path: `/module/${item}`,
             name: `module/${item}`,
             component: QtModulePageList[item].component,
+        })),
+    ...Object.keys(QtComponentPageList)
+        .map(item => ({
+            path: `/component/${item}`,
+            name: `component/${item}`,
+            component: QtComponentPageList[item].component,
         })),
 ]
 

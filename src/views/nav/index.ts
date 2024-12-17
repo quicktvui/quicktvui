@@ -32,6 +32,7 @@ import qt_indicator_list_view_page from './qt-nav-indicator-list-view-page.vue'
 
 //
 import qt_nav_module_page from './qt-nav-module-page';
+import qt_nav_component_page from './qt-nav-component-page';
 
 const QTAPINavPageList = {
   qt_nav_view_page: {
@@ -162,6 +163,10 @@ const QTAPINavPageList = {
   qt_nav_module_page: {
     name: 'QTModule',
     component: qt_nav_module_page,
+  },
+  qt_nav_component_page: {
+    name: 'QTComponent',
+    component: qt_nav_component_page,
   },
 };
 
