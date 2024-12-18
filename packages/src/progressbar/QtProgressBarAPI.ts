@@ -1,4 +1,3 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {QTSeekBarMode} from "../seekbar/QTSeekBarMode";
 import {QTSeekBarGravity} from "../seekbar/QTSeekBarGravity";
@@ -11,8 +10,9 @@ import {QTIProgressBar} from "./QTIProgressBar";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
 import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtProgressBarAPI extends QtViewAPI {
+export interface QtProgressBarAPI extends QtBaseViewAPI {
 
   invalidateProgressBar(instance: string | Ref<QTIProgressBar | undefined>): void
 
@@ -267,7 +267,7 @@ export interface QtProgressBarAPI extends QtViewAPI {
   setStepsUrl(instance: string | Ref<QTIProgressBar | undefined>, urlArray: Array<string>): void
 }
 
-export function createQtProgressBarAPI(viewAPI: QtViewAPI): QtProgressBarAPI {
+export function createQtProgressBarAPI(viewAPI: QtBaseViewAPI): QtProgressBarAPI {
 
   function invalidateProgressBar(instance: string | Ref<QTIProgressBar | undefined>): void {
     if (isString(instance)) {

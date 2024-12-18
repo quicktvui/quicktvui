@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {QtBaseListViewAPI} from "../list/QtBaseListViewAPI";
 import {QTGridViewItem} from "./core/QTGridViewItem";
 import {Ref} from "@vue/reactivity";
 import {QTIGridView} from "./core/QTIGridView";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtGridViewAPI extends QtViewAPI, QtBaseListViewAPI {
+export interface QtGridViewAPI extends QtBaseViewAPI, QtBaseListViewAPI {
 
   init(instance: Ref<QTIGridView | undefined>, target: Array<QTGridViewItem>, isInit?: boolean): Array<QTGridViewItem>
 
@@ -23,7 +23,7 @@ export interface QtGridViewAPI extends QtViewAPI, QtBaseListViewAPI {
   setInitPosition(instance: Ref<QTIGridView | undefined>, position: number): void
 }
 
-export function createQtGridViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListViewAPI): QtGridViewAPI {
+export function createQtGridViewAPI(viewAPI: QtBaseViewAPI, listViewAPI: QtBaseListViewAPI): QtGridViewAPI {
 
   function init(instance: Ref<QTIGridView | undefined>, target: Array<QTGridViewItem>, isInit?: boolean): Array<QTGridViewItem> {
     if (instance.value) {

@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {QtBaseListViewAPI} from "../list/QtBaseListViewAPI";
 import {QTListViewItem} from "../list-view/core/QTListViewItem";
 import {Ref} from "@vue/reactivity";
 import {QTIIndicatorView} from "./core/QTIIndicatorView";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtIndicatorViewAPI extends QtViewAPI, QtBaseListViewAPI {
+export interface QtIndicatorViewAPI extends QtBaseViewAPI, QtBaseListViewAPI {
 
   init(instance: Ref<QTIIndicatorView | undefined>, target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem>
 
@@ -21,7 +21,7 @@ export interface QtIndicatorViewAPI extends QtViewAPI, QtBaseListViewAPI {
   setIndicatorType(instance: Ref<QTIIndicatorView | undefined>, type: number): void
 }
 
-export function createQtIndicatorViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListViewAPI): QtIndicatorViewAPI {
+export function createQtIndicatorViewAPI(viewAPI: QtBaseViewAPI, listViewAPI: QtBaseListViewAPI): QtIndicatorViewAPI {
 
   function init(instance: Ref<QTIIndicatorView | undefined>, target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> {
     if (instance.value) {

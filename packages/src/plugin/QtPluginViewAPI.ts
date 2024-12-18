@@ -1,16 +1,16 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
 import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTIPluginView} from "./QTIPluginView";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtPluginViewAPI extends QtViewAPI {
+export interface QtPluginViewAPI extends QtBaseViewAPI {
   dispatchFunction(instance: string | Ref<QTIPluginView | undefined>,
                    funName: string, params: Array<any>): Promise<any>
 }
 
-export function createQtPluginViewAPI(viewAPI: QtViewAPI): QtPluginViewAPI {
+export function createQtPluginViewAPI(viewAPI: QtBaseViewAPI): QtPluginViewAPI {
 
   function dispatchFunction(instance: string | Ref<QTIPluginView | undefined>,
                             funName: string, params: Array<any>): Promise<any> {

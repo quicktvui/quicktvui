@@ -1,4 +1,3 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
@@ -11,8 +10,9 @@ import {
   QTAnimationValueType,
   QTAnimatorId
 } from "./types";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtAnimationAPI extends QtViewAPI {
+export interface QtAnimationAPI extends QtBaseViewAPI {
 
   setPivotX(instance: string | Ref<QTIAnimation | undefined>, pivotX: number)
 
@@ -264,7 +264,7 @@ export interface QtAnimationAPI extends QtViewAPI {
     interpolator?: QTAnimationInterpolator)
 }
 
-export function createQtAnimationAPI(viewAPI: QtViewAPI): QtAnimationAPI {
+export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
 
   function setPivotX(instance: string | Ref<QTIAnimation | undefined>, pivotX: number) {
     if (isString(instance)) {

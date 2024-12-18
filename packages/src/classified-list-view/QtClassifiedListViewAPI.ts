@@ -1,9 +1,9 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {Ref} from "@vue/reactivity";
 import {QTIClassifiedListView} from "./core/QTIClassifiedListView";
 import {QTClassifiedListViewItem} from "./core/QTClassifiedListViewItem";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtClassifiedListViewAPI extends QtViewAPI {
+export interface QtClassifiedListViewAPI extends QtBaseViewAPI {
 
   init(instance: Ref<QTIClassifiedListView | undefined>, itemList: Array<QTClassifiedListViewItem>): void
 
@@ -21,7 +21,7 @@ export interface QtClassifiedListViewAPI extends QtViewAPI {
 
 }
 
-export function createQtClassifiedListViewAPI(viewAPI: QtViewAPI): QtClassifiedListViewAPI {
+export function createQtClassifiedListViewAPI(viewAPI: QtBaseViewAPI): QtClassifiedListViewAPI {
 
   function init(instance: Ref<QTIClassifiedListView | undefined>, itemList: Array<QTClassifiedListViewItem>): void {
     instance.value?.init(itemList)

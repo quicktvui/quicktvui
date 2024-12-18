@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtLoadingAPI extends QtViewAPI {
+export interface QtLoadingAPI extends QtBaseViewAPI {
 
 }
 
-export function createQtLoadingAPI(viewAPI: QtViewAPI): QtLoadingAPI {
+export function createQtLoadingAPI(viewAPI: QtBaseViewAPI): QtLoadingAPI {
 
   return {
     ...viewAPI

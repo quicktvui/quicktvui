@@ -1,12 +1,12 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
 import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTTextSpan} from "./QTTextSpan";
 import {QTIText} from "./QTIText";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtTextAPI extends QtViewAPI {
+export interface QtTextAPI extends QtBaseViewAPI {
 
   setText(instance: string | Ref<QTIText | undefined>, text: string): void
 
@@ -18,7 +18,7 @@ export interface QtTextAPI extends QtViewAPI {
 
 }
 
-export function createQtTextAPI(viewAPI: QtViewAPI): QtTextAPI {
+export function createQtTextAPI(viewAPI: QtBaseViewAPI): QtTextAPI {
 
   function setText(instance: string | Ref<QTIText | undefined>, text: string): void {
     if (isString(instance)) {

@@ -1,11 +1,11 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
 import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTIListItem} from "./QTIListItem";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtListItemAPI extends QtViewAPI {
+export interface QtListItemAPI extends QtBaseViewAPI {
 
   updateItem(instance: string | Ref<QTIListItem | undefined>, posInList: number, data: Object)
 
@@ -17,7 +17,7 @@ export interface QtListItemAPI extends QtViewAPI {
 
 }
 
-export function createQtListItemAPI(viewAPI: QtViewAPI): QtListItemAPI {
+export function createQtListItemAPI(viewAPI: QtBaseViewAPI): QtListItemAPI {
 
   function updateItem(instance: string | Ref<QTIListItem | undefined>, posInList: number, data: Object) {
     if (isString(instance)) {
