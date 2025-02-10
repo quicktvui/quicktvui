@@ -1,9 +1,9 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {Ref} from "@vue/reactivity";
 import {QTNavBar} from "./QTNavBar";
 import {QTINavBar} from "./QTINavBar";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtNavBarAPI extends QtViewAPI {
+export interface QtNavBarAPI extends QtBaseViewAPI {
 
   init(instance: Ref<QTINavBar | undefined>, navBar: QTNavBar): void
 
@@ -12,7 +12,7 @@ export interface QtNavBarAPI extends QtViewAPI {
   scrollToTop(instance: Ref<QTINavBar | undefined>): void
 }
 
-export function createQtNavBarAPI(viewAPI: QtViewAPI): QtNavBarAPI {
+export function createQtNavBarAPI(viewAPI: QtBaseViewAPI): QtNavBarAPI {
 
   function init(instance: Ref<QTINavBar | undefined>, navBar: QTNavBar): void {
     instance.value?.init(navBar)

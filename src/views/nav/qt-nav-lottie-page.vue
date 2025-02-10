@@ -1,6 +1,6 @@
 <template>
   <qt-view class="quick-ui-root-css">
-    <s-title-view class="es-sdk-content-title-css" text="QTPoster"></s-title-view>
+    <s-title-view class="es-sdk-content-title-css" text="QTLottie"></s-title-view>
     <qt-view class="es-sdk-content-divider-css"/>
     <qt-view class="quick-ui-content-row-css">
       <s-nav-button

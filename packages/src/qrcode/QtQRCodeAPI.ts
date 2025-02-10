@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtQRCodeAPI extends QtViewAPI {
+export interface QtQRCodeAPI extends QtBaseViewAPI {
 
 }
 
-export function createQtQRCodeAPI(viewAPI: QtViewAPI): QtQRCodeAPI {
+export function createQtQRCodeAPI(viewAPI: QtBaseViewAPI): QtQRCodeAPI {
 
   return {
     ...viewAPI

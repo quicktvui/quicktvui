@@ -1,11 +1,11 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
 import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTIScrollView} from "./QTIScrollView";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtScrollViewAPI extends QtViewAPI {
+export interface QtScrollViewAPI extends QtBaseViewAPI {
 
   scrollTo(instance: string | Ref<QTIScrollView | undefined>, x: number, y: number): void
 
@@ -13,7 +13,7 @@ export interface QtScrollViewAPI extends QtViewAPI {
 
 }
 
-export function createQtScrollViewAPI(viewAPI: QtViewAPI): QtScrollViewAPI {
+export function createQtScrollViewAPI(viewAPI: QtBaseViewAPI): QtScrollViewAPI {
 
   function scrollTo(instance: string | Ref<QTIScrollView | undefined>, x: number, y: number): void {
     if (isString(instance)) {

@@ -145,7 +145,7 @@ export function generatorPageAppWaterfallSection(tab: string, pageNo: string, se
   return section
 }
 
-export function generatorAppWaterfallSection(sectionId: string, title: string): QTWaterfallSection {
+export function generatorAppWaterfallSection(sectionId: string, title: string,size=42): QTWaterfallSection {
   let section: QTWaterfallSection = {
     _id: sectionId,
     type: QTWaterfallSectionType.QT_WATERFALL_SECTION_TYPE_FLEX,
@@ -162,7 +162,7 @@ export function generatorAppWaterfallSection(sectionId: string, title: string): 
       width: 1920,
       height: -1,
     },
-    itemList: generatorAppWaterfallItemList(sectionId, 42)
+    itemList: generatorAppWaterfallItemList(sectionId, size)
   }
   return section
 }

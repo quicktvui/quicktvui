@@ -8,6 +8,8 @@ import './views/css/es-sdk-css.css';
 import './views/css/quick-ui-css.css';
 import './components/qt-seek-bar/css/qt-seek-bar-css.css';
 
+import {createESRouter, Router} from "@extscreen/es3-router";
+
 const routerOptions = {
   main: 'splash',
   error: 'error',
@@ -15,7 +17,8 @@ const routerOptions = {
   routes: routes,
 }
 
-const app: ESApp = createESApp(application, routerOptions);
+const router: Router = createESRouter(routerOptions);
+const app: ESApp = createESApp(application, router);
 
 import {install} from './components';
 
@@ -25,11 +28,10 @@ import {ESComponent} from "@extscreen/es3-component";
 
 app.use(ESComponent);
 
+import '@quicktvui/quicktvui3/dist/index.css';
 import {QuickTVUI} from "@quicktvui/quicktvui3";
-// import '@quicktvui/quicktvui3/dist/index.css';
+
 app.use(QuickTVUI);
 
-// import {QuickTVUI} from "../packages/src";
-// import '../packages/src/theme/button.css';
 
 

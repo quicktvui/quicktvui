@@ -20,6 +20,7 @@ import QTWebViewComponentList from "../../components/qt-web-view";
 
 export default defineComponent({
   name: 'QTWebView',
+  emits:[],
   setup() {
     const pageList = Object.keys(QTWebViewComponentList).map(data => ({
       id: data,

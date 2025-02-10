@@ -96,7 +96,7 @@ import vue_section from './section/vue-section.vue'
 import plugin_section from './section/plugin-section.vue'
 
 import {QTWaterfall} from "./core/QTWaterfall";
-import {ref, onBeforeUnmount, nextTick} from "vue";
+import {ref, onBeforeUnmount, onMounted, toRaw} from "vue";
 import {generateSectionList, generateSection} from "./core/QTWaterfallDataAdapter";
 import {QTWaterfallSection} from "./core/QTWaterfallSection";
 import {ESIListView} from "@extscreen/es3-component";
@@ -472,6 +472,12 @@ export default defineComponent({
       },
       clear(){
         waterfallRef.value?.setListData([])
+      }
+    })
+    onMounted(()=>{
+      if(props.listData&&props.listData.length){
+        const itemList = generateSectionList(waterfall, toRaw(props.listData) as any, true)
+        waterfallRef.value?.setListData(itemList)
       }
     })
     onBeforeUnmount(()=>{

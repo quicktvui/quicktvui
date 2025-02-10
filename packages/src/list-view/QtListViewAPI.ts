@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {QtBaseListViewAPI} from "../list/QtBaseListViewAPI";
 import {QTListViewItem} from "./core/QTListViewItem";
 import {Ref} from "@vue/reactivity";
 import {QTIListView} from "./core/QTIListView";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtListViewAPI extends QtViewAPI, QtBaseListViewAPI {
+export interface QtListViewAPI extends QtBaseViewAPI, QtBaseListViewAPI {
 
   init(instance: Ref<QTIListView | undefined>, target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem>
 
@@ -19,7 +19,7 @@ export interface QtListViewAPI extends QtViewAPI, QtBaseListViewAPI {
   scrollToSelected(instance: Ref<QTIListView | undefined>, position: number, requestFocus: boolean): void
 }
 
-export function createQtListViewAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListViewAPI): QtListViewAPI {
+export function createQtListViewAPI(viewAPI: QtBaseViewAPI, listViewAPI: QtBaseListViewAPI): QtListViewAPI {
 
   function init(instance: Ref<QTIListView | undefined>, target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> {
     if (instance.value) {

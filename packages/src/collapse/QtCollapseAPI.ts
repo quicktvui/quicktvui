@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {Ref} from "@vue/reactivity";
 import {QTICollapse} from "./core/QTICollapse";
 import {QTICollapseItem} from "./core/QTICollapseItem";
 import {QTCollapse} from "./core/QTCollapse";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtCollapseAPI extends QtViewAPI {
+export interface QtCollapseAPI extends QtBaseViewAPI {
 
   init(instance: Ref<QTICollapse | undefined>, collapse: QTCollapse): void
 
@@ -18,7 +18,7 @@ export interface QtCollapseAPI extends QtViewAPI {
 
 }
 
-export function createQtCollapseAPI(viewAPI: QtViewAPI): QtCollapseAPI {
+export function createQtCollapseAPI(viewAPI: QtBaseViewAPI): QtCollapseAPI {
 
   function init(instance: Ref<QTICollapse | undefined>, collapse: QTCollapse): void {
     instance.value?.init(collapse)

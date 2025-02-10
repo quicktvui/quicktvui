@@ -1,3 +1,4 @@
+import {createQtBaseViewAPI, QtBaseViewAPI} from "../base/QtBaseViewAPI";
 import {createQtViewAPI, QtViewAPI} from "../view/QtViewAPI";
 import {createQtWebViewAPI, QtWebViewAPI} from "../webview/QtWebViewAPI";
 import {createQtListViewAPI, QtListViewAPI} from "../list-view/QtListViewAPI";
@@ -30,110 +31,218 @@ import {createQtQRCodeAPI, QtQRCodeAPI} from "../qrcode/QtQRCodeAPI";
 import {createQtRowAPI, QtRowAPI} from "../row/QtRowAPI";
 import {createQtVirtualViewAPI, QtVirtualViewAPI} from "../utils/QtVirtualViewAPI";
 import {createQtIndicatorViewAPI, QtIndicatorViewAPI} from "../list-indicator/QtIndicatorViewAPI";
+import {
+    ES,
+    ESActionBar,
+    ESAppList,
+    ESAudio,
+    ESBrightness,
+    ESBroadcast,
+    ESContentProvider,
+    ESDevelop,
+    ESDevice,
+    ESDisplay,
+    ESDownload,
+    ESEventBus,
+    ESFocus,
+    ESIAC,
+    ESLocalStorage,
+    ESLocation,
+    ESLog,
+    ESLogUpload,
+    ESNetwork,
+    ESPermission,
+    ESPlugin,
+    ESPower,
+    ESRuntime,
+    ESService,
+    ESShareData,
+    ESToast,
+    ESUpload,
+    ESUsbDevice,
+    ESXLog,
+    log, es, develop, toast, storage,
+    device, display, network, appList, power,
+    permission, usbDevice, broadcast, audio, shareData,
+    runtime, plugin, download, upload, actionBar,
+    iac, location, focus, provider, eventBus,
+    xlog, logUpload, brightness, service,
+} from "@extscreen/es3-core";
 
 export interface QtAPI {
-  view: QtViewAPI
-  webView: QtWebViewAPI
-  listView: QtListViewAPI
-  gridView: QtGridViewAPI
-  waterfall: QtWaterfallAPI
-  image: QtImageAPI
-  ul: QtULAPI
-  scrollView: QtScrollViewAPI
-  text: QtTextAPI
-  replaceChildView: QtReplaceChildViewAPI
-  animation: QtAnimationAPI
-  appIcon: QtAppIconAPI
-  classifiedListView: QtClassifiedListViewAPI
-  collapse: QtCollapseAPI
-  listItem: QtListItemAPI
-  lottieView: QtLottieViewAPI
-  navBar: QtNavBarAPI
-  pluginView: QtPluginViewAPI
-  progressBar: QtProgressBarAPI
-  seekBar: QtSeekBarAPI
-  mediaSeries: QtMediaSeriesAPI
-  tabs: QtTabAPI
-  x5WebView: QtX5WebViewAPI
-  button: QtButtonAPI
-  column: QtColumnAPI
-  loading: QtLoadingAPI
-  poster: QtPosterAPI
-  qrCode: QtQRCodeAPI
-  row: QtRowAPI
-  virtualView: QtVirtualViewAPI
-  indicator: QtIndicatorViewAPI
+    div: QtViewAPI
+    img: QtViewAPI,
+    li: QtViewAPI,
+    p: QtViewAPI,
+    view: QtViewAPI
+    webView: QtWebViewAPI
+    listView: QtListViewAPI
+    gridView: QtGridViewAPI
+    waterfall: QtWaterfallAPI
+    image: QtImageAPI
+    ul: QtULAPI
+    scrollView: QtScrollViewAPI
+    text: QtTextAPI
+    replaceChildView: QtReplaceChildViewAPI
+    animation: QtAnimationAPI
+    appIcon: QtAppIconAPI
+    classifiedListView: QtClassifiedListViewAPI
+    collapse: QtCollapseAPI
+    listItem: QtListItemAPI
+    lottieView: QtLottieViewAPI
+    navBar: QtNavBarAPI
+    pluginView: QtPluginViewAPI
+    progressBar: QtProgressBarAPI
+    seekBar: QtSeekBarAPI
+    mediaSeries: QtMediaSeriesAPI
+    tabs: QtTabAPI
+    x5WebView: QtX5WebViewAPI
+    button: QtButtonAPI
+    column: QtColumnAPI
+    loading: QtLoadingAPI
+    poster: QtPosterAPI
+    qrCode: QtQRCodeAPI
+    row: QtRowAPI
+    virtualView: QtVirtualViewAPI
+    indicator: QtIndicatorViewAPI
+    log: ESLog
+    es: ES
+    develop: ESDevelop
+    toast: ESToast
+    storage: ESLocalStorage
+    device: ESDevice
+    display: ESDisplay
+    network: ESNetwork
+    appList: ESAppList
+    power: ESPower
+    permission: ESPermission
+    usbDevice: ESUsbDevice
+    broadcast: ESBroadcast
+    audio: ESAudio
+    shareData: ESShareData
+    runtime: ESRuntime
+    plugin: ESPlugin
+    download: ESDownload
+    upload: ESUpload
+    actionBar: ESActionBar
+    iac: ESIAC
+    location: ESLocation
+    focus: ESFocus
+    provider: ESContentProvider
+    eventBus: ESEventBus
+    xlog: ESXLog
+    logUpload: ESLogUpload
+    brightness: ESBrightness
+    service: ESService
 }
 
 export function createQtAPI(): QtAPI {
 
-  const viewAPI: QtViewAPI = createQtViewAPI()
-  //
-  const baseListViewAPI: QtBaseListViewAPI = createQtBaseListViewAPI()
-  const listViewAPI: QtListViewAPI = createQtListViewAPI(viewAPI, baseListViewAPI)
-  const gridViewAPI: QtGridViewAPI = createQtGridViewAPI(viewAPI, baseListViewAPI)
-  const waterfallAPI: QtWaterfallAPI = createQtWaterfallAPI(viewAPI, baseListViewAPI)
-  const indicatorViewAPI: QtIndicatorViewAPI = createQtIndicatorViewAPI(viewAPI, baseListViewAPI)
-  //
-  const imageAPI: QtImageAPI = createQtImageAPI(viewAPI)
-  const webViewAPI: QtWebViewAPI = createQtWebViewAPI(viewAPI)
-  const x5WebViewAPI: QtX5WebViewAPI = createQtX5WebViewAPI(viewAPI)
+    //base
+    const baseViewAPI: QtBaseViewAPI = createQtBaseViewAPI()
+    const baseListViewAPI: QtBaseListViewAPI = createQtBaseListViewAPI()
+    //------------------------------------------------------------------------
+    //
+    const viewAPI: QtViewAPI = createQtViewAPI(baseViewAPI)
 
-  const ulAPI: QtULAPI = createQtULAPI(viewAPI)
-  const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(viewAPI)
-  const textAPI: QtTextAPI = createQtTextAPI(viewAPI)
-  const replaceChildViewAPI: QtReplaceChildViewAPI = createQtReplaceChildViewAPI(viewAPI)
-  const animationAPI: QtAnimationAPI = createQtAnimationAPI(viewAPI)
-  const appIconAPI: QtAppIconAPI = createQtAppIconAPI(viewAPI)
-  const classifiedListViewAPI: QtClassifiedListViewAPI = createQtClassifiedListViewAPI(viewAPI)
-  const collapseAPI: QtCollapseAPI = createQtCollapseAPI(viewAPI)
-  const listItemAPI: QtListItemAPI = createQtListItemAPI(viewAPI)
-  const lottieViewAPI: QtLottieViewAPI = createQtLottieViewAPI(viewAPI)
-  const navBarAPI: QtNavBarAPI = createQtNavBarAPI(viewAPI)
-  const pluginViewAPI: QtPluginViewAPI = createQtPluginViewAPI(viewAPI)
-  const progressBarAPI: QtProgressBarAPI = createQtProgressBarAPI(viewAPI)
-  const seekBarAPI: QtSeekBarAPI = createQtSeekBarAPI(viewAPI)
-  const mediaSeriesAPI: QtMediaSeriesAPI = createQtMediaSeriesAPI(viewAPI)
-  const tabAPI: QtTabAPI = createQtTabAPI(viewAPI)
-  const buttonAPI: QtButtonAPI = createQtButtonAPI(viewAPI)
-  const columnAPI: QtColumnAPI = createQtColumnAPI(viewAPI)
-  const loadingAPI: QtLoadingAPI = createQtLoadingAPI(viewAPI)
-  const posterAPI: QtPosterAPI = createQtPosterAPI(viewAPI)
-  const qrCodeAPI: QtQRCodeAPI = createQtQRCodeAPI(viewAPI)
-  const rowAPI: QtRowAPI = createQtRowAPI(viewAPI)
-  const virtualViewAPI: QtVirtualViewAPI = createQtVirtualViewAPI()
+    //
+    const listViewAPI: QtListViewAPI = createQtListViewAPI(baseViewAPI, baseListViewAPI)
+    const gridViewAPI: QtGridViewAPI = createQtGridViewAPI(baseViewAPI, baseListViewAPI)
+    const waterfallAPI: QtWaterfallAPI = createQtWaterfallAPI(baseViewAPI, baseListViewAPI)
+    const indicatorViewAPI: QtIndicatorViewAPI = createQtIndicatorViewAPI(baseViewAPI, baseListViewAPI)
+    //
+    const imageAPI: QtImageAPI = createQtImageAPI(baseViewAPI)
+    const webViewAPI: QtWebViewAPI = createQtWebViewAPI(baseViewAPI)
+    const x5WebViewAPI: QtX5WebViewAPI = createQtX5WebViewAPI(baseViewAPI)
 
-  return {
-    view: viewAPI,
-    webView: webViewAPI,
-    listView: listViewAPI,
-    gridView: gridViewAPI,
-    waterfall: waterfallAPI,
-    image: imageAPI,
-    ul: ulAPI,
-    scrollView: scrollViewAPI,
-    text: textAPI,
-    replaceChildView: replaceChildViewAPI,
-    animation: animationAPI,
-    appIcon: appIconAPI,
-    classifiedListView: classifiedListViewAPI,
-    collapse: collapseAPI,
-    listItem: listItemAPI,
-    lottieView: lottieViewAPI,
-    navBar: navBarAPI,
-    pluginView: pluginViewAPI,
-    progressBar: progressBarAPI,
-    seekBar: seekBarAPI,
-    mediaSeries: mediaSeriesAPI,
-    tabs: tabAPI,
-    x5WebView: x5WebViewAPI,
-    button: buttonAPI,
-    column: columnAPI,
-    loading: loadingAPI,
-    poster: posterAPI,
-    qrCode: qrCodeAPI,
-    row: rowAPI,
-    virtualView: virtualViewAPI,
-    indicator: indicatorViewAPI,
-  }
+    const ulAPI: QtULAPI = createQtULAPI(baseViewAPI)
+    const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(baseViewAPI)
+    const textAPI: QtTextAPI = createQtTextAPI(baseViewAPI)
+    const replaceChildViewAPI: QtReplaceChildViewAPI = createQtReplaceChildViewAPI(baseViewAPI)
+    const animationAPI: QtAnimationAPI = createQtAnimationAPI(baseViewAPI)
+    const appIconAPI: QtAppIconAPI = createQtAppIconAPI(baseViewAPI)
+    const classifiedListViewAPI: QtClassifiedListViewAPI = createQtClassifiedListViewAPI(baseViewAPI)
+    const collapseAPI: QtCollapseAPI = createQtCollapseAPI(baseViewAPI)
+    const listItemAPI: QtListItemAPI = createQtListItemAPI(baseViewAPI)
+    const lottieViewAPI: QtLottieViewAPI = createQtLottieViewAPI(baseViewAPI)
+    const navBarAPI: QtNavBarAPI = createQtNavBarAPI(baseViewAPI)
+    const pluginViewAPI: QtPluginViewAPI = createQtPluginViewAPI(baseViewAPI)
+    const progressBarAPI: QtProgressBarAPI = createQtProgressBarAPI(baseViewAPI)
+    const seekBarAPI: QtSeekBarAPI = createQtSeekBarAPI(baseViewAPI)
+    const mediaSeriesAPI: QtMediaSeriesAPI = createQtMediaSeriesAPI(baseViewAPI)
+    const tabAPI: QtTabAPI = createQtTabAPI(baseViewAPI)
+    const buttonAPI: QtButtonAPI = createQtButtonAPI(baseViewAPI)
+    const columnAPI: QtColumnAPI = createQtColumnAPI(baseViewAPI)
+    const loadingAPI: QtLoadingAPI = createQtLoadingAPI(baseViewAPI)
+    const posterAPI: QtPosterAPI = createQtPosterAPI(baseViewAPI)
+    const qrCodeAPI: QtQRCodeAPI = createQtQRCodeAPI(baseViewAPI)
+    const rowAPI: QtRowAPI = createQtRowAPI(baseViewAPI)
+    const virtualViewAPI: QtVirtualViewAPI = createQtVirtualViewAPI()
+
+    return {
+        div: viewAPI,
+        img: viewAPI,
+        li: viewAPI,
+        p: viewAPI,
+        view: viewAPI,
+        webView: webViewAPI,
+        listView: listViewAPI,
+        gridView: gridViewAPI,
+        waterfall: waterfallAPI,
+        image: imageAPI,
+        ul: ulAPI,
+        scrollView: scrollViewAPI,
+        text: textAPI,
+        replaceChildView: replaceChildViewAPI,
+        animation: animationAPI,
+        appIcon: appIconAPI,
+        classifiedListView: classifiedListViewAPI,
+        collapse: collapseAPI,
+        listItem: listItemAPI,
+        lottieView: lottieViewAPI,
+        navBar: navBarAPI,
+        pluginView: pluginViewAPI,
+        progressBar: progressBarAPI,
+        seekBar: seekBarAPI,
+        mediaSeries: mediaSeriesAPI,
+        tabs: tabAPI,
+        x5WebView: x5WebViewAPI,
+        button: buttonAPI,
+        column: columnAPI,
+        loading: loadingAPI,
+        poster: posterAPI,
+        qrCode: qrCodeAPI,
+        row: rowAPI,
+        virtualView: virtualViewAPI,
+        indicator: indicatorViewAPI,
+        log: log,
+        es: es,
+        develop: develop,
+        toast: toast,
+        storage: storage,
+        device: device,
+        display: display,
+        network: network,
+        appList: appList,
+        power: power,
+        permission: permission,
+        usbDevice: usbDevice,
+        broadcast: broadcast,
+        audio: audio,
+        shareData: shareData,
+        runtime: runtime,
+        plugin: plugin,
+        download: download,
+        upload: upload,
+        actionBar: actionBar,
+        iac: iac,
+        location: location,
+        focus: focus,
+        provider: provider,
+        eventBus: eventBus,
+        xlog: xlog,
+        logUpload: logUpload,
+        brightness: brightness,
+        service: service,
+    }
 }

@@ -1,10 +1,10 @@
-import {QtViewAPI} from "../view/QtViewAPI";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtRowAPI extends QtViewAPI {
+export interface QtRowAPI extends QtBaseViewAPI {
 
 }
 
-export function createQtRowAPI(viewAPI: QtViewAPI): QtRowAPI {
+export function createQtRowAPI(viewAPI: QtBaseViewAPI): QtRowAPI {
 
   return {
     ...viewAPI

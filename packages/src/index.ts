@@ -37,7 +37,8 @@ import {QTListViewItemState} from "./list-view/core/QTListViewItemState";
 import registerAppIconView from "./app/QTAppIcon";
 import registerQTIReplaceChildView from "./replace-child/QTReplaceChildView";
 
-export {qtRef, qtWatchAll, qtGetParent} from "./qtListen/index";
+export {qtRef, qtWatchAll, qtGetParent, qtTabsRef, parseChildUpdate, qtDiff} from "./qtListen/index";
+export type { IQtTabDatas } from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
 
 const components = [
@@ -62,6 +63,7 @@ const components = [
 import {createQtAPI, QtAPI} from "./qt/QtAPI";
 
 declare global {
+  // @ts-ignore
   var qt: QtAPI
 }
 
@@ -99,6 +101,7 @@ export const QuickTVUI = (Vue) => {
   }
 
   const qtAPI: QtAPI = createQtAPI()
+  // @ts-ignore
   global.qt = qtAPI
 }
 
@@ -188,6 +191,7 @@ export type {QTListViewItemState} from './list-view/core/QTListViewItemState'
 
 //GridView
 export type {QTGridViewItemFunctionParams} from './grid-view/core/QTGridViewItemFunctionParams'
+export type {QTGridViewItem} from './grid-view/core/QTGridViewItem'
 
 //NavBar
 export type {QTINavBar} from './nav-bar/QTINavBar'

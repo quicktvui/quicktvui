@@ -5,6 +5,7 @@
     <qt-view class="qt-grid-view">
       <qt-grid-view class="grid_view" ref="gridViewRef" :clipChildren="false" :clipPadding="false"
                     @item-click="onItemClick"
+                    sid="111111"
                     @item-bind="onItemBind" :spanCount="6" :areaWidth="1800" :itemHeight="320" :padding="'0,0,10,16'"
                     :defaultFocus="defaultFocus" :blockFocusDirections="['left','right']">
         <!-- item -->
@@ -24,17 +25,19 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref, reactive} from "vue";
 import {QTIListView, QTIGridView, QTGridViewItem, QTPoster} from "@quicktvui/quicktvui3";
+import {useESToast} from "@extscreen/es3-core";
 
 export default defineComponent({
   name: '使用初探',
+  emits:[],
   setup(props, context) {
+    const toast = useESToast()
     const gridViewRef = ref<QTIGridView>()
     const cmdListViewRef = ref<QTIListView>()
     const data = reactive({
       defaultFocus: 0 as number,
     })
     let listDataRec: Array<QTGridViewItem> = [];
-    // let listDataRec: any = [];
     const onESCreate = (params) => {
       let arr: Array<QTGridViewItem> = []
       for (let i = 0; i < 24; i++) {
@@ -136,6 +139,7 @@ export default defineComponent({
         {text: 'splice(3+参数-插入)', type: 1},
         {text: 'concat', type: 1},
         {text: 'pop', type: 1},
+        {text: 'qt-api', type: 1},
         //{text:'deleteItem',type: 1},
         // {text:'updateItemProps'},
         // {text:'scrollToTop',type: 1},
@@ -180,6 +184,12 @@ export default defineComponent({
           break;
         case 'pop' :  //删除末尾数据
           listDataRec.pop()
+          break;
+        case 'qt-api' :
+          toast.showToast('qt-api !')
+          // qt.gridView.scrollToIndex(gridViewRef, 0, 0,)
+          // qt.gridView.scrollToPosition(gridViewRef, 0, 0)
+          qt.gridView.scrollToIndex('111111', 0, 0,)
           break;
         // case 'deleteItem' : // 根据id删除item
         //   listDataRec.deleteItem(3,1) //根据id删除 第一个参数是id 第二个参数为删除该id之后几个元素（包含当前id）

@@ -1,3 +1,4 @@
+import { toRaw } from 'vue'
 import { QtChangeData } from './types'
 import type { IQtWatchOptions } from './watch'
 const compareType = (oldObj: object, newObj: object) => {
@@ -38,7 +39,7 @@ const qtDiffNodeChange = (oldNode: any, newNode: any) => {
   return diffRes
 }
 
-export const qtDiff = (oldt: any[], newt: any[], options:IQtWatchOptions) => {
+export const qtDiff = (oldt: any[], newt: any[], options:Pick<IQtWatchOptions,'update'|'insert'|'delete'|'add'>) => {
   // console.log('diff-', oldt, newt)
   // if(oldt.length===0) return //init 初始化
   // if(newt.length===0) return //clear 清空
@@ -108,13 +109,13 @@ export const qtDiff = (oldt: any[], newt: any[], options:IQtWatchOptions) => {
             updates.end = updates.start+updates.updateCount
           }
         }
-        updates.datas.set(i, newItem)
+        updates.datas.set(i, toRaw(newItem))
       }
     } else {
       if(inserts.start === -1){
         inserts.start = i
       }
-      inserts.datas.set(i, newItem)
+      inserts.datas.set(i, toRaw(newItem))
       if(updates.datas.size){
         options.update(updates.start, updates,oldt)
         updates.resetData()

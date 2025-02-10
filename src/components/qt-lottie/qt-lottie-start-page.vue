@@ -18,8 +18,7 @@
           class="lottie-view-root-css"
           :lottie_loop="true"
           :lottie_speed="10"
-          :lottie_autoPlay="true"
-          :lottie_url="'https://extcdn.hsrc.tv/channelzero_image/web_static/extend_screen/mood/lottie1.json'"/>
+          :lottie_autoPlay="true"/>
     </qt-column>
   </div>
 </template>
@@ -34,6 +33,10 @@ export default defineComponent({
   setup() {
 
     const lottieRef = ref<QTILottieView>()
+
+    function onESCreate(params) {
+      lottieRef.value?.loadUrl('https://extcdn.hsrc.tv/channelzero_image/web_static/extend_screen/mood/lottie1.json')
+    }
 
     function startAnimation() {
       lottieRef.value?.playAnimation()
@@ -58,6 +61,7 @@ export default defineComponent({
 
     return {
       lottieRef,
+      onESCreate,
       startAnimation,
       pauseAnimation,
       cancelAnimation,

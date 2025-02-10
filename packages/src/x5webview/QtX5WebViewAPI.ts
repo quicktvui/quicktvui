@@ -1,11 +1,11 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {Native} from "@extscreen/es3-vue";
 import {isRef, Ref} from "@vue/reactivity";
 import {QTIX5WebView} from "./QTIX5WebView";
 import {QT_CALL_UI_FUNCTION, QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPIModule";
 import {isString} from "../utils/type";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtX5WebViewAPI extends QtViewAPI {
+export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void
 
@@ -147,7 +147,7 @@ export interface QtX5WebViewAPI extends QtViewAPI {
   initWebViewFocus(instance: string | Ref<QTIX5WebView | undefined>, delayTime: number, x: number, y: number): void;
 }
 
-export function createQtX5WebViewAPI(viewAPI: QtViewAPI): QtX5WebViewAPI {
+export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
     if (isString(instance)) {

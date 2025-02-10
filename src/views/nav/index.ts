@@ -10,6 +10,7 @@ import qt_nav_poster_view_page from './qt-nav-poster-view-page.vue';
 import qt_nav_bar_page from './qt-nav-bar-page.vue';
 import qt_nav_waterfall_page from './qt-nav-waterfall-page.vue';
 import qt_nav_tabs_waterfall_page from './qt-nav-tabs-waterfall-page.vue';
+import qt_nav_tabs_data_binding_page from './qt-nav-tabs-data-binding-page.vue';
 import qt_nav_classified_list_view_page from './qt-nav-classified-list-view-page.vue';
 import qt_nav_text_view_page from './qt-nav-text-view-page.vue';
 import qt_nav_loading_page from './qt-nav-loading-page.vue';
@@ -27,13 +28,13 @@ import qt_nav_plugin_view_page from './qt-nav-plugin-view-page.vue'
 import qt_nav_api_page from './qt-nav-api-page.vue'
 import qt_nav_swiper_page from './qt-nav-swiper-page.vue'
 import qt_nav_lottie_page from './qt-nav-lottie-page.vue'
-import qt_indictor_list_view_page from './qt-nav-indicator-list-view-page.vue'
+import qt_indicator_list_view_page from './qt-nav-indicator-list-view-page.vue'
+
+//
+import qt_nav_module_page from './qt-nav-module-page';
+import qt_nav_component_page from './qt-nav-component-page';
 
 const QTAPINavPageList = {
-  qt_indictor_list_view_page: {
-    name: 'QTIndicatorListView',
-    component: qt_indictor_list_view_page,
-  },
   qt_nav_view_page: {
     name: 'QTView',
     component: qt_nav_view_page,
@@ -118,6 +119,10 @@ const QTAPINavPageList = {
     name: 'QTTabsWaterfall',
     component: qt_nav_tabs_waterfall_page,
   },
+  qt_nav_tabs_data_binding_page: {
+    name: 'QTTabsDataBinding',
+    component: qt_nav_tabs_data_binding_page,
+  },
   qt_nav_classified_list_view_page: {
     name: 'QTClassifiedListView',
     component: qt_nav_classified_list_view_page,
@@ -130,25 +135,38 @@ const QTAPINavPageList = {
     name: 'QTCollapse',
     component: qt_nav_collapse_page,
   },
-  qt_nav_scroll_view_page: {
-    name: 'QTScrollView',
-    component: qt_nav_scroll_view_page,
-  },
+  // qt_nav_scroll_view_page: {
+  //   name: 'QTScrollView',
+  //   component: qt_nav_scroll_view_page,
+  // },
   qt_nav_plugin_view_page: {
     name: 'QTPluginView',
     component: qt_nav_plugin_view_page,
   },
-  qt_nav_api_page: {
-    name: 'QTAPI',
-    component: qt_nav_api_page,
-  },
-  qt_nav_swiper_page: {
-    name: 'QTSwiper',
-    component: qt_nav_swiper_page,
-  },
+  // qt_nav_api_page: {
+  //   name: 'QTAPI',
+  //   component: qt_nav_api_page,
+  // },
+  // qt_nav_swiper_page: {
+  //   name: 'QTSwiper',
+  //   component: qt_nav_swiper_page,
+  // },
   qt_nav_lottie_page: {
     name: 'QTLottie',
     component: qt_nav_lottie_page,
+  },
+  // qt_indicator_list_view_page: {
+  //   name: 'QTIndicatorListView',
+  //   component: qt_indicator_list_view_page,
+  // },
+
+  qt_nav_module_page: {
+    name: 'QTModule',
+    component: qt_nav_module_page,
+  },
+  qt_nav_component_page: {
+    name: 'QTComponent',
+    component: qt_nav_component_page,
   },
 };
 

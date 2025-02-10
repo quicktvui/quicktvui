@@ -1,12 +1,12 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {QtBaseListViewAPI} from "../list/QtBaseListViewAPI";
 import {QTWaterfall} from "./core/QTWaterfall";
 import {QTWaterfallSection} from "./core/QTWaterfallSection";
 import {QTWaterfallItem} from "./core/QTWaterfallItem";
 import {Ref} from "@vue/reactivity";
 import {QTIWaterfall} from "./core/QTIWaterfall";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtWaterfallAPI extends QtViewAPI, QtBaseListViewAPI {
+export interface QtWaterfallAPI extends QtBaseViewAPI, QtBaseListViewAPI {
 
   init(instance: Ref<QTIWaterfall | undefined>, waterfall: QTWaterfall)
 
@@ -37,7 +37,7 @@ export interface QtWaterfallAPI extends QtViewAPI, QtBaseListViewAPI {
   getItem(instance: Ref<QTIWaterfall | undefined>, sectionIndex: number, itemIndex: number): QTWaterfallItem | undefined
 }
 
-export function createQtWaterfallAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseListViewAPI): QtWaterfallAPI {
+export function createQtWaterfallAPI(viewAPI: QtBaseViewAPI, listViewAPI: QtBaseListViewAPI): QtWaterfallAPI {
 
   function init(instance: Ref<QTIWaterfall | undefined>, waterfall: QTWaterfall) {
     instance.value?.init(waterfall)
@@ -114,6 +114,6 @@ export function createQtWaterfallAPI(viewAPI: QtViewAPI, listViewAPI: QtBaseList
     deleteItem,
     updateItem,
     updateItemList,
-    getItem,
+    getItem
   }
 }

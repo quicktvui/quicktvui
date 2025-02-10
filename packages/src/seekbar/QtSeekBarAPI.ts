@@ -1,4 +1,3 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {QTSeekBarMode} from "../seekbar/QTSeekBarMode";
 import {QTSeekBarGravity} from "../seekbar/QTSeekBarGravity";
@@ -11,8 +10,9 @@ import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
 import {QT_API_MODULE, QT_CALL_UI_FUNCTION} from "../qt/QtAPIModule";
 import {QTISeekBar} from "./QTISeekBar";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtSeekBarAPI extends QtViewAPI {
+export interface QtSeekBarAPI extends QtBaseViewAPI {
 
   resetSeekbar(instance: Ref<QTISeekBar | undefined>): void
 
@@ -273,7 +273,7 @@ export interface QtSeekBarAPI extends QtViewAPI {
   setStepsUrl(instance: string | Ref<QTISeekBar | undefined>, urlArray: Array<string>): void
 }
 
-export function createQtSeekBarAPI(viewAPI: QtViewAPI): QtSeekBarAPI {
+export function createQtSeekBarAPI(viewAPI: QtBaseViewAPI): QtSeekBarAPI {
 
   function resetSeekbar(instance: Ref<QTISeekBar | undefined>): void {
     instance.value?.resetSeekbar()

@@ -1,4 +1,3 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {isRef, Ref} from "@vue/reactivity";
 import {isString} from "../utils/type";
 import {Native} from "@extscreen/es3-vue";
@@ -7,8 +6,9 @@ import {QTILottieView} from "./QTILottieView";
 import {QTLottieRepeatMode} from "./QTLottieRepeatMode";
 import {QTLottieRenderMode} from "./QTLottieRenderMode";
 import {QTLottieAsyncUpdates} from "./QTLottieAsyncUpdates";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtLottieViewAPI extends QtViewAPI {
+export interface QtLottieViewAPI extends QtBaseViewAPI {
 
   loadRaw(instance: string | Ref<QTILottieView | undefined>, rawRes: string): void
 
@@ -67,7 +67,7 @@ export interface QtLottieViewAPI extends QtViewAPI {
   removeAllListener(instance: string | Ref<QTILottieView | undefined>): void
 }
 
-export function createQtLottieViewAPI(viewAPI: QtViewAPI): QtLottieViewAPI {
+export function createQtLottieViewAPI(viewAPI: QtBaseViewAPI): QtLottieViewAPI {
 
   function loadRaw(instance: string | Ref<QTILottieView | undefined>, rawRes: string): void {
     if (isString(instance)) {

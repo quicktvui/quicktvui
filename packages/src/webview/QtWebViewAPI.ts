@@ -1,11 +1,11 @@
-import {QtViewAPI} from "../view/QtViewAPI";
 import {Native} from "@extscreen/es3-vue";
 import {isRef, Ref} from "@vue/reactivity";
 import {QTIWebView} from "./QTIWebView";
 import {QT_CALL_UI_FUNCTION, QT_API_MODULE, QT_CALL_UI_FUNCTION_WITH_PROMISE} from "../qt/QtAPIModule";
 import {isString} from "../utils/type";
+import {QtBaseViewAPI} from "../base/QtBaseViewAPI";
 
-export interface QtWebViewAPI extends QtViewAPI {
+export interface QtWebViewAPI extends QtBaseViewAPI {
 
   loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
 
@@ -147,7 +147,7 @@ export interface QtWebViewAPI extends QtViewAPI {
   initWebViewFocus(instance: string | Ref<QTIWebView | undefined>, delayTime: number, x: number, y: number): void;
 }
 
-export function createQtWebViewAPI(viewAPI: QtViewAPI): QtWebViewAPI {
+export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
 
   function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
     if (isString(instance)) {
