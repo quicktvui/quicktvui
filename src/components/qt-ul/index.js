@@ -6,6 +6,7 @@ import qt_ul_item_type_page from './qt-ul-item-type-page';
 import qt_ul_item_size_page from './qt-ul-item-size-page';
 import qt_ul_horizontal_page from './qt-ul-horizontal-page';
 import qt_ul_scroll_page from './qt-ul-scroll-page';
+import qt_ul_auto_scroll_page from './qt-ul-auto-scroll-page';
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -39,6 +40,10 @@ const QTULPageList = {
     qt_ul_scroll_page: {
         name: '滚动',
         component: qt_ul_scroll_page,
+    },
+    qt_ul_auto_scroll_page: {
+        name: 'auto scroll',
+        component: qt_ul_auto_scroll_page,
     },
 };
 export default QTULPageList;
