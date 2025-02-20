@@ -3,6 +3,18 @@
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
     <qt-view class="es-sdk-content-divider-css"/>
     <qt-view class="qt-ul-root-page">
+      <qt-column class="qt-ul-scroll-class">
+        <qt-button size="large" class="text-button-class" text="scrollToIndex:40" @click="scrollToIndex"></qt-button>
+        <qt-button size="large" class="text-button-class" text="scrollToPosition:10"
+                   @click="scrollToPosition"></qt-button>
+        <qt-button size="large" class="text-button-class" text="setInitPosition:30"
+                   @click="setInitPosition"></qt-button>
+        <qt-button size="large" class="text-button-class" text="scrollToFocused:30"
+                   @click="scrollToFocus"></qt-button>
+        <qt-button size="large" class="text-button-class" text="scrollToTop" @click="scrollToTop"></qt-button>
+        <qt-button size="large" class="text-button-class" text="getScrollOffset" @click="getScrollOffset"></qt-button>
+      </qt-column>
+
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
@@ -29,6 +41,7 @@ import {buildIndexTextItemList, buildTextItemList} from "./__mocks__/list";
 import {QT_UL_ITEM_TYPE_TEXT} from "./item/type";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import {QTULTextItem} from "./item/text/QTULItemTextItem";
+import {QTIUL} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '滚动',
@@ -38,6 +51,7 @@ export default defineComponent({
   },
   setup(props, context) {
     let itemList = ref<Array<QTULTextItem>>([])
+    const ulRef = ref<QTIUL>()
 
     function onESCreate() {
       const list = buildIndexTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
@@ -45,9 +59,42 @@ export default defineComponent({
       itemList.value = list
     }
 
+    function scrollToIndex() {
+      ulRef.value?.scrollToIndex(0, 40, true, 100, 0)
+    }
+
+    function scrollToPosition() {
+      ulRef.value?.scrollToPosition(10)
+    }
+
+    function setInitPosition() {
+      // ulRef.value?.setInitPosition(30)
+    }
+
+    function scrollToFocus() {
+      ulRef.value?.scrollToFocus(30, 0, 0, '')
+    }
+
+    function scrollToTop() {
+      ulRef.value?.scrollToTop(10)
+    }
+
+    function getScrollOffset() {
+      ulRef.value?.getScrollOffset((value)=>{
+        console.log('-------getScrollOffset------->>>>', value)
+      })
+    }
+
     return {
+      ulRef,
       itemList,
       onESCreate,
+      scrollToIndex,
+      scrollToPosition,
+      setInitPosition,
+      scrollToFocus,
+      scrollToTop,
+      getScrollOffset
     }
   }
 });
@@ -58,14 +105,25 @@ export default defineComponent({
 .qt-ul-root-page {
   width: 1920px;
   height: 1080px;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.qt-ul-scroll-class {
+  width: 400px;
+  height: 1080px;
+  margin-right: 40px;
 }
 
 .qt-ul-class {
   width: 800px;
   height: 1080px;
 }
+
+.text-button-class {
+  margin: 20px;
+}
+
 
 </style>
