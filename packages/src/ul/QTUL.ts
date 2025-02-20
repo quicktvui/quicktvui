@@ -317,7 +317,7 @@ function registerQTUL(app: ESApp) {
             const holders = reactive<any[]>([])
 
             let expectedItemCount = -1;
-            let pageSize = 1;
+            let pageSize = -1;
             let initHolderCount = 20;
             let expectedTotalCount = -1;
             let uid = getCurrentInstance()?.uid;
@@ -346,6 +346,10 @@ function registerQTUL(app: ESApp) {
                     }
                     crateH(batch, 'hashTag')
                 }
+                nextTick(() => {
+                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [toRaw(props.items), false,false,{
+                    }]);
+                })
             })
 
 
