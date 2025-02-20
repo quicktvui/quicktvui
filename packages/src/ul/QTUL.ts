@@ -346,11 +346,6 @@ function registerQTUL(app: ESApp) {
                     }
                     crateH(batch, 'hashTag')
                 }
-                nextTick(() => {
-                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [toRaw(props.items), false, false, {
-                        RealDOMTypes: [1, 2],
-                    }]);
-                })
             })
 
 
@@ -573,7 +568,7 @@ function registerQTUL(app: ESApp) {
                     'FastListView',
                     {
                         ref: viewRef,
-
+                        disableVirtualDOM: true,
                         onItemClick: (evt) => {
                             context.emit('item-click', evt);
                         },
