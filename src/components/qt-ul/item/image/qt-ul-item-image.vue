@@ -1,5 +1,9 @@
 <template>
-  <qt-image :src="src" class="qt-ul-item-image"/>
+  <qt-image
+      :focusScale="1.1"
+      :focusable="true"
+      :enableFocusBorder="true"
+      :src="src" class="qt-ul-item-image"/>
 </template>
 
 <script lang="ts">

@@ -1,7 +1,7 @@
 import {QTULImageItem} from "../item/image/QTULImageItem";
 import {buildRandomImage} from "./image";
 import {QTULTextItem} from "../item/text/QTULItemTextItem";
-import {buildRandomText} from "./text";
+import {buildIndexText, buildRandomText} from "./text";
 import {buildRandomColor} from "./colors";
 import {getRandomInt} from "./random";
 
@@ -32,6 +32,24 @@ export function buildTextItemList(itemType: number, count: number): Array<QTULTe
             decoration: {
                 top: 20,
                 bottom: 20,
+            },
+        })
+    }
+    return textList;
+}
+
+export function buildIndexTextItemList(itemType: number, count: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push({
+            itemSize: 800,
+            id: i + '',
+            type: itemType,
+            text: i + '、' + buildIndexText(i),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 10,
+                bottom: 10,
             },
         })
     }

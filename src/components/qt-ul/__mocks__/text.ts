@@ -74,3 +74,7 @@ export function buildRandomText(): String {
     const index = getRandomInt(0, textList.length - 1)
     return textList[index];
 }
+
+export function buildIndexText(index: number): String {
+    return textList[index];
+}

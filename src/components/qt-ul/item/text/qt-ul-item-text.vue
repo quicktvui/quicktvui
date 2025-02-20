@@ -4,7 +4,7 @@
        :enableFocusBorder="true">
     <qt-text :text="text" class="qt-ul-item-text"
              :style="{backgroundColor: backgroundColor}"
-             gravity="center" :fontSize="44" :ellipsizeMode="2"/>
+             :gravity="gravity" :fontSize="44" :ellipsizeMode="2"/>
   </div>
 
 </template>
@@ -24,6 +24,10 @@ export default defineComponent({
       type: String,
       default: 'white'
     },
+    gravity: {
+      type: String,
+      default: 'center'
+    },
   },
 });
 
@@ -33,13 +37,15 @@ export default defineComponent({
 .qt-ul-item-text-root {
   width: 800px;
   height: 200px;
-  background-color: greenyellow;
+  padding: 10px;
+  background-color: transparent;
 }
 
 .qt-ul-item-text {
-  width: 800px;
-  height: 200px;
+  width: 780px;
+  height: 180px;
   color: black;
+  padding: 10px;
 }
 
 </style>
