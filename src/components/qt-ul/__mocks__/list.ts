@@ -38,6 +38,23 @@ export function buildTextItemList(itemType: number, count: number): Array<QTULTe
     return textList;
 }
 
+export function buildHorizontalTextItemList(itemType: number, count: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push({
+            itemSize: 200,
+            id: i + '',
+            type: itemType,
+            text: buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        })
+    }
+    return textList;
+}
 
 export function buildViewItemList(itemType: number, count: number): Array<QTULTextItem> {
     const textList = []
