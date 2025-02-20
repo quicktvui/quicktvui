@@ -10,9 +10,9 @@
           :enablePlaceholder="false"
           :stableItemSize="250">
         <template #item="{item}">
-          <qt-ul-item-image
-              :src="item.url"
-              v-if="item.type == 2"
+          <qt-ul-item-text
+              :text="item.text"
+              v-if="item.type == 3"
               :focusable="true"
               :enableFocusBorder="true"/>
         </template>
@@ -24,22 +24,23 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {QTULImageItem} from "./item/image/QTULImageItem";
-import {buildImageItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_IMAGE} from "./item/type";
-import qt_ul_item_image from './item/image/qt-ul-item-image.vue'
+import {buildTextItemList} from "./__mocks__/list";
+import {QT_UL_ITEM_TYPE_TEXT} from "./item/type";
+import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
+import {QTULTextItem} from "./item/text/QTULItemTextItem";
 
 export default defineComponent({
-  name: '图片',
+  name: '文字',
   emits: [],
   components: {
-    'qt-ul-item-image': qt_ul_item_image
+    'qt-ul-item-text': qt_ul_item_text
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULImageItem>>([])
+    let itemList = ref<Array<QTULTextItem>>([])
 
     function onESCreate() {
-      const list = buildImageItemList(QT_UL_ITEM_TYPE_IMAGE, 100)
+      const list = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
+      console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }
 
