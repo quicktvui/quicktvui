@@ -9,7 +9,7 @@
           :spanCount="2"
           :enablePlaceholder="false">
         <template #item="{item}">
-          <qt-ul-item-text
+          <qt-ul-item-focusable-text
               :text="item.text"
               v-if="item.type == 3"
               :focusable="true"
@@ -25,14 +25,14 @@ import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {buildTextItemList} from "./__mocks__/list";
 import {QT_UL_ITEM_TYPE_TEXT} from "./item/type";
-import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import {QTULTextItem} from "./item/text/QTULItemTextItem";
+import qt_ul_item_focusable_text from "./item/text/qt-ul-item-focusable-text.vue";
 
 export default defineComponent({
-  name: '文字',
+  name: '文字焦点框',
   emits: [],
   components: {
-    'qt-ul-item-text': qt_ul_item_text
+    'qt-ul-item-focusable-text': qt_ul_item_focusable_text
   },
   setup(props, context) {
     let itemList = ref<Array<QTULTextItem>>([])

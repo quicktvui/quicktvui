@@ -52,7 +52,7 @@ export default defineComponent({
 
 </script>
 
-<style>
+<style scoped>
 .qt-ul-root-page {
   width: 1920px;
   height: 1080px;

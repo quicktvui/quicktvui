@@ -22,10 +22,14 @@ export function buildTextItemList(itemType: number, count: number): Array<QTULTe
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
-            itemSize: 200,
+            itemSize: 800,
             id: i + '',
             type: itemType,
-            text: buildRandomText()
+            text: buildRandomText(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
         })
     }
     return textList;

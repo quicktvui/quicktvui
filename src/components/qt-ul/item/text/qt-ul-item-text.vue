@@ -1,6 +1,11 @@
 <template>
-  <qt-text :text="text" class="qt-ul-item-text"
-           gravity="center" :fontSize="44" :ellipsizeMode="2"/>
+  <div class="qt-ul-item-text-root"
+       :focusable="true"
+       :enableFocusBorder="true">
+    <qt-text :text="text" class="qt-ul-item-text"
+             gravity="center" :fontSize="44" :ellipsizeMode="2"/>
+  </div>
+
 </template>
 
 <script lang="ts">
@@ -19,12 +24,18 @@ export default defineComponent({
 
 </script>
 
-<style>
+<style scoped>
+.qt-ul-item-text-root {
+  width: 800px;
+  height: 200px;
+  background-color: greenyellow;
+}
+
 .qt-ul-item-text {
-  width: 100px;
-  height: 50px;
+  width: 800px;
+  height: 200px;
   background-color: red;
-  color: aqua;
+  color: black;
 }
 
 </style>
