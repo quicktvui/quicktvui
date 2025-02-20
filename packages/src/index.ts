@@ -127,10 +127,6 @@ export {QTTextSpanAttributeType} from './text/QTTextSpanAttributeType'
 //
 export {QTImageResizeMode} from './image/QTImageResizeMode'
 
-//ul
-export type {QTULInitPosition} from './ul/QTULInitPosition'
-export type {QTIUL} from './ul/QTIUL'
-
 
 //QTFocusable
 export type {QTFocusable} from './core/QTFocusable'
@@ -329,3 +325,5 @@ export type {QTIPluginView, QTPluginViewEvent} from './plugin/QTIPluginView'
 
 export {VirtualView} from './utils/VirtualView'
 
+//--------------------------------QTIUL---------------------------------
+export * from './ul'

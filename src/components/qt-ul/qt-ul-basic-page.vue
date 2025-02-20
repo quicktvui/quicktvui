@@ -15,11 +15,6 @@
           <div class="tv_item_2" v-else :focusable="true" :enableFocusBorder="true">
           </div>
         </template>
-
-        <div class="tv_item_3" :type="3" :focusable="true" :enableFocusBorder="true">
-          <qt-text class="tv_item_title" text="${text}"></qt-text>
-        </div>
-
       </qt-ul>
     </qt-view>
   </div>
@@ -56,8 +51,6 @@ export default defineComponent({
       text: string
     }
 
-
-
     let cacheArr = ref<any[]>([])
 
     function onESCreate() {
@@ -73,10 +66,11 @@ export default defineComponent({
         for (let i = 0; i < 100; i++) {
           arr.push({
             // id: 'id'+i, name: 'name'+Math.random(),
-            itemSize: 260, type: i % 2 == 0 ? 1 : 2,
-            img: '',
-            tag: i % 2 == 0 ? '' : 'VIP',
-            text: `pos:${i}`,
+            itemSize: 260,
+            type: i % 2 == 0 ? 1 : 2,
+            img: imgArr[i % imgArr.length],
+            // tag: i % 2 == 0 ? '' : 'VIP',
+            // text: `pos:${i}`,
             decoration: {
               top: 20,
               right: 20
