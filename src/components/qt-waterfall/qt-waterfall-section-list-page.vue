@@ -22,6 +22,7 @@ import {
 
 export default defineComponent({
   name: 'ListSection',
+  emits: [],
   setup(props, context) {
     const waterfall = ref<QTIWaterfall>()
 

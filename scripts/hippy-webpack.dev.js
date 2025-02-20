@@ -169,7 +169,7 @@ module.exports = {
         src: path.resolve('./src'),
         // '@': path.resolve('./src'),
         // '@quicktvui/quicktvui3': path.resolve('./packages/src'),
-        // '@quicktvui/quicktvui3': path.resolve('./packages'),
+        '@quicktvui/quicktvui3': path.resolve('./packages'),
       };
       return aliases;
     })(),

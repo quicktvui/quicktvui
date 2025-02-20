@@ -53,6 +53,8 @@ import {
 import QtModulePageList from "./components/qt-module";
 import QtComponentPageList from "./components/qt-component";
 
+import QTULPageList from "./components/qt-ul";
+
 const routes = [
     {
         path: '/splash',
@@ -339,6 +341,12 @@ const routes = [
             path: `/component/${item}`,
             name: `component/${item}`,
             component: QtComponentPageList[item].component,
+        })),
+    ...Object.keys(QTULPageList)
+        .map(item => ({
+            path: `/ul/${item}`,
+            name: `ul/${item}`,
+            component: QTULPageList[item].component,
         })),
 ]
 

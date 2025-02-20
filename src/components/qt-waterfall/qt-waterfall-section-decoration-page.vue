@@ -22,6 +22,7 @@ import {buildPosterDecorationItemList} from "../__mocks__/poster";
 
 export default defineComponent({
   name: 'SectionDecoration',
+  emits:[],
   setup(props, context) {
     const waterfall = ref<QTIWaterfall>()
 
@@ -57,7 +58,7 @@ export default defineComponent({
           decoration: {
             top: 10,
             bottom: 300
-          }
+          },
         }
         sectionList.push(section)
       }

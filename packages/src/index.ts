@@ -40,6 +40,7 @@ import registerQTIReplaceChildView from "./replace-child/QTReplaceChildView";
 export {qtRef, qtWatchAll, qtGetParent, qtTabsRef, parseChildUpdate, qtDiff} from "./qtListen/index";
 export type { IQtTabDatas } from "./qtListen/index";
 import registerQTPluginView from "./plugin/QTPluginView";
+import registerQTUL from "./ul/QTUL";
 
 const components = [
   View,
@@ -95,6 +96,7 @@ export const QuickTVUI = (Vue) => {
   registerAppIconView(Vue)
   registerQTPluginView(Vue)
   registerQTIReplaceChildView(Vue)
+  registerQTUL(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
