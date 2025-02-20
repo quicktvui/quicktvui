@@ -11,6 +11,7 @@
         <template #item="{item}">
           <qt-ul-item-text
               :text="item.text"
+              :backgroundColor="item.backgroundColor"
               v-if="item.type == 3"
               :focusable="true"
               :enableFocusBorder="true"/>

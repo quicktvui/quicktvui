@@ -2,6 +2,7 @@ import {QTULImageItem} from "../item/image/QTULImageItem";
 import {buildRandomImage} from "./image";
 import {QTULTextItem} from "../item/text/QTULItemTextItem";
 import {buildRandomText} from "./text";
+import {buildRandomColor} from "./colors";
 
 export function buildImageItemList(itemType: number, count: number): Array<QTULImageItem> {
 
@@ -26,6 +27,7 @@ export function buildTextItemList(itemType: number, count: number): Array<QTULTe
             id: i + '',
             type: itemType,
             text: buildRandomText(),
+            backgroundColor: buildRandomColor(),
             decoration: {
                 top: 20,
                 bottom: 20,

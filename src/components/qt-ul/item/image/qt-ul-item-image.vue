@@ -18,7 +18,7 @@ export default defineComponent({
 
 </script>
 
-<style>
+<style scoped>
 .qt-ul-item-image {
   width: 300px;
   height: 400px;

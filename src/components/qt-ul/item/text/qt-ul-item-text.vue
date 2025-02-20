@@ -3,6 +3,7 @@
        :focusable="true"
        :enableFocusBorder="true">
     <qt-text :text="text" class="qt-ul-item-text"
+             :style="{backgroundColor: backgroundColor}"
              gravity="center" :fontSize="44" :ellipsizeMode="2"/>
   </div>
 
@@ -19,6 +20,10 @@ export default defineComponent({
       type: String,
       default: ''
     },
+    backgroundColor: {
+      type: String,
+      default: 'white'
+    },
   },
 });
 
@@ -34,7 +39,6 @@ export default defineComponent({
 .qt-ul-item-text {
   width: 800px;
   height: 200px;
-  background-color: red;
   color: black;
 }
 

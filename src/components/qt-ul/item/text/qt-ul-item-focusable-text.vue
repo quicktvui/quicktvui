@@ -21,7 +21,7 @@ export default defineComponent({
 
 </script>
 
-<style>
+<style scoped>
 .qt-ul-item-text {
   width: 800px;
   height: 100px;

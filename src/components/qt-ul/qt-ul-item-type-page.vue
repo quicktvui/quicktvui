@@ -18,6 +18,7 @@
 
           <qt-ul-item-image
               :src="item.url"
+              :backgroundColor="item.backgroundColor"
               v-if="item.type == 2"
               :focusable="true"
               :enableFocusBorder="true"/>
