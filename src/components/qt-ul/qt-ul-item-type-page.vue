@@ -6,7 +6,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="2"
+          :spanCount="1920"
           :enablePlaceholder="false">
         <template #item="{item}">
 
@@ -32,10 +32,9 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildImageItemList, buildTextItemList} from "./__mocks__/list";
+import {buildRandomImageTextItemList} from "./__mocks__/list";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import qt_ul_item_image from "./item/image/qt-ul-item-image.vue";
-import {getRandomInt} from "./__mocks__/random";
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
@@ -49,17 +48,8 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const textList = buildTextItemList(100)
-      const imageList = buildImageItemList(100)
-
-      const dataList = []
-
-      for (let i = 0; i < 100; i++) {
-        const index = getRandomInt(0, 100)
-        dataList.push(index % 2 ? textList[i] : imageList[i])
-      }
-
-      console.log('------buildTextItemList-------->>>', dataList)
+      const dataList = buildRandomImageTextItemList(100)
+      console.log('------buildRandomImageTextItemList-------->>>', dataList)
       itemList.value = dataList
     }
 

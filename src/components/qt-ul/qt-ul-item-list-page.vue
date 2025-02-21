@@ -34,7 +34,7 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildWaterfallItemList} from "./__mocks__/list";
+import {buildRandomWaterfallItemList} from "./__mocks__/list";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import qt_ul_item_list from './item/list/qt-ul-item-list.vue'
 import {QTListViewItem} from "@quicktvui/quicktvui3";
@@ -52,7 +52,7 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildWaterfallItemList()
+      const list = buildRandomWaterfallItemList()
       console.log('---------buildWaterfallItemList--------->>>>', list)
       itemList.value = list
     }

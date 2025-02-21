@@ -6,7 +6,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="2"
+          :spanCount="1920"
           :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-focusable-text
@@ -23,8 +23,7 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildTextItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_TEXT} from "./item/type";
+import {buildRandomTextItemList} from "./__mocks__/list";
 import qt_ul_item_focusable_text from "./item/text/qt-ul-item-focusable-text.vue";
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 
@@ -38,7 +37,7 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
+      const list = buildRandomTextItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }

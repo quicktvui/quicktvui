@@ -24,7 +24,7 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildHorizontalTextItemList} from "./__mocks__/list";
+import {buildRandomTextItemList} from "./__mocks__/list";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 
@@ -38,7 +38,7 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildHorizontalTextItemList(100)
+      const list = buildRandomTextItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }

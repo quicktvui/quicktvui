@@ -6,7 +6,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="6"
+          :spanCount="1920"
           :enablePlaceholder="false"
           :stableItemSize="250">
         <template #item="{item}">
@@ -23,7 +23,7 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildImageItemList} from "./__mocks__/list";
+import {buildRandomImageItemList} from "./__mocks__/list";
 import qt_ul_item_image from './item/image/qt-ul-item-image.vue'
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 
@@ -37,7 +37,7 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildImageItemList(100)
+      const list = buildRandomImageItemList(100)
       itemList.value = list
     }
 

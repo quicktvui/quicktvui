@@ -5,7 +5,13 @@ import {buildIndexText, buildRandomText} from "./text";
 import {buildRandomColor} from "./colors";
 import {getRandomInt} from "./random";
 import {QTListViewItem} from "@quicktvui/quicktvui3";
-import {QT_UL_ITEM_TYPE_IMAGE, QT_UL_ITEM_TYPE_LIST, QT_UL_ITEM_TYPE_TEXT, QT_UL_ITEM_TYPE_VIEW} from "../item/type";
+import {
+    QT_UL_ITEM_TYPE_IMAGE,
+    QT_UL_ITEM_TYPE_LIST,
+    QT_UL_ITEM_TYPE_TEXT,
+    QT_UL_ITEM_TYPE_VIEW
+} from "../item/type";
+import {QTULViewItem} from "../item/div/QTULViewItem";
 
 //--------------------------------随机生成Item---------------------------------------
 export function buildRandomImageItem(index: number): QTULImageItem {
@@ -66,102 +72,78 @@ export function buildFixedTextItem(index: number): QTULTextItem {
 }
 
 //-------------------------------------------------------------------------------------
-
-export function buildListItemList(count: number): Array<QTULImageItem> {
-
+export function buildFixedListItemList(count: number): Array<QTULImageItem> {
     const list = []
     for (let i = 0; i < count; i++) {
         list.push({
             position: i,
             itemSize: 1920,
+            span: 1920,
             id: i + '',
             type: QT_UL_ITEM_TYPE_LIST,
-            itemList: buildTextItemList(30)
+            itemList: buildFixedTextItemList(30)
         })
     }
     return list;
 }
 
+export function buildRandomListItemList(count: number): Array<QTULImageItem> {
+    const list = []
+    for (let i = 0; i < count; i++) {
+        list.push({
+            position: i,
+            itemSize: 1920,
+            span: 1920,
+            id: i + '',
+            type: QT_UL_ITEM_TYPE_LIST,
+            itemList: buildRandomTextItemList(30)
+        })
+    }
+    return list;
+}
 
-export function buildImageItemList(count: number): Array<QTULImageItem> {
-
+export function buildFixedImageItemList(count: number): Array<QTULImageItem> {
     const imageList = []
     for (let i = 0; i < count; i++) {
-        imageList.push({
-            position: i,
-            itemSize: 260,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildRandomImage()
-        })
+        imageList.push(buildFixedImageItem(i))
     }
     return imageList;
 }
 
 
-export function buildTextItemList(count: number): Array<QTULTextItem> {
+export function buildFixedTextItemList(count: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push(buildFixedTextItem(i))
+    }
+    return textList;
+}
+
+
+export function buildRandomImageItemList(count: number): Array<QTULImageItem> {
+    const imageList = []
+    for (let i = 0; i < count; i++) {
+        imageList.push(buildRandomImageItem(i))
+    }
+    return imageList;
+}
+
+
+export function buildRandomTextItemList(count: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push(buildRandomTextItem(i))
+    }
+    return textList;
+}
+
+export function buildRandomViewItemList(count: number): Array<QTULViewItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
             position: i,
             itemSize: 800,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_TEXT,
-            text: buildRandomText(),
-            backgroundColor: buildRandomColor(),
-            decoration: {
-                top: 20,
-                bottom: 20,
-            },
-        })
-    }
-    return textList;
-}
-
-export function buildIndexTextItemList(count: number): Array<QTULTextItem> {
-    const textList = []
-    for (let i = 0; i < count; i++) {
-        textList.push({
-            position: i,
-            itemSize: 800,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_TEXT,
-            text: i + '、' + buildIndexText(i),
-            backgroundColor: buildRandomColor(),
-            decoration: {
-                top: 10,
-                bottom: 10,
-            },
-        })
-    }
-    return textList;
-}
-
-export function buildHorizontalTextItemList(count: number): Array<QTULTextItem> {
-    const textList = []
-    for (let i = 0; i < count; i++) {
-        textList.push({
-            position: i,
-            itemSize: 200,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_TEXT,
-            text: buildRandomText(),
-            backgroundColor: buildRandomColor(),
-            decoration: {
-                top: 20,
-                bottom: 20,
-            },
-        })
-    }
-    return textList;
-}
-
-export function buildViewItemList(count: number): Array<QTULTextItem> {
-    const textList = []
-    for (let i = 0; i < count; i++) {
-        textList.push({
-            position: i,
-            itemSize: 800,
+            span: 800,
             id: i + '',
             type: QT_UL_ITEM_TYPE_VIEW,
             backgroundColor: buildRandomColor(),
@@ -177,66 +159,29 @@ export function buildViewItemList(count: number): Array<QTULTextItem> {
 }
 
 
-export function buildWaterfallItemList(): Array<QTListViewItem> {
+export function buildRandomWaterfallItemList(): Array<QTListViewItem> {
     const itemList = []
     //1.添加两个文本类型
-    itemList.push(...buildSpanCountTextItemList(2))
+    itemList.push(...buildRandomTextItemList(2))
     //2.添加两个横向列表类型
-    itemList.push(...buildSpanCountListItemList(2))
+    itemList.push(...buildRandomListItemList(2))
     //3.添加两个图片类型
-    itemList.push(...buildSpanCountImageItemList(2))
+    itemList.push(...buildRandomImageItemList(2))
     return itemList;
 }
 
-export function buildSpanCountListItemList(count: number): Array<QTULImageItem> {
-    const list = []
+
+export function buildRandomImageTextItemList(count: number): Array<QTListViewItem> {
+    const dataList = []
+
     for (let i = 0; i < count; i++) {
-        list.push({
-            position: i,
-            itemSize: 1920,
-            span: 1920,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_LIST,
-            itemList: buildTextItemList(30)
-        })
+        const index = getRandomInt(0, count)
+        if (index % 2) {
+            dataList.push(buildRandomImageItem(i))
+        } else {
+            dataList.push(buildRandomTextItem(i))
+        }
     }
-    return list;
-}
 
-
-export function buildSpanCountImageItemList(count: number): Array<QTULImageItem> {
-
-    const imageList = []
-    for (let i = 0; i < count; i++) {
-        imageList.push({
-            position: i,
-            itemSize: 260,
-            span: 260,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildRandomImage()
-        })
-    }
-    return imageList;
-}
-
-
-export function buildSpanCountTextItemList(count: number): Array<QTULTextItem> {
-    const textList = []
-    for (let i = 0; i < count; i++) {
-        textList.push({
-            position: i,
-            itemSize: 800,
-            span: 800,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_TEXT,
-            text: buildRandomText(),
-            backgroundColor: buildRandomColor(),
-            decoration: {
-                top: 20,
-                bottom: 20,
-            },
-        })
-    }
-    return textList;
+    return dataList;
 }

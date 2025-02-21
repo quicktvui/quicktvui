@@ -10,7 +10,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="1"
+          :spanCount="800"
           :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-text
@@ -29,7 +29,7 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildIndexTextItemList} from "./__mocks__/list";
+import {buildRandomTextItemList} from "./__mocks__/list";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import {QTIUL, QTListViewItem} from "@quicktvui/quicktvui3";
 
@@ -44,7 +44,7 @@ export default defineComponent({
     const ulRef = ref<QTIUL>()
 
     function onESCreate() {
-      const list = buildIndexTextItemList(100)
+      const list = buildRandomTextItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }
