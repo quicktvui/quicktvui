@@ -152,6 +152,8 @@ export function buildRandomViewItemList(count: number): Array<QTULViewItem> {
             decoration: {
                 top: 20,
                 bottom: 20,
+                left: 20,
+                right: 20
             },
         })
     }
