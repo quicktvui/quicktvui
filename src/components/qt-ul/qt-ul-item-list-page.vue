@@ -6,7 +6,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="2"
+          :spanCount="1920"
           :enablePlaceholder="false">
         <template #item="{item}">
 
@@ -53,6 +53,7 @@ export default defineComponent({
 
     function onESCreate() {
       const list = buildWaterfallItemList()
+      console.log('---------buildWaterfallItemList--------->>>>', list)
       itemList.value = list
     }
 

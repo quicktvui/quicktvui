@@ -141,10 +141,61 @@ export function buildViewItemList(count: number): Array<QTULTextItem> {
 export function buildWaterfallItemList(): Array<QTListViewItem> {
     const itemList = []
     //1.添加两个文本类型
-    itemList.push(...buildTextItemList(2))
+    itemList.push(...buildSpanCountTextItemList(2))
     //2.添加两个横向列表类型
-    itemList.push(...buildListItemList(2))
+    itemList.push(...buildSpanCountListItemList(2))
     //3.添加两个图片类型
-    itemList.push(...buildImageItemList(2))
+    itemList.push(...buildSpanCountImageItemList(2))
     return itemList;
+}
+
+export function buildSpanCountListItemList(count: number): Array<QTULImageItem> {
+
+    const list = []
+    for (let i = 0; i < count; i++) {
+        list.push({
+            itemSize: 1920,
+            span: 1920,
+            id: i + '',
+            type: QT_UL_ITEM_TYPE_LIST,
+            itemList: buildTextItemList(30)
+        })
+    }
+    return list;
+}
+
+
+export function buildSpanCountImageItemList(count: number): Array<QTULImageItem> {
+
+    const imageList = []
+    for (let i = 0; i < count; i++) {
+        imageList.push({
+            itemSize: 260,
+            span: 260,
+            id: i + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildRandomImage()
+        })
+    }
+    return imageList;
+}
+
+
+export function buildSpanCountTextItemList(count: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push({
+            itemSize: 800,
+            span: 800,
+            id: i + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        })
+    }
+    return textList;
 }
