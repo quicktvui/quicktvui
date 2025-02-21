@@ -18,8 +18,8 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
             },
             type: 5,
             decoration: {
-                left: 90,
-                bottom: 90
+                left: 25,
+                bottom: 90,
             },
             title: {
                 text: '主标题',

@@ -10,7 +10,7 @@ import qt_ul_auto_scroll_page from './qt-ul-auto-scroll-page';
 import qt_ul_auto_focus_page from './qt-ul-auto-focus-page';
 import qt_ul_auto_focus_position_page from './qt-ul-auto-focus-position-page';
 import qt_ul_focus_page from './qt-ul-focus-page';
-import qt_ul_waterfall_page from './qt-ul-waterfall-page';
+import qt_ul_poster_page from './qt-ul-poster-page';
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -61,9 +61,9 @@ const QTULPageList = {
         name: '焦点',
         component: qt_ul_focus_page,
     },
-    qt_ul_waterfall_page: {
+    qt_ul_poster_page: {
         name: 'Poster',
-        component: qt_ul_waterfall_page,
+        component: qt_ul_poster_page,
     },
 };
 export default QTULPageList;
