@@ -39,7 +39,7 @@ export default defineComponent({
     let itemList = ref<Array<QTULTextItem>>([])
 
     function onESCreate() {
-      const list = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
+      const list = buildTextItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }

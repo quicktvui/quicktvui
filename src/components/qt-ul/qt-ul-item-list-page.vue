@@ -6,15 +6,25 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="6"
-          :enablePlaceholder="false"
-          :stableItemSize="250">
+          :spanCount="2"
+          :enablePlaceholder="false">
         <template #item="{item}">
-          <qt-ul-item-image
-              :src="item.url"
-              v-if="item.type == 2"
+
+          <qt-ul-item-text
+              :text="item.text"
+              :backgroundColor="item.backgroundColor"
+              v-if="item.type == 3"
               :focusable="true"
               :enableFocusBorder="true"/>
+
+          <qt-ul-item-list
+              :itemList="item.itemList"
+              v-if="item.type == 6"/>
+
+          <qt-ul-item-image
+              :src="item.url"
+              v-if="item.type == 2"/>
+
         </template>
       </qt-ul>
     </qt-view>
@@ -24,22 +34,25 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {QTULImageItem} from "./item/image/QTULImageItem";
-import {buildImageItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_IMAGE} from "./item/type";
-import qt_ul_item_image from './item/image/qt-ul-item-image.vue'
+import {buildWaterfallItemList} from "./__mocks__/list";
+import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
+import qt_ul_item_list from './item/list/qt-ul-item-list.vue'
+import {QTListViewItem} from "@quicktvui/quicktvui3";
+import qt_ul_item_image from "./item/image/qt-ul-item-image.vue";
 
 export default defineComponent({
-  name: '使用初探',
+  name: '一行滚动',
   emits: [],
   components: {
+    'qt-ul-item-text': qt_ul_item_text,
+    'qt-ul-item-list': qt_ul_item_list,
     'qt-ul-item-image': qt_ul_item_image
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULImageItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildImageItemList(100)
+      const list = buildWaterfallItemList()
       itemList.value = list
     }
 
@@ -64,7 +77,7 @@ export default defineComponent({
 .qt-ul-class {
   width: 1920px;
   height: 1080px;
-  background-color: #0D71FF;
+  background-color: darkgray;
 }
 
 </style>

@@ -40,7 +40,7 @@ export default defineComponent({
     let itemList = ref<Array<QTULViewItem>>([])
 
     function onESCreate() {
-      const list = buildViewItemList(QT_UL_ITEM_TYPE_VIEW, 100)
+      const list = buildViewItemList(100)
       console.log('------buildViewItemList-------->>>', list)
       itemList.value = list
     }

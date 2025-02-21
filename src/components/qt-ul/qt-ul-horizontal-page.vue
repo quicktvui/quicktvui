@@ -39,7 +39,7 @@ export default defineComponent({
     let itemList = ref<Array<QTULTextItem>>([])
 
     function onESCreate() {
-      const list = buildHorizontalTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
+      const list = buildHorizontalTextItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }

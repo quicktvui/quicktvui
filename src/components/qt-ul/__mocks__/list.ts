@@ -4,15 +4,59 @@ import {QTULTextItem} from "../item/text/QTULItemTextItem";
 import {buildIndexText, buildRandomText} from "./text";
 import {buildRandomColor} from "./colors";
 import {getRandomInt} from "./random";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
+import {QT_UL_ITEM_TYPE_IMAGE, QT_UL_ITEM_TYPE_LIST, QT_UL_ITEM_TYPE_TEXT, QT_UL_ITEM_TYPE_VIEW} from "../item/type";
 
-export function buildImageItemList(itemType: number, count: number): Array<QTULImageItem> {
+
+export function buildImageItem(index: number): QTULImageItem {
+    return {
+        itemSize: 260,
+        id: index + '',
+        type: QT_UL_ITEM_TYPE_IMAGE,
+        url: buildRandomImage()
+    }
+}
+
+
+export function buildTextItem(index: number): QTULTextItem {
+    return {
+        itemSize: 800,
+        id: index + '',
+        type: QT_UL_ITEM_TYPE_TEXT,
+        text: buildRandomText(),
+        backgroundColor: buildRandomColor(),
+        decoration: {
+            top: 20,
+            bottom: 20,
+        },
+    }
+}
+
+//-------------------------------------------------------------------------------------
+
+export function buildListItemList(count: number): Array<QTULImageItem> {
+
+    const list = []
+    for (let i = 0; i < count; i++) {
+        list.push({
+            itemSize: 1920,
+            id: i + '',
+            type: QT_UL_ITEM_TYPE_LIST,
+            itemList: buildTextItemList(30)
+        })
+    }
+    return list;
+}
+
+
+export function buildImageItemList(count: number): Array<QTULImageItem> {
 
     const imageList = []
     for (let i = 0; i < count; i++) {
         imageList.push({
             itemSize: 260,
             id: i + '',
-            type: itemType,
+            type: QT_UL_ITEM_TYPE_IMAGE,
             url: buildRandomImage()
         })
     }
@@ -20,13 +64,13 @@ export function buildImageItemList(itemType: number, count: number): Array<QTULI
 }
 
 
-export function buildTextItemList(itemType: number, count: number): Array<QTULTextItem> {
+export function buildTextItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
             itemSize: 800,
             id: i + '',
-            type: itemType,
+            type: QT_UL_ITEM_TYPE_TEXT,
             text: buildRandomText(),
             backgroundColor: buildRandomColor(),
             decoration: {
@@ -38,13 +82,13 @@ export function buildTextItemList(itemType: number, count: number): Array<QTULTe
     return textList;
 }
 
-export function buildIndexTextItemList(itemType: number, count: number): Array<QTULTextItem> {
+export function buildIndexTextItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
             itemSize: 800,
             id: i + '',
-            type: itemType,
+            type: QT_UL_ITEM_TYPE_TEXT,
             text: i + '、' + buildIndexText(i),
             backgroundColor: buildRandomColor(),
             decoration: {
@@ -56,13 +100,13 @@ export function buildIndexTextItemList(itemType: number, count: number): Array<Q
     return textList;
 }
 
-export function buildHorizontalTextItemList(itemType: number, count: number): Array<QTULTextItem> {
+export function buildHorizontalTextItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
             itemSize: 200,
             id: i + '',
-            type: itemType,
+            type: QT_UL_ITEM_TYPE_TEXT,
             text: buildRandomText(),
             backgroundColor: buildRandomColor(),
             decoration: {
@@ -74,13 +118,13 @@ export function buildHorizontalTextItemList(itemType: number, count: number): Ar
     return textList;
 }
 
-export function buildViewItemList(itemType: number, count: number): Array<QTULTextItem> {
+export function buildViewItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
             itemSize: 800,
             id: i + '',
-            type: itemType,
+            type: QT_UL_ITEM_TYPE_VIEW,
             backgroundColor: buildRandomColor(),
             width: getRandomInt(0, 200),
             height: getRandomInt(0, 200),
@@ -91,4 +135,16 @@ export function buildViewItemList(itemType: number, count: number): Array<QTULTe
         })
     }
     return textList;
+}
+
+
+export function buildWaterfallItemList(): Array<QTListViewItem> {
+    const itemList = []
+    //1.添加两个文本类型
+    itemList.push(...buildTextItemList(2))
+    //2.添加两个横向列表类型
+    itemList.push(...buildListItemList(2))
+    //3.添加两个图片类型
+    itemList.push(...buildImageItemList(2))
+    return itemList;
 }

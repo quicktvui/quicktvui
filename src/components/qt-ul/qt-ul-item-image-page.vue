@@ -13,7 +13,7 @@
           <qt-ul-item-image
               :src="item.url"
               v-if="item.type == 2"
-              />
+          />
         </template>
       </qt-ul>
     </qt-view>
@@ -38,7 +38,7 @@ export default defineComponent({
     let itemList = ref<Array<QTULImageItem>>([])
 
     function onESCreate() {
-      const list = buildImageItemList(QT_UL_ITEM_TYPE_IMAGE, 100)
+      const list = buildImageItemList(100)
       itemList.value = list
     }
 

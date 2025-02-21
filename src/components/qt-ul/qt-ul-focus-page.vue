@@ -46,7 +46,7 @@ export default defineComponent({
     const ulRef = ref<QTIUL>()
 
     function onESCreate() {
-      const list = buildIndexTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
+      const list = buildIndexTextItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }

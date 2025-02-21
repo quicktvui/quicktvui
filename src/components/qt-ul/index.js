@@ -4,6 +4,7 @@ import qt_ul_item_text_page from './qt-ul-item-text-page';
 import qt_ul_item_focusable_text_page from './qt-ul-item-focusable-text-page';
 import qt_ul_item_type_page from './qt-ul-item-type-page';
 import qt_ul_item_size_page from './qt-ul-item-size-page';
+import qt_ul_item_list_page from './qt-ul-item-list-page';
 import qt_ul_horizontal_page from './qt-ul-horizontal-page';
 import qt_ul_scroll_page from './qt-ul-scroll-page';
 import qt_ul_auto_scroll_page from './qt-ul-auto-scroll-page';
@@ -11,6 +12,7 @@ import qt_ul_auto_focus_page from './qt-ul-auto-focus-page';
 import qt_ul_auto_focus_position_page from './qt-ul-auto-focus-position-page';
 import qt_ul_focus_page from './qt-ul-focus-page';
 import qt_ul_poster_page from './qt-ul-poster-page';
+
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -64,6 +66,10 @@ const QTULPageList = {
     qt_ul_poster_page: {
         name: 'Poster',
         component: qt_ul_poster_page,
+    },
+    qt_ul_item_list_page: {
+        name: '一行滚动',
+        component: qt_ul_item_list_page,
     },
 };
 export default QTULPageList;

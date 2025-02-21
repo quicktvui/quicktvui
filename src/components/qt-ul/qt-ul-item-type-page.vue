@@ -50,8 +50,8 @@ export default defineComponent({
     let itemList = ref<Array<QTULTextItem>>([])
 
     function onESCreate() {
-      const textList = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
-      const imageList = buildImageItemList(QT_UL_ITEM_TYPE_IMAGE, 100)
+      const textList = buildTextItemList(100)
+      const imageList = buildImageItemList(100)
 
       const dataList = []
 
