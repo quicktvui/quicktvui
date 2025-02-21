@@ -10,6 +10,7 @@ import {QT_UL_ITEM_TYPE_IMAGE, QT_UL_ITEM_TYPE_LIST, QT_UL_ITEM_TYPE_TEXT, QT_UL
 //--------------------------------随机生成Item---------------------------------------
 export function buildRandomImageItem(index: number): QTULImageItem {
     return {
+        position: index,
         itemSize: 260,
         span: 260,
         id: index + '',
@@ -21,6 +22,7 @@ export function buildRandomImageItem(index: number): QTULImageItem {
 
 export function buildRandomTextItem(index: number): QTULTextItem {
     return {
+        position: index,
         itemSize: 800,
         span: 800,
         id: index + '',
@@ -33,9 +35,11 @@ export function buildRandomTextItem(index: number): QTULTextItem {
         },
     }
 }
+
 //--------------------------------固定生成Item---------------------------------------
 export function buildFixedImageItem(index: number): QTULImageItem {
     return {
+        position: index,
         itemSize: 260,
         span: 260,
         id: index + '',
@@ -47,6 +51,7 @@ export function buildFixedImageItem(index: number): QTULImageItem {
 
 export function buildFixedTextItem(index: number): QTULTextItem {
     return {
+        position: index,
         itemSize: 800,
         span: 800,
         id: index + '',
@@ -59,6 +64,7 @@ export function buildFixedTextItem(index: number): QTULTextItem {
         },
     }
 }
+
 //-------------------------------------------------------------------------------------
 
 export function buildListItemList(count: number): Array<QTULImageItem> {
@@ -66,6 +72,7 @@ export function buildListItemList(count: number): Array<QTULImageItem> {
     const list = []
     for (let i = 0; i < count; i++) {
         list.push({
+            position: i,
             itemSize: 1920,
             id: i + '',
             type: QT_UL_ITEM_TYPE_LIST,
@@ -81,6 +88,7 @@ export function buildImageItemList(count: number): Array<QTULImageItem> {
     const imageList = []
     for (let i = 0; i < count; i++) {
         imageList.push({
+            position: i,
             itemSize: 260,
             id: i + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
@@ -95,6 +103,7 @@ export function buildTextItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
+            position: i,
             itemSize: 800,
             id: i + '',
             type: QT_UL_ITEM_TYPE_TEXT,
@@ -113,6 +122,7 @@ export function buildIndexTextItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
+            position: i,
             itemSize: 800,
             id: i + '',
             type: QT_UL_ITEM_TYPE_TEXT,
@@ -131,6 +141,7 @@ export function buildHorizontalTextItemList(count: number): Array<QTULTextItem> 
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
+            position: i,
             itemSize: 200,
             id: i + '',
             type: QT_UL_ITEM_TYPE_TEXT,
@@ -149,6 +160,7 @@ export function buildViewItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
+            position: i,
             itemSize: 800,
             id: i + '',
             type: QT_UL_ITEM_TYPE_VIEW,
@@ -177,10 +189,10 @@ export function buildWaterfallItemList(): Array<QTListViewItem> {
 }
 
 export function buildSpanCountListItemList(count: number): Array<QTULImageItem> {
-
     const list = []
     for (let i = 0; i < count; i++) {
         list.push({
+            position: i,
             itemSize: 1920,
             span: 1920,
             id: i + '',
@@ -197,6 +209,7 @@ export function buildSpanCountImageItemList(count: number): Array<QTULImageItem>
     const imageList = []
     for (let i = 0; i < count; i++) {
         imageList.push({
+            position: i,
             itemSize: 260,
             span: 260,
             id: i + '',
@@ -212,6 +225,7 @@ export function buildSpanCountTextItemList(count: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
         textList.push({
+            position: i,
             itemSize: 800,
             span: 800,
             id: i + '',
