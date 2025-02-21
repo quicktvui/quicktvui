@@ -422,10 +422,6 @@ function registerQTUL(app: ESApp) {
                     console.warn("Element is null or undefined");
                     return;
                 }
-                ;
-
-                // console.log("Element:", element.tagName); // 打印元素标签名
-
                 // 遍历元素节点的子元素
                 element.children?.forEach((child) => {
                     traverseDomTree(child);
@@ -616,9 +612,7 @@ function registerQTUL(app: ESApp) {
                         //   //bindH(evt)
                         // },
                     },
-                    [context.slots.default && context.slots.default(),
-                        items,
-                    ]
+                    [context.slots.default && context.slots.default(), items,]
                 )
             }
         },

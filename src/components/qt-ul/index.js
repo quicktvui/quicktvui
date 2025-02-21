@@ -10,6 +10,7 @@ import qt_ul_auto_scroll_page from './qt-ul-auto-scroll-page';
 import qt_ul_auto_focus_page from './qt-ul-auto-focus-page';
 import qt_ul_auto_focus_position_page from './qt-ul-auto-focus-position-page';
 import qt_ul_focus_page from './qt-ul-focus-page';
+import qt_ul_waterfall_page from './qt-ul-waterfall-page';
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -59,6 +60,10 @@ const QTULPageList = {
     qt_ul_focus_page: {
         name: '焦点',
         component: qt_ul_focus_page,
+    },
+    qt_ul_waterfall_page: {
+        name: '瀑布流',
+        component: qt_ul_waterfall_page,
     },
 };
 export default QTULPageList;

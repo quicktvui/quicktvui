@@ -1,5 +1,5 @@
-import {QTULItem} from "@quicktvui/quicktvui3";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
-export interface QTULTextItem extends QTULItem{
+export interface QTULTextItem extends QTListViewItem{
 
 }
