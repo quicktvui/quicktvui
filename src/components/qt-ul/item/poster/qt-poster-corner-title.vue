@@ -10,12 +10,16 @@
       gravity="center"
       :postDelay="350"
       style="color: white;padding: 4px 8px;height: 36px;margin: 4px;"
-      gradientBackground="${corner.background}"
+      :gradientBackground="corner.background"
       autoWidth
-      text="${corner.text}"
-      showIf="${corner.enable==true}"
+      :text="corner.text"
+      v-if="corner.enable"
     />
-    <img :focusable="false" class="poster_corner_img" flexStyle="${corner.styleImg}" src="${corner.src}" showIf="${corner.enableImg}"/>
+    <img :focusable="false"
+         class="poster_corner_img"
+         flexStyle="${corner.styleImg}"
+         :src="corner.src"
+         v-if="corner.enableImg"/>
   </div>
 </template>
 
@@ -34,7 +38,10 @@ export default defineComponent({
     mode: {
       type: String,
       default: 'right'
-    }
+    },
+    corner: {
+      type: Object,
+    },
   },
   setup(props, context) {
   },

@@ -1,15 +1,10 @@
 <template>
-  <div
-      ref="viewRef"
-      focusScale="${focus.scale}"
+  <div ref="viewRef"
+      flexStyle="${style}"
+      :focusScale="focus.scale"
       :focusable="true"
-      eventClick
-      eventFocus
       name="poster"
-      class="qt-ui-poster-root-css"
-      itemShowShimmer="${shimmer.enable}"
-      hideShadow="${shadow.enable}"
-      shimmerSize="${size}">
+      class="qt-ui-poster-root-css">
     <!--封面-->
     <img
         class="qt-ui-poster-img-css"
@@ -17,28 +12,31 @@
         :postDelay="300"
         enableFade
         :focusable="false"
-        enableFocusBorder="${focus.border}"
+        :enableFocusBorder="focus.border"
         flexStyle="${image.style}"
         :style="{borderRadius: `${borderRadius}px`}"
-        src="${image.src}"/>
+        :src="image.src"/>
 
     <text-view
         class="qt-ui-poster-score-css"
         :duplicateParentState="true"
         :focusable="false"
         flexStyle="${score.style}"
-        textSize="${score.style.fontSize}"
+        :textSize="score.style.fontSize"
         :ellipsizeMode="2"
         :lines="1"
         gravity="center"
         :postDelay="350"
         autoWidth
-        text="${score.text}"/>
+        text="score.text"/>
 
     <!--   焦点选中时的标题 -->
     <qt-poster-focus-title
         :focusable="false"
         :border-radius="borderRadius"
+        :floatTitle="floatTitle"
+        :focusTitle="focusTitle"
+        :subTitle="subTitle"
         showOnState="focused"
         :bgColor="focusBgColor"
         :titleColor="focusTitleColor"
@@ -56,7 +54,7 @@
            :gradientBackground="{colors:floatTitleBgColor, cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
            :duplicateParentState="true"
            :focusable="false"
-           showIf="${floatTitle.enable}">
+           v-if="floatTitle.enable">
         <text-view
             :duplicateParentState="true"
             :focusable="false"
@@ -68,7 +66,7 @@
             gravity="left"
             style="z-index: 999;height: 50px;"
             flexStyle="${floatTitle.style}"
-            text="${floatTitle.text}"/>
+            :text="floatTitle.text"/>
       </div>
 
       <!--  主标题-->
@@ -81,11 +79,11 @@
           :postDelay="200"
           gravity="left"
           :paddingRect="[16,8,0,0]"
-          gradientBackground="${title.background}"
+          :gradientBackground="title.background"
           style="z-index: 999;height: 60px"
           flexStyle="${title.style}"
-          text="${title.text}"
-          showIf="${title.enable}"/>
+          :text="title.text"
+          v-if="title.enable"/>
     </div>
     <div
         flexStyle="${ripple.style}"
@@ -100,26 +98,29 @@
           :focusable="false"
           :duplicateParentState="true"
           :color="rippleColor"
-          isShowRipple="${ripple.enable}"
+          :isShowRipple="ripple.enable"
           rippleVisible="invisible"/>
 
-      <img src="${ripple.src}"
+      <img :src="ripple.src"
            class="qt-ui-ripple-img-css"
            :focusable="false"
            :duplicateParentState="true"
-           showIf="${ripple.enable==true}"
+           v-if="ripple.enable"
            :delayLoad="800"/>
     </div>
 
     <qt-poster-corner-title
-        showIf="${corner.showCornerRight==true}"
+        v-if="corner.showCornerRight"
+        :corner="corner"
         :focusable="false"
         flexStyle="${corner.style}"
     />
     <qt-poster-corner-title
-        showIf="${corner.showCornerLeft==true}"
+        v-if="corner.showCornerLeft"
+        :corner="corner"
         :focusable="false"
-        flexStyle="${corner.style}" mode="left"
+        flexStyle="${corner.style}"
+        mode="left"
     />
     <slot/>
   </div>
@@ -178,7 +179,49 @@ export default defineComponent({
       default: () => {
         return ['#e5000000', '#00000000']
       }
-    }
+    },
+    focus: {
+      type: Object,
+    },
+    image: {
+      type: Object,
+    },
+    shadow: {
+      type: Object,
+    },
+    shimmer: {
+      type: Object,
+    },
+    title: {
+      type: Object,
+    },
+    focusTitle: {
+      type: Object,
+    },
+    subTitle: {
+      type: Object,
+    },
+    floatTitle: {
+      type: Object,
+    },
+    ripple: {
+      type: Object,
+    },
+    corner: {
+      type: Object,
+    },
+    score: {
+      type: Object,
+    },
+    titleStyle: {
+      type: Object,
+    },
+    titleFocusStyle: {
+      type: Object,
+    },
+    placeholderImg: {
+      type: Object,
+    },
   },
   setup(props, context) {
     let mainTextShowOnState = ['normal', 'selected']

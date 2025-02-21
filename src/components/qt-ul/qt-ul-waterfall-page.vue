@@ -25,11 +25,9 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildImageItemList, buildTextItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_IMAGE, QT_UL_ITEM_TYPE_TEXT} from "./item/type";
 import qt_ul_item_poster from './item/poster/qt-ul-item-poster.vue'
 import {QTULTextItem} from "./item/text/QTULItemTextItem";
-import {getRandomInt} from "./__mocks__/random";
+import {buildPosterItemList} from "./__mocks__/poster";
 
 export default defineComponent({
   name: '瀑布流',
@@ -41,18 +39,9 @@ export default defineComponent({
     let itemList = ref<Array<QTULTextItem>>([])
 
     function onESCreate() {
-      const textList = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)
-      const imageList = buildImageItemList(QT_UL_ITEM_TYPE_IMAGE, 100)
-
-      const dataList = []
-
-      for (let i = 0; i < 100; i++) {
-        const index = getRandomInt(0, 100)
-        dataList.push(index % 2 ? textList[i] : imageList[i])
-      }
-
-      console.log('------buildTextItemList-------->>>', dataList)
-      itemList.value = dataList
+      const posterList = buildPosterItemList()
+      console.log('------buildPosterItemList-------->>>', posterList)
+      itemList.value = posterList
     }
 
     return {

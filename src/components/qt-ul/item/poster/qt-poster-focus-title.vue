@@ -5,52 +5,52 @@
        :focusable="false">
     <!-- 浮动标题-->
     <text-view
-      :duplicateParentState="true"
-      :focusable="false"
-      :fontSize="26"
-      :ellipsizeMode="2"
-      :lines="1"
-      :paddingRect="[16,18,0,0]"
-      gradientBackground="${floatTitle.background}"
-      style="height: 64px;color: #ffffff"
-      flexStyle="${floatTitle.style}"
-      text="${floatTitle.text}"
-      showIf="${floatTitle.enable}"
-      gravity="left"
-      :postDelay="250"/>
+        :duplicateParentState="true"
+        :focusable="false"
+        :fontSize="26"
+        :ellipsizeMode="2"
+        :lines="1"
+        :paddingRect="[16,18,0,0]"
+        :gradientBackground="floatTitle.background"
+        style="height: 64px;color: #ffffff"
+        flexStyle="${floatTitle.style}"
+        :text="floatTitle.text"
+        v-if="floatTitle.enable"
+        gravity="left"
+        :postDelay="250"/>
     <div class="absoluteFocusMainBgRoot"
          :style="{borderBottomLeftRadius: `${borderRadius}px`,borderBottomRightRadius:`${borderRadius}px`}"
          :duplicateParentState="true"
          :focusable="false"
          :gradientBackground="bgColor"
-         showIf="${focusTitle.enable}">
+         v-if="focusTitle.enable">
       <!-- 主标题 -->
       <text-view
-        :duplicateParentState="true"
-        :focusable="false"
-        :fontSize="30"
-        :ellipsizeMode="2"
-        autoHeight
-        :maxLines="2"
-        gravity="left"
-        :paddingRect="[16,8,12,8]"
-        :style="{backgroundColor: 'transparent',color: `${titleColor}`}"
-        flexStyle="${focusTitle.style}"
-        text="${focusTitle.text}"/>
+          :duplicateParentState="true"
+          :focusable="false"
+          :fontSize="30"
+          :ellipsizeMode="2"
+          autoHeight
+          :maxLines="2"
+          gravity="left"
+          :paddingRect="[16,8,12,8]"
+          :style="{backgroundColor: 'transparent',color: `${titleColor}`}"
+          flexStyle="${focusTitle.style}"
+          :text="focusTitle.text"/>
       <!-- 副标题 -->
       <text-view
-        :duplicateParentState="true"
-        :focusable="false"
-        :fontSize="24"
-        :ellipsizeMode="2"
-        :lines="1"
-        autoHeight
-        gravity="left|top"
-        :paddingRect="[16,0,0,16]"
-        :style="{color: `${subTitleColor}`,backgroundColor: 'transparent'}"
-        flexStyle="${subTitle.style}"
-        text="${subTitle.text}"
-        visibility="${subTitle}"/>
+          :duplicateParentState="true"
+          :focusable="false"
+          :fontSize="24"
+          :ellipsizeMode="2"
+          :lines="1"
+          autoHeight
+          gravity="left|top"
+          :paddingRect="[16,0,0,16]"
+          :style="{color: `${subTitleColor}`,backgroundColor: 'transparent'}"
+          flexStyle="${subTitle.style}"
+          :text="subTitle.text"
+          v-if="subTitle"/>
     </div>
   </div>
 </template>
@@ -65,14 +65,14 @@ export default defineComponent({
       type: Number,
       default: 20
     },
-    borderRadius:{
-      type:Number,
-      default:8
+    borderRadius: {
+      type: Number,
+      default: 8
     },
     bgColor: {
       type: Object,
-      default(){
-        return {colors:['#ffffff','#ffffff'],cornerRadii4: [0, 0, 8, 8]}
+      default() {
+        return {colors: ['#ffffff', '#ffffff'], cornerRadii4: [0, 0, 8, 8]}
       }
     },
     titleColor: {
@@ -82,7 +82,16 @@ export default defineComponent({
     subTitleColor: {
       type: String,
       default: 'rgba(0,0,0,.4)'
-    }
+    },
+    floatTitle: {
+      type: Object,
+    },
+    focusTitle: {
+      type: Object,
+    },
+    subTitle: {
+      type: Object,
+    },
   },
   setup(props, context) {
   },
