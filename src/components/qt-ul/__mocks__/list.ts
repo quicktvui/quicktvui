@@ -1,5 +1,5 @@
 import {QTULImageItem} from "../item/image/QTULImageItem";
-import {buildRandomImage} from "./image";
+import {buildIndexImage, buildRandomImage} from "./image";
 import {QTULTextItem} from "../item/text/QTULTextItem";
 import {buildIndexText, buildRandomText} from "./text";
 import {buildRandomColor} from "./colors";
@@ -7,10 +7,11 @@ import {getRandomInt} from "./random";
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 import {QT_UL_ITEM_TYPE_IMAGE, QT_UL_ITEM_TYPE_LIST, QT_UL_ITEM_TYPE_TEXT, QT_UL_ITEM_TYPE_VIEW} from "../item/type";
 
-
-export function buildImageItem(index: number): QTULImageItem {
+//--------------------------------随机生成Item---------------------------------------
+export function buildRandomImageItem(index: number): QTULImageItem {
     return {
         itemSize: 260,
+        span: 260,
         id: index + '',
         type: QT_UL_ITEM_TYPE_IMAGE,
         url: buildRandomImage()
@@ -18,12 +19,13 @@ export function buildImageItem(index: number): QTULImageItem {
 }
 
 
-export function buildTextItem(index: number): QTULTextItem {
+export function buildRandomTextItem(index: number): QTULTextItem {
     return {
         itemSize: 800,
+        span: 800,
         id: index + '',
         type: QT_UL_ITEM_TYPE_TEXT,
-        text: buildRandomText(),
+        text: index + '、' + buildRandomText(),
         backgroundColor: buildRandomColor(),
         decoration: {
             top: 20,
@@ -31,7 +33,32 @@ export function buildTextItem(index: number): QTULTextItem {
         },
     }
 }
+//--------------------------------固定生成Item---------------------------------------
+export function buildFixedImageItem(index: number): QTULImageItem {
+    return {
+        itemSize: 260,
+        span: 260,
+        id: index + '',
+        type: QT_UL_ITEM_TYPE_IMAGE,
+        url: buildIndexImage(index)
+    }
+}
 
+
+export function buildFixedTextItem(index: number): QTULTextItem {
+    return {
+        itemSize: 800,
+        span: 800,
+        id: index + '',
+        type: QT_UL_ITEM_TYPE_TEXT,
+        text: index + '、' + buildIndexText(index),
+        backgroundColor: buildRandomColor(),
+        decoration: {
+            top: 20,
+            bottom: 20,
+        },
+    }
+}
 //-------------------------------------------------------------------------------------
 
 export function buildListItemList(count: number): Array<QTULImageItem> {

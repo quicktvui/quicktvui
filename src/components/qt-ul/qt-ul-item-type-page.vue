@@ -46,7 +46,7 @@ export default defineComponent({
     'qt-ul-item-image': qt_ul_item_image
   },
   setup(props, context) {
-    let itemList = ref<Array<QTListViewItem>>([])
+    const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const textList = buildTextItemList(100)

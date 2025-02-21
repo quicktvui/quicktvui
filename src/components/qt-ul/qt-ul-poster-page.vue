@@ -48,7 +48,7 @@ export default defineComponent({
     'qt-ul-item-poster': qt_ul_item_poster,
   },
   setup(props, context) {
-    let itemList = ref<Array<QTListViewItem>>([])
+    const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const posterList = buildPosterItemList(100)

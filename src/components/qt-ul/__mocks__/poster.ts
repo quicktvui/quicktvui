@@ -11,6 +11,7 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
     for (let i = 0; i < count; i++) {
         const poster: QTPoster = {
             _id: '_' + i,
+            position: i,
             focus: {
                 enable: true,
                 scale: 1,

@@ -35,7 +35,7 @@ export default defineComponent({
     'qt-ul-item-focusable-text': qt_ul_item_focusable_text
   },
   setup(props, context) {
-    let itemList = ref<Array<QTListViewItem>>([])
+    const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const list = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)

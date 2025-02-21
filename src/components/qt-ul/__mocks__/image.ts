@@ -189,3 +189,7 @@ export function buildRandomImage(): String {
     const index = getRandomInt(0, imageList.length - 1)
     return imageList[index];
 }
+
+export function buildIndexImage(index: number): String {
+    return imageList[index];
+}

@@ -36,7 +36,7 @@ export default defineComponent({
     'qt-ul-item-view': qt_ul_item_view
   },
   setup(props, context) {
-    let itemList = ref<Array<QTListViewItem>>([])
+    const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const list = buildViewItemList(100)

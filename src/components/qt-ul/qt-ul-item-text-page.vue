@@ -35,7 +35,7 @@ export default defineComponent({
     'qt-ul-item-text': qt_ul_item_text
   },
   setup(props, context) {
-    let itemList = ref<Array<QTListViewItem>>([])
+    const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const list = buildTextItemList(100)
