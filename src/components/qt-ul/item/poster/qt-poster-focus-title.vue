@@ -1,5 +1,5 @@
 <template>
-  <div class="absoluteFocusTitleRoot"
+  <div class="qt-ui-poster-item-focus-title-css"
        :style="{width: titleFocusStyle.width, height: titleFocusStyle.height}"
        autoHeight
        :focusable="false">
@@ -102,10 +102,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.absoluteFocusTitleRoot {
-  position: absolute;
+.qt-ui-poster-item-focus-title-css {
   z-index: 999;
   background-color: transparent;
+  position: absolute;
 }
 
 .absoluteFocusMainBgRoot {

@@ -62,7 +62,7 @@ const QTULPageList = {
         component: qt_ul_focus_page,
     },
     qt_ul_waterfall_page: {
-        name: '瀑布流',
+        name: 'Poster',
         component: qt_ul_waterfall_page,
     },
 };

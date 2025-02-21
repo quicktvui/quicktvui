@@ -42,7 +42,7 @@ import {QTULTextItem} from "./item/text/QTULItemTextItem";
 import {buildPosterItemList} from "./__mocks__/poster";
 
 export default defineComponent({
-  name: '瀑布流',
+  name: 'Poster',
   emits: [],
   components: {
     'qt-ul-item-poster': qt_ul_item_poster,

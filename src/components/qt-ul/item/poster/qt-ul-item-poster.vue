@@ -9,7 +9,7 @@
        class="qt-ui-poster-item-root-css">
 
     <!--封面-->
-    <img class="qt-ui-poster-img-css"
+    <img class="qt-ui-poster-item-img-css"
          :duplicateParentState="true"
          :postDelay="300"
          enableFade
@@ -18,6 +18,7 @@
          :style="{width: image.style.width, height: image.style.height, borderRadius: `${borderRadius}px`}"
          :src="image.src"/>
 
+    <!-- 评分 -->
     <qt-text
         class="qt-ui-poster-score-css"
         :duplicateParentState="true"
@@ -85,6 +86,8 @@
           :text="title.text"
           v-if="title.enable"/>
     </div>
+
+    <!-- 水波纹 -->
     <div
         :style="{width: ripple.style.width, height: ripple.style.height}"
         class="qt-ui-poster-ripple-view-root-css"
@@ -268,12 +271,12 @@ export default defineComponent({
 <style scoped>
 .qt-ui-poster-item-root-css {
   background-color: transparent;
+  display: flex;
 }
 
-.qt-ui-poster-img-css {
+.qt-ui-poster-item-img-css {
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
-  position: absolute;
   /* focus-border-color: white;
   focus-border-style: solid; */
 }
