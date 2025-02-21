@@ -24,10 +24,9 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {QTULImageItem} from "./item/image/QTULImageItem";
 import {buildImageItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_IMAGE} from "./item/type";
 import qt_ul_item_image from './item/image/qt-ul-item-image.vue'
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '使用初探',
@@ -36,7 +35,7 @@ export default defineComponent({
     'qt-ul-item-image': qt_ul_item_image
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULImageItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const list = buildImageItemList(100)

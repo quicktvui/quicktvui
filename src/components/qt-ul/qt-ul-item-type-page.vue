@@ -33,11 +33,10 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {buildImageItemList, buildTextItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_IMAGE, QT_UL_ITEM_TYPE_TEXT} from "./item/type";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import qt_ul_item_image from "./item/image/qt-ul-item-image.vue";
-import {QTULTextItem} from "./item/text/QTULItemTextItem";
 import {getRandomInt} from "./__mocks__/random";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '类型',
@@ -47,7 +46,7 @@ export default defineComponent({
     'qt-ul-item-image': qt_ul_item_image
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULTextItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const textList = buildTextItemList(100)

@@ -12,6 +12,7 @@ import qt_ul_auto_focus_page from './qt-ul-auto-focus-page';
 import qt_ul_auto_focus_position_page from './qt-ul-auto-focus-position-page';
 import qt_ul_focus_page from './qt-ul-focus-page';
 import qt_ul_poster_page from './qt-ul-poster-page';
+import qt_ul_data_page from './qt-ul-data-page';
 
 
 const QTULPageList = {
@@ -70,6 +71,10 @@ const QTULPageList = {
     qt_ul_item_list_page: {
         name: '一行滚动',
         component: qt_ul_item_list_page,
+    },
+    qt_ul_data_page: {
+        name: '数据',
+        component: qt_ul_data_page,
     },
 };
 export default QTULPageList;

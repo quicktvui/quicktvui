@@ -6,17 +6,23 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="1"
-          :autofocusPosition="20"
+          :spanCount="2"
           :enablePlaceholder="false">
         <template #item="{item}">
+
           <qt-ul-item-text
               :text="item.text"
-              gravity="left|centerVertical"
-              :backgroundColor="item.backgroundColor"
               v-if="item.type == 3"
               :focusable="true"
               :enableFocusBorder="true"/>
+
+          <qt-ul-item-image
+              :src="item.url"
+              :backgroundColor="item.backgroundColor"
+              v-if="item.type == 2"
+              :focusable="true"
+              :enableFocusBorder="true"/>
+
         </template>
       </qt-ul>
     </qt-view>
@@ -26,28 +32,38 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildIndexTextItemList} from "./__mocks__/list";
+import {buildImageItemList, buildTextItemList} from "./__mocks__/list";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
-import {QTIUL, QTListViewItem} from "@quicktvui/quicktvui3";
+import qt_ul_item_image from "./item/image/qt-ul-item-image.vue";
+import {getRandomInt} from "./__mocks__/random";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
-  name: 'autofocusPosition',
+  name: '数据',
   emits: [],
   components: {
-    'qt-ul-item-text': qt_ul_item_text
+    'qt-ul-item-text': qt_ul_item_text,
+    'qt-ul-item-image': qt_ul_item_image
   },
   setup(props, context) {
     let itemList = ref<Array<QTListViewItem>>([])
-    const ulRef = ref<QTIUL>()
 
     function onESCreate() {
-      const list = buildIndexTextItemList(100)
-      console.log('------buildTextItemList-------->>>', list)
-      itemList.value = list
+      const textList = buildTextItemList(100)
+      const imageList = buildImageItemList(100)
+
+      const dataList = []
+
+      for (let i = 0; i < 100; i++) {
+        const index = getRandomInt(0, 100)
+        dataList.push(index % 2 ? textList[i] : imageList[i])
+      }
+
+      console.log('------buildTextItemList-------->>>', dataList)
+      itemList.value = dataList
     }
 
     return {
-      ulRef,
       itemList,
       onESCreate,
     }
@@ -60,25 +76,15 @@ export default defineComponent({
 .qt-ul-root-page {
   width: 1920px;
   height: 1080px;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-}
-
-.qt-ul-scroll-class {
-  width: 400px;
-  height: 1080px;
-  margin-right: 40px;
+  justify-content: center;
 }
 
 .qt-ul-class {
-  width: 800px;
+  width: 1920px;
   height: 1080px;
+  background-color: darkgray;
 }
-
-.text-button-class {
-  margin: 20px;
-}
-
 
 </style>

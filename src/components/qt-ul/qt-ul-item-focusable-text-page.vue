@@ -25,8 +25,8 @@ import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {buildTextItemList} from "./__mocks__/list";
 import {QT_UL_ITEM_TYPE_TEXT} from "./item/type";
-import {QTULTextItem} from "./item/text/QTULItemTextItem";
 import qt_ul_item_focusable_text from "./item/text/qt-ul-item-focusable-text.vue";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '文字焦点框',
@@ -35,7 +35,7 @@ export default defineComponent({
     'qt-ul-item-focusable-text': qt_ul_item_focusable_text
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULTextItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const list = buildTextItemList(QT_UL_ITEM_TYPE_TEXT, 100)

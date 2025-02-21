@@ -26,9 +26,8 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import {buildViewItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_VIEW} from "./item/type";
 import qt_ul_item_view from './item/div/qt-ul-item-view.vue'
-import {QTULViewItem} from "./item/div/QTULViewItem";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '尺寸',
@@ -37,7 +36,7 @@ export default defineComponent({
     'qt-ul-item-view': qt_ul_item_view
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULViewItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const list = buildViewItemList(100)

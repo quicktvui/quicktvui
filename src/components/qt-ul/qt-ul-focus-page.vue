@@ -29,11 +29,9 @@
 <script lang="ts">
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
-import {buildIndexTextItemList, buildTextItemList} from "./__mocks__/list";
-import {QT_UL_ITEM_TYPE_TEXT} from "./item/type";
+import {buildIndexTextItemList} from "./__mocks__/list";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
-import {QTULTextItem} from "./item/text/QTULItemTextItem";
-import {QTIUL} from "@quicktvui/quicktvui3";
+import {QTIUL, QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '焦点',
@@ -42,7 +40,7 @@ export default defineComponent({
     'qt-ul-item-text': qt_ul_item_text
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULTextItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
     const ulRef = ref<QTIUL>()
 
     function onESCreate() {

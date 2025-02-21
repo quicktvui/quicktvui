@@ -38,8 +38,8 @@
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
 import qt_ul_item_poster from './item/poster/qt-ul-item-poster.vue'
-import {QTULTextItem} from "./item/text/QTULItemTextItem";
 import {buildPosterItemList} from "./__mocks__/poster";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: 'Poster',
@@ -48,7 +48,7 @@ export default defineComponent({
     'qt-ul-item-poster': qt_ul_item_poster,
   },
   setup(props, context) {
-    let itemList = ref<Array<QTULTextItem>>([])
+    let itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
       const posterList = buildPosterItemList(100)
