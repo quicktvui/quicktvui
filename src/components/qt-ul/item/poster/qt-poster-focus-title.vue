@@ -1,10 +1,10 @@
 <template>
   <div class="absoluteFocusTitleRoot"
-       flexStyle="${titleFocusStyle}"
+       :style="{width: titleFocusStyle.width, height: titleFocusStyle.height}"
        autoHeight
        :focusable="false">
     <!-- 浮动标题-->
-    <text-view
+    <qt-text
         :duplicateParentState="true"
         :focusable="false"
         :fontSize="26"
@@ -12,8 +12,7 @@
         :lines="1"
         :paddingRect="[16,18,0,0]"
         :gradientBackground="floatTitle.background"
-        style="height: 64px;color: #ffffff"
-        flexStyle="${floatTitle.style}"
+        :style="{width: floatTitle.width, height: '64px', color: '#ffffff'}"
         :text="floatTitle.text"
         v-if="floatTitle.enable"
         gravity="left"
@@ -25,7 +24,7 @@
          :gradientBackground="bgColor"
          v-if="focusTitle.enable">
       <!-- 主标题 -->
-      <text-view
+      <qt-text
           :duplicateParentState="true"
           :focusable="false"
           :fontSize="30"
@@ -34,11 +33,11 @@
           :maxLines="2"
           gravity="left"
           :paddingRect="[16,8,12,8]"
-          :style="{backgroundColor: 'transparent',color: `${titleColor}`}"
-          flexStyle="${focusTitle.style}"
+          :style="{width: focusTitle.style.width, height: focusTitle.style.height,
+          backgroundColor: 'transparent',color: `${titleColor}`}"
           :text="focusTitle.text"/>
       <!-- 副标题 -->
-      <text-view
+      <qt-text
           :duplicateParentState="true"
           :focusable="false"
           :fontSize="24"
@@ -47,8 +46,9 @@
           autoHeight
           gravity="left|top"
           :paddingRect="[16,0,0,16]"
-          :style="{color: `${subTitleColor}`,backgroundColor: 'transparent'}"
-          flexStyle="${subTitle.style}"
+          :style="{
+            width: subTitle.style.width, height: subTitle.style.height,
+            color: `${subTitleColor}`,backgroundColor: 'transparent'}"
           :text="subTitle.text"
           v-if="subTitle"/>
     </div>
@@ -90,6 +90,9 @@ export default defineComponent({
       type: Object,
     },
     subTitle: {
+      type: Object,
+    },
+    titleFocusStyle: {
       type: Object,
     },
   },

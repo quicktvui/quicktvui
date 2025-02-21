@@ -1,6 +1,6 @@
 <template>
   <div class="cornerRoot" :class="['cornerRoot_'+mode]" :focusable="false">
-    <text-view
+    <qt-text
       :duplicateParentState="true"
       :focusable="false"
       :textSize="fontSize"

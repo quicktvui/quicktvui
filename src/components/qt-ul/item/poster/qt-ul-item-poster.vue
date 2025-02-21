@@ -1,34 +1,35 @@
 <template>
   <div ref="viewRef"
-      flexStyle="${style}"
-      :focusScale="focus.scale"
-      :focusable="true"
-      name="poster"
-      class="qt-ui-poster-root-css">
-    <!--封面-->
-    <img
-        class="qt-ui-poster-img-css"
-        :duplicateParentState="true"
-        :postDelay="300"
-        enableFade
-        :focusable="false"
-        :enableFocusBorder="focus.border"
-        flexStyle="${image.style}"
-        :style="{borderRadius: `${borderRadius}px`}"
-        :src="image.src"/>
+       :focusScale="focus.scale"
+       :style="{width: style.width, height: style.height}"
+       :focusable="true"
+       :clipChildren="false"
+       :enableFocusBorder="true"
+       name="poster"
+       class="qt-ui-poster-item-root-css">
 
-    <text-view
+    <!--封面-->
+    <img class="qt-ui-poster-img-css"
+         :duplicateParentState="true"
+         :postDelay="300"
+         enableFade
+         :focusable="false"
+         :enableFocusBorder="focus.border"
+         :style="{width: image.style.width, height: image.style.height, borderRadius: `${borderRadius}px`}"
+         :src="image.src"/>
+
+    <qt-text
         class="qt-ui-poster-score-css"
         :duplicateParentState="true"
         :focusable="false"
-        flexStyle="${score.style}"
+        :style="{width: score.style.width, height: score.style.height}"
         :textSize="score.style.fontSize"
         :ellipsizeMode="2"
         :lines="1"
         gravity="center"
         :postDelay="350"
         autoWidth
-        text="score.text"/>
+        :text="score.text"/>
 
     <!--   焦点选中时的标题 -->
     <qt-poster-focus-title
@@ -41,21 +42,22 @@
         :bgColor="focusBgColor"
         :titleColor="focusTitleColor"
         :subTitleColor="focusSubTitleColor"
+        :titleFocusStyle="titleFocusStyle"
     />
 
-    <div style="flex-direction: column;background-color: transparent;z-index: 999;"
+    <div style="flex-direction: column; background-color: transparent;z-index: 999;"
          :duplicateParentState="true"
          :focusable="false"
-         flexStyle="${titleStyle}"
+         :style="{width: titleStyle.width, height: titleStyle.height}"
          :showOnState=mainTextShowOnState>
       <!--  浮动标题 -->
-      <div flexStyle="${floatTitle.style}"
-           class="qt-ui-poster-title-css"
+      <div class="qt-ui-poster-title-css"
            :gradientBackground="{colors:floatTitleBgColor, cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
            :duplicateParentState="true"
            :focusable="false"
+           :style="{width: floatTitle.style.width, height: floatTitle.style.height}"
            v-if="floatTitle.enable">
-        <text-view
+        <qt-text
             :duplicateParentState="true"
             :focusable="false"
             :textSize="26"
@@ -64,13 +66,12 @@
             :postDelay="200"
             :lines="1"
             gravity="left"
-            style="z-index: 999;height: 50px;"
-            flexStyle="${floatTitle.style}"
+            :style="{width: floatTitle.style.width, height: floatTitle.style.height, zIndex: 999}"
             :text="floatTitle.text"/>
       </div>
 
       <!--  主标题-->
-      <text-view
+      <qt-text
           :duplicateParentState="true"
           :focusable="false"
           :textSize="30"
@@ -80,13 +81,12 @@
           gravity="left"
           :paddingRect="[16,8,0,0]"
           :gradientBackground="title.background"
-          style="z-index: 999;height: 60px"
-          flexStyle="${title.style}"
+          :style="{width: title.style.width, height: title.style.height, zIndex: 999}"
           :text="title.text"
           v-if="title.enable"/>
     </div>
     <div
-        flexStyle="${ripple.style}"
+        :style="{width: ripple.style.width, height: ripple.style.height}"
         class="qt-ui-poster-ripple-view-root-css"
         showOnState="focused"
         :focusable="false"
@@ -113,13 +113,13 @@
         v-if="corner.showCornerRight"
         :corner="corner"
         :focusable="false"
-        flexStyle="${corner.style}"
+        :style="{width: corner.style.width, height: corner.style.height}"
     />
     <qt-poster-corner-title
         v-if="corner.showCornerLeft"
         :corner="corner"
         :focusable="false"
-        flexStyle="${corner.style}"
+        :style="{width: corner.style.width, height: corner.style.height}"
         mode="left"
     />
     <slot/>
@@ -180,47 +180,76 @@ export default defineComponent({
         return ['#e5000000', '#00000000']
       }
     },
+    style: {
+      type: Object
+    },
     focus: {
       type: Object,
+      default: () => {
+      }
     },
     image: {
-      type: Object,
+      type: Object
     },
     shadow: {
       type: Object,
+      default: () => {
+      }
     },
     shimmer: {
       type: Object,
+      default: () => {
+      }
     },
     title: {
       type: Object,
+      default: () => {
+      }
     },
     focusTitle: {
       type: Object,
+      default: () => {
+      }
     },
     subTitle: {
       type: Object,
+      default: () => {
+      }
     },
     floatTitle: {
       type: Object,
+      default: () => {
+      }
     },
     ripple: {
       type: Object,
+      default: () => {
+      }
     },
     corner: {
       type: Object,
+      default: () => {
+      }
     },
     score: {
       type: Object,
+      default: () => {
+      }
     },
     titleStyle: {
       type: Object,
+      default: () => {
+      }
     },
     titleFocusStyle: {
       type: Object,
+      default: () => {
+      }
     },
     placeholderImg: {
       type: Object,
+      default: () => {
+      }
     },
   },
   setup(props, context) {
@@ -236,11 +265,9 @@ export default defineComponent({
 
 </script>
 
-<style>
-.qt-ui-poster-root-css {
-  position: absolute;
+<style scoped>
+.qt-ui-poster-item-root-css {
   background-color: transparent;
-  overflow: hidden;
 }
 
 .qt-ui-poster-img-css {

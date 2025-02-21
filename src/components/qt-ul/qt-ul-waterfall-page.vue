@@ -6,16 +6,28 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="2"
+          :spanCount="6"
           :enablePlaceholder="false">
         <template #item="{item}">
 
           <qt-ul-item-poster
-              :text="item.text"
               v-if="item.type == 5"
-              :focusable="true"
-              :enableFocusBorder="true"/>
-
+              :style="item.style"
+              :focus="item.focus"
+              :image="item.image"
+              :shadow="item.shadow"
+              :shimmer="item.shimmer"
+              :title="item.title"
+              :focusTitle="item.focusTitle"
+              :subTitle="item.subTitle"
+              :floatTitle="item.floatTitle"
+              :ripple="item.ripple"
+              :corner="item.corner"
+              :score="item.score"
+              :titleStyle="item.titleStyle"
+              :titleFocusStyle="item.titleFocusStyle"
+              :placeholderImg="item.placeholderImg"
+          />
         </template>
       </qt-ul>
     </qt-view>
