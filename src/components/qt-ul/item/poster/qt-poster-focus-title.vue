@@ -1,6 +1,7 @@
 <template>
   <div class="qt-ui-poster-item-focus-title-css"
-       :style="{width: titleFocusStyle.width, height: titleFocusStyle.height}"
+       :style="{width: titleFocusStyle.width, height: titleFocusStyle.height,
+       marginTop: titleFocusStyle.marginTop}"
        autoHeight
        :focusable="false">
     <!-- 浮动标题-->

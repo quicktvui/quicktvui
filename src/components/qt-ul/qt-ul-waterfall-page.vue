@@ -51,7 +51,7 @@ export default defineComponent({
     let itemList = ref<Array<QTULTextItem>>([])
 
     function onESCreate() {
-      const posterList = buildPosterItemList()
+      const posterList = buildPosterItemList(100)
       console.log('------buildPosterItemList-------->>>', posterList)
       itemList.value = posterList
     }

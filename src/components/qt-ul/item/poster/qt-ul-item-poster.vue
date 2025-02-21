@@ -27,7 +27,7 @@
         :textSize="score.style.fontSize"
         :ellipsizeMode="2"
         :lines="1"
-        gravity="center"
+        gravity="left"
         :postDelay="350"
         autoWidth
         :text="score.text"/>
@@ -49,7 +49,7 @@
     <div style="flex-direction: column; background-color: transparent;z-index: 999;"
          :duplicateParentState="true"
          :focusable="false"
-         :style="{width: titleStyle.width, height: titleStyle.height}"
+         :style="{width: titleStyle.width, height: titleStyle.height, marginTop : titleStyle.marginTop}"
          :showOnState=mainTextShowOnState>
       <!--  浮动标题 -->
       <div class="qt-ui-poster-title-css"
@@ -113,17 +113,10 @@
     </div>
 
     <qt-poster-corner-title
-        v-if="corner.showCornerRight"
+        v-if="corner.enable"
         :corner="corner"
         :focusable="false"
         :style="{width: corner.style.width, height: corner.style.height}"
-    />
-    <qt-poster-corner-title
-        v-if="corner.showCornerLeft"
-        :corner="corner"
-        :focusable="false"
-        :style="{width: corner.style.width, height: corner.style.height}"
-        mode="left"
     />
     <slot/>
   </div>
@@ -277,6 +270,7 @@ export default defineComponent({
 .qt-ui-poster-item-img-css {
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
+  position: absolute;
   /* focus-border-color: white;
   focus-border-style: solid; */
 }

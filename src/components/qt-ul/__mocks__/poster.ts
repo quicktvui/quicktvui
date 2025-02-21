@@ -3,13 +3,12 @@ import {
     QTPoster,
     QTWaterfallItem,
 } from "@quicktvui/quicktvui3";
-import {QTFlexStyleMargin, QTFlexStylePadding, QTFlexStyleSize, QTFlexStyleText} from "../../../../packages/src";
 
-export function buildPosterItemList(): Array<QTWaterfallItem> {
+export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
 
     let data: Array<QTWaterfallItem> = []
     let imgURL = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < count; i++) {
         const poster: QTPoster = {
             _id: '_' + i,
             focus: {
@@ -85,7 +84,7 @@ export function buildPosterItemList(): Array<QTWaterfallItem> {
                 text: '角标',
                 enable: true,
                 style: {
-                    width: 260,
+                    width: 100,
                     height: 30
                 },
                 background: {
@@ -104,7 +103,7 @@ export function buildPosterItemList(): Array<QTWaterfallItem> {
                 height: 120,
                 marginTop: 320 - 60,
             },
-            titleFocusStyle: {width: 260, marginTop: 320 - 100},
+            titleFocusStyle: {width: 260, marginTop: 320 - 50},
         }
         data.push(poster)
     }

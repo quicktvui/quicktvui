@@ -1,5 +1,5 @@
 <template>
-  <div class="cornerRoot" :class="['cornerRoot_'+mode]" :focusable="false">
+  <div class="qt-ui-poster-item-corner-css" :focusable="false">
     <qt-text
       :duplicateParentState="true"
       :focusable="false"
@@ -50,16 +50,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.cornerRoot {
+.qt-ui-poster-item-corner-css {
   position: absolute;
-  left: 0.01px;
-  top: 0.01px;
+  right: 0;
+  top: 0;
   z-index: 1000;
   background-color: transparent;
 }
-.cornerRoot_right{
-  flex-direction: row-reverse;
-}
+
 .poster_corner_img{
   position: absolute;
   top: 0.01px;
