@@ -1,6 +1,6 @@
 import {QTULImageItem} from "../item/image/QTULImageItem";
 import {buildRandomImage} from "./image";
-import {QTULTextItem} from "../item/text/QTULItemTextItem";
+import {QTULTextItem} from "../item/text/QTULTextItem";
 import {buildIndexText, buildRandomText} from "./text";
 import {buildRandomColor} from "./colors";
 import {getRandomInt} from "./random";
