@@ -14,7 +14,8 @@ import qt_ul_auto_focus_position_page from './qt-ul-auto-focus-position-page';
 import qt_ul_focus_page from './qt-ul-focus-page';
 import qt_ul_poster_page from './qt-ul-poster-page';
 import qt_ul_data_page from './qt-ul-data-page';
-
+import qt_ul_item_click_page from './qt-ul-item-click-page';
+import qt_ul_item_focus_page from './qt-ul-item-focus-page';
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -80,6 +81,14 @@ const QTULPageList = {
     qt_ul_data_page: {
         name: '数据',
         component: qt_ul_data_page,
+    },
+    qt_ul_item_click_page: {
+        name: '点击事件',
+        component: qt_ul_item_click_page,
+    },
+    qt_ul_item_focus_page: {
+        name: '焦点事件',
+        component: qt_ul_item_focus_page,
     },
 };
 export default QTULPageList;
