@@ -7,8 +7,7 @@
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
           :spanCount="1920"
-          :enablePlaceholder="false"
-          :stableItemSize="250">
+          :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-image
               :src="item.url"
