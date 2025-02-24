@@ -6,7 +6,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="1920"
+          :spanCount="6"
           :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-image
@@ -36,7 +36,7 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildRandomImageItemList(100)
+      const list = buildRandomImageItemList(100, -1)
       itemList.value = list
     }
 

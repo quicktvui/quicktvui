@@ -6,7 +6,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="1920"
+          :spanCount="2"
           :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-view
@@ -39,7 +39,7 @@ export default defineComponent({
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildRandomViewItemList(100)
+      const list = buildRandomViewItemList(100, -1)
       console.log('------buildViewItemList-------->>>', list)
       itemList.value = list
     }

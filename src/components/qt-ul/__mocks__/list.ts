@@ -14,60 +14,204 @@ import {
 import {QTULViewItem} from "../item/div/QTULViewItem";
 
 //--------------------------------随机生成Item---------------------------------------
-export function buildRandomImageItem(index: number): QTULImageItem {
-    return {
-        position: index,
-        itemSize: 260,
-        span: 260,
-        id: index + '',
-        type: QT_UL_ITEM_TYPE_IMAGE,
-        url: buildRandomImage()
+export function buildRandomImageItem(index: number, span?: number): QTULImageItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 260,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildRandomImage()
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 260,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildRandomImage()
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 260,
+            span: 260,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildRandomImage()
+        }
     }
 }
 
 
-export function buildRandomTextItem(index: number): QTULTextItem {
-    return {
-        position: index,
-        itemSize: 800,
-        span: 800,
-        id: index + '',
-        type: QT_UL_ITEM_TYPE_TEXT,
-        text: index + '、' + buildRandomText(),
-        backgroundColor: buildRandomColor(),
-        decoration: {
-            top: 20,
-            bottom: 20,
-        },
+export function buildRandomTextItem(index: number, span?: number): QTULTextItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 800,
+            span: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
     }
 }
 
 //--------------------------------固定生成Item---------------------------------------
-export function buildFixedImageItem(index: number): QTULImageItem {
-    return {
-        position: index,
-        itemSize: 260,
-        span: 260,
-        id: index + '',
-        type: QT_UL_ITEM_TYPE_IMAGE,
-        url: buildIndexImage(index)
+export function buildFixedImageItem(index: number, span?: number): QTULImageItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 260,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildIndexImage(index)
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 260,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildIndexImage(index)
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 260,
+            span: 260,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_IMAGE,
+            url: buildIndexImage(index)
+        }
     }
 }
 
 
-export function buildFixedTextItem(index: number): QTULTextItem {
-    return {
-        position: index,
-        itemSize: 800,
-        span: 800,
-        id: index + '',
-        type: QT_UL_ITEM_TYPE_TEXT,
-        text: index + '、' + buildIndexText(index),
-        backgroundColor: buildRandomColor(),
-        decoration: {
-            top: 20,
-            bottom: 20,
-        },
+export function buildFixedTextItem(index: number, span?: number): QTULTextItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildIndexText(index),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildIndexText(index),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 800,
+            span: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildIndexText(index),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    }
+}
+
+export function buildRandomViewItem(index: number, span?: number): QTULViewItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_VIEW,
+            backgroundColor: buildRandomColor(),
+            width: getRandomInt(0, 200),
+            height: getRandomInt(0, 200),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_VIEW,
+            backgroundColor: buildRandomColor(),
+            width: getRandomInt(0, 200),
+            height: getRandomInt(0, 200),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 800,
+            span: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_VIEW,
+            backgroundColor: buildRandomColor(),
+            width: getRandomInt(0, 200),
+            height: getRandomInt(0, 200),
+            decoration: {
+                top: 20,
+                bottom: 20,
+            },
+        }
     }
 }
 
@@ -102,58 +246,45 @@ export function buildRandomListItemList(count: number): Array<QTULImageItem> {
     return list;
 }
 
-export function buildFixedImageItemList(count: number): Array<QTULImageItem> {
+export function buildFixedImageItemList(count: number, span?: number): Array<QTULImageItem> {
     const imageList = []
     for (let i = 0; i < count; i++) {
-        imageList.push(buildFixedImageItem(i))
+        imageList.push(buildFixedImageItem(i, span))
     }
     return imageList;
 }
 
 
-export function buildFixedTextItemList(count: number): Array<QTULTextItem> {
+export function buildFixedTextItemList(count: number, span?: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
-        textList.push(buildFixedTextItem(i))
+        textList.push(buildFixedTextItem(i, span))
     }
     return textList;
 }
 
 
-export function buildRandomImageItemList(count: number): Array<QTULImageItem> {
+export function buildRandomImageItemList(count: number, span?: number): Array<QTULImageItem> {
     const imageList = []
     for (let i = 0; i < count; i++) {
-        imageList.push(buildRandomImageItem(i))
+        imageList.push(buildRandomImageItem(i, span))
     }
     return imageList;
 }
 
 
-export function buildRandomTextItemList(count: number): Array<QTULTextItem> {
+export function buildRandomTextItemList(count: number, span?: number): Array<QTULTextItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
-        textList.push(buildRandomTextItem(i))
+        textList.push(buildRandomTextItem(i, span))
     }
     return textList;
 }
 
-export function buildRandomViewItemList(count: number): Array<QTULViewItem> {
+export function buildRandomViewItemList(count: number, span?: number): Array<QTULViewItem> {
     const textList = []
     for (let i = 0; i < count; i++) {
-        textList.push({
-            position: i,
-            itemSize: 800,
-            span: 800,
-            id: i + '',
-            type: QT_UL_ITEM_TYPE_VIEW,
-            backgroundColor: buildRandomColor(),
-            width: getRandomInt(0, 200),
-            height: getRandomInt(0, 200),
-            decoration: {
-                top: 20,
-                bottom: 20,
-            },
-        })
+        textList.push(buildRandomViewItem(i, span))
     }
     return textList;
 }
@@ -171,15 +302,15 @@ export function buildRandomWaterfallItemList(): Array<QTListViewItem> {
 }
 
 
-export function buildRandomImageTextItemList(count: number): Array<QTListViewItem> {
+export function buildRandomImageTextItemList(count: number, span?: number): Array<QTListViewItem> {
     const dataList = []
 
     for (let i = 0; i < count; i++) {
         const index = getRandomInt(0, count)
         if (index % 2) {
-            dataList.push(buildRandomImageItem(i))
+            dataList.push(buildRandomImageItem(i, span))
         } else {
-            dataList.push(buildRandomTextItem(i))
+            dataList.push(buildRandomTextItem(i, span))
         }
     }
 
