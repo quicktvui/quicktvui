@@ -314,19 +314,83 @@ function registerQTUL(app: ESApp) {
                 Native.callUIFunction(viewRef.value, 'setAutoFocus', [tag, delay]);
             }
 
+
+            context.expose({
+                viewRef,
+                ...useBaseView(viewRef),
+                scrollToIndex,
+                startScroll,
+                setSelectChildPosition,
+                scrollToPositionWithOffset,
+                scrollToPositionWithOffsetInfiniteMode,
+                scrollToPosition,
+                refreshListData,
+                updateItemTraverse,
+                requestItemLayout,
+                updateItemRange,
+                insertItemRange,
+                updateItemMatched,
+                updateItemMatchedByKey,
+                deleteItemRange,
+                setListData,
+                setListDataWithParams,
+                addListData,
+                addListDataWithParams,
+                destroy,
+                recycle,
+                scrollToTop,
+                scrollToFocus,
+                prepareForRecycle,
+                setDisplay,
+                changeDisplayState,
+                notifySaveInstance,
+                updateItemProps,
+                dispatchItemFunction,
+                clearPostTask,
+                clearPostTaskByCate,
+                clearData,
+                pausePostTask,
+                resumePostTask,
+                requestLayoutManual,
+                setSpanCount,
+                searchReplaceItem,
+                setCustomStateEnableOnFocus,
+                setItemCustomState,
+                dispatchItemFunctionWithPromise,
+                getScrollOffset,
+                setInitPosition,
+                deleteItem,
+                updateItem,
+                updateItemList,
+                addItem,
+                dispatchTVItemFunction,
+                scrollToPositionOffset,
+                notifyRestoreInstance,
+                setSelectPosition,
+                requestFocus,
+                clearFocus,
+                blockRootFocus,
+                unBlockRootFocus,
+                hasFocus,
+                setBlockFocusDirectionsOnFail,
+                setBackgroundColor,
+                setAutoFocus,
+            })
+
+            //------------------------------------------------------------------------------
+
             const holders = reactive<any[]>([])
 
             let expectedItemCount = -1;
-            let pageSize = 1;
+            let pageSize = -1;
             let initHolderCount = 20;
             let expectedTotalCount = -1;
             let uid = getCurrentInstance()?.uid;
-            let currentLength = ref(0)
+
 
             watch(() => props.items, (hs) => {
-                const currentArrOLd = JSON.parse(JSON.stringify(hs))
-                const currentArrNew = toRaw(currentArrOLd)
-                console.log('data changed', currentArrNew)
+                console.log('----QTUL---watch----START--->>>>>', props.items)
+                console.log('data changed', hs)
                 if (holders.length < 1) {
                     let initCount = 0;
                     if (pageSize > 0) {
@@ -335,25 +399,25 @@ function registerQTUL(app: ESApp) {
                         initCount = 0;
                     } else {
                         //pageSize小于0时，表示全部加载
-                        initCount = currentArrNew.length
+                        initCount = props.items.length
                     }
                     let batch: any = []
                     // const {itemType,position} = list[i]
                     for (let i = 0; i < initCount; i++) {
-                        let item: any = currentArrNew[i]
+                        let item: any = props.items[i]
                         batch.push({
                             itemType: item.type,
                             position: i,
                         })
                     }
                     crateH(batch, 'hashTag')
+                    console.log('----QTUL---watch-----END-->>>>>', props.items)
                 }
-                currentLength.value = currentArrNew && currentArrNew.length > 0 ? currentArrNew.length : 0
                 nextTick(() => {
-                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [toRaw(currentArrNew), false,false,{
-                    }]);
+                    console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
+                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [toRaw(props.items), false, false, {}]);
                 })
-            }, { deep: true ,immediate:true})
+            })
 
 
             function crateH(batch: [], hashTag: string) {
@@ -479,70 +543,6 @@ function registerQTUL(app: ESApp) {
                 })
                 return children
             }
-
-            context.expose({
-                viewRef,
-                ...useBaseView(viewRef),
-                scrollToIndex,
-                startScroll,
-                setSelectChildPosition,
-                scrollToPositionWithOffset,
-                scrollToPositionWithOffsetInfiniteMode,
-                scrollToPosition,
-                refreshListData,
-                updateItemTraverse,
-                requestItemLayout,
-                updateItemRange,
-                insertItemRange,
-                updateItemMatched,
-                updateItemMatchedByKey,
-                deleteItemRange,
-                setListData,
-                setListDataWithParams,
-                addListData,
-                addListDataWithParams,
-                destroy,
-                recycle,
-                scrollToTop,
-                scrollToFocus,
-                prepareForRecycle,
-                setDisplay,
-                changeDisplayState,
-                notifySaveInstance,
-                updateItemProps,
-                dispatchItemFunction,
-                clearPostTask,
-                clearPostTaskByCate,
-                clearData,
-                pausePostTask,
-                resumePostTask,
-                requestLayoutManual,
-                setSpanCount,
-                searchReplaceItem,
-                setCustomStateEnableOnFocus,
-                setItemCustomState,
-                dispatchItemFunctionWithPromise,
-                getScrollOffset,
-                setInitPosition,
-                deleteItem,
-                updateItem,
-                updateItemList,
-                addItem,
-                dispatchTVItemFunction,
-                scrollToPositionOffset,
-                notifyRestoreInstance,
-                setSelectPosition,
-                requestFocus,
-                clearFocus,
-                blockRootFocus,
-                unBlockRootFocus,
-                hasFocus,
-                setBlockFocusDirectionsOnFail,
-                setBackgroundColor,
-                setAutoFocus,
-            })
-
-            //------------------------------------------------------------------------------
             return () => {
                 const items = context.slots.item ? h('RecyclePool',
                     {
@@ -574,7 +574,6 @@ function registerQTUL(app: ESApp) {
                     {
                         ref: viewRef,
                         disableVirtualDOM: true,
-                        listenBoundEvent: true,
                         onItemClick: (evt) => {
                             console.log('----QTUL---onItemClick------->>>>>', evt)
                             context.emit('item-click', evt);
@@ -597,10 +596,6 @@ function registerQTUL(app: ESApp) {
                         },
                         onBindItem: (evt) => {
                             console.log('----QTUL---onBindItem------->>>>>', evt)
-                            console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
-                            if(evt.position == currentLength.value - 1 ){
-                                props.loadMore()
-                            }
                             context.emit('item-bind', evt);
                         },
                         onUnbindItem: (evt) => {
@@ -636,10 +631,6 @@ function registerQTUL(app: ESApp) {
             items: {
                 type: Array,
                 default: () => []
-            },
-            loadMore: {
-                type: Function,
-                default: null
             }
         }
     })
