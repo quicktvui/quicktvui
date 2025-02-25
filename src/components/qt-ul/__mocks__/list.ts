@@ -353,11 +353,14 @@ export function buildFixedListItemList(count: number): Array<QTULImageItem> {
     for (let i = 0; i < count; i++) {
         list.push({
             position: i,
-            itemSize: 1920,
+            itemSize: 200,
             span: 1920,
             id: i + '',
             type: QT_UL_ITEM_TYPE_LIST,
-            itemList: buildFixedTextItemList(30)
+            itemList: buildFixedTextItemList(30),
+            decoration: {
+                top: 80,
+            },
         })
     }
     return list;
@@ -368,11 +371,14 @@ export function buildRandomListItemList(count: number): Array<QTULImageItem> {
     for (let i = 0; i < count; i++) {
         list.push({
             position: i,
-            itemSize: 1920,
+            itemSize: 200,
             span: 1920,
             id: i + '',
             type: QT_UL_ITEM_TYPE_LIST,
-            itemList: buildRandomTextItemList(30)
+            itemList: buildRandomTextItemList(30),
+            decoration: {
+                top: 80,
+            },
         })
     }
     return list;

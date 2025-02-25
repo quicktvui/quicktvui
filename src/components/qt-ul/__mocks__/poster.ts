@@ -89,12 +89,17 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
                 }
             },
             score: {
-                text: '评分',
+                text: getRandomFloat() + '',
                 enable: true,
                 style: {
-                    width: 260,
-                    height: 30
+                    width: 50,
+                    height: 40
                 },
+                background: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [8, 8, 8, 8],
+                    orientation: 2
+                }
             },
             corner: {
                 text: '角标',
