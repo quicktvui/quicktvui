@@ -1,11 +1,11 @@
 import {QTListViewItem} from "@quicktvui/quicktvui3";
-import {buildRandomPosterItem} from "./poster";
+import {buildRandomPosterItem, buildRandomPosterItemList} from "./poster";
 import {getRandomInt} from "./random";
 import {
     buildRandomImageItemList,
     buildRandomListItemList,
     buildRandomLongImageItem,
-    buildRandomMediumImageItem,
+    buildRandomMediumImageItem, buildRandomMediumImageItemList,
     buildRandomTextItemList
 } from "./list";
 
@@ -14,15 +14,21 @@ export function buildRandomWaterfallItemList(page: number, count: number): Array
     let data: Array<QTListViewItem> = []
     for (let i = 0; i < count; i++) {
         const index = getRandomInt(0, count)
-        const ret = index % 3;
+        const ret = index % 6;
         if (ret == 0) {
-            data.push(buildRandomPosterItem(page, i))
+            data.push(...buildRandomPosterItemList(page, 6))
         } else if (ret == 1) {
             data.push(buildRandomLongImageItem(i))
         } else if (ret == 2) {
-            data.push(buildRandomMediumImageItem(i))
+            data.push(...buildRandomMediumImageItemList(2))
         } else if (ret == 3) {
-            data.push(buildRandomPosterItem(page, i))
+            data.push(...buildRandomPosterItemList(page, 6))
+        } else if (ret == 4) {
+            data.push(...buildRandomTextItemList(2))
+        } else if (ret == 5) {
+            data.push(...buildRandomImageItemList(6))
+        } else {
+            data.push(...buildRandomPosterItemList(page, 6))
         }
     }
     return data;

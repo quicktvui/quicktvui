@@ -21,7 +21,7 @@ export function buildRandomLongImageItem(index: number, span?: number): QTULImag
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 500,
+            itemSize: 300,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_LONG_IMAGE,
@@ -35,7 +35,7 @@ export function buildRandomLongImageItem(index: number, span?: number): QTULImag
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 500,
+            itemSize: 300,
             id: index + '',
             type: QT_UL_ITEM_TYPE_LONG_IMAGE,
             url: buildRandomImage(),
@@ -48,7 +48,7 @@ export function buildRandomLongImageItem(index: number, span?: number): QTULImag
     } else {
         return {
             position: index,
-            itemSize: 500,
+            itemSize: 300,
             span: 1920,
             id: index + '',
             type: QT_UL_ITEM_TYPE_LONG_IMAGE,
@@ -66,7 +66,7 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTULIm
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 600,
+            itemSize: 400,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
@@ -80,7 +80,7 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTULIm
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 600,
+            itemSize: 400,
             id: index + '',
             type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
             url: buildRandomImage(),
@@ -93,7 +93,7 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTULIm
     } else {
         return {
             position: index,
-            itemSize: 600,
+            itemSize: 400,
             span: 960,
             id: index + '',
             type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
