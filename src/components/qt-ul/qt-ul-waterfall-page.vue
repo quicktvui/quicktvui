@@ -4,6 +4,7 @@
       <qt-button size="medium"
                  class="text-button-class"
                  text="随机100个Poster"
+                 :requestFocus="true"
                  @click="onButtonOneClick"/>
 
       <qt-button size="medium"
@@ -112,7 +113,7 @@ export default defineComponent({
     let isQuickBackPressed = false
 
     function onESCreate() {
-
+      onButtonOneClick()
     }
 
     function onButtonOneClick() {
