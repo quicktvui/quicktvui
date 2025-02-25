@@ -10,7 +10,7 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :spanCount="800"
+          :spanCount="960"
           :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-text
@@ -80,7 +80,7 @@ export default defineComponent({
 }
 
 .qt-ul-class {
-  width: 800px;
+  width: 960px;
   height: 1080px;
 }
 

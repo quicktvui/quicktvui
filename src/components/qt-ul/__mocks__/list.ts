@@ -81,28 +81,43 @@ export function buildRandomImageItem(index: number, span?: number): QTULImageIte
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 260,
+            itemSize: 320,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 260,
+            itemSize: 320,
             id: index + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else {
         return {
             position: index,
-            itemSize: 260,
-            span: 260,
+            itemSize: 320,
+            span: 320,
             id: index + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     }
 }
@@ -112,42 +127,45 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 200,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
             text: index + '、' + buildRandomText(),
             backgroundColor: buildRandomColor(),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 200,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
             text: index + '、' + buildRandomText(),
             backgroundColor: buildRandomColor(),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     } else {
         return {
             position: index,
-            itemSize: 800,
-            span: 800,
+            span: 960,
+            itemSize: 200,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
             text: index + '、' + buildRandomText(),
             backgroundColor: buildRandomColor(),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     }
@@ -189,42 +207,45 @@ export function buildFixedTextItem(index: number, span?: number): QTULTextItem {
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 200,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
             text: index + '、' + buildIndexText(index),
             backgroundColor: buildRandomColor(),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 200,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
             text: index + '、' + buildIndexText(index),
             backgroundColor: buildRandomColor(),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     } else {
         return {
             position: index,
-            itemSize: 800,
-            span: 800,
+            itemSize: 200,
+            span: 960,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
             text: index + '、' + buildIndexText(index),
             backgroundColor: buildRandomColor(),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     }
@@ -234,7 +255,7 @@ export function buildRandomViewItem(index: number, span?: number): QTULViewItem 
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 200,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_VIEW,
@@ -242,37 +263,40 @@ export function buildRandomViewItem(index: number, span?: number): QTULViewItem 
             width: getRandomInt(0, 200),
             height: getRandomInt(0, 200),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 200,
             id: index + '',
             type: QT_UL_ITEM_TYPE_VIEW,
             backgroundColor: buildRandomColor(),
             width: getRandomInt(0, 200),
             height: getRandomInt(0, 200),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     } else {
         return {
             position: index,
-            itemSize: 800,
-            span: 800,
+            itemSize: 200,
+            span: 960,
             id: index + '',
             type: QT_UL_ITEM_TYPE_VIEW,
             backgroundColor: buildRandomColor(),
             width: getRandomInt(0, 200),
             height: getRandomInt(0, 200),
             decoration: {
-                top: 20,
-                bottom: 20,
+                top: 80,
+                left: 80,
+                right: 80
             },
         }
     }
