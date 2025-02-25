@@ -314,171 +314,6 @@ function registerQTUL(app: ESApp) {
                 Native.callUIFunction(viewRef.value, 'setAutoFocus', [tag, delay]);
             }
 
-            const holders = reactive<any[]>([])
-
-            let expectedItemCount = -1;
-            let pageSize = 1;
-            let initHolderCount = 20;
-            let expectedTotalCount = -1;
-            let uid = getCurrentInstance()?.uid;
-            let currentLength = ref(0)
-
-            watch(() => props.items, (hs) => {
-                const currentArrOLd = JSON.parse(JSON.stringify(hs))
-                const currentArrNew = toRaw(currentArrOLd)
-                console.log('data changed', currentArrNew)
-                if (holders.length < 1) {
-                    let initCount = 0;
-                    if (pageSize > 0) {
-                        // initCount =   Math.min(pageSize, props.items.length)
-                        // initCount =   Math.min(pageSize, props.items.length)
-                        initCount = 0;
-                    } else {
-                        //pageSize小于0时，表示全部加载
-                        initCount = currentArrNew.length
-                    }
-                    let batch: any = []
-                    // const {itemType,position} = list[i]
-                    for (let i = 0; i < initCount; i++) {
-                        let item: any = currentArrNew[i]
-                        batch.push({
-                            itemType: item.type,
-                            position: i,
-                        })
-                    }
-                    crateH(batch, 'hashTag')
-                }
-                currentLength.value = currentArrNew && currentArrNew.length > 0 ? currentArrNew.length : 0
-                nextTick(() => {
-                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [toRaw(currentArrNew), false,false,{
-                    }]);
-                })
-            }, { deep: true ,immediate:true})
-
-
-            function crateH(batch: [], hashTag: string) {
-                // console.log('++createHolder', batch.length,'hashTag', hashTag)
-                // let {batch ,hashTag} = evt
-                const list = [...(Array.isArray(batch) ? batch : [batch])];
-                let start = holders.length
-                for (let i = 0; i < list.length; i++) {
-                    // console.log('++createHolder list[i]:',list[i])
-                    const {itemType, position, hdIndex} = list[i]
-                    holders.push({
-                        itemType: itemType,
-                        sid: `hd-${uid}-${position}`,
-                        position: position,
-                        hdIndex: start + i,
-                    })
-                    console.log('createHolder:' + JSON.stringify(holders[holders.length - 1]))
-                    // holders[holders.length - 1].sid = `hd-${hashTag}-${holders.length - 1}`
-                }
-                //children.push(h(type, params))
-            }
-
-            function bindH(batch: []) {
-                // console.log('++bindHolder', batch)
-                // let {batch } = params
-                const list = [...(Array.isArray(batch) ? batch : [batch])];
-                for (let i = 0; i < list.length; i++) {
-                    const {position, sid, hdIndex} = list[i]
-                    // let hIndex = extractNum(sid)
-                    if (hdIndex != -1 && holders[hdIndex]) {
-                        // console.log('--bindHolder', `position:${position}, childIndex:${hIndex} holder:${holders[hIndex]}-sid:${sid}`)
-                        holders[hdIndex].position = position
-                    }
-                }
-            }
-
-            function handleBatch(params: any) {
-                let {createItem, bindItem, recycleItem, hashTag} = params
-                // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
-                // if(recycleItem){
-                //   recycleH(recycleItem)
-                // }
-                if (createItem) {
-                    crateH(createItem, hashTag)
-                }
-                if (bindItem) {
-                    bindH(bindItem)
-                }
-                // nextTick(() => {
-                //   Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
-                // })
-            }
-
-            function recycleH(batch: []) {
-                console.log('++recycleH', batch)
-                // let {batch} = params
-                const list = [...(Array.isArray(batch) ? batch : [batch])];
-                for (let i = 0; i < list.length; i++) {
-                    const {sid, hdIndex} = list[i]
-                    if (hdIndex != -1 && holders[hdIndex]) {
-                        // console.log('--recycleHolder', `childIndex:${hIndex} holder:${holders[hIndex]}-sid:${sid}`)
-                        holders[hdIndex].position = -1
-                    }
-                }
-            }
-
-            const traverseDomTree = (element) => {
-                if (!element) {
-                    console.warn("Element is null or undefined");
-                    return;
-                }
-                // 遍历元素节点的子元素
-                element.children?.forEach((child) => {
-                    traverseDomTree(child);
-                });
-            };
-
-            onMounted(() => {
-                // console.log(`mounted called viewRef.value.element ${viewRef.value.element} , value :${viewRef.value}`)
-                const root = viewRef.value
-                // traverseDomTree(root)
-            })
-
-            const renderItems = (hd) => {
-                return [
-                    renderSlot(context.slots, 'item', {
-                        // key:hd.sid,
-                        // sid:hd.sid,
-                        item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
-                    })
-                ]
-            }
-
-            const renderSlotContent = (slotName, fallbackContent) => {
-                return slots[slotName]?.() || fallbackContent;
-            };
-
-            const renderHolders = (holders) => {
-                // console.log('holders called ', `holderCount:${holders.length}`)
-                let children = holders.map((hd: any, index: number) => {
-                    // console.log('holders called ', `index:${index} position:${hd.position},holderCount:${holders.length},sid:${hd.sid}`)
-                    // console.log('holders called ', `index:${index} item:${JSON.stringify(listData[hd.position])}`)
-                    return h("FastItemView", {
-                            key: hd.hdIndex,
-                            sid: hd.sid,
-                            type: hd.itemType,
-                            focusable: false,
-                            // position:hd.position,
-                            hdPosition: hd.position,
-                            hdIndex: hd.hdIndex,
-                            poolItem: true,
-                            // item:props.items? props.items[hd.position] : {}
-                        },
-                        renderItems(hd)
-                        // renderSlotContent('item',[])
-                    )
-                    // return  renderItems(hd)
-                })
-                nextTick(() => {
-                    nextTick(() => {
-                        Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
-                    })
-                })
-                return children
-            }
 
             context.expose({
                 viewRef,
@@ -543,6 +378,188 @@ function registerQTUL(app: ESApp) {
             })
 
             //------------------------------------------------------------------------------
+
+            const holders = reactive<any[]>([])
+
+            let expectedItemCount = -1;
+            let pageSize = 1;
+            let initHolderCount = 20;
+            let expectedTotalCount = -1;
+            let uid = getCurrentInstance()?.uid;
+
+
+            watch(() => props.items, (hs) => {
+                console.log('----QTUL---watch----START--->>>>>', props.items)
+                console.log('data changed', hs)
+                if (holders.length < 1) {
+                    let initCount = 0;
+                    if (pageSize > 0) {
+                        // initCount =   Math.min(pageSize, props.items.length)
+                        // initCount =   Math.min(pageSize, props.items.length)
+                        initCount = 0;
+                    } else {
+                        //pageSize小于0时，表示全部加载
+                        initCount = props.items.length
+                    }
+                    let batch: any = []
+                    // const {itemType,position} = list[i]
+                    for (let i = 0; i < initCount; i++) {
+                        let item: any = props.items[i]
+                        batch.push({
+                            itemType: item.type,
+                            position: i,
+                        })
+                    }
+                    crateH(batch, 'hashTag')
+                    console.log('----QTUL---watch-----END-->>>>>', props.items)
+                }
+                const rawArray: any = []
+
+                for(let i = 0; i < props.items.length; i++){
+                    const item : any = toRaw(props.items[i])
+                    rawArray.push({
+                        type : item.type,
+                        itemSize : item.itemSize,
+                        span:item.span,
+                        decoration :item.decoration? item.decoration : {},
+                    })
+                }
+                nextTick(() => {
+                    // Native.callUIFunction(viewRef.value, 'clearData', []);
+                    console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
+                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
+                    }]);
+                })
+            })
+
+
+            function crateH(batch: [], hashTag: string) {
+                console.log('----QTUL---crateH----START--->>>>>', batch)
+                // console.log('++createHolder', batch.length,'hashTag', hashTag)
+                // let {batch ,hashTag} = evt
+                const list = [...(Array.isArray(batch) ? batch : [batch])];
+                let start = holders.length
+                for (let i = 0; i < list.length; i++) {
+                    // console.log('++createHolder list[i]:',list[i])
+                    const {itemType, position, hdIndex} = list[i]
+                    holders.push({
+                        itemType: itemType,
+                        position: position,
+                        hdIndex: start + i,
+                    })
+                    console.log('createHolder:' + JSON.stringify(holders[holders.length - 1]))
+                    // holders[holders.length - 1].sid = `hd-${hashTag}-${holders.length - 1}`
+                }
+                //children.push(h(type, params))
+                console.log('----QTUL---crateH---END---->>>>>', holders)
+            }
+
+            function bindH(batch: []) {
+                console.log('----QTUL---bindH------->>>>>', batch)
+                // console.log('++bindHolder', batch)
+                // let {batch } = params
+                const list = [...(Array.isArray(batch) ? batch : [batch])];
+                for (let i = 0; i < list.length; i++) {
+                    const {position, sid, hdIndex} = list[i]
+                    // let hIndex = extractNum(sid)
+                    if (hdIndex != -1 && holders[hdIndex]) {
+                        // console.log('--bindHolder', `position:${position}, childIndex:${hIndex} holder:${holders[hIndex]}-sid:${sid}`)
+                        holders[hdIndex].position = position
+                    }
+                }
+            }
+
+            function handleBatch(params: any) {
+                console.log('----QTUL---handleBatch----START--->>>>>', params)
+                let {createItem, bindItem, recycleItem, hashTag} = params
+                // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
+                // if(recycleItem){
+                //   recycleH(recycleItem)
+                // }
+                if (createItem) {
+                    crateH(createItem, hashTag)
+                }
+                if (bindItem) {
+                    bindH(bindItem)
+                }
+                console.log('----QTUL---handleBatch----END--->>>>>', params)
+                // nextTick(() => {
+                //   Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
+                // })
+            }
+
+            function recycleH(batch: []) {
+                console.log('++recycleH', batch)
+                // let {batch} = params
+                const list = [...(Array.isArray(batch) ? batch : [batch])];
+                for (let i = 0; i < list.length; i++) {
+                    const {sid, hdIndex} = list[i]
+                    if (hdIndex != -1 && holders[hdIndex]) {
+                        // console.log('--recycleHolder', `childIndex:${hIndex} holder:${holders[hIndex]}-sid:${sid}`)
+                        holders[hdIndex].position = -1
+                    }
+                }
+            }
+
+            const traverseDomTree = (element) => {
+                if (!element) {
+                    console.warn("Element is null or undefined");
+                    return;
+                }
+                // 遍历元素节点的子元素
+                element.children?.forEach((child) => {
+                    traverseDomTree(child);
+                });
+            };
+
+            onMounted(() => {
+                // console.log(`mounted called viewRef.value.element ${viewRef.value.element} , value :${viewRef.value}`)
+                const root = viewRef.value
+                // traverseDomTree(root)
+            })
+
+            const renderItems = (hd) => {
+                return [
+                    renderSlot(context.slots, 'item', {
+                        // key:hd.sid,
+                        // sid:hd.sid,
+                        item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
+                    })
+                ]
+            }
+
+            const renderSlotContent = (slotName, fallbackContent) => {
+                return slots[slotName]?.() || fallbackContent;
+            };
+
+            const renderHolders = (holders) => {
+                console.log('----QTUL---renderHolders---START---->>>>>', holders)
+                // console.log('holders called ', `holderCount:${holders.length}`)
+                let children = holders.map((hd: any, index: number) => {
+                    // console.log('holders called ', `index:${index} position:${hd.position},holderCount:${holders.length},sid:${hd.sid}`)
+                    // console.log('holders called ', `index:${index} item:${JSON.stringify(listData[hd.position])}`)
+                    return h("FastItemView", {
+                            key: hd.hdIndex,
+                            type: hd.itemType,
+                            focusable: false,
+                            // position:hd.position,
+                            hdIndex: hd.hdIndex,
+                            poolItem: true,
+                            // item:props.items? props.items[hd.position] : {}
+                        },
+                        renderItems(hd)
+                        // renderSlotContent('item',[])
+                    )
+                    // return  renderItems(hd)
+                })
+                nextTick(() => {
+                    nextTick(() => {
+                        Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
+                    })
+                })
+                console.log('----QTUL---renderHolders---END--children-->>>>>', children)
+                return children
+            }
             return () => {
                 const items = context.slots.item ? h('RecyclePool',
                     {
@@ -574,7 +591,6 @@ function registerQTUL(app: ESApp) {
                     {
                         ref: viewRef,
                         disableVirtualDOM: true,
-                        listenBoundEvent: true,
                         onItemClick: (evt) => {
                             console.log('----QTUL---onItemClick------->>>>>', evt)
                             context.emit('item-click', evt);
@@ -597,10 +613,6 @@ function registerQTUL(app: ESApp) {
                         },
                         onBindItem: (evt) => {
                             console.log('----QTUL---onBindItem------->>>>>', evt)
-                            console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
-                            if(evt.position == currentLength.value - 1 ){
-                                props.loadMore()
-                            }
                             context.emit('item-bind', evt);
                         },
                         onUnbindItem: (evt) => {
@@ -636,10 +648,6 @@ function registerQTUL(app: ESApp) {
             items: {
                 type: Array,
                 default: () => []
-            },
-            loadMore: {
-                type: Function,
-                default: null
             }
         }
     })
