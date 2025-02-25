@@ -34,8 +34,8 @@ export function buildWaterfallHorizontalListItemList(): Array<QTListViewItem> {
     //1.添加两个文本类型
     itemList.push(...buildRandomTextItemList(2))
     //2.添加两个横向列表类型
-    itemList.push(...buildRandomListItemList(2))
+    itemList.push(...buildRandomListItemList(1))
     //3.添加两个图片类型
-    itemList.push(...buildRandomImageItemList(2))
+    itemList.push(...buildRandomImageItemList(6))
     return itemList;
 }
