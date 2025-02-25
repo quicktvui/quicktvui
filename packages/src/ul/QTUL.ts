@@ -382,7 +382,7 @@ function registerQTUL(app: ESApp) {
             const holders = reactive<any[]>([])
 
             let expectedItemCount = -1;
-            let pageSize = -1;
+            let pageSize = 1;
             let initHolderCount = 20;
             let expectedTotalCount = -1;
             let uid = getCurrentInstance()?.uid;
@@ -413,14 +413,28 @@ function registerQTUL(app: ESApp) {
                     crateH(batch, 'hashTag')
                     console.log('----QTUL---watch-----END-->>>>>', props.items)
                 }
+                const rawArray: any = []
+
+                for(let i = 0; i < props.items.length; i++){
+                    const item : any = toRaw(props.items[i])
+                    rawArray.push({
+                        type : item.type,
+                        itemSize : item.itemSize,
+                        span:item.span,
+                        decoration :item.decoration? item.decoration : {},
+                    })
+                }
                 nextTick(() => {
+                    // Native.callUIFunction(viewRef.value, 'clearData', []);
                     console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
-                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [toRaw(props.items), false, false, {}]);
+                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
+                    }]);
                 })
             })
 
 
             function crateH(batch: [], hashTag: string) {
+                console.log('----QTUL---crateH----START--->>>>>', batch)
                 // console.log('++createHolder', batch.length,'hashTag', hashTag)
                 // let {batch ,hashTag} = evt
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
@@ -430,7 +444,6 @@ function registerQTUL(app: ESApp) {
                     const {itemType, position, hdIndex} = list[i]
                     holders.push({
                         itemType: itemType,
-                        sid: `hd-${uid}-${position}`,
                         position: position,
                         hdIndex: start + i,
                     })
@@ -438,9 +451,11 @@ function registerQTUL(app: ESApp) {
                     // holders[holders.length - 1].sid = `hd-${hashTag}-${holders.length - 1}`
                 }
                 //children.push(h(type, params))
+                console.log('----QTUL---crateH---END---->>>>>', holders)
             }
 
             function bindH(batch: []) {
+                console.log('----QTUL---bindH------->>>>>', batch)
                 // console.log('++bindHolder', batch)
                 // let {batch } = params
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
@@ -455,6 +470,7 @@ function registerQTUL(app: ESApp) {
             }
 
             function handleBatch(params: any) {
+                console.log('----QTUL---handleBatch----START--->>>>>', params)
                 let {createItem, bindItem, recycleItem, hashTag} = params
                 // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
                 // if(recycleItem){
@@ -466,6 +482,7 @@ function registerQTUL(app: ESApp) {
                 if (bindItem) {
                     bindH(bindItem)
                 }
+                console.log('----QTUL---handleBatch----END--->>>>>', params)
                 // nextTick(() => {
                 //   Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
                 // })
@@ -516,17 +533,16 @@ function registerQTUL(app: ESApp) {
             };
 
             const renderHolders = (holders) => {
+                console.log('----QTUL---renderHolders---START---->>>>>', holders)
                 // console.log('holders called ', `holderCount:${holders.length}`)
                 let children = holders.map((hd: any, index: number) => {
                     // console.log('holders called ', `index:${index} position:${hd.position},holderCount:${holders.length},sid:${hd.sid}`)
                     // console.log('holders called ', `index:${index} item:${JSON.stringify(listData[hd.position])}`)
                     return h("FastItemView", {
                             key: hd.hdIndex,
-                            sid: hd.sid,
                             type: hd.itemType,
                             focusable: false,
                             // position:hd.position,
-                            hdPosition: hd.position,
                             hdIndex: hd.hdIndex,
                             poolItem: true,
                             // item:props.items? props.items[hd.position] : {}
@@ -541,6 +557,7 @@ function registerQTUL(app: ESApp) {
                         Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
                     })
                 })
+                console.log('----QTUL---renderHolders---END--children-->>>>>', children)
                 return children
             }
             return () => {
