@@ -17,6 +17,7 @@ import qt_ul_data_page from './qt-ul-data-page';
 import qt_ul_item_click_page from './qt-ul-item-click-page';
 import qt_ul_item_focus_page from './qt-ul-item-focus-page';
 import qt_ul_waterfall_page from './qt-ul-waterfall-page';
+import qt_ul_item_player_page from './qt-ul-item-player-page';
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -94,6 +95,10 @@ const QTULPageList = {
     qt_ul_item_focus_page: {
         name: '焦点事件',
         component: qt_ul_item_focus_page,
+    },
+    qt_ul_item_player_page: {
+        name: '播放器',
+        component: qt_ul_item_player_page,
     },
 };
 export default QTULPageList;

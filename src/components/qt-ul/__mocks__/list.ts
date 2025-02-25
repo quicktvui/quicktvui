@@ -7,7 +7,10 @@ import {getRandomInt} from "./random";
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 import {
     QT_UL_ITEM_TYPE_IMAGE,
-    QT_UL_ITEM_TYPE_LIST, QT_UL_ITEM_TYPE_LONG_IMAGE, QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
+    QT_UL_ITEM_TYPE_LIST,
+    QT_UL_ITEM_TYPE_LONG_IMAGE,
+    QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
+    QT_UL_ITEM_TYPE_PLAYER,
     QT_UL_ITEM_TYPE_TEXT,
     QT_UL_ITEM_TYPE_VIEW
 } from "../item/type";
@@ -379,4 +382,46 @@ export function buildRandomImageTextItemList(count: number, span?: number): Arra
     }
 
     return dataList;
+}
+
+//---------------------------------------------------------------------------------------
+export function buildRandomPlayerItemList(count: number, span?: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push(buildRandomPlayerItem(i, span))
+    }
+    return textList;
+}
+
+export function buildRandomPlayerItem(index: number, span?: number): QTULTextItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_PLAYER,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_PLAYER,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 800,
+            span: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_PLAYER,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+        }
+    }
 }
