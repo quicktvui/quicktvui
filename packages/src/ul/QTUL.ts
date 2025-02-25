@@ -521,7 +521,7 @@ function registerQTUL(app: ESApp) {
             const renderItems = (hd) => {
                 return [
                     renderSlot(context.slots, 'item', {
-                        // key:hd.sid,
+                        key: hd.sid,
                         // sid:hd.sid,
                         item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
                     })
