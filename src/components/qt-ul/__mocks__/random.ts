@@ -10,3 +10,8 @@ export function getRandomColor(): string {
     }
     return color;
 }
+
+export function getRandomFloat(): number {
+    const randomNumber = parseFloat((Math.random() * 10).toFixed(1));
+    return randomNumber;
+}

@@ -29,9 +29,9 @@
           :duplicateParentState="true"
           :focusable="false"
           :fontSize="30"
-          :ellipsizeMode="2"
+          :ellipsizeMode="3"
           autoHeight
-          :maxLines="2"
+          :maxLines="1"
           gravity="left"
           :paddingRect="[16,8,12,8]"
           :style="{width: focusTitle.style.width, height: focusTitle.style.height,

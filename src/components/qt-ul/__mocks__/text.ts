@@ -78,3 +78,4 @@ export function buildRandomText(): String {
 export function buildIndexText(index: number): String {
     return textList[index];
 }
+

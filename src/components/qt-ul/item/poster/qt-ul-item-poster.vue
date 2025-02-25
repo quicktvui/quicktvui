@@ -27,9 +27,10 @@
         :textSize="score.style.fontSize"
         :ellipsizeMode="2"
         :lines="1"
-        gravity="left"
+        gravity="center"
         :postDelay="350"
         autoWidth
+        :gradientBackground="score.background"
         :text="score.text"/>
 
     <!--   焦点选中时的标题 -->

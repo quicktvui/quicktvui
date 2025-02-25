@@ -3,6 +3,10 @@ import {
     QTPoster,
     QTWaterfallItem,
 } from "@quicktvui/quicktvui3";
+import {buildRandomImage} from "./image";
+import {buildRandomColor} from "./colors";
+import {buildRandomText} from "./text";
+import {getRandomFloat, getRandomInt} from "./random";
 
 export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
 
@@ -112,6 +116,118 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
 }
 
 
+export function buildRandomPosterItemList(count: number, span: number): Array<QTWaterfallItem> {
+
+    let data: Array<QTWaterfallItem> = []
+    for (let i = 0; i < count; i++) {
+        const poster: QTPoster = {
+            _id: '_' + i,
+            itemSize: 260,
+            position: i,
+            focus: {
+                enable: true,
+                scale: 1,
+                border: false
+            },
+            type: 5,
+            decoration: {
+                left: 25,
+                bottom: 90,
+            },
+            title: {
+                text: buildRandomText(),
+                enable: true,
+                style: {
+                    width: 260,
+                    height: 60,
+                }
+            },
+            subTitle: {
+                text: buildRandomText(),
+                enable: true,
+                style: {
+                    width: 260,
+                }
+            },
+            floatTitle: {
+                text: buildRandomText(),
+                enable: true,
+                style: {
+                    width: 260,
+                    height: 64
+                },
+                background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+            },
+            focusTitle: {
+                text: buildRandomText(),
+                enable: true,
+                style: {
+                    width: 260,
+                    height: 64
+                }
+            },
+            shimmer: {
+                enable: true,
+            },
+            ripple: {
+                enable: true,
+                style: {
+                    right: 0,
+                    bottom: 0,
+                    marginRight: -12,
+                }
+            },
+            image: {
+                src: buildRandomImage(),
+                enable: true,
+                style: {
+                    width: 260,
+                    height: 320
+                }
+            },
+            score: {
+                text: getRandomFloat() + '',
+                enable: true,
+                style: {
+                    width: 50,
+                    height: 40
+                },
+                background: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [8, 8, 8, 8],
+                    orientation: 2
+                }
+            },
+            corner: {
+                text: buildRandomCornerText(),
+                enable: true,
+                style: {
+                    width: 100,
+                    height: 30
+                },
+                background: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [0, 8, 0, 8],
+                    orientation: 2
+                }
+            },
+            style: {
+                width: 260,
+                height: 400,
+            },
+            titleStyle: {
+                width: 260,
+                height: 120,
+                marginTop: 320 - 60,
+            },
+            titleFocusStyle: {width: 260, marginTop: 320 - 50},
+        }
+        data.push(poster)
+    }
+    return data;
+}
+
+
 export function buildPosterTitleItemList(title: string): Array<QTWaterfallItem> {
     let data: Array<QTWaterfallItem> = []
     let imgURL = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
@@ -198,107 +314,12 @@ export function buildPosterTitleItemList(title: string): Array<QTWaterfallItem> 
     return data;
 }
 
-export function buildPosterDecorationItemList(): Array<QTWaterfallItem> {
+const cornerText = [
+    'VIP',
+    'SVIP',
+]
 
-    let data: Array<QTWaterfallItem> = []
-    let imgURL = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
-    for (let i = 0; i < 6; i++) {
-        const poster: QTPoster = {
-            _id: i + '',
-            focus: {
-                enable: true,
-                scale: 1.1,
-                border: false
-            },
-            type: 5,
-            decoration: {
-                left: 30,
-                right: 30,
-                top: 30,
-                bottom: 30,
-            },
-            image: {
-                src: imgURL,
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 320
-                }
-            },
-            style: {
-                width: 260,
-                height: 320,
-            },
-        }
-        data.push(poster)
-    }
-
-    for (let i = 0; i < 6; i++) {
-        const poster: QTPoster = {
-            _id: i + '',
-            type: 5,
-            focus: {
-                enable: true,
-                scale: 1.1,
-                border: false
-            },
-            decoration: {
-                left: 30,
-                right: 30,
-                top: 10,
-                bottom: 5,
-            },
-            image: {
-                src: imgURL,
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 320
-                }
-            },
-            style: {
-                width: 260,
-                height: 320,
-            },
-        }
-        data.push(poster)
-    }
-    return data;
-}
-
-
-export function buildLinePosterItemList(): Array<QTWaterfallItem> {
-
-    let data: Array<QTWaterfallItem> = []
-    let imgURL = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
-    for (let i = 0; i < 5; i++) {
-        const poster: QTPoster = {
-            _id: i + '',
-            focus: {
-                enable: true,
-                scale: 1.1,
-                border: false
-            },
-            type: 5,
-            decoration: {
-                left: 90,
-                top: 40,
-                bottom: 40
-            },
-            image: {
-                src: imgURL,
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 320
-                }
-            },
-            style: {
-                width: 260,
-                height: 360,
-            },
-        }
-        data.push(poster)
-    }
-    return data;
+export function buildRandomCornerText(): String {
+    const index = getRandomInt(0, cornerText.length - 1)
+    return cornerText[index];
 }

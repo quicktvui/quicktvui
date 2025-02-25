@@ -16,6 +16,7 @@ import qt_ul_poster_page from './qt-ul-poster-page';
 import qt_ul_data_page from './qt-ul-data-page';
 import qt_ul_item_click_page from './qt-ul-item-click-page';
 import qt_ul_item_focus_page from './qt-ul-item-focus-page';
+import qt_ul_waterfall_page from './qt-ul-waterfall-page';
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -81,6 +82,10 @@ const QTULPageList = {
     qt_ul_data_page: {
         name: '数据',
         component: qt_ul_data_page,
+    },
+    qt_ul_waterfall_page: {
+        name: '瀑布流',
+        component: qt_ul_waterfall_page,
     },
     qt_ul_item_click_page: {
         name: '点击事件',
