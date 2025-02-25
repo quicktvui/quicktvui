@@ -116,7 +116,7 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
 }
 
 
-export function buildRandomPosterItemList(count: number, span: number): Array<QTWaterfallItem> {
+export function buildRandomPosterItemList(page: number, count: number, span: number): Array<QTWaterfallItem> {
 
     let data: Array<QTWaterfallItem> = []
     for (let i = 0; i < count; i++) {
@@ -150,7 +150,7 @@ export function buildRandomPosterItemList(count: number, span: number): Array<QT
                 }
             },
             floatTitle: {
-                text: buildRandomText(),
+                text: '第 ' + page + ' 页 第 ' + i + ' 个',
                 enable: true,
                 style: {
                     width: 260,

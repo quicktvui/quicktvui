@@ -1,11 +1,20 @@
 <template>
   <div class="es-sdk-root-css" :clipChildren="false">
-    <s-title-view class="es-sdk-content-title-css"/>
     <qt-row class="qt-ul-control-button-class">
       <qt-button size="medium"
                  class="text-button-class"
-                 text="随机Poster"
-                 @click="setRandomPosterData"/>
+                 text="随机100个Poster"
+                 @click="onButtonOneClick"/>
+
+      <qt-button size="medium"
+                 class="text-button-class"
+                 text="随机50个Poster"
+                 @click="onButtonTwoClick"/>
+
+      <qt-button size="medium"
+                 class="text-button-class"
+                 text="随机20个Poster"
+                 @click="onButtonThreeClick"/>
 
     </qt-row>
     <qt-view class="es-sdk-content-divider-css"/>
@@ -83,24 +92,32 @@ export default defineComponent({
 
     function onESCreate() {
 
-      const posterList = buildRandomPosterItemList(100, -1)
-      console.log('------buildRandomPosterItemList-------->>>', posterList)
+
+    }
+
+    function setRandomPosterData(count: number) {
+      const posterList = buildRandomPosterItemList(0, count, -1)
       itemList.value = posterList
     }
 
-    function setRandomPosterData() {
-      const posterList = buildRandomPosterItemList(100, -1)
-      itemList.value = posterList
+
+    function onButtonOneClick() {
+      setRandomPosterData(100)
+    }
+
+    function onButtonTwoClick() {
+      setRandomPosterData(50)
+    }
+
+    function onButtonThreeClick() {
+      setRandomPosterData(20)
     }
 
     function onBackPressed() {
       if (!isQuickBackPressed) {
         isQuickBackPressed = true;
-
         ulRef.value?.scrollToTop()
-
         toast.showToast('再按一次返回退出');
-
         setTimeout(() => {
           isQuickBackPressed = false;
         }, 2000);
@@ -115,6 +132,9 @@ export default defineComponent({
       onESCreate,
       setRandomPosterData,
       onBackPressed,
+      onButtonOneClick,
+      onButtonTwoClick,
+      onButtonThreeClick
     }
   }
 });
@@ -124,7 +144,7 @@ export default defineComponent({
 <style scoped>
 .qt-ul-root-page {
   width: 1920px;
-  height: 1080px;
+  height: 880px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -132,20 +152,17 @@ export default defineComponent({
 
 .qt-ul-class {
   width: 1920px;
-  height: 1080px;
+  height: 880px;
   background-color: darkgray;
 }
 
 .qt-ul-control-button-class {
   width: 1920px;
-  height: 200px;
-  position: absolute;
-  z-index: 1000;
-  left: 0;
-  top: 0;
+  height: 80px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
 </style>
