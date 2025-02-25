@@ -21,28 +21,43 @@ export function buildRandomLongImageItem(index: number, span?: number): QTULImag
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 1920,
+            itemSize: 500,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_LONG_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 1920,
+            itemSize: 500,
             id: index + '',
             type: QT_UL_ITEM_TYPE_LONG_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else {
         return {
             position: index,
-            itemSize: 1920,
+            itemSize: 500,
             span: 1920,
             id: index + '',
             type: QT_UL_ITEM_TYPE_LONG_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     }
 }
@@ -51,28 +66,43 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTULIm
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 960,
+            itemSize: 600,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 960,
+            itemSize: 600,
             id: index + '',
             type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else {
         return {
             position: index,
-            itemSize: 960,
+            itemSize: 600,
             span: 960,
             id: index + '',
             type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
-            url: buildRandomImage()
+            url: buildRandomImage(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     }
 }
@@ -176,28 +206,43 @@ export function buildFixedImageItem(index: number, span?: number): QTULImageItem
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 260,
+            itemSize: 320,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildIndexImage(index)
+            url: buildIndexImage(index),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 260,
+            itemSize: 320,
             id: index + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildIndexImage(index)
+            url: buildIndexImage(index),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else {
         return {
             position: index,
-            itemSize: 260,
-            span: 260,
+            itemSize: 320,
+            span: 320,
             id: index + '',
             type: QT_UL_ITEM_TYPE_IMAGE,
-            url: buildIndexImage(index)
+            url: buildIndexImage(index),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     }
 }
@@ -421,31 +466,46 @@ export function buildRandomPlayerItem(index: number, span?: number): QTULTextIte
     if (span && span != -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 270,
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_PLAYER,
             text: index + '、' + buildRandomText(),
             backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else if (span == -1) {
         return {
             position: index,
-            itemSize: 800,
+            itemSize: 270,
             id: index + '',
             type: QT_UL_ITEM_TYPE_PLAYER,
             text: index + '、' + buildRandomText(),
             backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     } else {
         return {
             position: index,
-            itemSize: 800,
-            span: 800,
+            itemSize: 270,
+            span: 540,
             id: index + '',
             type: QT_UL_ITEM_TYPE_PLAYER,
             text: index + '、' + buildRandomText(),
             backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 30,
+                left: 30,
+                right: 30
+            },
         }
     }
 }

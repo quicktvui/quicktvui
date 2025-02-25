@@ -41,7 +41,7 @@ export default defineComponent({
 
 <style scoped>
 .qt-ul-item-image {
-  width: 960px;
+  width: 900px;
   height: 600px;
   background-color: #0D71FF;
 }

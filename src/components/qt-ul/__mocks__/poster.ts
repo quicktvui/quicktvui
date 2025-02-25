@@ -33,8 +33,9 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
             },
             type: 5,
             decoration: {
-                left: 25,
-                bottom: 90,
+                top: 30,
+                left: 30,
+                right: 30
             },
             title: {
                 text: '主标题',
@@ -112,7 +113,7 @@ export function buildPosterItemList(count: number): Array<QTWaterfallItem> {
                 width: 260,
                 height: 400,
             },
-            itemSize: 260,
+            itemSize: 400,
             titleStyle: {
                 width: 260,
                 height: 120,
@@ -139,7 +140,7 @@ export function buildRandomPosterItem(page: number, index: number, span?: number
     if (span == -1) {
         return {
             _id: '_' + index,
-            itemSize: 260,
+            itemSize: 400,
             position: index,
             focus: {
                 enable: true,
@@ -148,8 +149,9 @@ export function buildRandomPosterItem(page: number, index: number, span?: number
             },
             type: 5,
             decoration: {
-                left: 25,
-                bottom: 90,
+                top: 30,
+                left: 30,
+                right: 30
             },
             title: {
                 text: buildRandomText(),
@@ -243,7 +245,7 @@ export function buildRandomPosterItem(page: number, index: number, span?: number
         if (span) {
             return {
                 _id: '_' + index,
-                itemSize: 260,
+                itemSize: 400,
                 span: span,
                 position: index,
                 focus: {
@@ -253,8 +255,9 @@ export function buildRandomPosterItem(page: number, index: number, span?: number
                 },
                 type: 5,
                 decoration: {
-                    left: 25,
-                    bottom: 90,
+                    top: 30,
+                    left: 30,
+                    right: 30
                 },
                 title: {
                     text: buildRandomText(),
@@ -347,8 +350,8 @@ export function buildRandomPosterItem(page: number, index: number, span?: number
         } else {
             return {
                 _id: '_' + index,
-                itemSize: 260,
-                span: 260,
+                itemSize: 400,
+                span: 320,
                 position: index,
                 focus: {
                     enable: true,
@@ -357,8 +360,9 @@ export function buildRandomPosterItem(page: number, index: number, span?: number
                 },
                 type: 5,
                 decoration: {
-                    left: 25,
-                    bottom: 90,
+                    top: 30,
+                    left: 30,
+                    right: 30
                 },
                 title: {
                     text: buildRandomText(),
