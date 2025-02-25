@@ -18,6 +18,8 @@ import qt_ul_item_click_page from './qt-ul-item-click-page';
 import qt_ul_item_focus_page from './qt-ul-item-focus-page';
 import qt_ul_waterfall_page from './qt-ul-waterfall-page';
 import qt_ul_item_player_page from './qt-ul-item-player-page';
+import qt_ul_load_more_page from './qt-ul-load-mode-page';
+
 
 const QTULPageList = {
     qt_ul_basic_page: {
@@ -100,5 +102,10 @@ const QTULPageList = {
         name: '播放器',
         component: qt_ul_item_player_page,
     },
+    qt_ul_load_more_page: {
+        name: '分页',
+        component: qt_ul_load_more_page,
+    },
+    
 };
 export default QTULPageList;
