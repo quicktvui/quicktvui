@@ -509,3 +509,60 @@ export function buildRandomPlayerItem(index: number, span?: number): QTULTextIte
         }
     }
 }
+
+//------------------------------------------------------------------------------------
+export function buildHorizontalRandomTextItemList(count: number, span?: number): Array<QTULTextItem> {
+    const textList = []
+    for (let i = 0; i < count; i++) {
+        textList.push(buildHorizontalRandomTextItem(i, span))
+    }
+    return textList;
+}
+
+export function buildHorizontalRandomTextItem(index: number, span?: number): QTULTextItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 80,
+                left: 80,
+                right: 80
+            },
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 80,
+                left: 80,
+                right: 80
+            },
+        }
+    } else {
+        return {
+            position: index,
+            span: 960,
+            itemSize: 800,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_TEXT,
+            text: index + '、' + buildRandomText(),
+            backgroundColor: buildRandomColor(),
+            decoration: {
+                top: 80,
+                left: 80,
+                right: 80
+            },
+        }
+    }
+}
