@@ -389,8 +389,8 @@ function registerQTUL(app: ESApp) {
 
 
             watch(() => props.items, (hs) => {
-                console.log('----QTUL---watch----START--->>>>>', props.items)
-                console.log('data changed', hs)
+                // console.log('----QTUL---watch----START--->>>>>', props.items)
+                // console.log('data changed', hs)
                 if (holders.length < 1) {
                     let initCount = 0;
                     if (pageSize > 0) {
@@ -411,30 +411,31 @@ function registerQTUL(app: ESApp) {
                         })
                     }
                     crateH(batch, 'hashTag')
-                    console.log('----QTUL---watch-----END-->>>>>', props.items)
-                }
-                const rawArray: any = []
+                    // console.log('----QTUL---watch-----END-->>>>>', props.items)
+                    const rawArray: any = []
 
-                for(let i = 0; i < props.items.length; i++){
-                    const item : any = toRaw(props.items[i])
-                    rawArray.push({
-                        type : item.type,
-                        itemSize : item.itemSize,
-                        span:item.span,
-                        decoration :item.decoration? item.decoration : {},
+                    for(let i = 0; i < props.items.length; i++){
+                        const item : any = toRaw(props.items[i])
+                        rawArray.push({
+                            type : item.type,
+                            itemSize : item.itemSize,
+                            span:item.span,
+                            decoration :item.decoration? item.decoration : {},
+                        })
+                    }
+                    nextTick(() => {
+                        // Native.callUIFunction(viewRef.value, 'clearData', []);
+                        // console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
+                        Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
+                        }]);
                     })
                 }
-                nextTick(() => {
-                    // Native.callUIFunction(viewRef.value, 'clearData', []);
-                    console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
-                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
-                    }]);
-                })
+
             })
 
 
             function crateH(batch: [], hashTag: string) {
-                console.log('----QTUL---crateH----START--->>>>>', batch)
+                // console.log('----QTUL---crateH----START--->>>>>', batch)
                 // console.log('++createHolder', batch.length,'hashTag', hashTag)
                 // let {batch ,hashTag} = evt
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
@@ -447,15 +448,15 @@ function registerQTUL(app: ESApp) {
                         position: position,
                         hdIndex: start + i,
                     })
-                    console.log('createHolder:' + JSON.stringify(holders[holders.length - 1]))
+                    // console.log('createHolder:' + JSON.stringify(holders[holders.length - 1]))
                     // holders[holders.length - 1].sid = `hd-${hashTag}-${holders.length - 1}`
                 }
                 //children.push(h(type, params))
-                console.log('----QTUL---crateH---END---->>>>>', holders)
+                // console.log('----QTUL---crateH---END---->>>>>', holders)
             }
 
             function bindH(batch: []) {
-                console.log('----QTUL---bindH------->>>>>', batch)
+                // console.log('----QTUL---bindH------->>>>>', batch)
                 // console.log('++bindHolder', batch)
                 // let {batch } = params
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
@@ -470,7 +471,7 @@ function registerQTUL(app: ESApp) {
             }
 
             function handleBatch(params: any) {
-                console.log('----QTUL---handleBatch----START--->>>>>', params)
+                // console.log('----QTUL---handleBatch----START--->>>>>', params)
                 let {createItem, bindItem, recycleItem, hashTag} = params
                 // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
                 // if(recycleItem){
@@ -482,7 +483,7 @@ function registerQTUL(app: ESApp) {
                 if (bindItem) {
                     bindH(bindItem)
                 }
-                console.log('----QTUL---handleBatch----END--->>>>>', params)
+                // console.log('----QTUL---handleBatch----END--->>>>>', params)
                 // nextTick(() => {
                 //   Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
                 // })
@@ -533,7 +534,7 @@ function registerQTUL(app: ESApp) {
             };
 
             const renderHolders = (holders) => {
-                console.log('----QTUL---renderHolders---START---->>>>>', holders)
+                // console.log('----QTUL---renderHolders---START---->>>>>', holders)
                 // console.log('holders called ', `holderCount:${holders.length}`)
                 let children = holders.map((hd: any, index: number) => {
                     // console.log('holders called ', `index:${index} position:${hd.position},holderCount:${holders.length},sid:${hd.sid}`)
@@ -544,6 +545,7 @@ function registerQTUL(app: ESApp) {
                             focusable: false,
                             // position:hd.position,
                             hdIndex: hd.hdIndex,
+                            position:'absolute',
                             poolItem: true,
                             // item:props.items? props.items[hd.position] : {}
                         },
@@ -557,7 +559,7 @@ function registerQTUL(app: ESApp) {
                         Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
                     })
                 })
-                console.log('----QTUL---renderHolders---END--children-->>>>>', children)
+                // console.log('----QTUL---renderHolders---END--children-->>>>>', children)
                 return children
             }
             return () => {
@@ -567,18 +569,18 @@ function registerQTUL(app: ESApp) {
                         pagingPageSize: pageSize,
                         expectedTotalCount: expectedTotalCount,
                         onCreateHolder: (evt: any) => {
-                            console.log('----QTUL---onCreateHolder------->>>>>', evt)
+                            // console.log('----QTUL---onCreateHolder------->>>>>', evt)
                         },
                         onBindHolder: (evt: any) => {
-                            console.log('----QTUL---onBindHolder------->>>>>', evt)
+                            // console.log('----QTUL---onBindHolder------->>>>>', evt)
                             //bindH(evt)
                         },
                         onRecycleHolder: (evt: any) => {
-                            console.log('----QTUL---onRecycleHolder------->>>>>', evt)
+                            // console.log('----QTUL---onRecycleHolder------->>>>>', evt)
                             //recycleH(evt)
                         },
                         onBatch: (evt: any) => {
-                            console.log('----QTUL---onBatch------->>>>>', evt)
+                            // console.log('----QTUL---onBatch------->>>>>', evt)
                             handleBatch(evt)
                         },
                     },
@@ -600,35 +602,35 @@ function registerQTUL(app: ESApp) {
                             context.emit('scroll', evt);
                         },
                         onItemFocused: (evt) => {
-                            console.log('----QTUL---onItemFocused------->>>>>', evt)
+                            // console.log('----QTUL---onItemFocused------->>>>>', evt)
                             context.emit('item-focused', evt);
                         },
                         onAttachedToWindow: (evt) => {
-                            console.log('----QTUL---onAttachedToWindow------->>>>>', evt)
+                            // console.log('----QTUL---onAttachedToWindow------->>>>>', evt)
                             context.emit('item-attached', evt);
                         },
                         onDetachedFromWindow: (evt) => {
-                            console.log('----QTUL---onDetachedFromWindow------->>>>>', evt)
+                            // console.log('----QTUL---onDetachedFromWindow------->>>>>', evt)
                             context.emit('item-detached', evt);
                         },
                         onBindItem: (evt) => {
-                            console.log('----QTUL---onBindItem------->>>>>', evt)
+                            // console.log('----QTUL---onBindItem------->>>>>', evt)
                             context.emit('item-bind', evt);
                         },
                         onUnbindItem: (evt) => {
-                            console.log('----QTUL---onUnbindItem------->>>>>', evt)
+                            // console.log('----QTUL---onUnbindItem------->>>>>', evt)
                             context.emit('item-unbind', evt);
                         },
                         onLoadMore: (evt) => {
-                            console.log('----QTUL---onLoadMore------->>>>>', evt)
+                            // console.log('----QTUL---onLoadMore------->>>>>', evt)
                             context.emit('load-more', evt);
                         },
                         onScrollStateChanged: (evt) => {
-                            console.log('----QTUL---onScrollStateChanged------->>>>>', evt)
+                            // console.log('----QTUL---onScrollStateChanged------->>>>>', evt)
                             context.emit('scroll-state-changed', evt);
                         },
                         onFocusSearchFailed: (evt) => {
-                            console.log('----QTUL---onFocusSearchFailed------->>>>>', evt)
+                            // console.log('----QTUL---onFocusSearchFailed------->>>>>', evt)
                             context.emit('focus-search-failed', evt);
                         },
                         onScrollYGreaterReference: (evt) => {
@@ -636,7 +638,7 @@ function registerQTUL(app: ESApp) {
                             context.emit('scrollYGreaterReference', evt);
                         },
                         onScrollYLesserReference: (evt) => {
-                            console.log('----QTUL---onScrollYLesserReference------->>>>>', evt)
+                            // console.log('----QTUL---onScrollYLesserReference------->>>>>', evt)
                             context.emit('scrollYLesserReference', evt);
                         },
                     },
