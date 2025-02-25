@@ -384,7 +384,7 @@ function registerQTUL(app: ESApp) {
             let expectedItemCount = -1;
             let pageSize = 1;
             let initHolderCount = 20;
-            let expectedTotalCount = -1;
+            let expectedTotalCount = 100;
             let uid = getCurrentInstance()?.uid;
 
 
@@ -524,6 +524,7 @@ function registerQTUL(app: ESApp) {
                         key: hd.sid,
                         // sid:hd.sid,
                         item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
+                        index:hd.position,
                     })
                 ]
             }
@@ -565,7 +566,7 @@ function registerQTUL(app: ESApp) {
                     {
                         slot: 'item',
                         pagingPageSize: pageSize,
-                        expectedTotalCount: expectedTotalCount,
+                        expectedTotalCount: props.expectedTotalCount,
                         onCreateHolder: (evt: any) => {
                             console.log('----QTUL---onCreateHolder------->>>>>', evt)
                         },
@@ -604,7 +605,7 @@ function registerQTUL(app: ESApp) {
                             context.emit('item-focused', evt);
                         },
                         onAttachedToWindow: (evt) => {
-                            console.log('----QTUL---onAttachedToWindow------->>>>>', evt)
+                            console.log('----QTUL---onAttachedToWindow------->>>>>', evt,new Date().getTime())
                             context.emit('item-attached', evt);
                         },
                         onDetachedFromWindow: (evt) => {
@@ -648,7 +649,12 @@ function registerQTUL(app: ESApp) {
             items: {
                 type: Array,
                 default: () => []
-            }
+            },
+            expectedTotalCount:{
+                type:Number,
+                default:0
+            },
+
         }
     })
     app.component('qt-ul', ULImpl)
