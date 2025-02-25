@@ -7,13 +7,73 @@ import {getRandomInt} from "./random";
 import {QTListViewItem} from "@quicktvui/quicktvui3";
 import {
     QT_UL_ITEM_TYPE_IMAGE,
-    QT_UL_ITEM_TYPE_LIST,
+    QT_UL_ITEM_TYPE_LIST, QT_UL_ITEM_TYPE_LONG_IMAGE, QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
     QT_UL_ITEM_TYPE_TEXT,
     QT_UL_ITEM_TYPE_VIEW
 } from "../item/type";
 import {QTULViewItem} from "../item/div/QTULViewItem";
 
 //--------------------------------随机生成Item---------------------------------------
+export function buildRandomLongImageItem(index: number, span?: number): QTULImageItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 1920,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_LONG_IMAGE,
+            url: buildRandomImage()
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 1920,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_LONG_IMAGE,
+            url: buildRandomImage()
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 1920,
+            span: 1920,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_LONG_IMAGE,
+            url: buildRandomImage()
+        }
+    }
+}
+
+export function buildRandomMediumImageItem(index: number, span?: number): QTULImageItem {
+    if (span && span != -1) {
+        return {
+            position: index,
+            itemSize: 960,
+            span: span,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
+            url: buildRandomImage()
+        }
+    } else if (span == -1) {
+        return {
+            position: index,
+            itemSize: 960,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
+            url: buildRandomImage()
+        }
+    } else {
+        return {
+            position: index,
+            itemSize: 960,
+            span: 960,
+            id: index + '',
+            type: QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
+            url: buildRandomImage()
+        }
+    }
+}
+
 export function buildRandomImageItem(index: number, span?: number): QTULImageItem {
     if (span && span != -1) {
         return {
@@ -272,6 +332,22 @@ export function buildRandomImageItemList(count: number, span?: number): Array<QT
     return imageList;
 }
 
+export function buildRandomLongImageItemList(count: number, span?: number): Array<QTULImageItem> {
+    const imageList = []
+    for (let i = 0; i < count; i++) {
+        imageList.push(buildRandomLongImageItem(i, span))
+    }
+    return imageList;
+}
+
+export function buildRandomMediumImageItemList(count: number, span?: number): Array<QTULImageItem> {
+    const imageList = []
+    for (let i = 0; i < count; i++) {
+        imageList.push(buildRandomMediumImageItem(i, span))
+    }
+    return imageList;
+}
+
 
 export function buildRandomTextItemList(count: number, span?: number): Array<QTULTextItem> {
     const textList = []
@@ -287,18 +363,6 @@ export function buildRandomViewItemList(count: number, span?: number): Array<QTU
         textList.push(buildRandomViewItem(i, span))
     }
     return textList;
-}
-
-
-export function buildRandomWaterfallItemList(): Array<QTListViewItem> {
-    const itemList = []
-    //1.添加两个文本类型
-    itemList.push(...buildRandomTextItemList(2))
-    //2.添加两个横向列表类型
-    itemList.push(...buildRandomListItemList(2))
-    //3.添加两个图片类型
-    itemList.push(...buildRandomImageItemList(2))
-    return itemList;
 }
 
 
