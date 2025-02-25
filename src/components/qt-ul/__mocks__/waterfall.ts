@@ -5,7 +5,7 @@ import {
     buildRandomImageItemList,
     buildRandomListItemList,
     buildRandomLongImageItem,
-    buildRandomMediumImageItem, buildRandomMediumImageItemList,
+    buildRandomMediumImageItemList,
     buildRandomTextItemList
 } from "./list";
 
