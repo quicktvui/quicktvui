@@ -6,19 +6,18 @@
       <qt-ul
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
-          :loadMore="loadMore"
+          :clipChildren="false"
+          :stableItemSize="300"
           :enablePlaceholder="false">
         <template #item="{item}">
-          <qt-ul-item-text
-              :text="item.text"
-              gravity="left|centerVertical"
-              :backgroundColor="item.backgroundColor"
-              v-if="item.type == 3"
-              :focusable="true"
-              :enableFocusBorder="true"/>
-          <qt-view v-if="item.type == 1002" class="loading">
+          <div class="qt-ul-item" v-if="item.type == 3" :focusable="true" 
+            :enableFocusBorder="true">
+            <img :src="item ? item.img : ''" class="tv_item_img" />
+            <p class="tv_item_title">{{item ?item.text :''}}</p>
+          </div>
+          <!-- <qt-view v-if="item.type == 1002" class="loading">
             <qt-loading-view color="#409eff" style="height: 150px; width: 150px;background-color: transparent;" />
-          </qt-view>
+          </qt-view> -->
         </template>
       </qt-ul>
     </qt-view>
@@ -43,21 +42,32 @@ export default defineComponent({
     //       :listenBoundEvent="false"
     //       :pagesize=50
     //       :expectItemCount="1000"
+    const img = ref<string>('https://img1.baidu.com/it/u=1726075624,1307327070&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=667');
     const itemList = ref<Array<QTListViewItem>>([])
     const ulRef = ref<QTIUL>()
-
+    const buildData = (): any => {
+      let arr:Array<any> = []
+      for (let i = 0; i < 20; i++) {
+        arr.push({
+          id: 'id'+i, name: 'name'+Math.random(),
+          type: 3,
+          backgroundColor: 'red',
+          img: img,
+          tag: i % 2 == 0 ? '' : 'VIP',
+          text: `pos:${i}`,
+          decoration : {
+            top:20,
+            right:20
+          }
+        })
+      }
+      return arr
+    }
     function onESCreate() {
-      const list = buildFixedTextItemList(5)
-      // list.push({
-      //   type: 1002,
-      //   itemSize: 300,
-      // })
-      itemList.value = list
+      itemList.value = buildData()
     }
     const loadMore = () => {
-      const list = buildFixedTextItemList(5)
-      console.log('------buildTextItemList-------->>>', list)
-      itemList.value = itemList.value.concat(list)
+      // itemList.value = itemList.value.concat(buildData())
       // if(itemList.value[itemList.value.length - 1].type == 1002){
       //   itemList.value.pop()
       //   itemList.value = itemList.value.concat(list)
@@ -96,12 +106,48 @@ export default defineComponent({
 .qt-ul-class {
   width: 800px;
   height: 1080px;
+  background-color: transparent;
 }
 
 .text-button-class {
   margin: 20px;
 }
 
+
+.qt-ul-item {
+  position: relative;
+  width: 800px;
+  height: 250px;
+  border-radius: 20px;
+  background-color: pink;
+  focus-background-color: blue;
+}
+.tv_item_img {
+  width: 300px;
+  height: 200px;
+  background-color: red;
+}
+.tv_item_title{
+  width: 300px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  color: #000000;
+  background-color: transparent;
+}
+.tv_item_tag{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: gold;
+  color: #000000;
+  font-size: 22px;
+  background-color: transparent;
+}
 .loading{
   width: 1920px;
   height: 300px;
