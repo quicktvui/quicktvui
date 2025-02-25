@@ -23,5 +23,6 @@
     "dist",
     "web-types.json"
   ],
-  "web-types": "web-types.json"
+  "web-types": "web-types.json",
+  "type": "module"
 }

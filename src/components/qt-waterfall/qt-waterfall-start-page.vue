@@ -23,6 +23,7 @@ import {buildPosterItemList} from "../__mocks__/poster";
 
 export default defineComponent({
   name: '使用初探',
+  emits:[],
   setup(props, context) {
     const waterfall = ref<QTIWaterfall>()
     const myItemPool = {

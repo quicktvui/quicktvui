@@ -525,6 +525,7 @@ function registerQTUL(app: ESApp) {
                         // key:hd.sid,
                         // sid:hd.sid,
                         item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
+                        index:hd.position,
                     })
                 ]
             }
@@ -567,7 +568,7 @@ function registerQTUL(app: ESApp) {
                     {
                         slot: 'item',
                         pagingPageSize: pageSize,
-                        expectedTotalCount: expectedTotalCount,
+                        expectedTotalCount: props.expectedTotalCount,
                         onCreateHolder: (evt: any) => {
                             // console.log('----QTUL---onCreateHolder------->>>>>', evt)
                         },
@@ -650,7 +651,12 @@ function registerQTUL(app: ESApp) {
             items: {
                 type: Array,
                 default: () => []
-            }
+            },
+            expectedTotalCount:{
+                type:Number,
+                default:0
+            },
+
         }
     })
     app.component('qt-ul', ULImpl)
