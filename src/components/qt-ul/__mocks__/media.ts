@@ -7,6 +7,7 @@ import {buildRandomColor} from "./colors";
 import {buildRandomText} from "./text";
 import {getRandomFloat, getRandomInt} from "./random";
 import {QT_UL_ITEM_TYPE_MEDIA} from "../item/type";
+import {QTListViewItem} from "../../../../packages/src";
 
 const cornerText = [
     'VIP',
@@ -18,123 +19,9 @@ export function buildRandomCornerText(): String {
     return cornerText[index];
 }
 
+export function buildRandomMediaItemList(page: number, count: number, span?: number): Array<QTListViewItem> {
 
-export function buildMediaItemList(count: number): Array<QTWaterfallItem> {
-
-    let data: Array<QTWaterfallItem> = []
-    let imgURL = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
-    for (let i = 0; i < count; i++) {
-        const poster: QTPoster = {
-            _id: '_' + i,
-            position: i,
-            focus: {
-                enable: true,
-                scale: 1,
-                border: false
-            },
-            type: QT_UL_ITEM_TYPE_MEDIA,
-            decoration: {
-                top: 30,
-                left: 30,
-                right: 30
-            },
-            title: {
-                text: '主标题',
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 60,
-                }
-            },
-            subTitle: {
-                text: '副标题',
-                enable: true,
-                style: {
-                    width: 260,
-                }
-            },
-            floatTitle: {
-                text: '浮动标题',
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 64
-                },
-                background: {colors: ['#e5000000', '#00000000'], orientation: 4}
-            },
-            focusTitle: {
-                text: '焦点主标题',
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 64
-                }
-            },
-            shimmer: {
-                enable: true,
-            },
-            ripple: {
-                enable: true,
-                style: {
-                    right: 0,
-                    bottom: 0,
-                    marginRight: -12,
-                }
-            },
-            image: {
-                src: imgURL,
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 320
-                }
-            },
-            score: {
-                text: getRandomFloat() + '',
-                enable: true,
-                style: {
-                    width: 50,
-                    height: 40
-                },
-                background: {
-                    colors: [buildRandomColor(), buildRandomColor()],
-                    cornerRadii4: [8, 8, 8, 8],
-                    orientation: 2
-                }
-            },
-            corner: {
-                text: '角标',
-                enable: true,
-                style: {
-                    width: 100,
-                    height: 30
-                },
-                background: {
-                    colors: ['#FE3824', '#F0051E'],
-                    cornerRadii4: [0, 8, 0, 8],
-                    orientation: 2
-                }
-            },
-            style: {
-                width: 260,
-                height: 400,
-            },
-            itemSize: 400,
-            titleStyle: {
-                width: 260,
-                height: 120,
-                marginTop: 320 - 60,
-            },
-            titleFocusStyle: {width: 260, marginTop: 320 - 50},
-        }
-        data.push(poster)
-    }
-    return data;
-}
-
-export function buildRandomMediaItemList(page: number, count: number, span?: number): Array<QTWaterfallItem> {
-
-    let data: Array<QTWaterfallItem> = []
+    let data: Array<QTListViewItem> = []
     for (let i = 0; i < count; i++) {
         data.push(buildRandomMediaItem(page, i, span))
     }
@@ -142,110 +29,84 @@ export function buildRandomMediaItemList(page: number, count: number, span?: num
 }
 
 
-export function buildRandomMediaItem(page: number, index: number, span?: number): QTPoster {
+export function buildRandomMediaItem(page: number, index: number, span?: number): QTListViewItem {
     if (span == -1) {
         return {
             _id: '_' + index,
             itemSize: 400,
             position: index,
-            focus: {
-                enable: true,
-                scale: 1,
-                border: false
-            },
+            focusEnable: true,
+            focusScale: 1,
+            focusBorder: false,
             type: QT_UL_ITEM_TYPE_MEDIA,
             decoration: {
                 top: 30,
                 left: 30,
                 right: 30
             },
-            title: {
-                text: buildRandomText(),
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 60,
-                }
+            titleText: buildRandomText(),
+            titleEnable: true,
+            titleStyleWidth: 260,
+            titleStyleHeight: 60,
+
+            subTitleText: buildRandomText(),
+            subTitleEnable: true,
+            subTitleStyleWidth: 260,
+
+            floatTitleText: '第 ' + page + ' 页 第 ' + index + ' 个',
+            floatTitleEnable: true,
+            floatTitleStyleWidth: 260,
+            floatTitleStyleHeight: 64,
+            floatTitleBackground: {colors: ['#e5000000', '#00000000'], orientation: 4},
+
+            focusTitleText: buildRandomText(),
+            focusTitleEnable: true,
+            focusTitleStyleWidth: 260,
+            focusTitleStyleHeight: 64,
+
+            shimmerEnable: true,
+
+            rippleEnable: true,
+            rippleStyleRight: 0,
+            rippleStyleBottom: 0,
+            rippleStyleMarginRight: -12,
+
+            imageSrc: buildRandomImage(),
+            imageEnable: true,
+            imageStyleWidth: 260,
+            imageStyleHeight: 320,
+
+            scoreText: getRandomFloat() + '',
+            scoreEnable: true,
+            scoreStyleWidth: 50,
+            scoreStyleHeight: 40,
+            scoreBackground: {
+                colors: [buildRandomColor(), buildRandomColor()],
+                cornerRadii4: [8, 8, 8, 8],
+                orientation: 2
             },
-            subTitle: {
-                text: buildRandomText(),
-                enable: true,
-                style: {
-                    width: 260,
-                }
+
+            cornerText: buildRandomCornerText(),
+            cornerEnable: true,
+            cornerStyleWidth: 100,
+            cornerStyleHeight: 30,
+            cornerBackground: {
+                colors: [buildRandomColor(), buildRandomColor()],
+                cornerRadii4: [0, 8, 0, 8],
+                orientation: 2
             },
-            floatTitle: {
-                text: '第 ' + page + ' 页 第 ' + index + ' 个',
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 64
-                },
-                background: {colors: ['#e5000000', '#00000000'], orientation: 4}
-            },
-            focusTitle: {
-                text: buildRandomText(),
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 64
-                }
-            },
-            shimmer: {
-                enable: true,
-            },
-            ripple: {
-                enable: true,
-                style: {
-                    right: 0,
-                    bottom: 0,
-                    marginRight: -12,
-                }
-            },
-            image: {
-                src: buildRandomImage(),
-                enable: true,
-                style: {
-                    width: 260,
-                    height: 320
-                }
-            },
-            score: {
-                text: getRandomFloat() + '',
-                enable: true,
-                style: {
-                    width: 50,
-                    height: 40
-                },
-                background: {
-                    colors: [buildRandomColor(), buildRandomColor()],
-                    cornerRadii4: [8, 8, 8, 8],
-                    orientation: 2
-                }
-            },
-            corner: {
-                text: buildRandomCornerText(),
-                enable: true,
-                style: {
-                    width: 100,
-                    height: 30
-                },
-                background: {
-                    colors: [buildRandomColor(), buildRandomColor()],
-                    cornerRadii4: [0, 8, 0, 8],
-                    orientation: 2
-                }
-            },
-            style: {
-                width: 260,
-                height: 400,
-            },
-            titleStyle: {
-                width: 260,
-                height: 120,
-                marginTop: 320 - 60,
-            },
-            titleFocusStyle: {width: 260, marginTop: 320 - 50},
+
+            styleWidth: 260,
+            styleHeight: 400,
+
+            titleNormalStyleWidth: 260,
+            titleNormalStyleHeight: 120,
+            titleNormalStyleMarginTop: 320 - 60,
+
+
+            titleFocusStyleWidth: 260,
+            titleFocusStyleMarginTop: 320 - 50,
+
         }
     } else {
         if (span) {
@@ -254,104 +115,78 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
                 itemSize: 400,
                 span: span,
                 position: index,
-                focus: {
-                    enable: true,
-                    scale: 1,
-                    border: false
-                },
+                focusEnable: true,
+                focusScale: 1,
+                focusBorder: false,
                 type: QT_UL_ITEM_TYPE_MEDIA,
                 decoration: {
                     top: 30,
                     left: 30,
                     right: 30
                 },
-                title: {
-                    text: buildRandomText(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 60,
-                    }
+                titleText: buildRandomText(),
+                titleEnable: true,
+                titleStyleWidth: 260,
+                titleStyleHeight: 60,
+
+                subTitleText: buildRandomText(),
+                subTitleEnable: true,
+                subTitleStyleWidth: 260,
+
+                floatTitleText: '第 ' + page + ' 页 第 ' + index + ' 个',
+                floatTitleEnable: true,
+                floatTitleStyleWidth: 260,
+                floatTitleStyleHeight: 64,
+                floatTitleBackground: {colors: ['#e5000000', '#00000000'], orientation: 4},
+
+                focusTitleText: buildRandomText(),
+                focusTitleEnable: true,
+                focusTitleStyleWidth: 260,
+                focusTitleStyleHeight: 64,
+
+                shimmerEnable: true,
+
+                rippleEnable: true,
+                rippleStyleRight: 0,
+                rippleStyleBottom: 0,
+                rippleStyleMarginRight: -12,
+
+                imageSrc: buildRandomImage(),
+                imageEnable: true,
+                imageStyleWidth: 260,
+                imageStyleHeight: 320,
+
+                scoreText: getRandomFloat() + '',
+                scoreEnable: true,
+                scoreStyleWidth: 50,
+                scoreStyleHeight: 40,
+                scoreBackground: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [8, 8, 8, 8],
+                    orientation: 2
                 },
-                subTitle: {
-                    text: buildRandomText(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                    }
+
+                cornerText: buildRandomCornerText(),
+                cornerEnable: true,
+                cornerStyleWidth: 100,
+                cornerStyleHeight: 30,
+                cornerBackground: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [0, 8, 0, 8],
+                    orientation: 2
                 },
-                floatTitle: {
-                    text: '第 ' + page + ' 页 第 ' + index + ' 个',
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 64
-                    },
-                    background: {colors: ['#e5000000', '#00000000'], orientation: 4}
-                },
-                focusTitle: {
-                    text: buildRandomText(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 64
-                    }
-                },
-                shimmer: {
-                    enable: true,
-                },
-                ripple: {
-                    enable: true,
-                    style: {
-                        right: 0,
-                        bottom: 0,
-                        marginRight: -12,
-                    }
-                },
-                image: {
-                    src: buildRandomImage(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 320
-                    }
-                },
-                score: {
-                    text: getRandomFloat() + '',
-                    enable: true,
-                    style: {
-                        width: 50,
-                        height: 40
-                    },
-                    background: {
-                        colors: [buildRandomColor(), buildRandomColor()],
-                        cornerRadii4: [8, 8, 8, 8],
-                        orientation: 2
-                    }
-                },
-                corner: {
-                    text: buildRandomCornerText(),
-                    enable: true,
-                    style: {
-                        width: 100,
-                        height: 30
-                    },
-                    background: {
-                        colors: [buildRandomColor(), buildRandomColor()],
-                        cornerRadii4: [0, 8, 0, 8],
-                        orientation: 2
-                    }
-                },
-                style: {
-                    width: 260,
-                    height: 400,
-                },
-                titleStyle: {
-                    width: 260,
-                    height: 120,
-                    marginTop: 320 - 60,
-                },
-                titleFocusStyle: {width: 260, marginTop: 320 - 50},
+
+                styleWidth: 260,
+                styleHeight: 400,
+
+                titleNormalStyleWidth: 260,
+                titleNormalStyleHeight: 120,
+                titleNormalStyleMarginTop: 320 - 60,
+
+
+                titleFocusStyleWidth: 260,
+                titleFocusStyleMarginTop: 320 - 50,
+
             }
         } else {
             return {
@@ -359,104 +194,78 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
                 itemSize: 400,
                 span: 320,
                 position: index,
-                focus: {
-                    enable: true,
-                    scale: 1,
-                    border: false
-                },
+                focusEnable: true,
+                focusScale: 1,
+                focusBorder: false,
                 type: QT_UL_ITEM_TYPE_MEDIA,
                 decoration: {
                     top: 30,
                     left: 30,
                     right: 30
                 },
-                title: {
-                    text: buildRandomText(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 60,
-                    }
+                titleText: buildRandomText(),
+                titleEnable: true,
+                titleStyleWidth: 260,
+                titleStyleHeight: 60,
+
+                subTitleText: buildRandomText(),
+                subTitleEnable: true,
+                subTitleStyleWidth: 260,
+
+                floatTitleText: '第 ' + page + ' 页 第 ' + index + ' 个',
+                floatTitleEnable: true,
+                floatTitleStyleWidth: 260,
+                floatTitleStyleHeight: 64,
+                floatTitleBackground: {colors: ['#e5000000', '#00000000'], orientation: 4},
+
+                focusTitleText: buildRandomText(),
+                focusTitleEnable: true,
+                focusTitleStyleWidth: 260,
+                focusTitleStyleHeight: 64,
+
+                shimmerEnable: true,
+
+                rippleEnable: true,
+                rippleStyleRight: 0,
+                rippleStyleBottom: 0,
+                rippleStyleMarginRight: -12,
+
+                imageSrc: buildRandomImage(),
+                imageEnable: true,
+                imageStyleWidth: 260,
+                imageStyleHeight: 320,
+
+                scoreText: getRandomFloat() + '',
+                scoreEnable: true,
+                scoreStyleWidth: 50,
+                scoreStyleHeight: 40,
+                scoreBackground: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [8, 8, 8, 8],
+                    orientation: 2
                 },
-                subTitle: {
-                    text: buildRandomText(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                    }
+
+                cornerText: buildRandomCornerText(),
+                cornerEnable: true,
+                cornerStyleWidth: 100,
+                cornerStyleHeight: 30,
+                cornerBackground: {
+                    colors: [buildRandomColor(), buildRandomColor()],
+                    cornerRadii4: [0, 8, 0, 8],
+                    orientation: 2
                 },
-                floatTitle: {
-                    text: '第 ' + page + ' 页 第 ' + index + ' 个',
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 64
-                    },
-                    background: {colors: ['#e5000000', '#00000000'], orientation: 4}
-                },
-                focusTitle: {
-                    text: buildRandomText(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 64
-                    }
-                },
-                shimmer: {
-                    enable: true,
-                },
-                ripple: {
-                    enable: true,
-                    style: {
-                        right: 0,
-                        bottom: 0,
-                        marginRight: -12,
-                    }
-                },
-                image: {
-                    src: buildRandomImage(),
-                    enable: true,
-                    style: {
-                        width: 260,
-                        height: 320
-                    }
-                },
-                score: {
-                    text: getRandomFloat() + '',
-                    enable: true,
-                    style: {
-                        width: 50,
-                        height: 40
-                    },
-                    background: {
-                        colors: [buildRandomColor(), buildRandomColor()],
-                        cornerRadii4: [8, 8, 8, 8],
-                        orientation: 2
-                    }
-                },
-                corner: {
-                    text: buildRandomCornerText(),
-                    enable: true,
-                    style: {
-                        width: 100,
-                        height: 30
-                    },
-                    background: {
-                        colors: [buildRandomColor(), buildRandomColor()],
-                        cornerRadii4: [0, 8, 0, 8],
-                        orientation: 2
-                    }
-                },
-                style: {
-                    width: 260,
-                    height: 400,
-                },
-                titleStyle: {
-                    width: 260,
-                    height: 120,
-                    marginTop: 320 - 60,
-                },
-                titleFocusStyle: {width: 260, marginTop: 320 - 50},
+
+                styleWidth: 260,
+                styleHeight: 400,
+
+                titleNormalStyleWidth: 260,
+                titleNormalStyleHeight: 120,
+                titleNormalStyleMarginTop: 320 - 60,
+
+
+                titleFocusStyleWidth: 260,
+                titleFocusStyleMarginTop: 320 - 50,
+
             }
         }
     }

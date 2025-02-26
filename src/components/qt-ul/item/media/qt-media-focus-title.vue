@@ -1,7 +1,7 @@
 <template>
   <div class="qt-ui-poster-item-focus-title-css"
-       :style="{width: titleFocusStyle.width, height: titleFocusStyle.height,
-       marginTop: titleFocusStyle.marginTop}"
+       :style="{width: titleFocusStyleWidth, height: titleFocusStyleHeight,
+       marginTop: titleFocusStyleMarginTop}"
        autoHeight
        :focusable="false">
     <!-- 浮动标题-->
@@ -12,10 +12,10 @@
         :ellipsizeMode="2"
         :lines="1"
         :paddingRect="[16,18,0,0]"
-        :gradientBackground="floatTitle.background"
-        :style="{width: floatTitle.width, height: '64px', color: '#ffffff'}"
-        :text="floatTitle.text"
-        v-if="floatTitle.enable"
+        :gradientBackground="floatTitleBackground"
+        :style="{width: floatTitleWidth, height: '64px', color: '#ffffff'}"
+        :text="floatTitleText"
+        v-if="floatTitleEnable"
         gravity="left"
         :postDelay="250"/>
     <div class="absoluteFocusMainBgRoot"
@@ -23,7 +23,7 @@
          :duplicateParentState="true"
          :focusable="false"
          :gradientBackground="bgColor"
-         v-if="focusTitle.enable">
+         v-if="focusTitleEnable">
       <!-- 主标题 -->
       <qt-text
           :duplicateParentState="true"
@@ -34,9 +34,9 @@
           :maxLines="1"
           gravity="left"
           :paddingRect="[16,8,12,8]"
-          :style="{width: focusTitle.style.width, height: focusTitle.style.height,
+          :style="{width: focusTitleStyleWidth, height: focusTitleStyleHeight,
           backgroundColor: 'transparent',color: `${titleColor}`}"
-          :text="focusTitle.text"/>
+          :text="focusTitleText"/>
       <!-- 副标题 -->
       <qt-text
           :duplicateParentState="true"
@@ -48,10 +48,10 @@
           gravity="left|top"
           :paddingRect="[16,0,0,16]"
           :style="{
-            width: subTitle.style.width, height: subTitle.style.height,
+            width: subTitleStyleWidth, height: subTitleStyleHeight,
             color: `${subTitleColor}`,backgroundColor: 'transparent'}"
-          :text="subTitle.text"
-          v-if="subTitle"/>
+          :text="subTitleText"
+          v-if="subTitleText"/>
     </div>
   </div>
 </template>
@@ -84,17 +84,51 @@ export default defineComponent({
       type: String,
       default: 'rgba(0,0,0,.4)'
     },
-    floatTitle: {
+    //------------------------------------------
+    titleFocusStyleWidth: {
+      type: Number,
+    },
+    titleFocusStyleHeight: {
+      type: Number,
+    },
+    titleFocusStyleMarginTop: {
+      type: Number,
+    },
+//------------------------------------------
+    floatTitleBackground: {
       type: Object,
     },
-    focusTitle: {
-      type: Object,
+    floatTitleWidth: {
+      type: Number,
     },
-    subTitle: {
-      type: Object,
+    floatTitleText: {
+      type: String,
     },
-    titleFocusStyle: {
-      type: Object,
+    floatTitleEnable: {
+      type: Boolean,
+    },
+    //------------------------------------------
+    focusTitleEnable: {
+      type: Boolean,
+    },
+    focusTitleStyleWidth: {
+      type: Number,
+    },
+    focusTitleStyleHeight: {
+      type: Number,
+    },
+    focusTitleText: {
+      type: String,
+    },
+    //------------------------------------------
+    subTitleStyleWidth: {
+      type: Number,
+    },
+    subTitleStyleHeight: {
+      type: Number,
+    },
+    subTitleText: {
+      type: String,
     },
   },
   setup(props, context) {

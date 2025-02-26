@@ -1,25 +1,25 @@
 <template>
   <div class="qt-ui-poster-item-corner-css" :focusable="false">
     <qt-text
-      :duplicateParentState="true"
-      :focusable="false"
-      :textSize="fontSize"
-      :ellipsizeMode="2"
-      :lines="1"
-      typeface="bold"
-      gravity="center"
-      :postDelay="350"
-      style="color: white;padding: 4px 8px;height: 36px;margin: 4px;"
-      :gradientBackground="corner.background"
-      autoWidth
-      :text="corner.text"
-      v-if="corner.enable"
+        :duplicateParentState="true"
+        :focusable="false"
+        :textSize="fontSize"
+        :ellipsizeMode="2"
+        :lines="1"
+        typeface="bold"
+        gravity="center"
+        :postDelay="350"
+        style="color: white;padding: 4px 8px;height: 36px;margin: 4px;"
+        :gradientBackground="cornerBackground"
+        autoWidth
+        :text="cornerText"
+        v-if="cornerEnable"
     />
     <img :focusable="false"
          class="poster_corner_img"
          flexStyle="${corner.styleImg}"
-         :src="corner.src"
-         v-if="corner.enableImg"/>
+         :src="cornerSrc"
+         v-if="cornerEnableImg"/>
   </div>
 </template>
 
@@ -39,8 +39,21 @@ export default defineComponent({
       type: String,
       default: 'right'
     },
-    corner: {
+    //---------------------------------------------------
+    cornerBackground: {
       type: Object,
+    },
+    cornerText: {
+      type: String,
+    },
+    cornerEnable: {
+      type: Boolean,
+    },
+    cornerEnableImg: {
+      type: Boolean,
+    },
+    cornerSrc: {
+      type: String,
     },
   },
   setup(props, context) {
@@ -58,15 +71,17 @@ export default defineComponent({
   background-color: transparent;
 }
 
-.poster_corner_img{
+.poster_corner_img {
   position: absolute;
   top: 0.01px;
   z-index: 2;
 }
-.cornerRoot_left .poster_corner_img{
+
+.cornerRoot_left .poster_corner_img {
   left: 0.01px;
 }
-.cornerRoot_right .poster_corner_img{
+
+.cornerRoot_right .poster_corner_img {
   right: 0.01px;
 }
 </style>
