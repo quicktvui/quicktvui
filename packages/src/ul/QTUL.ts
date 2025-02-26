@@ -574,7 +574,7 @@ function registerQTUL(app: ESApp) {
                         },
                         onBatch: (evt: any) => {
                             const batchStartTime = new Date().getTime()
-                            console.log("-----QTUL----onBatch事件---" +
+                            console.log("-----QTUL----onBatch事件---", evt,
                                 "----从watch开始耗时---->>>>>", (batchStartTime - watchStartTime),
                                 '----从setData开始耗时----->>>>>', (batchStartTime - setDataStartTime))
                             handleBatch(evt)
