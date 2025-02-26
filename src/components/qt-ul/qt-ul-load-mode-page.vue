@@ -7,7 +7,8 @@
           class="qt-ul-class" ref="ulRef" name="ul"
           :items="itemList"
           :clipChildren="false"
-          :stableItemSize="300"
+          :stableItemSize="250"
+          :loadMore="loadMore"
           :enablePlaceholder="false">
         <template #item="{item}">
           <div class="qt-ul-item" v-if="item.type == 3" :focusable="true" 
@@ -15,9 +16,9 @@
             <img :src="item ? item.img : ''" class="tv_item_img" />
             <p class="tv_item_title">{{item ?item.text :''}}</p>
           </div>
-          <!-- <qt-view v-if="item.type == 1002" class="loading">
+          <qt-view v-if="item.type == 1002" class="loading">
             <qt-loading-view color="#409eff" style="height: 150px; width: 150px;background-color: transparent;" />
-          </qt-view> -->
+          </qt-view>
         </template>
       </qt-ul>
     </qt-view>
@@ -45,9 +46,10 @@ export default defineComponent({
     const img = ref<string>('https://img1.baidu.com/it/u=1726075624,1307327070&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=667');
     const itemList = ref<Array<QTListViewItem>>([])
     const ulRef = ref<QTIUL>()
-    const buildData = (): any => {
+    let index = 1
+    const buildData = (pIndex): any => {
       let arr:Array<any> = []
-      for (let i = 0; i < 20; i++) {
+      for (let i = pIndex * 10 - 10; i < index * 10; i++) {
         arr.push({
           id: 'id'+i, name: 'name'+Math.random(),
           type: 3,
@@ -55,23 +57,25 @@ export default defineComponent({
           img: img,
           tag: i % 2 == 0 ? '' : 'VIP',
           text: `pos:${i}`,
-          decoration : {
-            top:20,
-            right:20
-          }
         })
       }
+      arr.push({
+        type: 1002,
+      })
       return arr
     }
     function onESCreate() {
-      itemList.value = buildData()
+      itemList.value = buildData(index)
     }
     const loadMore = () => {
-      // itemList.value = itemList.value.concat(buildData())
-      // if(itemList.value[itemList.value.length - 1].type == 1002){
-      //   itemList.value.pop()
-      //   itemList.value = itemList.value.concat(list)
-      // }
+      index++
+      if(itemList.value[itemList.value.length - 1].type == 1002){
+        setTimeout(() => {
+          itemList.value.pop()
+          itemList.value = itemList.value.concat(buildData(index))
+        },1000)
+        
+      }
       
     }
     
@@ -149,8 +153,8 @@ export default defineComponent({
   background-color: transparent;
 }
 .loading{
-  width: 1920px;
-  height: 300px;
+  width: 800px;
+  height: 250px;
   align-items: center;
   justify-content: center;
   background-color: pink;
