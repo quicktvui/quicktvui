@@ -1,6 +1,13 @@
 <template>
   <div class="es-sdk-root-css" :clipChildren="false">
     <qt-row class="qt-ul-control-button-class">
+
+      <qt-button size="medium"
+                 class="text-button-class"
+                 text="随机100个Media"
+                 :requestFocus="true"
+                 @click="onButtonZeroClick"/>
+
       <qt-button size="medium"
                  class="text-button-class"
                  text="随机100个Poster"
@@ -65,6 +72,25 @@
               :placeholderImg="item.placeholderImg"
           />
 
+          <qt-ul-item-media
+              v-if="item.type == 10"
+              :style="item.style"
+              :focus="item.focus"
+              :image="item.image"
+              :shadow="item.shadow"
+              :shimmer="item.shimmer"
+              :title="item.title"
+              :focusTitle="item.focusTitle"
+              :subTitle="item.subTitle"
+              :floatTitle="item.floatTitle"
+              :ripple="item.ripple"
+              :corner="item.corner"
+              :score="item.score"
+              :titleStyle="item.titleStyle"
+              :titleFocusStyle="item.titleFocusStyle"
+              :placeholderImg="item.placeholderImg"
+          />
+
           <qt-ul-item-long-image
               :src="item.url"
               v-if="item.type == 7"
@@ -86,6 +112,7 @@ import {ref} from "vue";
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import qt_ul_item_image from "./item/image/qt-ul-item-image.vue";
 import qt_ul_item_poster from "./item/poster/qt-ul-item-poster.vue";
+import qt_ul_item_media from "./item/media/qt-ul-item-media.vue";
 import qt_ul_item_long_image from "./item/image/qt-ul-item-long-image.vue";
 import qt_ul_item_medium_image from "./item/image/qt-ul-item-medium-image.vue";
 
@@ -95,6 +122,7 @@ import {useESToast} from "@extscreen/es3-core";
 import {buildRandomPosterItemList} from "./__mocks__/poster";
 import {buildRandomLongImageItemList, buildRandomMediumImageItemList} from "./__mocks__/list";
 import {buildRandomWaterfallItemList} from "./__mocks__/waterfall";
+import {buildRandomMediaItemList} from "./__mocks__/media";
 
 export default defineComponent({
   name: '瀑布流',
@@ -104,7 +132,8 @@ export default defineComponent({
     'qt-ul-item-image': qt_ul_item_image,
     'qt-ul-item-poster': qt_ul_item_poster,
     'qt-ul-item-long-image': qt_ul_item_long_image,
-    'qt-ul-item-medium-image': qt_ul_item_medium_image
+    'qt-ul-item-medium-image': qt_ul_item_medium_image,
+    'qt-ul-item-media': qt_ul_item_media,
   },
   setup(props, context) {
     const ulRef = ref<QTIUL>()
@@ -115,6 +144,12 @@ export default defineComponent({
 
     function onESCreate() {
       onButtonOneClick()
+    }
+
+    function onButtonZeroClick() {
+      const list = buildRandomMediaItemList(0, 100)
+      console.log('----------buildRandomMediaItemList--------->>>>', list)
+      itemList.value = list
     }
 
     function onButtonOneClick() {
@@ -159,6 +194,7 @@ export default defineComponent({
       itemList,
       onESCreate,
       onBackPressed,
+      onButtonZeroClick,
       onButtonOneClick,
       onButtonTwoClick,
       onButtonThreeClick,
