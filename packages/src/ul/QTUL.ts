@@ -386,11 +386,12 @@ function registerQTUL(app: ESApp) {
             let initHolderCount = 20;
             let expectedTotalCount = -1;
             let uid = getCurrentInstance()?.uid;
+            let currentLength = ref(0)
 
-
-            watch(() => props.items, (hs) => {
+            watch(() => props.items, (newVal,oldVal) => {
                 // console.log('----QTUL---watch----START--->>>>>', props.items)
                 // console.log('data changed', hs)
+                qt.log.e("-----QTUL--->>>>>",'watch1', JSON.stringify(new Date().getTime()))
                 if (holders.length < 1) {
                     let initCount = 0;
                     if (pageSize > 0) {
@@ -399,12 +400,12 @@ function registerQTUL(app: ESApp) {
                         initCount = 0;
                     } else {
                         //pageSize小于0时，表示全部加载
-                        initCount = props.items.length
+                        initCount = newVal.length
                     }
                     let batch: any = []
                     // const {itemType,position} = list[i]
                     for (let i = 0; i < initCount; i++) {
-                        let item: any = props.items[i]
+                        let item: any = toRaw(newVal[i])
                         batch.push({
                             itemType: item.type,
                             position: i,
@@ -412,28 +413,26 @@ function registerQTUL(app: ESApp) {
                     }
                     crateH(batch, 'hashTag')
                     // console.log('----QTUL---watch-----END-->>>>>', props.items)
-                    const rawArray: any = []
-
-                    for(let i = 0; i < props.items.length; i++){
-                        const item : any = toRaw(props.items[i])
-                        rawArray.push({
-                            type : item.type,
-                            itemSize : item.itemSize,
-                            span:item.span,
-                            decoration :item.decoration? item.decoration : {},
-                        })
-                    }
-                    nextTick(() => {
-                        // Native.callUIFunction(viewRef.value, 'clearData', []);
-                        // console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
-                        Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
-                        }]);
+                }
+                const rawArray: any = []
+                for(let i = 0; i < newVal.length; i++){
+                    const item : any = toRaw(newVal[i])
+                    rawArray.push({
+                        type : item.type,
+                        itemSize : item.itemSize,
+                        span:item.span,
+                        decoration :item.decoration? item.decoration : {},
                     })
                 }
-
+                currentLength.value = newVal.length
+                nextTick(() => {
+                    // Native.callUIFunction(viewRef.value, 'clearData', []);
+                    // console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
+                    qt.log.e("-----QTUL--->>>>>",'watch2', JSON.stringify(new Date().getTime()))
+                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
+                    }]);
+                })
             })
-
-
             function crateH(batch: [], hashTag: string) {
                 // console.log('----QTUL---crateH----START--->>>>>', batch)
                 // console.log('++createHolder', batch.length,'hashTag', hashTag)
@@ -459,6 +458,7 @@ function registerQTUL(app: ESApp) {
                 // console.log('----QTUL---bindH------->>>>>', batch)
                 // console.log('++bindHolder', batch)
                 // let {batch } = params
+                qt.log.e("-----QTUL--->>>>>",'bindH start', JSON.stringify(new Date().getTime()))
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
                 for (let i = 0; i < list.length; i++) {
                     const {position, sid, hdIndex} = list[i]
@@ -468,6 +468,7 @@ function registerQTUL(app: ESApp) {
                         holders[hdIndex].position = position
                     }
                 }
+                qt.log.e("-----QTUL--->>>>>",'bindH end', JSON.stringify(new Date().getTime()))
             }
 
             function handleBatch(params: any) {
@@ -483,6 +484,7 @@ function registerQTUL(app: ESApp) {
                 if (bindItem) {
                     bindH(bindItem)
                 }
+                qt.log.e("-----QTUL--->>>>>",'onBatch end', JSON.stringify(new Date().getTime()))
                 // console.log('----QTUL---handleBatch----END--->>>>>', params)
                 // nextTick(() => {
                 //   Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
@@ -535,6 +537,7 @@ function registerQTUL(app: ESApp) {
             };
 
             const renderHolders = (holders) => {
+                qt.log.e("-----QTUL--->>>>>",'renderHolders start', JSON.stringify(new Date().getTime()))  
                 // console.log('----QTUL---renderHolders---START---->>>>>', holders)
                 // console.log('holders called ', `holderCount:${holders.length}`)
                 let children = holders.map((hd: any, index: number) => {
@@ -555,6 +558,7 @@ function registerQTUL(app: ESApp) {
                     )
                     // return  renderItems(hd)
                 })
+                qt.log.e("-----QTUL--->>>>>",'renderHolders end', JSON.stringify(new Date().getTime()))
                 nextTick(() => {
                     nextTick(() => {
                         Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
@@ -587,13 +591,13 @@ function registerQTUL(app: ESApp) {
                     },
                     renderHolders(holders)
                     )
-                    : []
-
+                    : []  
                 return h(
                     'FastListView',
                     {
                         ref: viewRef,
                         disableVirtualDOM: true,
+                        listenBoundEvent: true,
                         onItemClick: (evt) => {
                             console.log('----QTUL---onItemClick------->>>>>', evt)
                             context.emit('item-click', evt);
@@ -616,6 +620,10 @@ function registerQTUL(app: ESApp) {
                         },
                         onBindItem: (evt) => {
                             // console.log('----QTUL---onBindItem------->>>>>', evt)
+                            //console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
+                            if(evt.position == currentLength.value - 1 ){
+                                props.loadMore()
+                            }
                             context.emit('item-bind', evt);
                         },
                         onUnbindItem: (evt) => {
@@ -635,7 +643,7 @@ function registerQTUL(app: ESApp) {
                             context.emit('focus-search-failed', evt);
                         },
                         onScrollYGreaterReference: (evt) => {
-                            console.log('----QTUL---onScrollYGreaterReference------->>>>>', evt)
+                            //console.log('----QTUL---onScrollYGreaterReference------->>>>>', evt)
                             context.emit('scrollYGreaterReference', evt);
                         },
                         onScrollYLesserReference: (evt) => {
@@ -656,7 +664,10 @@ function registerQTUL(app: ESApp) {
                 type:Number,
                 default:0
             },
-
+            loadMore: {
+                type: Function,
+                default: null
+            }
         }
     })
     app.component('qt-ul', ULImpl)
