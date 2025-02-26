@@ -1,5 +1,5 @@
 import {QTListViewItem} from "@quicktvui/quicktvui3";
-import {buildRandomPosterItem, buildRandomPosterItemList} from "./poster";
+import {buildRandomPosterItemList} from "./poster";
 import {getRandomInt} from "./random";
 import {
     buildRandomImageItemList,

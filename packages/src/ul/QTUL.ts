@@ -388,10 +388,13 @@ function registerQTUL(app: ESApp) {
             let uid = getCurrentInstance()?.uid;
             let currentLength = ref(0)
 
-            watch(() => props.items, (newVal,oldVal) => {
-                // console.log('----QTUL---watch----START--->>>>>', props.items)
-                // console.log('data changed', hs)
-                qt.log.e("-----QTUL--->>>>>",'watch1', JSON.stringify(new Date().getTime()))
+            let watchStartTime = 0
+            let setDataStartTime = -1
+
+            watch(() => props.items, (newVal, oldVal) => {
+                watchStartTime = new Date().getTime()
+
+                console.log("-----QTUL----watch---START----开始时间：--->>>>>", watchStartTime, props.items)
                 if (holders.length < 1) {
                     let initCount = 0;
                     if (pageSize > 0) {
@@ -412,67 +415,62 @@ function registerQTUL(app: ESApp) {
                         })
                     }
                     crateH(batch, 'hashTag')
-                    // console.log('----QTUL---watch-----END-->>>>>', props.items)
                 }
                 const rawArray: any = []
-                for(let i = 0; i < newVal.length; i++){
-                    const item : any = toRaw(newVal[i])
+                for (let i = 0; i < newVal.length; i++) {
+                    const item: any = toRaw(newVal[i])
                     rawArray.push({
-                        type : item.type,
-                        itemSize : item.itemSize,
-                        span:item.span,
-                        decoration :item.decoration? item.decoration : {},
+                        type: item.type,
+                        itemSize: item.itemSize,
+                        span: item.span,
+                        decoration: item.decoration ? item.decoration : {},
                     })
                 }
                 currentLength.value = newVal.length
                 nextTick(() => {
-                    // Native.callUIFunction(viewRef.value, 'clearData', []);
-                    // console.log('----QTUL---watch----setListDataWithParams--->>>>>', props.items)
-                    qt.log.e("-----QTUL--->>>>>",'watch2', JSON.stringify(new Date().getTime()))
-                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {
-                    }]);
+                    setDataStartTime = new Date().getTime()
+                    Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {}]);
                 })
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----watch---END---耗时---->>>>>", (endTime - watchStartTime))
             })
+
             function crateH(batch: [], hashTag: string) {
-                // console.log('----QTUL---crateH----START--->>>>>', batch)
-                // console.log('++createHolder', batch.length,'hashTag', hashTag)
-                // let {batch ,hashTag} = evt
+                const startTime = new Date().getTime()
+                console.log("-----QTUL----crateH---START------>>>>>", startTime)
+
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
                 let start = holders.length
                 for (let i = 0; i < list.length; i++) {
-                    // console.log('++createHolder list[i]:',list[i])
                     const {itemType, position, hdIndex} = list[i]
                     holders.push({
                         itemType: itemType,
                         position: position,
                         hdIndex: start + i,
                     })
-                    // console.log('createHolder:' + JSON.stringify(holders[holders.length - 1]))
-                    // holders[holders.length - 1].sid = `hd-${hashTag}-${holders.length - 1}`
                 }
-                //children.push(h(type, params))
-                // console.log('----QTUL---crateH---END---->>>>>', holders)
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----crateH---END---耗时---->>>>>", (endTime - startTime))
             }
 
             function bindH(batch: []) {
-                // console.log('----QTUL---bindH------->>>>>', batch)
-                // console.log('++bindHolder', batch)
-                // let {batch } = params
-                qt.log.e("-----QTUL--->>>>>",'bindH start', JSON.stringify(new Date().getTime()))
+                const startTime = new Date().getTime()
+                console.log("-----QTUL----bindH---START------->>>>>", batch)
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
                 for (let i = 0; i < list.length; i++) {
                     const {position, sid, hdIndex} = list[i]
-                    // let hIndex = extractNum(sid)
                     if (hdIndex != -1 && holders[hdIndex]) {
-                        // console.log('--bindHolder', `position:${position}, childIndex:${hIndex} holder:${holders[hIndex]}-sid:${sid}`)
                         holders[hdIndex].position = position
                     }
                 }
-                qt.log.e("-----QTUL--->>>>>",'bindH end', JSON.stringify(new Date().getTime()))
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----bindH---END---耗时---->>>>>", (endTime - startTime))
             }
 
             function handleBatch(params: any) {
-                // console.log('----QTUL---handleBatch----START--->>>>>', params)
+                const startTime = new Date().getTime()
+                console.log("-----QTUL----handleBatch---START------->>>>>", params)
+
                 let {createItem, bindItem, recycleItem, hashTag} = params
                 // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
                 // if(recycleItem){
@@ -484,21 +482,16 @@ function registerQTUL(app: ESApp) {
                 if (bindItem) {
                     bindH(bindItem)
                 }
-                qt.log.e("-----QTUL--->>>>>",'onBatch end', JSON.stringify(new Date().getTime()))
-                // console.log('----QTUL---handleBatch----END--->>>>>', params)
-                // nextTick(() => {
-                //   Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
-                // })
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----handleBatch---END---耗时---->>>>>", (endTime - startTime), '总耗时：', (endTime - watchStartTime))
             }
 
             function recycleH(batch: []) {
                 console.log('++recycleH', batch)
-                // let {batch} = params
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
                 for (let i = 0; i < list.length; i++) {
                     const {sid, hdIndex} = list[i]
                     if (hdIndex != -1 && holders[hdIndex]) {
-                        // console.log('--recycleHolder', `childIndex:${hIndex} holder:${holders[hIndex]}-sid:${sid}`)
                         holders[hdIndex].position = -1
                     }
                 }
@@ -515,21 +508,20 @@ function registerQTUL(app: ESApp) {
                 });
             };
 
-            onMounted(() => {
-                // console.log(`mounted called viewRef.value.element ${viewRef.value.element} , value :${viewRef.value}`)
-                const root = viewRef.value
-                // traverseDomTree(root)
-            })
-
             const renderItems = (hd) => {
-                return [
+                const startTime = new Date().getTime()
+                console.log("-----QTUL----renderItems---START------->>>>>",)
+                const children = [
                     renderSlot(context.slots, 'item', {
                         // key:hd.sid,
                         // sid:hd.sid,
                         item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
-                        index:hd.position,
+                        index: hd.position,
                     })
                 ]
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----renderItems---END---耗时---->>>>>", (endTime - startTime))
+                return children
             }
 
             const renderSlotContent = (slotName, fallbackContent) => {
@@ -537,34 +529,30 @@ function registerQTUL(app: ESApp) {
             };
 
             const renderHolders = (holders) => {
-                qt.log.e("-----QTUL--->>>>>",'renderHolders start', JSON.stringify(new Date().getTime()))  
-                // console.log('----QTUL---renderHolders---START---->>>>>', holders)
-                // console.log('holders called ', `holderCount:${holders.length}`)
+                const startTime = new Date().getTime()
+                console.log("-----QTUL----renderHolders---START------->>>>>",)
+
                 let children = holders.map((hd: any, index: number) => {
-                    // console.log('holders called ', `index:${index} position:${hd.position},holderCount:${holders.length},sid:${hd.sid}`)
-                    // console.log('holders called ', `index:${index} item:${JSON.stringify(listData[hd.position])}`)
                     return h("FastItemView", {
                             key: hd.hdIndex,
                             type: hd.itemType,
                             focusable: false,
                             // position:hd.position,
                             hdIndex: hd.hdIndex,
-                            position:'absolute',
+                            position: 'absolute',
                             poolItem: true,
                             // item:props.items? props.items[hd.position] : {}
                         },
                         renderItems(hd)
-                        // renderSlotContent('item',[])
                     )
-                    // return  renderItems(hd)
                 })
-                qt.log.e("-----QTUL--->>>>>",'renderHolders end', JSON.stringify(new Date().getTime()))
                 nextTick(() => {
                     nextTick(() => {
                         Native.callUIFunction(viewRef.value, 'notifyBatchEnd', []);
                     })
                 })
-                // console.log('----QTUL---renderHolders---END--children-->>>>>', children)
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----renderHolders---END---耗时---->>>>>", (endTime - startTime))
                 return children
             }
             return () => {
@@ -585,13 +573,20 @@ function registerQTUL(app: ESApp) {
                             //recycleH(evt)
                         },
                         onBatch: (evt: any) => {
-                            // console.log('----QTUL---onBatch------->>>>>', evt)
+                            const batchStartTime = new Date().getTime()
+                            console.log("-----QTUL----onBatch事件---" +
+                                "----从watch开始耗时---->>>>>", (batchStartTime - watchStartTime),
+                                '----从setData开始耗时----->>>>>', (batchStartTime - setDataStartTime))
                             handleBatch(evt)
                         },
                     },
                     renderHolders(holders)
                     )
-                    : []  
+                    : []
+
+                const endTime = new Date().getTime()
+                console.log("-----QTUL----RecyclePool---END---耗时---->>>>>", (endTime - watchStartTime))
+
                 return h(
                     'FastListView',
                     {
@@ -621,7 +616,7 @@ function registerQTUL(app: ESApp) {
                         onBindItem: (evt) => {
                             // console.log('----QTUL---onBindItem------->>>>>', evt)
                             //console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
-                            if(evt.position == currentLength.value - 1 ){
+                            if (evt.position == currentLength.value - 1) {
                                 props.loadMore()
                             }
                             context.emit('item-bind', evt);
@@ -660,9 +655,9 @@ function registerQTUL(app: ESApp) {
                 type: Array,
                 default: () => []
             },
-            expectedTotalCount:{
-                type:Number,
-                default:0
+            expectedTotalCount: {
+                type: Number,
+                default: 0
             },
             loadMore: {
                 type: Function,
