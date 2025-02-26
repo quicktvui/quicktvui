@@ -16,6 +16,8 @@
             <img :src="item ? item.img : ''" class="tv_item_img" />
             <p class="tv_item_title">{{item ?item.text :''}}</p>
           </div>
+        </template>
+        <template #footer="{item}">
           <qt-view v-if="item.type == 1002" class="loading">
             <qt-loading-view color="#409eff" style="height: 150px; width: 150px;background-color: transparent;" />
           </qt-view>
@@ -39,10 +41,6 @@ export default defineComponent({
     'qt-ul-item-text': qt_ul_item_text
   },
   setup(props, context) {
-    // :loadPage="loadpage"
-    //       :listenBoundEvent="false"
-    //       :pagesize=50
-    //       :expectItemCount="1000"
     const img = ref<string>('https://img1.baidu.com/it/u=1726075624,1307327070&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=667');
     const itemList = ref<Array<QTListViewItem>>([])
     const ulRef = ref<QTIUL>()
@@ -74,13 +72,8 @@ export default defineComponent({
           itemList.value.pop()
           itemList.value = itemList.value.concat(buildData(index))
         },1000)
-        
       }
-      
     }
-    
-    
-
     return {
       ulRef,
       itemList,

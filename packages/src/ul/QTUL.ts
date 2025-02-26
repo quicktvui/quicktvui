@@ -387,6 +387,7 @@ function registerQTUL(app: ESApp) {
             let expectedTotalCount = -1;
             let uid = getCurrentInstance()?.uid;
             let currentLength = ref(0)
+            let isSlotFooter = ref(false)
 
             let watchStartTime = 0
             let setDataStartTime = -1
@@ -519,6 +520,13 @@ function registerQTUL(app: ESApp) {
                         index: hd.position,
                     })
                 ]
+                if(isSlotFooter.value){
+                    let footerItem = renderSlot(context.slots, 'footer', {
+                        item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
+                        index: hd.position,
+                    })
+                    children.push(footerItem)
+                }
                 const endTime = new Date().getTime()
                 console.log("-----QTUL----renderItems---END---耗时---->>>>>", (endTime - startTime))
                 return children
@@ -556,6 +564,7 @@ function registerQTUL(app: ESApp) {
                 return children
             }
             return () => {
+                isSlotFooter.value = context.slots.footer ? true : false
                 const items = context.slots.item ? h('RecyclePool',
                     {
                         slot: 'item',

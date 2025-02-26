@@ -19,7 +19,7 @@ import qt_ul_item_click_page from './qt-ul-item-click-page';
 import qt_ul_item_focus_page from './qt-ul-item-focus-page';
 import qt_ul_waterfall_page from './qt-ul-waterfall-page';
 import qt_ul_item_player_page from './qt-ul-item-player-page';
-import qt_ul_load_more_page from './qt-ul-load-mode-page';
+import qt_ul_load_more_page from './qt-ul-load-more-page';
 
 
 const QTULPageList = {
