@@ -8,3 +8,4 @@ export const QT_UL_ITEM_TYPE_LONG_IMAGE = 7;
 export const QT_UL_ITEM_TYPE_MEDIUM_IMAGE = 8;
 export const QT_UL_ITEM_TYPE_PLAYER = 9;
 export const QT_UL_ITEM_TYPE_MEDIA = 10;
+export const QT_UL_ITEM_TYPE_MOVIE = 11;

@@ -1,13 +1,9 @@
-import {
-    QTPoster,
-    QTWaterfallItem,
-} from "@quicktvui/quicktvui3";
 import {buildRandomImage} from "./image";
 import {buildRandomColor} from "./colors";
 import {buildRandomText} from "./text";
 import {getRandomFloat, getRandomInt} from "./random";
 import {QT_UL_ITEM_TYPE_MEDIA} from "../item/type";
-import {QTListViewItem} from "../../../../packages/src";
+import {QTListViewItem} from "@quicktvui/quicktvui3";
 
 const cornerText = [
     'VIP',

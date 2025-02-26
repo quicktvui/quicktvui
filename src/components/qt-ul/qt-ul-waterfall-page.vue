@@ -4,6 +4,12 @@
 
       <qt-button size="medium"
                  class="text-button-class"
+                 text="随机100个Movie"
+                 :requestFocus="true"
+                 @click="onButtonNegativeClick"/>
+
+      <qt-button size="medium"
+                 class="text-button-class"
                  text="随机100个Media"
                  :requestFocus="true"
                  @click="onButtonZeroClick"/>
@@ -52,6 +58,11 @@
               v-if="item.type == 2"
               :focusable="true"
               :enableFocusBorder="true"/>
+
+          <qt-ul-item-movie
+              v-if="item.type == 11"
+              :item="item"
+          />
 
           <qt-ul-item-poster
               v-if="item.type == 5"
@@ -143,6 +154,7 @@ import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import qt_ul_item_image from "./item/image/qt-ul-item-image.vue";
 import qt_ul_item_poster from "./item/poster/qt-ul-item-poster.vue";
 import qt_ul_item_media from "./item/media/qt-ul-item-media.vue";
+import qt_ul_item_movie from "./item/movie/qt-ul-item-movie.vue";
 import qt_ul_item_long_image from "./item/image/qt-ul-item-long-image.vue";
 import qt_ul_item_medium_image from "./item/image/qt-ul-item-medium-image.vue";
 
@@ -153,6 +165,7 @@ import {buildRandomPosterItemList} from "./__mocks__/poster";
 import {buildRandomLongImageItemList, buildRandomMediumImageItemList} from "./__mocks__/list";
 import {buildRandomWaterfallItemList} from "./__mocks__/waterfall";
 import {buildRandomMediaItemList} from "./__mocks__/media";
+import {buildRandomMovieItemList} from "./__mocks__/movie";
 
 export default defineComponent({
   name: '瀑布流',
@@ -164,6 +177,7 @@ export default defineComponent({
     'qt-ul-item-long-image': qt_ul_item_long_image,
     'qt-ul-item-medium-image': qt_ul_item_medium_image,
     'qt-ul-item-media': qt_ul_item_media,
+    'qt-ul-item-movie': qt_ul_item_movie,
   },
   setup(props, context) {
     const ulRef = ref<QTIUL>()
@@ -173,7 +187,12 @@ export default defineComponent({
     let isQuickBackPressed = false
 
     function onESCreate() {
-      onButtonOneClick()
+    }
+
+    function onButtonNegativeClick() {
+      const list = buildRandomMovieItemList(0, 100)
+      console.log('----------buildRandomMovieItemList--------->>>>', list)
+      itemList.value = list
     }
 
     function onButtonZeroClick() {
@@ -224,6 +243,7 @@ export default defineComponent({
       itemList,
       onESCreate,
       onBackPressed,
+      onButtonNegativeClick,
       onButtonZeroClick,
       onButtonOneClick,
       onButtonTwoClick,
