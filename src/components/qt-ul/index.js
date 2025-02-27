@@ -20,6 +20,7 @@ import qt_ul_item_focus_page from './qt-ul-item-focus-page';
 import qt_ul_waterfall_page from './qt-ul-waterfall-page';
 import qt_ul_item_player_page from './qt-ul-item-player-page';
 import qt_ul_load_more_page from './qt-ul-load-more-page';
+import qt_ul_load_page_page from './qt-ul-load-page-page';
 
 
 const QTULPageList = {
@@ -110,6 +111,10 @@ const QTULPageList = {
     qt_ul_load_more_page: {
         name: '分页',
         component: qt_ul_load_more_page,
+    },
+    qt_ul_load_page_page: {
+        name: '离散型分页',
+        component: qt_ul_load_page_page,
     },
     
 };

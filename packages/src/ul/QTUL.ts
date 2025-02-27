@@ -15,6 +15,7 @@ import useBaseView from '../base/useBaseView'
 import {useESDisplay} from "@extscreen/es3-core";
 import {nextTick} from "@vue/runtime-core";
 import {ESDirections, ESListViewItem, ESListViewItemFunctionParams} from "@extscreen/es3-component";
+import {QTIUL, QTListViewItem} from "@quicktvui/quicktvui3";
 
 function registerQTUL(app: ESApp) {
 
@@ -392,24 +393,41 @@ function registerQTUL(app: ESApp) {
             let watchStartTime = 0
             let setDataStartTime = -1
 
+            let isLoadPage = props.pageNo > 0 && props.pageSize > 0 && props.expectedTotalCount > 0 ? true : false
+            let syncItem = ref<Array<QTListViewItem>>([])
+            let recordSyncItem: Array<any> = []
+            let currntPage = props.pageNo
+
             watch(() => props.items, (newVal, oldVal) => {
                 watchStartTime = new Date().getTime()
-
-                console.log("-----QTUL----watch---START----开始时间：--->>>>>", watchStartTime, props.items)
+                if(isLoadPage) {
+                    if(recordSyncItem.length != props.expectedTotalCount){
+                        recordSyncItem = Array(props.expectedTotalCount).fill(null).map(() => ({}))
+                        let array = new Array(props.expectedTotalCount).fill(null).map(() => ({
+                            type: props.items![0].type,
+                        }));
+                        syncItem.value.push(...array)
+                    }
+                    syncItem.value.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
+                    recordSyncItem.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
+                }else{
+                    syncItem.value = props.items
+                }
+                console.log("-----QTUL----watch---START----开始时间：--->>>>>", watchStartTime, syncItem)
                 if (holders.length < 1) {
                     let initCount = 0;
                     if (pageSize > 0) {
-                        // initCount =   Math.min(pageSize, props.items.length)
-                        // initCount =   Math.min(pageSize, props.items.length)
+                        // initCount =   Math.min(pageSize, syncItem.length)
+                        // initCount =   Math.min(pageSize, syncItem.length)
                         initCount = 0;
                     } else {
                         //pageSize小于0时，表示全部加载
-                        initCount = newVal.length
+                        initCount = syncItem.value.length
                     }
                     let batch: any = []
                     // const {itemType,position} = list[i]
                     for (let i = 0; i < initCount; i++) {
-                        let item: any = toRaw(newVal[i])
+                        let item: any = toRaw(syncItem.value[i])
                         batch.push({
                             itemType: item.type,
                             position: i,
@@ -418,8 +436,8 @@ function registerQTUL(app: ESApp) {
                     crateH(batch, 'hashTag')
                 }
                 const rawArray: any = []
-                for (let i = 0; i < newVal.length; i++) {
-                    const item: any = toRaw(newVal[i])
+                for (let i = 0; i < syncItem.value.length; i++) {
+                    const item: any = toRaw(syncItem.value[i])
                     rawArray.push({
                         type: item.type,
                         itemSize: item.itemSize,
@@ -427,19 +445,18 @@ function registerQTUL(app: ESApp) {
                         decoration: item.decoration ? item.decoration : {},
                     })
                 }
-                currentLength.value = newVal.length
+                currentLength.value = syncItem.value.length
                 nextTick(() => {
                     setDataStartTime = new Date().getTime()
                     Native.callUIFunction(viewRef.value, 'setListDataWithParams', [rawArray, false, false, {}]);
                 })
                 const endTime = new Date().getTime()
                 console.log("-----QTUL----watch---END---耗时---->>>>>", (endTime - watchStartTime))
-            })
+            },{deep: true})
 
             function crateH(batch: [], hashTag: string) {
                 const startTime = new Date().getTime()
                 console.log("-----QTUL----crateH---START------>>>>>", startTime)
-
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
                 let start = holders.length
                 for (let i = 0; i < list.length; i++) {
@@ -516,13 +533,13 @@ function registerQTUL(app: ESApp) {
                     renderSlot(context.slots, 'item', {
                         // key:hd.sid,
                         // sid:hd.sid,
-                        item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
+                        item: (syncItem.value && hd.position > -1) ? syncItem.value[hd.position] : {},
                         index: hd.position,
                     })
                 ]
                 if(isSlotFooter.value){
                     let footerItem = renderSlot(context.slots, 'footer', {
-                        item: (props.items && hd.position > -1) ? props.items[hd.position] : {},
+                        item: (syncItem.value && hd.position > -1) ? syncItem.value[hd.position] : {},
                         index: hd.position,
                     })
                     children.push(footerItem)
@@ -549,7 +566,7 @@ function registerQTUL(app: ESApp) {
                             hdIndex: hd.hdIndex,
                             position: 'absolute',
                             poolItem: true,
-                            // item:props.items? props.items[hd.position] : {}
+                            // item:syncItem? syncItem[hd.position] : {}
                         },
                         renderItems(hd)
                     )
@@ -611,7 +628,7 @@ function registerQTUL(app: ESApp) {
                             context.emit('scroll', evt);
                         },
                         onItemFocused: (evt) => {
-                            // console.log('----QTUL---onItemFocused------->>>>>', evt)
+                            console.log('----QTUL---onItemFocused------->>>>>', evt)
                             context.emit('item-focused', evt);
                         },
                         onAttachedToWindow: (evt) => {
@@ -625,8 +642,17 @@ function registerQTUL(app: ESApp) {
                         onBindItem: (evt) => {
                             // console.log('----QTUL---onBindItem------->>>>>', evt)
                             //console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
-                            if (evt.position == currentLength.value - 1) {
-                                props.loadMore()
+                            if(isLoadPage){
+                                if(!recordSyncItem[evt.position].type){
+                                    if(Math.floor(evt.position / props.pageSize) + 1 != currntPage){
+                                        currntPage = Math.floor(evt.position / props.pageSize) + 1
+                                        props.loadPage(currntPage)
+                                    }
+                                }
+                            }else{
+                                if (evt.position == currentLength.value - 1) {
+                                    props.loadMore()
+                                }
                             }
                             context.emit('item-bind', evt);
                         },
@@ -661,17 +687,29 @@ function registerQTUL(app: ESApp) {
         },
         props: {
             items: {
-                type: Array,
+                type: Array<QTListViewItem>,
                 default: () => []
             },
             expectedTotalCount: {
                 type: Number,
-                default: 0
+                default: -1
             },
             loadMore: {
                 type: Function,
                 default: null
-            }
+            },
+            loadPage: {
+                type: Function,
+                default: null
+            },
+            pageNo: {
+                type: Number,
+                default: -1
+            },
+            pageSize: {
+                type: Number,
+                default: -1
+            },
         }
     })
     app.component('qt-ul', ULImpl)
