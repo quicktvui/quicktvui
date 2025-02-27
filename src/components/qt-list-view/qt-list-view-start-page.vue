@@ -28,6 +28,7 @@ import {ElementFlags} from "typescript";
 
 export default defineComponent({
   name: '使用初探',
+  emits: [],
   setup(props, context) {
     const listViewRef = ref<QTIListView>()
     const cmdListViewRef = ref<QTIListView>()
