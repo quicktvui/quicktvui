@@ -5,29 +5,52 @@
     <qt-view class="quick-list-view">
       <qt-list-view class="list-view" ref="listViewRef">
 
-        <template v-slot:1="{item}">
-          <div class="qt-list-view-button-root-css"
-               ref="textButtonRef"
-               :type="1"
-               :clipChildren="false"
-               :focusable="true"
-               :enableFocusBorder="true"
-               :focusScale="1.1">
-            <qt-text :text="item.title.text" gravity="center" style="width: 150px; height: 60px;"/>
-          </div>
-        </template>
+<!--        <template v-slot:default="{item}">-->
+<!--          <div class="qt-list-view-button-root-css"-->
+<!--               ref="textButtonRef"-->
+<!--               :type="1"-->
+<!--               :clipChildren="false"-->
+<!--               :focusable="true"-->
+<!--               :enableFocusBorder="true"-->
+<!--               :focusScale="1.1">-->
+<!--            <qt-text :text="item.title.text" gravity="center" style="width: 150px;height: 60px;"/>-->
+<!--          </div>-->
 
-        <template v-slot:2="{item}">
-          <div class="qt-list-view-button-root-css"
-               ref="textButtonRef"
-               :type="2"
-               :clipChildren="false"
-               :focusable="true"
-               :enableFocusBorder="true"
-               :focusScale="1.1">
-            <qt-text :text="item.text" gravity="center" style="width: 150px; height: 60px;"/>
-          </div>
-        </template>
+<!--          <div class="qt-list-view-button-root-css"-->
+<!--               ref="textButtonRef"-->
+<!--               :type="2"-->
+<!--               :clipChildren="false"-->
+<!--               :focusable="true"-->
+<!--               :enableFocusBorder="true"-->
+<!--               :focusScale="1.1">-->
+<!--            <qt-text :text="item.text ?? ''" gravity="center" style="width: 150px; height: 60px;"/>-->
+<!--          </div>-->
+
+<!--        </template>-->
+
+                <template v-slot:1="{item}">
+                  <div class="qt-list-view-button-root-css"
+                       ref="textButtonRef"
+                       :type="1"
+                       :clipChildren="false"
+                       :focusable="true"
+                       :enableFocusBorder="true"
+                       :focusScale="1.1">
+                    <qt-text :text="item.title.text" gravity="center" style="width: 150px; height: 60px;"/>
+                  </div>
+                </template>
+
+                <template v-slot:2="{item}">
+                  <div class="qt-list-view-button-root-css"
+                       ref="textButtonRef"
+                       :type="2"
+                       :clipChildren="false"
+                       :focusable="true"
+                       :enableFocusBorder="true"
+                       :focusScale="1.1">
+                    <qt-text :text="item.text" gravity="center" style="width: 150px; height: 60px;"/>
+                  </div>
+                </template>
 
       </qt-list-view>
     </qt-view>
@@ -52,24 +75,6 @@ export default defineComponent({
       for (let i = 0; i < 4; i++) {
         const item: QTListViewItem = {
           type: 1,
-          text: '测试：' + i,
-          decoration: {
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 20
-          },
-          title: {
-            text: '主标题' + i,
-          },
-        }
-        arr.push(item)
-      }
-
-      for (let i = 0; i < 4; i++) {
-        const item: QTListViewItem = {
-          type: 2,
-          text: '测试：' + i,
           decoration: {
             top: 20,
             left: 20,
@@ -84,7 +89,27 @@ export default defineComponent({
       }
 
       listData = listViewRef.value!.init(arr)
+
+      setTimeout(() => {
+        const data = []
+        for (let i = 0; i < 4; i++) {
+          const item: QTListViewItem = {
+            type: 2,
+            text: '测试：' + i,
+            decoration: {
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 20
+            },
+          }
+          data.push(item)
+        }
+        listData.push(...data)
+      }, 10000)
     }
+
+
     return {
       listViewRef,
       onESCreate,
