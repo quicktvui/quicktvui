@@ -5,8 +5,7 @@
     <qt-view class="quick-list-view">
       <qt-list-view class="list-view" ref="listViewRef">
 
-        <template v-slot:default>
-<!--          <template v-slot:default="{ msg }">-->
+        <template v-slot:default="{item}">
           <div class="qt-list-view-button-root-css"
                ref="textButtonRef"
                :type="1"
@@ -14,8 +13,7 @@
                :focusable="true"
                :enableFocusBorder="true"
                :focusScale="1.1">
-            <p duplicateParentState
-               class="qt-list-view-text-root-css">333{{ text }}</p>
+            <qt-text :text="item.title.text" gravity="center" style="width: 150px;height: 60px;"/>
           </div>
         </template>
       </qt-list-view>
@@ -26,20 +24,20 @@
 <script lang="ts">
 
 import {defineComponent} from "@vue/runtime-core";
-import {QTIListView, QTListViewItem, QTPoster} from "@quicktvui/quicktvui3";
+import {QTIListView, QTListViewItem} from "@quicktvui/quicktvui3";
 import {ref} from "vue";
 
 export default defineComponent({
   name: '插槽',
   emits: [],
-  setup(props, context) {
+  setup() {
     const listViewRef = ref<QTIListView>()
     let listData: Array<QTListViewItem> = [];
 
-    const onESCreate = (params) => {
+    const onESCreate = () => {
       let arr: Array<QTListViewItem> = []
       for (let i = 0; i < 24; i++) {
-        const poster: QTPoster = {
+        const poster: QTListViewItem = {
           type: 1,
           text: '测试：' + i,
           decoration: {
@@ -50,14 +48,6 @@ export default defineComponent({
           },
           title: {
             text: '主标题' + i,
-            enable: true,
-            style: {
-              width: 260,
-            }
-          },
-          style: {
-            width: 260,
-            height: 320,
           },
         }
         arr.push(poster)
