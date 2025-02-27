@@ -27,6 +27,7 @@ import {QTIListView, QTListViewItem, QTPoster} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: 'listview-分页',
+  emits: [],
   setup(props, context) {
     const listViewRef = ref<QTIListView>()
     const data = reactive({
