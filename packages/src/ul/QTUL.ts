@@ -404,14 +404,14 @@ function registerQTUL(app: ESApp) {
                     if(recordSyncItem.length != props.expectedTotalCount){
                         recordSyncItem = Array(props.expectedTotalCount).fill(null).map(() => ({}))
                         let array = new Array(props.expectedTotalCount).fill(null).map(() => ({
-                            type: props.items![0].type,
+                            type: (props.items as unknown as Array<QTListViewItem>)[0].type,
                         }));
                         syncItem.value.push(...array)
                     }
-                    syncItem.value.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
+                    syncItem.value.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items as unknown as Array<QTListViewItem>))
                     recordSyncItem.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
                 }else{
-                    syncItem.value = props.items
+                    syncItem.value = (props.items as unknown as Array<QTListViewItem>)
                 }
                 console.log("-----QTUL----watch---START----开始时间：--->>>>>", watchStartTime, syncItem)
                 if (holders.length < 1) {
