@@ -687,7 +687,7 @@ function registerQTUL(app: ESApp) {
         },
         props: {
             items: {
-                type: Array<QTListViewItem>,
+                type: Array,
                 default: () => []
             },
             expectedTotalCount: {
