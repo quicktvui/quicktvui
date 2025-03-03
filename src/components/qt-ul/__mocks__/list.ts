@@ -168,6 +168,10 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
                 left: 80,
                 right: 80
             },
+            style: {
+                width: 800,
+                height: 200
+            }
         }
     } else if (span == -1) {
         return {
@@ -182,6 +186,10 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
                 left: 80,
                 right: 80
             },
+            style: {
+                width: 800,
+                height: 200
+            }
         }
     } else {
         return {
@@ -197,6 +205,10 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
                 left: 80,
                 right: 80
             },
+            style: {
+                width: 800,
+                height: 200
+            }
         }
     }
 }

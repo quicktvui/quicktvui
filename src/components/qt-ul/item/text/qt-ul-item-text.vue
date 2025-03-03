@@ -1,5 +1,6 @@
 <template>
   <div class="qt-ul-item-text-root"
+       :style="{width: rootStyle.width, height: rootStyle.height}"
        :focusable="true"
        :enableFocusBorder="true">
     <qt-text :text="text" class="qt-ul-item-text"
@@ -27,6 +28,15 @@ export default defineComponent({
     gravity: {
       type: String,
       default: 'center'
+    },
+    rootStyle: {
+      type: Object,
+      default: () => (
+          {
+            width: 800,
+            height: 200,
+          }
+      )
     },
   },
 });

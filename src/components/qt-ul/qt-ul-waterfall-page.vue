@@ -59,6 +59,7 @@
 
           <qt-ul-item-text
               :text="item.text"
+              :rootStyle="item.style"
               v-if="item.type == 3"
               :backgroundColor="item.backgroundColor"
               :focusable="true"
