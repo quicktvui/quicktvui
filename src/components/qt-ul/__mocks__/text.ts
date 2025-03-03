@@ -76,6 +76,12 @@ export function buildRandomText(): String {
 }
 
 export function buildIndexText(index: number): String {
+    if (index < 0) {
+        return textList[index + textList.length];
+    }
+    if (index > textList.length) {
+        return textList[index - textList.length];
+    }
     return textList[index];
 }
 
