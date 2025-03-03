@@ -161,7 +161,7 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
             span: span,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
-            text: index + '、' + buildRandomText(),
+            text: index + '、' + buildIndexText(index),
             backgroundColor: buildRandomColor(),
             decoration: {
                 top: 80,
@@ -179,7 +179,7 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
             itemSize: 200,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
-            text: index + '、' + buildRandomText(),
+            text: index + '、' + buildIndexText(index),
             backgroundColor: buildRandomColor(),
             decoration: {
                 top: 80,
@@ -198,7 +198,7 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
             itemSize: 200,
             id: index + '',
             type: QT_UL_ITEM_TYPE_TEXT,
-            text: index + '、' + buildRandomText(),
+            text: index + '、' + buildIndexText(index),
             backgroundColor: buildRandomColor(),
             decoration: {
                 top: 80,
