@@ -456,7 +456,7 @@ function registerQTUL(app: ESApp) {
 
             function crateH(batch: [], hashTag: string) {
                 const startTime = new Date().getTime()
-                console.log("-----QTUL----crateH---START------>>>>>", startTime)
+                console.log("-----QTUL----crateH---START---HOLDER--->>>>>", startTime, batch)
                 const list = [...(Array.isArray(batch) ? batch : [batch])];
                 let start = holders.length
                 for (let i = 0; i < list.length; i++) {
@@ -527,14 +527,12 @@ function registerQTUL(app: ESApp) {
             };
 
             const renderItems = (hd) => {
-                const startTime = new Date().getTime()
-                console.log("-----QTUL----renderItems---START------->>>>>",)
+                // const startTime = new Date().getTime()
+                // console.log("-----QTUL----renderItems---START------->>>>>",)
                 const children = [
                     renderSlot(context.slots, 'item', {
-                        // key:hd.sid,
-                        // sid:hd.sid,
+                        key: hd.hdIndex,
                         item: (syncItem.value && hd.position > -1) ? syncItem.value[hd.position] : {},
-                        index: hd.position,
                     })
                 ]
                 if(isSlotFooter.value){
@@ -544,8 +542,8 @@ function registerQTUL(app: ESApp) {
                     })
                     children.push(footerItem)
                 }
-                const endTime = new Date().getTime()
-                console.log("-----QTUL----renderItems---END---耗时---->>>>>", (endTime - startTime))
+                // const endTime = new Date().getTime()
+                // console.log("-----QTUL----renderItems---END---耗时---->>>>>", (endTime - startTime))
                 return children
             }
 
@@ -555,7 +553,8 @@ function registerQTUL(app: ESApp) {
 
             const renderHolders = (holders) => {
                 const startTime = new Date().getTime()
-                console.log("-----QTUL----renderHolders---START------->>>>>",)
+                console.log("-----QTUL----renderHolders---START----需要渲染的Item的数量--绑定->>>>>",
+                    holders.length, holders)
 
                 let children = holders.map((hd: any, index: number) => {
                     return h("FastItemView", {
@@ -563,7 +562,8 @@ function registerQTUL(app: ESApp) {
                             type: hd.itemType,
                             focusable: false,
                             // position:hd.position,
-                            hdIndex: hd.hdIndex,
+                            //TODO
+                            // hdIndex: hd.hdIndex,
                             position: 'absolute',
                             poolItem: true,
                             // item:syncItem? syncItem[hd.position] : {}
@@ -584,6 +584,7 @@ function registerQTUL(app: ESApp) {
                 isSlotFooter.value = context.slots.footer ? true : false
                 const items = context.slots.item ? h('RecyclePool',
                     {
+                        key: 'RecyclePool',
                         slot: 'item',
                         pagingPageSize: pageSize,
                         expectedTotalCount: props.expectedTotalCount,
@@ -616,6 +617,7 @@ function registerQTUL(app: ESApp) {
                 return h(
                     'FastListView',
                     {
+                        key: 'FastListView',
                         ref: viewRef,
                         disableVirtualDOM: true,
                         listenBoundEvent: true,
