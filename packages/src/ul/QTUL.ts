@@ -463,7 +463,6 @@ function registerQTUL(app: ESApp) {
                     const {itemType, position, hdIndex} = list[i]
                     holders.push({
                         itemType: itemType,
-                        position: position,
                         hdIndex: start + i,
                     })
                 }
@@ -487,7 +486,6 @@ function registerQTUL(app: ESApp) {
 
             function handleBatch(params: any) {
                 const startTime = new Date().getTime()
-                console.log("-----QTUL----handleBatch---START------->>>>>", params)
 
                 let {createItem, bindItem, recycleItem, hashTag} = params
                 // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
@@ -495,13 +493,16 @@ function registerQTUL(app: ESApp) {
                 //   recycleH(recycleItem)
                 // }
                 if (createItem) {
+                    console.log("--[native]---QTUL----handleBatch---START----创建Item--->>>>>", createItem, JSON.stringify(holders))
                     crateH(createItem, hashTag)
                 }
                 if (bindItem) {
+                    console.log("--[native]---QTUL----handleBatch---START-----绑定Item-->>>>>", bindItem, JSON.stringify(holders))
                     bindH(bindItem)
                 }
                 const endTime = new Date().getTime()
-                console.log("-----QTUL----handleBatch---END---耗时---->>>>>", (endTime - startTime), '总耗时：', (endTime - watchStartTime))
+
+                console.log("----[native]--QTUL----handleBatch---END-结束--耗时---HOLDER->>>>>", (endTime - startTime), '总耗时：', (endTime - watchStartTime), JSON.stringify(holders))
             }
 
             function recycleH(batch: []) {
@@ -562,8 +563,7 @@ function registerQTUL(app: ESApp) {
                             type: hd.itemType,
                             focusable: false,
                             // position:hd.position,
-                            //TODO
-                            // hdIndex: hd.hdIndex,
+                            hdIndex: hd.hdIndex,
                             position: 'absolute',
                             poolItem: true,
                             // item:syncItem? syncItem[hd.position] : {}

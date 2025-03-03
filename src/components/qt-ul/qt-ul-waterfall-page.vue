@@ -29,7 +29,6 @@
       <qt-button size="small"
                  class="text-button-class"
                  text="100个图片"
-                 :requestFocus="true"
                  @click="onButtonImageClick"/>
 
       <qt-button size="small"
