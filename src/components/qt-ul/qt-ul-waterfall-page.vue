@@ -2,37 +2,49 @@
   <div class="es-sdk-root-css" :clipChildren="false">
     <qt-row class="qt-ul-control-button-class">
 
-      <qt-button size="medium"
+      <qt-button size="small"
                  class="text-button-class"
-                 text="随机100个Movie"
+                 text="100个文本"
+                 :requestFocus="true"
+                 @click="onButtonTextClick"/>
+
+      <qt-button size="small"
+                 class="text-button-class"
+                 text="100个Movie"
                  :requestFocus="true"
                  @click="onButtonNegativeClick"/>
 
-      <qt-button size="medium"
+      <qt-button size="small"
                  class="text-button-class"
-                 text="随机100个Media"
+                 text="100个Media"
                  :requestFocus="true"
                  @click="onButtonZeroClick"/>
 
-      <qt-button size="medium"
+      <qt-button size="small"
                  class="text-button-class"
-                 text="随机100个Poster"
+                 text="100个海报"
                  :requestFocus="true"
                  @click="onButtonOneClick"/>
 
-      <qt-button size="medium"
+      <qt-button size="small"
                  class="text-button-class"
-                 text="随机50个长图"
+                 text="100个图片"
+                 :requestFocus="true"
+                 @click="onButtonImageClick"/>
+
+      <qt-button size="small"
+                 class="text-button-class"
+                 text="50个长图"
                  @click="onButtonTwoClick"/>
 
-      <qt-button size="medium"
+      <qt-button size="small"
                  class="text-button-class"
-                 text="随机20个中图"
+                 text="20个中图"
                  @click="onButtonThreeClick"/>
 
-      <qt-button size="medium"
+      <qt-button size="small"
                  class="text-button-class"
-                 text="随机100个混合"
+                 text="100个混合"
                  @click="onButtonFourClick"/>
 
     </qt-row>
@@ -162,7 +174,12 @@ import {QTIUL, QTListViewItem} from "@quicktvui/quicktvui3";
 import {useESRouter} from "@extscreen/es3-router";
 import {useESToast} from "@extscreen/es3-core";
 import {buildRandomPosterItemList} from "./__mocks__/poster";
-import {buildRandomLongImageItemList, buildRandomMediumImageItemList} from "./__mocks__/list";
+import {
+  buildRandomImageItemList,
+  buildRandomLongImageItemList,
+  buildRandomMediumImageItemList,
+  buildRandomTextItemList
+} from "./__mocks__/list";
 import {buildRandomWaterfallItemList} from "./__mocks__/waterfall";
 import {buildRandomMediaItemList} from "./__mocks__/media";
 import {buildRandomMovieItemList} from "./__mocks__/movie";
@@ -225,6 +242,18 @@ export default defineComponent({
       itemList.value = list
     }
 
+    function onButtonTextClick() {
+      const list = buildRandomTextItemList(100)
+      console.log('----------buildRandomWaterfallItemList--------->>>>', list)
+      itemList.value = list
+    }
+
+    function onButtonImageClick() {
+      const list = buildRandomImageItemList(100)
+      console.log('----------buildRandomWaterfallItemList--------->>>>', list)
+      itemList.value = list
+    }
+
     function onBackPressed() {
       if (!isQuickBackPressed) {
         isQuickBackPressed = true;
@@ -248,7 +277,9 @@ export default defineComponent({
       onButtonOneClick,
       onButtonTwoClick,
       onButtonThreeClick,
-      onButtonFourClick
+      onButtonFourClick,
+      onButtonTextClick,
+      onButtonImageClick
     }
   }
 });
