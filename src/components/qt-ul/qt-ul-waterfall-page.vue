@@ -66,7 +66,7 @@
 
           <qt-ul-item-poster
               v-if="item.type == 5"
-              :style="item.style"
+              :rootStyle="item.style"
               :focus="item.focus"
               :image="item.image"
               :shadow="item.shadow"

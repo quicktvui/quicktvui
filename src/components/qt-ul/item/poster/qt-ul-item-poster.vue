@@ -1,7 +1,7 @@
 <template>
   <div ref="viewRef"
        :focusScale="focus.scale"
-       :style="{width: style.width, height: style.height}"
+       :style="{width: rootStyle.width, height: rootStyle.height}"
        :focusable="true"
        :clipChildren="false"
        :enableFocusBorder="true"
@@ -130,6 +130,9 @@ import QTPosterCornerTitle from "./qt-poster-corner-title.vue";
 
 import {defineComponent} from "@vue/runtime-core";
 import {ref} from "vue";
+import {buildRandomImage} from "../../__mocks__/image";
+import {getRandomFloat} from "../../__mocks__/random";
+import {buildRandomColor} from "../../__mocks__/colors";
 
 export default defineComponent({
   name: "qt-ul-item-poster",
@@ -177,76 +180,178 @@ export default defineComponent({
         return ['#e5000000', '#00000000']
       }
     },
-    style: {
-      type: Object
+    rootStyle: {
+      type: Object,
+      default: () => (
+          {
+            width: 260,
+            height: 400,
+          }
+      )
     },
     focus: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            enable: true,
+            scale: 1,
+            border: false
+          }
+      )
     },
     image: {
-      type: Object
+      type: Object,
+      default: () => (
+          {
+            src: buildRandomImage(),
+            enable: true,
+            style: {
+              width: 260,
+              height: 320
+            }
+          }
+      )
     },
     shadow: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {}
+      )
     },
     shimmer: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            enable: true,
+          }
+      )
     },
     title: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            text: '主标题',
+            enable: true,
+            style: {
+              width: 260,
+              height: 60,
+            }
+          }
+      )
     },
     focusTitle: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            text: '浮动标题',
+            enable: true,
+            style: {
+              width: 260,
+              height: 64
+            },
+            background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+          }
+      )
     },
     subTitle: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            text: '副标题',
+            enable: true,
+            style: {
+              width: 260,
+            }
+          }
+      )
     },
     floatTitle: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            text: '浮动标题',
+            enable: true,
+            style: {
+              width: 260,
+              height: 64
+            },
+            background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+          }
+      )
     },
     ripple: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            enable: true,
+            style: {
+              right: 0,
+              bottom: 0,
+              marginRight: -12,
+            }
+          }
+      )
     },
     corner: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            text: '角标',
+            enable: true,
+            style: {
+              width: 100,
+              height: 30
+            },
+            background: {
+              colors: ['#FE3824', '#F0051E'],
+              cornerRadii4: [0, 8, 0, 8],
+              orientation: 2
+            }
+          }
+      )
     },
     score: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            text: getRandomFloat() + '',
+            enable: true,
+            style: {
+              width: 50,
+              height: 40
+            },
+            background: {
+              colors: [buildRandomColor(), buildRandomColor()],
+              cornerRadii4: [8, 8, 8, 8],
+              orientation: 2
+            }
+          }
+      )
     },
     titleStyle: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            width: 260,
+            height: 120,
+            marginTop: 320 - 60,
+          }
+      )
     },
     titleFocusStyle: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {
+            width: 260,
+            marginTop: 320 - 50
+          }
+      )
     },
     placeholderImg: {
       type: Object,
-      default: () => {
-      }
+      default: () => (
+          {}
+      )
     },
   },
   setup(props, context) {
