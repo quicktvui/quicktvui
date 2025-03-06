@@ -67,14 +67,10 @@
         :clipPadding="false"
         horizontal
       >
-        <qt-ul-item-text :type="3" :focusable="true" :enableFocusBorder="true" />
-
         <template #item="{ item }">
           <qt-ul-item-text
             :text="item.text"
-            :rootStyle="item.style"
             :type="3"
-            :backgroundColor="item.backgroundColor"
             :focusable="true"
             :enableFocusBorder="true"
           />
@@ -188,8 +184,14 @@ import {
   buildRandomTextItemList,
 } from './__mocks__/list'
 import { buildRandomWaterfallItemList } from './__mocks__/waterfall'
-import { buildRandomMediaItemList } from './__mocks__/media'
+import { buildRandomCornerText, buildRandomMediaItemList } from './__mocks__/media'
 import { buildRandomMovieItemList } from './__mocks__/movie'
+import { QTListViewTextItem } from './item/text/QTListViewTextItem'
+import { getRandomFloat } from './__mocks__/random'
+import { buildRandomColor } from './__mocks__/colors'
+import { QT_LIST_VIEW_ITEM_TYPE_MEDIA } from './item/type'
+import { buildRandomText } from './__mocks__/text'
+import { buildRandomImage } from './__mocks__/image'
 
 export default defineComponent({
   name: '$',
@@ -210,54 +212,245 @@ export default defineComponent({
     const toast = useESToast()
     let isQuickBackPressed = false
 
-    function onESCreate() {}
+    function onESCreate() {
+      ulRef.value?.initTemplate([
+        //text
+        {
+          text: '',
+          backgroundColor: '',
+        },
+        //image
+        {
+          url: '',
+          backgroundColor: '',
+        },
+        {
+          _id: '_',
+          position: '',
+          focus: {
+            enable: true,
+            scale: 1,
+            border: false,
+          },
+          type: 5,
+          decoration: {
+            top: 30,
+            left: 30,
+            right: 30,
+          },
+          title: {
+            text: '主标题',
+            enable: true,
+            style: {
+              width: 260,
+              height: 60,
+            },
+          },
+          subTitle: {
+            text: '副标题',
+            enable: true,
+            style: {
+              width: 260,
+            },
+          },
+          floatTitle: {
+            text: '浮动标题',
+            enable: true,
+            style: {
+              width: 260,
+              height: 64,
+            },
+            background: { colors: ['#e5000000', '#00000000'], orientation: 4 },
+          },
+          focusTitle: {
+            text: '焦点主标题',
+            enable: true,
+            style: {
+              width: 260,
+              height: 64,
+            },
+          },
+          shimmer: {
+            enable: true,
+          },
+          ripple: {
+            enable: true,
+            style: {
+              right: 0,
+              bottom: 0,
+              marginRight: -12,
+            },
+          },
+          image: {
+            src: '',
+            enable: true,
+            style: {
+              width: 260,
+              height: 320,
+            },
+          },
+          score: {
+            text: getRandomFloat() + '',
+            enable: true,
+            style: {
+              width: 50,
+              height: 40,
+            },
+            background: {
+              colors: [buildRandomColor(), buildRandomColor()],
+              cornerRadii4: [8, 8, 8, 8],
+              orientation: 2,
+            },
+          },
+          corner: {
+            text: '角标',
+            enable: true,
+            style: {
+              width: 100,
+              height: 30,
+            },
+            background: {
+              colors: ['#FE3824', '#F0051E'],
+              cornerRadii4: [0, 8, 0, 8],
+              orientation: 2,
+            },
+          },
+          style: {
+            width: 260,
+            height: 400,
+          },
+          itemSize: 400,
+          titleStyle: {
+            width: 260,
+            height: 120,
+            marginTop: 320 - 60,
+          },
+          titleFocusStyle: { width: 260, marginTop: 320 - 50 },
+        },
+        {
+          _id: '_',
+          itemSize: 400,
+          position: '',
+          focusEnable: true,
+          focusScale: 1,
+          focusBorder: false,
+          type: QT_LIST_VIEW_ITEM_TYPE_MEDIA,
+          decoration: {
+            top: 30,
+            left: 30,
+            right: 30,
+          },
+          titleText: buildRandomText(),
+          titleEnable: true,
+          titleStyleWidth: 260,
+          titleStyleHeight: 60,
+
+          subTitleText: buildRandomText(),
+          subTitleEnable: true,
+          subTitleStyleWidth: 260,
+
+          floatTitleText: '',
+          floatTitleEnable: true,
+          floatTitleStyleWidth: 260,
+          floatTitleStyleHeight: 64,
+          floatTitleBackground: { colors: ['#e5000000', '#00000000'], orientation: 4 },
+
+          focusTitleText: buildRandomText(),
+          focusTitleEnable: true,
+          focusTitleStyleWidth: 260,
+          focusTitleStyleHeight: 64,
+
+          shimmerEnable: true,
+
+          rippleEnable: true,
+          rippleStyleRight: 0,
+          rippleStyleBottom: 0,
+          rippleStyleMarginRight: -12,
+
+          imageSrc: buildRandomImage(),
+          imageEnable: true,
+          imageStyleWidth: 260,
+          imageStyleHeight: 320,
+
+          scoreText: getRandomFloat() + '',
+          scoreEnable: true,
+          scoreStyleWidth: 50,
+          scoreStyleHeight: 40,
+          scoreBackground: {
+            colors: [buildRandomColor(), buildRandomColor()],
+            cornerRadii4: [8, 8, 8, 8],
+            orientation: 2,
+          },
+
+          cornerText: buildRandomCornerText(),
+          cornerEnable: true,
+          cornerStyleWidth: 100,
+          cornerStyleHeight: 30,
+          cornerBackground: {
+            colors: [buildRandomColor(), buildRandomColor()],
+            cornerRadii4: [0, 8, 0, 8],
+            orientation: 2,
+          },
+
+          styleWidth: 260,
+          styleHeight: 400,
+
+          titleNormalStyleWidth: 260,
+          titleNormalStyleHeight: 120,
+          titleNormalStyleMarginTop: 320 - 60,
+
+          titleFocusStyleWidth: 260,
+          titleFocusStyleMarginTop: 320 - 50,
+        },
+      ])
+    }
 
     function onButtonNegativeClick() {
       const list = buildRandomMovieItemList(0, 100)
       console.log('----------buildRandomMovieItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonZeroClick() {
       const list = buildRandomMediaItemList(0, 100)
       console.log('----------buildRandomMediaItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonOneClick() {
       const list = buildRandomPosterItemList(0, 100)
       console.log('----------buildRandomPosterItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonTwoClick() {
       const list = buildRandomLongImageItemList(50)
       console.log('----------buildRandomLongImageItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonThreeClick() {
       const list = buildRandomMediumImageItemList(20)
       console.log('----------buildRandomMediumImageItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonFourClick() {
       const list = buildRandomWaterfallItemList(0, 100)
       console.log('----------buildRandomWaterfallItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonTextClick() {
       const list = buildRandomTextItemList(100)
       console.log('----------buildRandomWaterfallItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onButtonImageClick() {
       const list = buildRandomImageItemList(100)
       console.log('----------buildRandomWaterfallItemList--------->>>>', list)
-      ulRef.value!.init(list)
+      ulRef.value?.init(list)
     }
 
     function onBackPressed() {

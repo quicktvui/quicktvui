@@ -1,39 +1,51 @@
-import {defineComponent, h, ref, onBeforeUnmount, onMounted, toRaw, watchEffect,onUnmounted} from "vue";
-import {ESApp, Native} from "@extscreen/es3-vue";
-import {QTListViewItem} from "./core/QTListViewItem";
+import {
+  defineComponent,
+  h,
+  ref,
+  onBeforeUnmount,
+  onMounted,
+  toRaw,
+  watchEffect,
+  onUnmounted,
+  renderSlot,
+  reactive,
+} from 'vue'
+import { ESApp, Native } from '@extscreen/es3-vue'
+import { QTListViewItem } from './core/QTListViewItem'
 import useBaseView from '../base/useBaseView'
-import {qtWatchAll, qtRef,qtFilterChangeMap} from "../qtListen/index";
-import useBaseListView from "../list/useBaseListView";
+import { qtWatchAll, qtRef, qtFilterChangeMap } from '../qtListen/index'
+import useBaseListView from '../list/useBaseListView'
+import { transformValuesToKeys } from '../utils/ObjectUtils'
 
 function registerESListViewComponent(app: ESApp) {
-
   const ListViewImpl = defineComponent({
     props: {
       loadMore: {
         type: Function,
         default: function () {
           return [1, 1]
-        }
+        },
       },
       openPage: {
         type: Boolean,
-        default: false
+        default: false,
       },
       preloadNo: {
         type: Number,
-        default: 0
+        default: 0,
       },
       defaultFocus: {
         type: Number,
-        default: -1
+        default: -1,
       },
-      loadingDecoration:{
-        type:Object,
-        default:()=>({bottom: 18, right: 30, left: 30})
+      loadingDecoration: {
+        type: Object,
+        default: () => ({ bottom: 18, right: 30, left: 30 }),
       },
       listData: {
-        type: Array, required: false//为兼容旧版本，当没有传入listData时，可使用init函数初始化数据
-      }
+        type: Array,
+        required: false, //为兼容旧版本，当没有传入listData时，可使用init函数初始化数据
+      },
     },
     emits: [
       'item-click',
@@ -54,82 +66,88 @@ function registerESListViewComponent(app: ESApp) {
       let pageNo: number = 0
       let isStopPage: boolean = false
       let recordTarget = qtRef()
-      let newList:any[] = []//ref内部的customRef会更新整个组件vnode，这里用新数组来记录props.listData的变化，以空间换时间
-      let defaultFocusTimer:any = null
-      let isinitValue=false
-      let isDefaultFocusTimer = true//为兼容旧版本，当init函数的第二个参数为false时开启默认焦点校验
-      const getRecord = ()=>{
+      let newList: any[] = [] //ref内部的customRef会更新整个组件vnode，这里用新数组来记录props.listData的变化，以空间换时间
+      let defaultFocusTimer: any = null
+      let isinitValue = false
+      let isDefaultFocusTimer = true //为兼容旧版本，当init函数的第二个参数为false时开启默认焦点校验
+      const getRecord = () => {
         return props.listData || recordTarget.value
       }
-      const checkDefaultFocus = (datas:any[]) => {
-        if (props.defaultFocus > -1 && datas.length && props.defaultFocus<datas.length && isDefaultFocusTimer) {
+      const checkDefaultFocus = (datas: any[]) => {
+        if (
+          props.defaultFocus > -1 &&
+          datas.length &&
+          props.defaultFocus < datas.length &&
+          isDefaultFocusTimer
+        ) {
           clearTimeout(defaultFocusTimer)
-          defaultFocusTimer = setTimeout(() => {
-            scrollToFocused(props.defaultFocus)
-          }, 300 + datas.length * 10);
+          defaultFocusTimer = setTimeout(
+            () => {
+              scrollToFocused(props.defaultFocus)
+            },
+            300 + datas.length * 10
+          )
         }
       }
 
-      const {
-        scrollToPosition,
-        setSelectChildPosition,
-      } = useBaseListView(viewRef);
+      const { scrollToPosition, setSelectChildPosition } = useBaseListView(viewRef)
 
-      const {
-        requestChildFocus,
-      } = useBaseView(viewRef);
+      const { requestChildFocus } = useBaseView(viewRef)
 
-      onMounted(()=>{
-        if(getRecord().length&&viewRef.value&& !isinitValue && !newList.length){
+      onMounted(() => {
+        if (getRecord().length && viewRef.value && !isinitValue && !newList.length) {
           newList = getRecord()
           Native.callUIFunction(viewRef.value, 'setListData', toRaw(getRecord()))
           checkDefaultFocus(newList)
         }
       })
-      onUnmounted(()=>{
+      onUnmounted(() => {
         recordTarget.value.splice(0)
       })
       let loadingPosition = 0
       const loadingData = [{ _id: '', type: 1002, decoration: props.loadingDecoration }]
       const getOpenLoading = () => {
-        if(props.openPage && newList.length >0 && !isStopPage){
+        if (props.openPage && newList.length > 0 && !isStopPage) {
           loadingPosition = newList.length
           return loadingData
         }
         return []
       }
       const openLoading = () => {
-        if(props.openPage && loadingPosition === 0 && newList.length > 0 && !isStopPage){
-          Native.callUIFunction(viewRef.value, 'addListData', loadingData);
+        if (props.openPage && loadingPosition === 0 && newList.length > 0 && !isStopPage) {
+          Native.callUIFunction(viewRef.value, 'addListData', loadingData)
           loadingPosition = newList.length
         }
       }
-      const closeLoading = (isTip = false)=>{
-        if(loadingPosition>0){
-          if(isTip){
-            Native.callUIFunction(viewRef.value, 'updateItem', [loadingPosition, { text: '', type: 1003, decoration: {} }]);
+      const closeLoading = (isTip = false) => {
+        if (loadingPosition > 0) {
+          if (isTip) {
+            Native.callUIFunction(viewRef.value, 'updateItem', [
+              loadingPosition,
+              { text: '', type: 1003, decoration: {} },
+            ])
           } else {
-            Native.callUIFunction(viewRef.value, 'deleteItemRange', [loadingPosition, 1]);
+            Native.callUIFunction(viewRef.value, 'deleteItemRange', [loadingPosition, 1])
             loadingPosition = 0
           }
         }
       }
-      let stopPageTimerId:any = null
+      let stopPageTimerId: any = null
       const stopPage = (isTip = false) => {
-        isStopPage = true//init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
+        isStopPage = true //init函数会异步触发，onBindItem有时是异步有时是同步触发，所以要设置两次
         stopPageTimerId = setTimeout(() => {
           isStopPage = true
           closeLoading(isTip)
-        }, 20);
+        }, 20)
       }
-      const initPage = ()=>{
+      const initPage = () => {
         isStopPage = false
-        pageNo =  0
+        pageNo = 0
       }
-      const loadMoreFn = ()=>{
-        if(!isStopPage && props.loadMore){
-          if(props.listData){
-            if(newList.length > 0){
+      const loadMoreFn = () => {
+        if (!isStopPage && props.loadMore) {
+          if (props.listData) {
+            if (newList.length > 0) {
               pageNo++
               props.loadMore(pageNo)
             }
@@ -147,64 +165,73 @@ function registerESListViewComponent(app: ESApp) {
         }
       })
       const watchRes = qtWatchAll(getRecord(), {
-        resetValue(newData){
+        resetValue(newData) {
           newList = newData
           isinitValue = true
         },
-        init(datas){
-          if(viewRef.value){
+        init(datas) {
+          if (viewRef.value) {
             Native.callUIFunction(viewRef.value, 'setListData', datas.concat(getOpenLoading()))
             initPage()
-            if(props.listData){
+            if (props.listData) {
               pageNo = 1
             }
             checkDefaultFocus(datas)
           }
         },
-        add(datas){
-          Native.callUIFunction(viewRef.value, 'addListData', datas);
+        add(datas) {
+          Native.callUIFunction(viewRef.value, 'addListData', datas)
           closeLoading()
           openLoading()
         },
-        update(position, dataMaps){
+        update(position, dataMaps) {
           const datas = qtFilterChangeMap(1, dataMaps.datas)
           // if(datas.size>1){
           //   Native.callUIFunction(viewRef.value, 'updateItemRange', [position, datas.size, Array.from(datas.values())]);
           // }else{
-            datas.forEach((value, key) => {
-              const position = Array.isArray(key)?Number(key[0]):Number(key)
-              Native.callUIFunction(viewRef.value, 'updateItem', [position, value]);
-              // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
-            })
+          datas.forEach((value, key) => {
+            const position = Array.isArray(key) ? Number(key[0]) : Number(key)
+            Native.callUIFunction(viewRef.value, 'updateItem', [position, value])
+            // Native.callUIFunction(viewRef.value, 'updateItemProps', [name, position, toUpdateMap, true]);
+          })
           // }
         },
-        insert(position, datas){
-          Native.callUIFunction(viewRef.value, 'insertItemRange', [position, datas]);
+        insert(position, datas) {
+          Native.callUIFunction(viewRef.value, 'insertItemRange', [position, datas])
           closeLoading()
           openLoading()
         },
-        delete(position, count){
-          Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count]);
-          if(loadingPosition>0){
+        delete(position, count) {
+          Native.callUIFunction(viewRef.value, 'deleteItemRange', [position, count])
+          if (loadingPosition > 0) {
             loadingPosition = newList.length
           }
         },
-        clear(){
+        clear() {
           Native.callUIFunction(viewRef.value, 'setListData', [])
           loadingPosition = 0
-        }
+        },
       })
       //监听list操作
       const init = (target: Array<QTListViewItem>, isInit?: boolean): Array<QTListViewItem> => {
-        if(props.listData){ return [] }//listData的优先级高于init函数，不可同时使用，推荐使用listData
-        if(!target){ return recordTarget.value }
-        if(isInit){
+        if (props.listData) {
+          return []
+        } //listData的优先级高于init函数，不可同时使用，推荐使用listData
+        if (!target) {
+          return recordTarget.value
+        }
+        if (isInit) {
           isDefaultFocusTimer = false
-        }else{
+        } else {
           isDefaultFocusTimer = true
         }
         recordTarget.value = target
         return recordTarget.value
+      }
+
+      const lisItemTemplateList = reactive<QTListViewItem[]>([])
+      function initTemplate<T extends QTListViewItem>(itemTemplateList: Array<T>): void {
+        lisItemTemplateList.push(...itemTemplateList)
       }
 
       //----------------------------------------------------------
@@ -218,13 +245,13 @@ function registerESListViewComponent(app: ESApp) {
       }
 
       const scrollToFocused = (pos: number) => {
-        scrollToPosition(pos);
-        setItemFocused(pos);
+        scrollToPosition(pos)
+        setItemFocused(pos)
       }
       //----------------------------------------------------------
       const setItemFocused = (position: number) => {
         requestChildFocus(position)
-        Native.callUIFunction(viewRef.value, 'requestChildFocus', [position]);
+        Native.callUIFunction(viewRef.value, 'requestChildFocus', [position])
       }
 
       //----------------------------------------------------------
@@ -237,7 +264,7 @@ function registerESListViewComponent(app: ESApp) {
       //自定义方法循环拼接item的name
       const updateItemName = (arr, index) => {
         for (let i = 0; i < arr.length; i++) {
-          const el = arr[i];
+          const el = arr[i]
           if (index >= 0) {
             el.name = 'name' + index + i
           } else {
@@ -254,6 +281,7 @@ function registerESListViewComponent(app: ESApp) {
       ctx.expose({
         viewRef,
         init,
+        initTemplate,
         scrollToFocused,
         scrollToSelected,
         setItemFocused,
@@ -265,30 +293,49 @@ function registerESListViewComponent(app: ESApp) {
         ...useBaseListView(viewRef),
       })
       return () => {
-        const children = ctx.slots.default && ctx.slots.default()
+        const template = {}
+
+        for (let i = 0; i < lisItemTemplateList.length; i++) {
+          const item = lisItemTemplateList[i]
+          Object.assign(template, transformValuesToKeys(item))
+        }
+        const children: Array<any> = []
+
+        if (lisItemTemplateList.length > 0) {
+          //
+          const list = Object.keys(ctx.slots).map((slotName) => {
+            return renderSlot(ctx.slots, slotName, {
+              key: slotName,
+              item: template,
+            })
+          })
+          children.push(...list)
+        }
+
         return h(
           'FastListView',
           {
             ref: viewRef,
+            template: lisItemTemplateList,
             onItemClick: (evt) => {
-              ctx.emit('item-click', evt);
+              ctx.emit('item-click', evt)
             },
             onScroll: (evt) => {
-              ctx.emit('scroll', evt);
+              ctx.emit('scroll', evt)
             },
             onItemFocused: (evt) => {
-              ctx.emit('item-focused', evt);
+              ctx.emit('item-focused', evt)
             },
             onAttachedToWindow: (evt) => {
-              ctx.emit('item-attached', evt);
+              ctx.emit('item-attached', evt)
             },
             onDetachedFromWindow: (evt) => {
-              ctx.emit('item-detached', evt);
+              ctx.emit('item-detached', evt)
             },
             onBindItem: (evt) => {
-              if(props.openPage && !isStopPage){
+              if (props.openPage && !isStopPage) {
                 let myPreloadNo = props.preloadNo
-                if(myPreloadNo < 0 || myPreloadNo >= newList.length){
+                if (myPreloadNo < 0 || myPreloadNo >= newList.length) {
                   myPreloadNo = 0
                 }
 
@@ -298,25 +345,25 @@ function registerESListViewComponent(app: ESApp) {
                 }
               }
 
-              ctx.emit('item-bind', evt);
+              ctx.emit('item-bind', evt)
             },
             onUnbindItem: (evt) => {
-              ctx.emit('item-unbind', evt);
+              ctx.emit('item-unbind', evt)
             },
             onLoadMore: (evt) => {
-              ctx.emit('load-more', evt);
+              ctx.emit('load-more', evt)
             },
             onScrollStateChanged: (evt) => {
-              ctx.emit('scroll-state-changed', evt);
+              ctx.emit('scroll-state-changed', evt)
             },
             onFocusSearchFailed: (evt) => {
-              ctx.emit('focus-search-failed', evt);
+              ctx.emit('focus-search-failed', evt)
             },
             onScrollYGreaterReference: (evt) => {
-              ctx.emit('scrollYGreaterReference', evt);
+              ctx.emit('scrollYGreaterReference', evt)
             },
             onScrollYLesserReference: (evt) => {
-              ctx.emit('scrollYLesserReference', evt);
+              ctx.emit('scrollYLesserReference', evt)
             },
           },
           children
@@ -324,7 +371,7 @@ function registerESListViewComponent(app: ESApp) {
       }
     },
   })
-  app.component('qt-list-view', ListViewImpl);
+  app.component('qt-list-view', ListViewImpl)
 }
 
-export default registerESListViewComponent;
+export default registerESListViewComponent

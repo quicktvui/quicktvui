@@ -34,5 +34,5 @@ const obj = {
   },
 }
 
-const transformedObj = transformValuesToKeys(obj)
-console.log(JSON.stringify(transformedObj, null, 2))
+// const transformedObj = transformValuesToKeys(obj)
+// console.log(JSON.stringify(transformedObj, null, 2))

@@ -15,6 +15,7 @@ import {
   QT_LIST_VIEW_ITEM_TYPE_VIEW,
 } from '../item/type'
 import { QTListViewViewItem } from '../item/div/QTListViewViewItem'
+import { QTListViewListItem } from '../item/list/QTListViewListItem'
 
 //--------------------------------随机生成Item---------------------------------------
 export function buildRandomLongImageItem(index: number, span?: number): QTListViewImageItem {
@@ -26,6 +27,7 @@ export function buildRandomLongImageItem(index: number, span?: number): QTListVi
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_LONG_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -38,6 +40,7 @@ export function buildRandomLongImageItem(index: number, span?: number): QTListVi
       itemSize: 300,
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_LONG_IMAGE,
+      backgroundColor: buildRandomColor(),
       url: buildRandomImage(),
       decoration: {
         top: 30,
@@ -52,6 +55,7 @@ export function buildRandomLongImageItem(index: number, span?: number): QTListVi
       span: 1920,
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_LONG_IMAGE,
+      backgroundColor: buildRandomColor(),
       url: buildRandomImage(),
       decoration: {
         top: 30,
@@ -71,6 +75,7 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTList
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_MEDIUM_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -84,6 +89,7 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTList
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_MEDIUM_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -98,6 +104,7 @@ export function buildRandomMediumImageItem(index: number, span?: number): QTList
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_MEDIUM_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -116,6 +123,7 @@ export function buildRandomImageItem(index: number, span?: number): QTListViewIm
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -129,6 +137,7 @@ export function buildRandomImageItem(index: number, span?: number): QTListViewIm
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -143,6 +152,7 @@ export function buildRandomImageItem(index: number, span?: number): QTListViewIm
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_IMAGE,
       url: buildRandomImage(),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -222,6 +232,7 @@ export function buildFixedImageItem(index: number, span?: number): QTListViewIma
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_IMAGE,
       url: buildIndexImage(index),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -235,6 +246,7 @@ export function buildFixedImageItem(index: number, span?: number): QTListViewIma
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_IMAGE,
       url: buildIndexImage(index),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -249,6 +261,7 @@ export function buildFixedImageItem(index: number, span?: number): QTListViewIma
       id: index + '',
       type: QT_LIST_VIEW_ITEM_TYPE_IMAGE,
       url: buildIndexImage(index),
+      backgroundColor: buildRandomColor(),
       decoration: {
         top: 30,
         left: 30,
@@ -358,7 +371,7 @@ export function buildRandomViewItem(index: number, span?: number): QTListViewVie
 }
 
 //-------------------------------------------------------------------------------------
-export function buildFixedListItemList(count: number): Array<QTListViewImageItem> {
+export function buildFixedListItemList(count: number): Array<QTListViewListItem> {
   const list = []
   for (let i = 0; i < count; i++) {
     list.push({
@@ -376,7 +389,7 @@ export function buildFixedListItemList(count: number): Array<QTListViewImageItem
   return list
 }
 
-export function buildRandomListItemList(count: number): Array<QTListViewImageItem> {
+export function buildRandomListItemList(count: number): Array<QTListViewListItem> {
   const list = []
   for (let i = 0; i < count; i++) {
     list.push({
