@@ -17,8 +17,11 @@ const routerOptions = {
   routes: routes,
 }
 
+
+
 const router: Router = createESRouter(routerOptions);
-const app: ESApp = createESApp(application, router);
+const app: ESApp =
+    createESApp(application, router);
 
 import {install} from './components';
 
