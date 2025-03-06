@@ -1,17 +1,23 @@
 <template>
-  <div class="qt-ul-item-text-root"
-       :style="{width: rootStyle.width, height: rootStyle.height}"
-       :focusable="true"
-       :enableFocusBorder="true">
-    <qt-text :text="text" class="qt-ul-item-text"
-             :style="{backgroundColor: backgroundColor}"
-             :gravity="gravity" :fontSize="44" :ellipsizeMode="2"/>
+  <div
+    class="qt-ul-item-text-root"
+    :style="{ width: rootStyle.width, height: rootStyle.height }"
+    :focusable="true"
+    :enableFocusBorder="true"
+  >
+    <qt-text
+      :text="text"
+      class="qt-ul-item-text"
+      :style="{ backgroundColor: backgroundColor }"
+      :gravity="gravity"
+      :fontSize="44"
+      :ellipsizeMode="2"
+    />
   </div>
-
 </template>
 
 <script lang="ts">
-import {defineComponent} from "@vue/runtime-core";
+import { defineComponent } from '@vue/runtime-core'
 
 export default defineComponent({
   name: 'qt-ul-item-text',
@@ -19,28 +25,25 @@ export default defineComponent({
   props: {
     text: {
       type: String,
-      default: ''
+      default: '',
     },
     backgroundColor: {
       type: String,
-      default: 'white'
+      default: 'white',
     },
     gravity: {
       type: String,
-      default: 'center'
+      default: 'center',
     },
     rootStyle: {
       type: Object,
-      default: () => (
-          {
-            width: 800,
-            height: 200,
-          }
-      )
+      default: () => ({
+        width: 800,
+        height: 200,
+      }),
     },
   },
-});
-
+})
 </script>
 
 <style scoped>
@@ -48,7 +51,7 @@ export default defineComponent({
   width: 800px;
   height: 200px;
   padding: 10px;
-  background-color: transparent;
+  background-color: red;
 }
 
 .qt-ul-item-text {
@@ -57,5 +60,4 @@ export default defineComponent({
   color: black;
   padding: 10px;
 }
-
 </style>
