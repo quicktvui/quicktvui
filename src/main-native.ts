@@ -12,6 +12,7 @@ import {createESRouter, Router} from "@extscreen/es3-router";
 
 const routerOptions = {
   main: 'splash',
+  // main: 'list-view/qt_list_view_$_page',
   error: 'error',
   limit: 10,
   routes: routes,
