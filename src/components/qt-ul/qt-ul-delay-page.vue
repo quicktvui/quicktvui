@@ -11,9 +11,10 @@
         :spanCount="6"
         :enablePlaceholder="false"
       >
-        <template #item="{ item }">
+        <template #item="{ item, delayLoad }">
           <qt-ul-item-delay
             v-if="item.type == 5"
+            :delay-load="delayLoad"
             :style="item.style"
             :focus="item.focus"
             :image="item.image"

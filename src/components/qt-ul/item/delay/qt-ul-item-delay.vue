@@ -15,6 +15,7 @@
       :duplicateParentState="true"
       :postDelay="300"
       enableFade
+      v-if="delayLoad"
       :focusable="false"
       :enableFocusBorder="focus.border"
       :style="{
@@ -173,6 +174,10 @@ export default defineComponent({
     loadDelay: {
       type: Number,
       default: 500,
+    },
+    delayLoad: {
+      type: Boolean,
+      default: false,
     },
     templateKeyMap: {
       type: Object,
