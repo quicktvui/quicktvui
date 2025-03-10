@@ -75,13 +75,7 @@
             :enableFocusBorder="true"
           />
 
-          <qt-ul-item-image
-            :src="item.url"
-            :backgroundColor="item.backgroundColor"
-            :type="2"
-            :focusable="true"
-            :enableFocusBorder="true"
-          />
+          <qt-ul-item-image :src="item.url" :type="2" :focusable="true" :enableFocusBorder="true" />
 
           <qt-ul-item-movie :type="11" :item="item" />
 
@@ -106,50 +100,18 @@
 
           <qt-ul-item-media
             :type="10"
-            :styleWidth="item.styleWidth"
-            :styleHeight="item.styleHeight"
+            :focusScale="item.focusScale"
             :focusBorder="item.focusBorder"
-            :imageStyleWidth="item.imageStyleWidth"
-            :imageStyleHeight="item.imageStyleHeight"
             :imageSrc="item.imageSrc"
-            :scoreStyleWidth="item.scoreStyleWidth"
-            :scoreStyleHeight="item.scoreStyleHeight"
             :scoreStyleFontSize="item.scoreStyleFontSize"
             :scoreBackground="item.scoreBackground"
             :scoreText="item.scoreText"
-            :titleStyleWidth="item.titleStyleWidth"
-            :titleStyleHeight="item.titleStyleHeight"
-            :titleStyleMarginTop="item.titleStyleMarginTop"
-            :titleBackground="item.titleBackground"
             :titleText="item.titleText"
-            :titleEnable="item.titleEnable"
-            :titleFocusStyleWidth="item.titleFocusStyleWidth"
-            :titleFocusStyleHeight="item.titleFocusStyleHeight"
-            :titleFocusStyleMarginTop="item.titleFocusStyleMarginTop"
-            :focusScale="item.focusScale"
-            :focusTitleEnable="item.focusTitleEnable"
-            :focusTitleStyleWidth="item.focusTitleStyleWidth"
-            :focusTitleStyleHeight="item.focusTitleStyleHeight"
             :focusTitleText="item.focusTitleText"
             :subTitleText="item.subTitleText"
-            :subTitleStyleWidth="item.subTitleStyleWidth"
-            :subTitleStyleHeight="item.subTitleStyleHeight"
-            :floatTitleStyleWidth="item.floatTitleStyleWidth"
-            :floatTitleStyleHeight="item.floatTitleStyleHeight"
-            :floatTitleEnable="item.floatTitleEnable"
             :floatTitleText="item.floatTitleText"
-            :floatTitleBackground="item.floatTitleBackground"
-            :floatTitleWidth="item.floatTitleWidth"
-            :rippleStyleWidth="item.rippleStyleWidth"
-            :rippleStyleHeight="item.rippleStyleHeight"
-            :rippleEnable="item.rippleEnable"
             :rippleSrc="item.rippleSrc"
-            :cornerEnable="item.cornerEnable"
-            :cornerStyleWidth="item.cornerStyleWidth"
-            :cornerStyleHeight="item.cornerStyleHeight"
-            :cornerBackground="item.cornerBackground"
             :cornerText="item.cornerText"
-            :cornerEnableImg="item.cornerEnableImg"
             :cornerSrc="item.cornerSrc"
           />
 
@@ -381,6 +343,7 @@ export default defineComponent({
             cornerRadii4: [8, 8, 8, 8],
             orientation: 2,
           },
+          scoreStyleFontSize: 20,
 
           cornerText: buildRandomCornerText(),
           cornerEnable: true,
@@ -403,7 +366,46 @@ export default defineComponent({
           titleFocusStyleMarginTop: 320 - 50,
         },
       ])
+
+      const user = createDynamicObject<User>()
+      console.log('----1----createDynamicObject----user--->>>>>>', user)
+
+      console.log(user.id) // default_id
+      console.log(user.name) // default_name
+      console.log(user.email) // default_email
+
+      const keys = Object.keys(user)
+
+      console.log('----2----createDynamicObject------->>>>', keys)
+
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        console.log('----3----createDynamicObject------->>>>', key, user[key])
+      }
     }
+
+    //--------------------------------
+    function createDynamicObject<T>(): T {
+      return new Proxy(
+        {},
+        {
+          get(_, prop) {
+            if (typeof prop === 'string') {
+              return `default_${prop}` // 生成默认值
+            }
+          },
+        }
+      ) as T
+    }
+
+    // 示例：即使 `User` 结构未知，也能动态生成对象
+    type User = {
+      id: number
+      name: string
+      email?: string
+    }
+
+    // -----------------------
 
     function onButtonNegativeClick() {
       const list = buildRandomMovieItemList(0, 100)

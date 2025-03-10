@@ -1,153 +1,185 @@
 <template>
-  <div ref="viewRef"
-       :focusScale="focusScale"
-       :style="{width: styleWidth, height: styleHeight}"
-       :focusable="true"
-       :clipChildren="false"
-       :enableFocusBorder="true"
-       name="poster"
-       class="qt-ui-poster-item-root-css">
-
+  <div
+    ref="viewRef"
+    :focusScale="focusScale"
+    :style="{ width: styleWidth, height: styleHeight }"
+    :focusable="true"
+    :clipChildren="false"
+    :enableFocusBorder="true"
+    name="poster"
+    class="qt-ui-poster-item-root-css"
+  >
     <!--封面-->
-    <img class="qt-ui-poster-item-img-css"
-         :duplicateParentState="true"
-         :postDelay="300"
-         enableFade
-         :focusable="false"
-         :enableFocusBorder="focusBorder"
-         :style="{width: imageStyleWidth, height: imageStyleHeight,
-         borderRadius: `${borderRadius}px`}"
-         :src="imageSrc"/>
+    <img
+      class="qt-ui-media-item-img-css"
+      :duplicateParentState="true"
+      :postDelay="300"
+      enableFade
+      :focusable="false"
+      :enableFocusBorder="focusBorder"
+      :style="{
+        width: imageStyleWidth,
+        height: imageStyleHeight,
+        borderRadius: `${borderRadius}px`,
+      }"
+      :src="imageSrc"
+    />
 
     <!-- 评分 -->
     <qt-text
-        class="qt-ui-poster-score-css"
-        :duplicateParentState="true"
-        :focusable="false"
-        :style="{width: scoreStyleWidth, height: scoreStyleHeight}"
-        :textSize="scoreStyleFontSize"
-        :ellipsizeMode="2"
-        :lines="1"
-        gravity="center"
-        :postDelay="350"
-        autoWidth
-        :gradientBackground="scoreBackground"
-        :text="scoreText"/>
+      class="qt-ui-poster-score-css"
+      :duplicateParentState="true"
+      :focusable="false"
+      :style="{ width: scoreStyleWidth, height: scoreStyleHeight }"
+      :textSize="scoreStyleFontSize"
+      :ellipsizeMode="2"
+      :lines="1"
+      gravity="center"
+      :postDelay="350"
+      autoWidth
+      :gradientBackground="scoreBackground"
+      :text="scoreText"
+    />
 
     <!--   焦点选中时的标题 -->
     <qt-media-focus-title
-        :focusable="false"
-        :border-radius="borderRadius"
-        showOnState="focused"
-        :titleFocusStyleWidth="titleFocusStyleWidth"
-        :titleFocusStyleHeight="titleFocusStyleHeight"
-        :titleFocusStyleMarginTop="titleFocusStyleMarginTop"
-        :floatTitleBackground="floatTitleBackground"
-        :floatTitleWidth="floatTitleWidth"
-        :floatTitleText="floatTitleText"
-        :floatTitleEnable="floatTitleEnable"
-        :focusTitleEnable="focusTitleEnable"
-        :focusTitleStyleWidth="focusTitleStyleWidth"
-        :focusTitleStyleHeight="focusTitleStyleHeight"
-        :focusTitleText="focusTitleText"
-        :subTitleStyleWidth="subTitleStyleWidth"
-        :subTitleStyleHeight="subTitleStyleHeight"
-        :subTitleText="subTitleText"
-        :bgColor="focusBgColor"
-        :titleColor="focusTitleColor"
-        :subTitleColor="focusSubTitleColor"
+      :focusable="false"
+      :border-radius="borderRadius"
+      showOnState="focused"
+      :titleFocusStyleWidth="titleFocusStyleWidth"
+      :titleFocusStyleHeight="titleFocusStyleHeight"
+      :titleFocusStyleMarginTop="titleFocusStyleMarginTop"
+      :floatTitleBackground="floatTitleBackground"
+      :floatTitleWidth="floatTitleWidth"
+      :floatTitleText="floatTitleText"
+      :floatTitleEnable="floatTitleEnable"
+      :focusTitleEnable="focusTitleEnable"
+      :focusTitleStyleWidth="focusTitleStyleWidth"
+      :focusTitleStyleHeight="focusTitleStyleHeight"
+      :focusTitleText="focusTitleText"
+      :subTitleStyleWidth="subTitleStyleWidth"
+      :subTitleStyleHeight="subTitleStyleHeight"
+      :subTitleText="subTitleText"
+      :bgColor="focusBgColor"
+      :titleColor="focusTitleColor"
+      :subTitleColor="focusSubTitleColor"
     />
 
-    <div style="flex-direction: column; background-color: transparent;z-index: 999;"
-         :duplicateParentState="true"
-         :focusable="false"
-         :style="{width: titleStyleWidth, height: titleStyleHeight, marginTop : titleStyleMarginTop}"
-         :showOnState=mainTextShowOnState>
+    <!--  $titleStyleMarginTop  -->
+    <div
+      style="flex-direction: column; background-color: transparent; z-index: 999"
+      :duplicateParentState="true"
+      :focusable="false"
+      :style="{ width: titleStyleWidth, height: titleStyleHeight, marginTop: titleStyleMarginTop }"
+      :showOnState="mainTextShowOnState"
+    >
       <!--  浮动标题 -->
-      <div class="qt-ui-poster-title-css"
-           :gradientBackground="{colors:floatTitleBgColor, cornerRadii4: [0, 0, borderRadius, borderRadius],orientation:4}"
-           :duplicateParentState="true"
-           :focusable="false"
-           :style="{width: floatTitleStyleWidth, height: floatTitleStyleHeight}"
-           v-if="floatTitleEnable">
+      <!--  $floatTitleEnable floatTitleBgColor borderRadius -->
+      <div
+        class="qt-ui-poster-title-css"
+        :gradientBackground="{
+          colors: floatTitleBgColor,
+          cornerRadii4: [0, 0, borderRadius, borderRadius],
+          orientation: 4,
+        }"
+        :duplicateParentState="true"
+        :focusable="false"
+        :style="{ width: floatTitleStyleWidth, height: floatTitleStyleHeight }"
+        v-if="floatTitleEnable"
+      >
+        <!--  $ -->
         <qt-text
-            :duplicateParentState="true"
-            :focusable="false"
-            :textSize="26"
-            :ellipsizeMode="2"
-            enablePostTask
-            :postDelay="200"
-            :lines="1"
-            gravity="left"
-            :style="{width: floatTitleStyleWidth, height: floatTitleStyleHeight, zIndex: 999}"
-            :text="floatTitleText"/>
-      </div>
-
-      <!--  主标题-->
-      <qt-text
           :duplicateParentState="true"
           :focusable="false"
-          :textSize="30"
+          :textSize="26"
           :ellipsizeMode="2"
-          :lines="1"
+          enablePostTask
           :postDelay="200"
+          :lines="1"
           gravity="left"
-          :paddingRect="[16,8,0,0]"
-          :gradientBackground="titleBackground"
-          :style="{width: titleStyleWidth, height: titleStyleHeight, zIndex: 999}"
-          :text="titleText"
-          v-if="titleEnable"/>
+          :style="{ width: floatTitleStyleWidth, height: floatTitleStyleHeight, zIndex: 999 }"
+          :text="floatTitleText"
+        />
+      </div>
+
+      <!--  $titleBackground 主标题-->
+      <qt-text
+        :duplicateParentState="true"
+        :focusable="false"
+        :textSize="30"
+        :ellipsizeMode="2"
+        :lines="1"
+        :postDelay="200"
+        gravity="left"
+        :paddingRect="[16, 8, 0, 0]"
+        :gradientBackground="titleBackground"
+        :style="{ width: titleStyleWidth, height: titleStyleHeight, zIndex: 999 }"
+        :text="titleText"
+        v-if="titleEnable"
+      />
     </div>
 
     <!-- 水波纹 -->
     <div
-        :style="{width: rippleStyleWidth, height: rippleStyleHeight}"
-        class="qt-ui-poster-ripple-view-root-css"
-        showOnState="focused"
-        :focusable="false"
-        :clipChildren="false">
-
+      :style="{ width: rippleStyleWidth, height: rippleStyleHeight }"
+      class="qt-ui-media-ripple-view-root-css"
+      showOnState="focused"
+      :focusable="false"
+      :clipChildren="false"
+    >
       <ripple-view
-          class="qt-ui-ripple-view-css"
-          :delayLoad="800"
-          :focusable="false"
-          :duplicateParentState="true"
-          :color="rippleColor"
-          :isShowRipple="rippleEnable"
-          rippleVisible="invisible"/>
+        class="qt-ui-ripple-view-css"
+        :delayLoad="800"
+        :focusable="false"
+        :duplicateParentState="true"
+        :color="rippleColor"
+        :isShowRipple="rippleEnable"
+        rippleVisible="invisible"
+      />
 
-      <img :src="rippleSrc"
-           class="qt-ui-ripple-img-css"
-           :focusable="false"
-           :duplicateParentState="true"
-           v-if="rippleEnable"
-           :delayLoad="800"/>
+      <img
+        :src="rippleSrc"
+        class="qt-ui-ripple-img-css"
+        :focusable="false"
+        :duplicateParentState="true"
+        v-if="rippleEnable"
+        :delayLoad="800"
+      />
     </div>
 
+    <!-- $cornerEnable cornerBackground -->
     <qt-media-corner-title
-        v-if="cornerEnable"
-        :cornerBackground="cornerBackground"
-        :cornerText="cornerText"
-        :cornerEnable="cornerEnable"
-        :cornerEnableImg="cornerEnableImg"
-        :cornerSrc="cornerSrc"
-        :focusable="false"
-        :style="{width: cornerStyleWidth, height: cornerStyleHeight}"
+      v-if="cornerEnable"
+      :cornerBackground="cornerBackground"
+      :cornerText="cornerText"
+      :cornerEnable="cornerEnable"
+      :cornerEnableImg="cornerEnableImg"
+      :cornerSrc="cornerSrc"
+      :focusable="false"
+      :style="{ width: cornerStyleWidth, height: cornerStyleHeight }"
     />
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
+import QTMediaFocusTitle from './qt-media-focus-title.vue'
+import QTMediaCornerTitle from './qt-media-corner-title.vue'
 
-import QTMediaFocusTitle from "./qt-media-focus-title.vue";
-import QTMediaCornerTitle from "./qt-media-corner-title.vue";
+import { defineComponent } from '@vue/runtime-core'
+import { ref } from 'vue'
 
-import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
-
+/**
+ * 注意：
+ * style上的属性，不支持变量进行变更
+ * 1、styleWidth, styleHeight
+ * 2、imageStyleWidth、imageStyleHeight
+ *
+ *
+ *
+ */
 export default defineComponent({
-  name: "qt-ul-item-media",
+  name: 'qt-ul-item-media',
   emits: [],
   components: {
     'qt-media-corner-title': QTMediaCornerTitle,
@@ -156,173 +188,192 @@ export default defineComponent({
   props: {
     requestFirstFocus: {
       type: Boolean,
-      default: false
+      default: false,
     },
     loadDelay: {
       type: Number,
-      default: 500
+      default: 500,
     },
     templateKeyMap: {
       type: Object,
-      default: () => null
+      default: () => null,
     },
     borderRadius: {
       type: Number,
-      default: 8
+      default: 8,
     },
     rippleColor: {
       type: String,
-      default: "#FF4E46"
+      default: '#FF4E46',
     },
     focusBgColor: {
       type: Object,
-      required: false
+      required: false,
     },
     focusTitleColor: {
       type: String,
-      required: false
+      required: false,
     },
     focusSubTitleColor: {
       type: String,
-      required: false
+      required: false,
     },
     floatTitleBgColor: {
       type: Array,
       default: () => {
         return ['#e5000000', '#00000000']
-      }
+      },
     },
     //---------------------------------------------------
     styleWidth: {
-      type: Number
+      type: Number,
+      default: 260,
     },
     styleHeight: {
-      type: Number
+      type: Number,
+      default: 400,
     },
     focusBorder: {
-      type: Boolean
+      type: String,
     },
     focusScale: {
-      type: Number
+      type: String,
     },
     //---------------------------------------------
     imageStyleWidth: {
-      type: Number
+      type: Number,
+      default: 260,
     },
     imageStyleHeight: {
-      type: Number
+      type: Number,
+      default: 320,
     },
     imageSrc: {
-      type: String
+      type: String,
     },
     //---------------------------------------------
     scoreStyleWidth: {
-      type: Number
+      type: Number,
+      default: 50,
     },
     scoreStyleHeight: {
-      type: Number
+      type: Number,
+      default: 40,
     },
     scoreStyleFontSize: {
-      type: Number
+      type: String,
+      default: 30,
     },
     scoreBackground: {
-      type: Object
+      type: Object,
     },
     scoreText: {
-      type: String
+      type: String,
     },
     //---------------------------------------------
     titleStyleWidth: {
-      type: Number
+      type: Number,
+      default: 260,
     },
     titleStyleHeight: {
-      type: Number
+      type: Number,
+      default: 60,
     },
     titleStyleMarginTop: {
-      type: Number
+      type: Number,
     },
     titleBackground: {
-      type: Object
+      type: Object,
     },
     titleText: {
-      type: String
+      type: String,
     },
     titleEnable: {
-      type: Boolean
+      type: Boolean,
+      default: true,
     },
     titleFocusStyleWidth: {
-      type: Number
+      type: Number,
     },
     titleFocusStyleHeight: {
-      type: Number
+      type: Number,
     },
     titleFocusStyleMarginTop: {
-      type: Number
+      type: Number,
     },
     //---------------------------------------------
     focusTitleEnable: {
-      type: Boolean
+      type: Boolean,
     },
     focusTitleStyleWidth: {
-      type: Number
+      type: Number,
     },
     focusTitleStyleHeight: {
-      type: Number
+      type: Number,
     },
     focusTitleText: {
-      type: String
+      type: String,
     },
     //---------------------------------------------
     subTitleText: {
-      type: String
+      type: String,
     },
     subTitleStyleWidth: {
-      type: Number
+      type: Number,
     },
     subTitleStyleHeight: {
-      type: Number
+      type: Number,
     },
     //---------------------------------------------
     floatTitleStyleWidth: {
-      type: Number
+      type: Number,
+      default: 260,
     },
     floatTitleStyleHeight: {
-      type: Number
+      type: Number,
+      default: 64,
     },
     floatTitleEnable: {
-      type: Boolean
+      type: Boolean,
+      default: true,
     },
     floatTitleText: {
-      type: String
+      type: String,
     },
     floatTitleBackground: {
-      type: Object
+      type: Object,
     },
     floatTitleWidth: {
-      type: Number
+      type: Number,
     },
     //---------------------------------------------
     rippleStyleWidth: {
-      type: Number
+      type: Number,
+      default: 100,
     },
     rippleStyleHeight: {
-      type: Number
+      type: Number,
+      default: 100,
     },
     rippleEnable: {
-      type: Boolean
+      type: Boolean,
+      default: true,
     },
     rippleSrc: {
-      type: String
+      type: String,
     },
     //---------------------------------------------
     cornerEnable: {
-      type: Boolean
+      type: Boolean,
+      default: true,
     },
     cornerStyleWidth: {
-      type: Number
+      type: Number,
+      default: 100,
     },
     cornerStyleHeight: {
-      type: Number
+      type: Number,
+      default: 30,
     },
     cornerBackground: {
       type: Object,
@@ -346,28 +397,27 @@ export default defineComponent({
       viewRef,
     }
   },
-});
-
+})
 </script>
 
 <style scoped>
 .qt-ui-poster-item-root-css {
   background-color: transparent;
   display: flex;
+  width: 260px;
+  height: 400px;
 }
 
-.qt-ui-poster-item-img-css {
+.qt-ui-media-item-img-css {
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
   position: absolute;
-  /* focus-border-color: white;
-  focus-border-style: solid; */
 }
 
 .qt-ui-poster-score-css {
   z-index: 2;
   position: absolute;
-  color: #FC5E1B;
+  color: #fc5e1b;
   background-color: transparent;
 }
 
@@ -395,7 +445,7 @@ export default defineComponent({
   position: absolute;
 }
 
-.qt-ui-poster-ripple-view-root-css {
+.qt-ui-media-ripple-view-root-css {
   width: 100px;
   height: 100px;
   right: 0;
@@ -405,5 +455,4 @@ export default defineComponent({
   background-color: transparent;
   position: absolute;
 }
-
 </style>

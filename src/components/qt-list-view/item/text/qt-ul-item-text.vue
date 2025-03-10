@@ -18,7 +18,16 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
+import { buildRandomColor } from '../../__mocks__/colors'
 
+/**
+ * 注意：
+ * 1、style上的属性，不支持变量进行变更
+ *
+ *
+ *
+ *
+ */
 export default defineComponent({
   name: 'qt-ul-item-text',
   emits: [],
@@ -29,7 +38,7 @@ export default defineComponent({
     },
     backgroundColor: {
       type: String,
-      default: 'white',
+      default: buildRandomColor(),
     },
     gravity: {
       type: String,

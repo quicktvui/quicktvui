@@ -1,20 +1,22 @@
-const fs = require('fs');
-const path = require('path');
-const webpack = require('webpack');
-const HippyDynamicImportPlugin = require('@hippy/hippy-dynamic-import-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const {VueLoaderPlugin} = require('vue-loader');
-const watchPlugin = require('./webpack-watch.js');
-const pkg = require('../package.json');
-let cssLoader = '@hippy/vue-css-loader';
-const hippyVueCssLoaderPath = path.resolve(__dirname, '../../../packages/hippy-vue-css-loader/dist/css-loader.js');
+const fs = require('fs')
+const path = require('path')
+const webpack = require('webpack')
+const HippyDynamicImportPlugin = require('@hippy/hippy-dynamic-import-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
+const watchPlugin = require('./webpack-watch.js')
+const pkg = require('../package.json')
+let cssLoader = '@hippy/vue-css-loader'
+const hippyVueCssLoaderPath = path.resolve(
+  __dirname,
+  '../../../packages/hippy-vue-css-loader/dist/css-loader.js'
+)
 if (fs.existsSync(hippyVueCssLoaderPath)) {
-  console.warn(`* Using the @hippy/vue-css-loader in ${hippyVueCssLoaderPath}`);
-  cssLoader = hippyVueCssLoaderPath;
+  console.warn(`* Using the @hippy/vue-css-loader in ${hippyVueCssLoaderPath}`)
+  cssLoader = hippyVueCssLoaderPath
 } else {
-  console.warn('* Using the @hippy/vue-css-loader defined in package.json');
+  console.warn('* Using the @hippy/vue-css-loader defined in package.json')
 }
-
 
 module.exports = {
   mode: 'development',
@@ -117,17 +119,19 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            limit: true,
-            // limit: 8192,
-            fallback: 'file-loader',
-            name: '[name].[ext]',
-            outputPath: 'assets/',
-            publicPath: 'assets',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: true,
+              // limit: 8192,
+              fallback: 'file-loader',
+              name: '[name].[ext]',
+              outputPath: 'assets/',
+              publicPath: 'assets',
+            },
           },
-        }],
+        ],
       },
       // {
       //   test: /\.(png|jpe?g|gif)$/i,
@@ -169,9 +173,9 @@ module.exports = {
         src: path.resolve('./src'),
         // '@': path.resolve('./src'),
         // '@quicktvui/quicktvui3': path.resolve('./packages/src'),
-        // '@quicktvui/quicktvui3': path.resolve('./packages'),
-      };
-      return aliases;
+        '@quicktvui/quicktvui3': path.resolve('./packages'),
+      }
+      return aliases
     })(),
   },
-};
+}

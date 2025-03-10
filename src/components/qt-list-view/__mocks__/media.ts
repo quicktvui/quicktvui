@@ -31,7 +31,7 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
       itemSize: 400,
       position: index,
       focusEnable: true,
-      focusScale: 1,
+      focusScale: 1.1,
       focusBorder: false,
       type: QT_LIST_VIEW_ITEM_TYPE_MEDIA,
       decoration: {
@@ -80,6 +80,7 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
         cornerRadii4: [8, 8, 8, 8],
         orientation: 2,
       },
+      scoreStyleFontSize: 20,
 
       cornerText: buildRandomCornerText(),
       cornerEnable: true,
@@ -109,7 +110,7 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
         span: span,
         position: index,
         focusEnable: true,
-        focusScale: 1,
+        focusScale: 1.1,
         focusBorder: false,
         type: QT_LIST_VIEW_ITEM_TYPE_MEDIA,
         decoration: {
@@ -158,6 +159,7 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
           cornerRadii4: [8, 8, 8, 8],
           orientation: 2,
         },
+        scoreStyleFontSize: 20,
 
         cornerText: buildRandomCornerText(),
         cornerEnable: true,
@@ -186,7 +188,7 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
         span: 320,
         position: index,
         focusEnable: true,
-        focusScale: 1,
+        focusScale: 1.1,
         focusBorder: false,
         type: QT_LIST_VIEW_ITEM_TYPE_MEDIA,
         decoration: {
@@ -235,6 +237,7 @@ export function buildRandomMediaItem(page: number, index: number, span?: number)
           cornerRadii4: [8, 8, 8, 8],
           orientation: 2,
         },
+        scoreStyleFontSize: 20,
 
         cornerText: buildRandomCornerText(),
         cornerEnable: true,
