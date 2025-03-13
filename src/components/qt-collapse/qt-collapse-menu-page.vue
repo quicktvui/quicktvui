@@ -1,5 +1,5 @@
 <template>
-  <div class="es-sdk-root-css">
+  <div class="es-sdk-root-css" :clipChildren="false" :clipPadding="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
     <qt-collapse
@@ -119,6 +119,6 @@ export default defineComponent({
   width: 1920px;
   height: 800px;
   position: absolute;
-  bottom: 0px;
+  bottom: 300px;
 }
 </style>
