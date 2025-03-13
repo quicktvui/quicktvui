@@ -104,6 +104,7 @@ export default defineComponent({
   align-items: center;
   flex-direction: row;
   background-color: transparent;
+  z-index: 1000;
 }
 
 .qt-collapse-menu-item-title {
