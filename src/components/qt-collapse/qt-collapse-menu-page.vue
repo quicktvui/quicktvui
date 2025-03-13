@@ -70,6 +70,10 @@ export default defineComponent({
             height: 200,
             collapseHeight: 150,
           },
+          {
+            height: 200,
+            collapseHeight: 150,
+          },
         ],
       }
       collapseRef.value?.init(collapse)

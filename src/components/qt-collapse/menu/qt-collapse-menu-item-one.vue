@@ -26,9 +26,6 @@ export default defineComponent({
   setup(props, context) {
     const log = useESLog()
     const toast = useESToast()
-    const text = ref<string>(
-      '内容内容内容内容内容内容内容内内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容容内容内容内容内容内容内容内容内容内容内容'
-    )
 
     function onCollapseItemExpand(value: boolean) {
       if (log.isLoggable(ESLogLevel.DEBUG)) {
@@ -37,15 +34,8 @@ export default defineComponent({
       context.emit('onCollapseItemGreenExpand', '绿色')
     }
 
-    function showText(val: string) {
-      text.value = val
-      toast.showToast(val)
-    }
-
     return {
       onCollapseItemExpand,
-      showText,
-      text,
     }
   },
 })
@@ -55,6 +45,7 @@ export default defineComponent({
 .qt-collapse-menu-item-root {
   width: 1920px;
   height: 200px;
+  background-color: transparent;
 }
 
 .qt-collapse-menu-item-title-root {
@@ -64,6 +55,7 @@ export default defineComponent({
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
+  background-color: transparent;
 }
 
 .qt-collapse-menu-item-title {
