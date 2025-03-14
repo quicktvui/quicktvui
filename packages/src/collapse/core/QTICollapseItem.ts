@@ -1,7 +1,5 @@
-import {QTIView} from "../../view/QTIView";
+import { QTIView } from '../../view/QTIView'
 
 export interface QTICollapseItem extends QTIView {
-
-  onCollapseItemExpand(value: boolean): void
-
+  onCollapseItemExpand(value: boolean, init: boolean): void
 }

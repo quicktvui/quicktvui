@@ -92,7 +92,7 @@ export default defineComponent({
 
       initCollapseItem()
       nextTick(() => {
-        expandItemDelay(collapseItemIndex, 0)
+        expandItemDelay(collapseItemIndex, 0, true)
       })
     }
 
@@ -125,7 +125,7 @@ export default defineComponent({
         try {
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
-            itemRef.onCollapseItemExpand(true)
+            itemRef.onCollapseItemExpand(true, false)
           }
         } catch (e) {}
         const animItemRef: QTIAnimation = getAnimItem(i)
@@ -149,7 +149,7 @@ export default defineComponent({
         try {
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
-            itemRef.onCollapseItemExpand(false)
+            itemRef.onCollapseItemExpand(false, false)
           }
         } catch (e) {}
 
@@ -167,7 +167,7 @@ export default defineComponent({
       }
     }
 
-    function expandItemDelay(index: number, delay: number) {
+    function expandItemDelay(index: number, delay: number, init: boolean = false) {
       const item = collapseItemList[index]
       const itemY = item.__y
       const translationY = collapseHeight.value - item.height - itemY
@@ -190,7 +190,7 @@ export default defineComponent({
         try {
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
-            itemRef.onCollapseItemExpand(i == index)
+            itemRef.onCollapseItemExpand(i == index, init)
           }
         } catch (e) {}
 
@@ -218,7 +218,7 @@ export default defineComponent({
       }
 
       try {
-        context.emit('onCollapseItemExpand', index, item)
+        context.emit('onCollapseItemExpand', index, item, init)
       } catch (e) {}
     }
 
