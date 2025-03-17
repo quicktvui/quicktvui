@@ -19,7 +19,7 @@ import {
   ESListViewItem,
   ESListViewItemFunctionParams,
 } from '@extscreen/es3-component'
-import { QTIUL, QTListViewItem } from '@quicktvui/quicktvui3'
+import { QTListViewItem } from '@quicktvui/quicktvui3'
 
 function registerQTUL(app: ESApp) {
   registerElement('RecyclePool', {
@@ -52,6 +52,7 @@ function registerQTUL(app: ESApp) {
               event.bindItem = nativeEventParams.bindItem
               event.recycleItem = nativeEventParams.recycleItem
               event.hashTag = nativeEventParams.hashTag
+              event.createTemplates = nativeEventParams.createTemplates
             }
             break
         }
@@ -452,7 +453,7 @@ function registerQTUL(app: ESApp) {
       //------------------------------------------------------------------------------
 
       const holders = reactive<any[]>([])
-
+      const templates = reactive<any[]>([])
       let expectedItemCount = -1
       let pageSize = 1
       let initHolderCount = 20
@@ -511,6 +512,7 @@ function registerQTUL(app: ESApp) {
               batch.push({
                 itemType: item.type,
                 position: i,
+                hdIndex: i,
               })
             }
             crateH(batch, 'hashTag')
@@ -518,14 +520,16 @@ function registerQTUL(app: ESApp) {
           const rawArray: any = []
           for (let i = 0; i < syncItem.value.length; i++) {
             const item: any = toRaw(syncItem.value[i])
-            rawArray.push({
-              type: item.type,
-              itemSize: item.itemSize,
-              span: item.span,
-              decoration: item.decoration ? item.decoration : {},
-            })
+            // rawArray.push({
+            //   type: item.type,
+            //   itemSize: item.itemSize,
+            //   span: item.span,
+            //   decoration: item.decoration ? item.decoration : {},
+            // })
+            rawArray.push(item)
           }
           currentLength.value = syncItem.value.length
+
           nextTick(() => {
             setDataStartTime = new Date().getTime()
             Native.callUIFunction(viewRef.value, 'setListDataWithParams', [
@@ -538,7 +542,7 @@ function registerQTUL(app: ESApp) {
           const endTime = new Date().getTime()
           console.log('-----QTUL----watch---END---耗时---->>>>>', endTime - watchStartTime)
         },
-        { deep: true }
+        {}
       )
 
       function crateH(batch: [], hashTag: string) {
@@ -550,11 +554,24 @@ function registerQTUL(app: ESApp) {
           const { itemType, position, hdIndex } = list[i]
           holders.push({
             itemType: itemType,
+            position: position,
             hdIndex: start + i,
           })
         }
         const endTime = new Date().getTime()
         console.log('-----QTUL----crateH---END---耗时---->>>>>', endTime - startTime)
+      }
+
+      function createT(params: any) {
+        let { item, type } = params
+        console.log('++createTemplate', `template:${JSON.stringify(item)}`)
+        const start = templates.length
+        templates.push({
+          type: type,
+          hdIndex: start,
+          isTemplate: true,
+          item: item,
+        })
       }
 
       function bindH(batch: []) {
@@ -574,7 +591,7 @@ function registerQTUL(app: ESApp) {
       function handleBatch(params: any) {
         const startTime = new Date().getTime()
 
-        let { createItem, bindItem, recycleItem, hashTag } = params
+        let { createItem, bindItem, recycleItem, hashTag, createTemplates } = params
         // Native.callUIFunction(viewRef.value, 'notifyBatchStart', [hashTag]);
         // if(recycleItem){
         //   recycleH(recycleItem)
@@ -595,6 +612,13 @@ function registerQTUL(app: ESApp) {
           )
           bindH(bindItem)
         }
+        if (createTemplates) {
+          const list = [...(Array.isArray(createTemplates) ? createTemplates : [createTemplates])]
+          for (let i = 0; i < list.length; i++) {
+            createT(list[i])
+          }
+        }
+
         const endTime = new Date().getTime()
 
         console.log(
@@ -617,6 +641,31 @@ function registerQTUL(app: ESApp) {
         }
       }
 
+      const renderTemplates = (ts) => {
+        console.log('renderTemplates called ', `renderTemplates:${JSON.stringify(ts)}`)
+        return ts.map((t: any, index: number) => {
+          return h(
+            'FastItemView',
+            {
+              key: t.hdIndex,
+              type: t.type,
+              focusable: false,
+              // position:hd.position
+              hdIndex: t.hdIndex,
+              poolItem: true,
+              isTemplate: true,
+              // item:props.items? props.items[hd.position] : {}
+            },
+            renderSlot(context.slots, 'item', {
+              // key:hd.sid,
+              // sid:hd.sid,
+              item: t.item,
+            })
+            // renderSlotContent('item',[])
+          )
+        })
+      }
+
       const traverseDomTree = (element) => {
         if (!element) {
           console.warn('Element is null or undefined')
@@ -633,7 +682,6 @@ function registerQTUL(app: ESApp) {
         // console.log("-----QTUL----renderItems---START------->>>>>",)
         const children = [
           renderSlot(context.slots, 'item', {
-            key: hd.hdIndex,
             item: syncItem.value && hd.position > -1 ? syncItem.value[hd.position] : {},
           }),
         ]
@@ -670,6 +718,7 @@ function registerQTUL(app: ESApp) {
               focusable: false,
               // position:hd.position,
               hdIndex: hd.hdIndex,
+              hdPosition: hd.position,
               position: 'absolute',
               poolItem: true,
               // item:syncItem? syncItem[hd.position] : {}
@@ -695,7 +744,10 @@ function registerQTUL(app: ESApp) {
                 key: 'RecyclePool',
                 slot: 'item',
                 pagingPageSize: pageSize,
-                expectedTotalCount: props.expectedTotalCount,
+                expectedTotalCount: expectedTotalCount,
+                enableDelayLoad: true,
+                disableDefaultPlaceholder: props.disableDefaultPlaceholder,
+                disableTemplate: props.disableTemplate,
                 onCreateHolder: (evt: any) => {
                   console.log('----QTUL---onCreateHolder------->>>>>', evt)
                 },
@@ -720,7 +772,7 @@ function registerQTUL(app: ESApp) {
                   handleBatch(evt)
                 },
               },
-              renderHolders(holders)
+              [...renderHolders(holders), ...renderTemplates(templates)]
             )
           : []
 
@@ -824,6 +876,14 @@ function registerQTUL(app: ESApp) {
       pageSize: {
         type: Number,
         default: -1,
+      },
+      disableDefaultPlaceholder: {
+        type: Boolean,
+        default: true,
+      },
+      disableTemplate: {
+        type: Boolean,
+        default: false,
       },
     },
   })
