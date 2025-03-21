@@ -737,6 +737,10 @@ function registerQTUL(app: ESApp) {
       }
       return () => {
         isSlotFooter.value = context.slots.footer ? true : false
+        // if(props.templateConfig){
+        //   props.templateConfig.defaultTemplateOnly = props.templateRenderMode
+        //   props.templateConfig.disableTemplate = props.disableTemplate
+        // }
         const items = context.slots.item
           ? h(
               'RecyclePool',
@@ -747,7 +751,7 @@ function registerQTUL(app: ESApp) {
                 expectedTotalCount: expectedTotalCount,
                 enableDelayLoad: true,
                 disableDefaultPlaceholder: props.disableDefaultPlaceholder,
-                disableTemplate: props.disableTemplate,
+                templateConfig: props.templateConfig,
                 onCreateHolder: (evt: any) => {
                   console.log('----QTUL---onCreateHolder------->>>>>', evt)
                 },
@@ -885,9 +889,32 @@ function registerQTUL(app: ESApp) {
         type: Boolean,
         default: false,
       },
+      templateRenderMode: {
+        type: Boolean,
+        default: false,
+      },
+      templateConfig: {
+        type: Object,
+        default: () => {
+          return {
+            defaultTemplateOnly: false,
+            disableTemplate: false,
+            forceSkipWarning: true,
+          }
+        },
+      },
     },
   })
   app.component('qt-ul', ULImpl)
+}
+
+export interface QTULTemplate {
+  defaultTemplateOnly?: boolean
+  disableTemplate?: boolean
+  forceSkipWarning?: boolean
+  realDOMTypes?: number[]
+  templateOnlyTypes?: number[]
+  skipWarningTypes?: number[]
 }
 
 export default registerQTUL
