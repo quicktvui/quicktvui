@@ -11,7 +11,6 @@
           :enablePlaceholder="false">
         <template #item="{item}">
           <qt-ul-item-image
-              @focus="focus"
               :src="item.url"
               v-if="item.type == 2"
           />

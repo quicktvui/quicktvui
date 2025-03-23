@@ -3,8 +3,8 @@
       :focusScale="1.1"
       :focusable="true"
       :enableFocusBorder="true"
-      @click="click"
-      @focus="focus"
+      eventClick
+      eventFocus
       :src="src" class="qt-ul-item-image"/>
 </template>
 

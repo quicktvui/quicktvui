@@ -12,7 +12,6 @@
         <template #item="{item}">
           <qt-ul-item-image
               :src="item.url"
-              @click="click"
               v-if="item.type == 2"
           />
         </template>

@@ -899,7 +899,7 @@ function registerQTUL(app: ESApp) {
           return {
             defaultTemplateOnly: false,
             disableTemplate: false,
-            forceSkipWarning: true,
+            forceSkipWarning: false,
           }
         },
       },

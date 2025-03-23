@@ -1,7 +1,7 @@
 <template>
   <div
     class="qt-ul-item-text-root"
-    :style="{ width: rootStyle.width, height: rootStyle.height }"
+    :style="{ width: rootStyle.width, height: rootStyle.height, backgroundColor: backgroundColor }"
     :focusable="true"
     :enableFocusBorder="true"
   >
