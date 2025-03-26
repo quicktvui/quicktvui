@@ -883,14 +883,6 @@ function registerQTUL(app: ESApp) {
       },
       disableDefaultPlaceholder: {
         type: Boolean,
-        default: true,
-      },
-      disableTemplate: {
-        type: Boolean,
-        default: false,
-      },
-      templateRenderMode: {
-        type: Boolean,
         default: false,
       },
       templateConfig: {
@@ -898,8 +890,7 @@ function registerQTUL(app: ESApp) {
         default: () => {
           return {
             defaultTemplateOnly: false,
-            disableTemplate: false,
-            forceSkipWarning: false,
+            enablePostDelay: false,
           }
         },
       },
@@ -909,12 +900,13 @@ function registerQTUL(app: ESApp) {
 }
 
 export interface QTULTemplate {
-  defaultTemplateOnly?: boolean
-  disableTemplate?: boolean
-  forceSkipWarning?: boolean
-  realDOMTypes?: number[]
-  templateOnlyTypes?: number[]
-  skipWarningTypes?: number[]
+  defaultTemplateOnly?: boolean //是否默认只使用模板渲染，不创建dom
+  disableTemplate?: boolean // 暂时不用
+  forceSkipWarning?: boolean // 暂时不用
+  enablePostDelay?: boolean //启用后，在列表滚动时，不会更新页面，只有当
+  realDOMTypes?: number[] //当defaultTemplateOnly为true时，需要创建真实dom的类型
+  templateOnlyTypes?: number[] //当defaultTemplateOnly为false时，需要渲染为模板的类型
+  skipWarningTypes?: number[] //暂时不用
 }
 
 export default registerQTUL
