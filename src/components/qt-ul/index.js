@@ -22,6 +22,7 @@ import qt_ul_item_player_page from './qt-ul-item-player-page'
 import qt_ul_load_more_page from './qt-ul-load-more-page'
 import qt_ul_load_page_page from './qt-ul-load-page-page'
 import qt_ul_delay_page from './qt-ul-delay-page'
+import qt_ul_item_no_item_size_page from './qt-ul-item-no-item-size-page'
 
 const QTULPageList = {
   qt_ul_basic_page: {
@@ -119,6 +120,10 @@ const QTULPageList = {
   qt_ul_load_page_page: {
     name: '离散型分页',
     component: qt_ul_load_page_page,
+  },
+  qt_ul_item_no_item_size_page: {
+    name: 'No Item Size',
+    component: qt_ul_item_no_item_size_page,
   },
 }
 export default QTULPageList

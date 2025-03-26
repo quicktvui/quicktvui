@@ -593,3 +593,85 @@ export function buildHorizontalRandomTextItem(index: number, span?: number): QTU
     }
   }
 }
+
+//---------------------------------------NO ITEM SIZE----------START--------------------------------------------
+export function buildRandomTextNoItemSizeItemList(
+  count: number,
+  span?: number
+): Array<QTULTextItem> {
+  const textList = []
+  for (let i = 0; i < count; i++) {
+    textList.push(buildRandomTextNoItemSizeItem(i, span))
+  }
+  return textList
+}
+
+export function buildRandomTextNoItemSizeItem(index: number, span?: number): QTULTextItem {
+  if (span && span != -1) {
+    return {
+      position: index,
+      span: span,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 800,
+        height: 200,
+      },
+    }
+  } else if (span == -1) {
+    return {
+      position: index,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 800,
+        height: 200,
+      },
+    }
+  } else {
+    return {
+      position: index,
+      span: 960,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 800,
+        height: 200,
+      },
+    }
+  }
+}
+//---------------------------------------NO ITEM SIZE-------------END-----------------------------------------
