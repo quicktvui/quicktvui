@@ -23,6 +23,7 @@ import qt_ul_load_more_page from './qt-ul-load-more-page'
 import qt_ul_load_page_page from './qt-ul-load-page-page'
 import qt_ul_delay_page from './qt-ul-delay-page'
 import qt_ul_item_no_item_size_page from './qt-ul-item-no-item-size-page'
+import qt_ul_item_auto_width_page from './qt-ul-item-auto-width-page'
 
 const QTULPageList = {
   qt_ul_basic_page: {
@@ -122,8 +123,12 @@ const QTULPageList = {
     component: qt_ul_load_page_page,
   },
   qt_ul_item_no_item_size_page: {
-    name: 'No Item Size',
+    name: 'NoItemSize',
     component: qt_ul_item_no_item_size_page,
+  },
+  qt_ul_item_auto_width_page: {
+    name: 'AutoWidth',
+    component: qt_ul_item_auto_width_page,
   },
 }
 export default QTULPageList

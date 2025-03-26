@@ -8,14 +8,13 @@
         ref="ulRef"
         name="ul"
         :items="itemList"
-        :spanCount="1920"
+        horizontal
         :enablePlaceholder="false"
       >
         <template #item="{ item }">
-          <qt-ul-item-text
+          <qt-ul-item-text-auto-width
             :text="item.text"
-            :background-color="item.raw.backgroundColor"
-            v-if="item.type == 3"
+            v-if="item.type == 12"
             :focusable="true"
             :enableFocusBorder="true"
           />
@@ -28,21 +27,21 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { buildRandomTextNoItemSizeItemList } from './__mocks__/list'
-import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
+import { buildHorizontalRandomTextNoItemSizeItemList } from './__mocks__/list'
+import qt_ul_item_text_auto_width from './item/text/qt-ul-item-text-auto-width.vue'
 import { QTListViewItem } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'NoItemSize',
+  name: 'AutoWidth',
   emits: [],
   components: {
-    'qt-ul-item-text': qt_ul_item_text,
+    'qt-ul-item-text-auto-width': qt_ul_item_text_auto_width,
   },
   setup(props, context) {
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildRandomTextNoItemSizeItemList(100)
+      const list = buildHorizontalRandomTextNoItemSizeItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }
@@ -62,11 +61,12 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: palevioletred;
 }
 
 .qt-ul-class {
   width: 1920px;
-  height: 1080px;
+  height: 400px;
   background-color: darkgray;
 }
 </style>

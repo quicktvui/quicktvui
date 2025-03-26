@@ -12,6 +12,7 @@ import {
   QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
   QT_UL_ITEM_TYPE_PLAYER,
   QT_UL_ITEM_TYPE_TEXT,
+  QT_UL_ITEM_TYPE_TEXT_AUTO_WIDTH,
   QT_UL_ITEM_TYPE_VIEW,
 } from '../item/type'
 import { QTULViewItem } from '../item/div/QTULViewItem'
@@ -670,6 +671,65 @@ export function buildRandomTextNoItemSizeItem(index: number, span?: number): QTU
       style: {
         width: 800,
         height: 200,
+      },
+    }
+  }
+}
+
+export function buildHorizontalRandomTextNoItemSizeItemList(
+  count: number,
+  span?: number
+): Array<QTULTextItem> {
+  const textList = []
+  for (let i = 0; i < count; i++) {
+    textList.push(buildHorizontalRandomNoItemSizeTextItem(i, span))
+  }
+  return textList
+}
+
+export function buildHorizontalRandomNoItemSizeTextItem(
+  index: number,
+  span?: number
+): QTULTextItem {
+  if (span && span != -1) {
+    return {
+      position: index,
+      span: span,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT_AUTO_WIDTH,
+      text: index + '、' + buildRandomText(),
+      backgroundColor: buildRandomColor(),
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+    }
+  } else if (span == -1) {
+    return {
+      position: index,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT_AUTO_WIDTH,
+      text: index + '、' + buildRandomText(),
+      backgroundColor: buildRandomColor(),
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+    }
+  } else {
+    return {
+      position: index,
+      span: 960,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT_AUTO_WIDTH,
+      text: index + '、' + buildRandomText(),
+      backgroundColor: buildRandomColor(),
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
       },
     }
   }
