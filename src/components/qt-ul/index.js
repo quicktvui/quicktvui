@@ -25,6 +25,7 @@ import qt_ul_delay_page from './qt-ul-delay-page'
 import qt_ul_item_no_item_size_page from './qt-ul-item-no-item-size-page'
 import qt_ul_item_auto_width_page from './qt-ul-item-auto-width-page'
 import qt_ul_template_page from './qt-ul-template-page'
+import qt_ul_post_delay_page from './qt-ul-post-delay-page'
 
 const QTULPageList = {
   qt_ul_basic_page: {
@@ -134,6 +135,10 @@ const QTULPageList = {
   qt_ul_template_page: {
     name: 'TemplateOnly',
     component: qt_ul_template_page,
+  },
+  qt_ul_post_delay_page: {
+    name: 'PostDelay',
+    component: qt_ul_post_delay_page,
   },
 }
 export default QTULPageList
