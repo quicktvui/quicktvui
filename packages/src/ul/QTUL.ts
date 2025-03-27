@@ -471,79 +471,92 @@ function registerQTUL(app: ESApp) {
       let recordSyncItem: Array<any> = []
       let currntPage = props.pageNo
 
+      onMounted(() => {
+        console.log(`--------QTUL-----------onMounted----->>>>`, props.items)
+        if (props.items && props.items.length > 0) {
+          initItemData()
+        }
+      })
+
       watch(
         () => props.items,
         (newVal, oldVal) => {
-          watchStartTime = new Date().getTime()
-          if (isLoadPage) {
-            if (recordSyncItem.length != props.expectedTotalCount) {
-              recordSyncItem = Array(props.expectedTotalCount)
-                .fill(null)
-                .map(() => ({}))
-              let array = new Array(props.expectedTotalCount).fill(null).map(() => ({
-                type: (props.items as unknown as Array<QTListViewItem>)[0].type,
-              }))
-              syncItem.value.push(...array)
-            }
-            syncItem.value.splice(
-              (currntPage - 1) * props.pageSize,
-              10,
-              ...toRaw(props.items as unknown as Array<QTListViewItem>)
-            )
-            recordSyncItem.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
-          } else {
-            syncItem.value = props.items as unknown as Array<QTListViewItem>
-          }
-          console.log('-----QTUL----watch---START----开始时间：--->>>>>', watchStartTime, syncItem)
-          if (holders.length < 1) {
-            let initCount = 0
-            if (pageSize > 0) {
-              // initCount =   Math.min(pageSize, syncItem.length)
-              // initCount =   Math.min(pageSize, syncItem.length)
-              initCount = 0
-            } else {
-              //pageSize小于0时，表示全部加载
-              initCount = syncItem.value.length
-            }
-            let batch: any = []
-            // const {itemType,position} = list[i]
-            for (let i = 0; i < initCount; i++) {
-              let item: any = toRaw(syncItem.value[i])
-              batch.push({
-                itemType: item.type,
-                position: i,
-                hdIndex: i,
-              })
-            }
-            crateH(batch, 'hashTag')
-          }
-          const rawArray: any = []
-          for (let i = 0; i < syncItem.value.length; i++) {
-            const item: any = toRaw(syncItem.value[i])
-            // rawArray.push({
-            //   type: item.type,
-            //   itemSize: item.itemSize,
-            //   span: item.span,
-            //   decoration: item.decoration ? item.decoration : {},
-            // })
-            rawArray.push(item)
-          }
-          currentLength.value = syncItem.value.length
-
-          nextTick(() => {
-            setDataStartTime = new Date().getTime()
-            Native.callUIFunction(viewRef.value, 'setListDataWithParams', [
-              rawArray,
-              false,
-              false,
-              {},
-            ])
-          })
-          const endTime = new Date().getTime()
-          console.log('-----QTUL----watch---END---耗时---->>>>>', endTime - watchStartTime)
+          console.log(`--------QTUL-----------watch----->>>>`, props.items)
+          initItemData()
         },
         {}
       )
+
+      function initItemData() {
+        console.log(`--------QTUL-----------initItemData----->>>>`, props.items)
+        watchStartTime = new Date().getTime()
+        if (isLoadPage) {
+          if (recordSyncItem.length != props.expectedTotalCount) {
+            recordSyncItem = Array(props.expectedTotalCount)
+              .fill(null)
+              .map(() => ({}))
+            let array = new Array(props.expectedTotalCount).fill(null).map(() => ({
+              type: (props.items as unknown as Array<QTListViewItem>)[0].type,
+            }))
+            syncItem.value.push(...array)
+          }
+          syncItem.value.splice(
+            (currntPage - 1) * props.pageSize,
+            10,
+            ...toRaw(props.items as unknown as Array<QTListViewItem>)
+          )
+          recordSyncItem.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
+        } else {
+          syncItem.value = props.items as unknown as Array<QTListViewItem>
+        }
+        console.log('-----QTUL----watch---START----开始时间：--->>>>>', watchStartTime, syncItem)
+        if (holders.length < 1) {
+          let initCount = 0
+          if (pageSize > 0) {
+            // initCount =   Math.min(pageSize, syncItem.length)
+            // initCount =   Math.min(pageSize, syncItem.length)
+            initCount = 0
+          } else {
+            //pageSize小于0时，表示全部加载
+            initCount = syncItem.value.length
+          }
+          let batch: any = []
+          // const {itemType,position} = list[i]
+          for (let i = 0; i < initCount; i++) {
+            let item: any = toRaw(syncItem.value[i])
+            batch.push({
+              itemType: item.type,
+              position: i,
+              hdIndex: i,
+            })
+          }
+          crateH(batch, 'hashTag')
+        }
+        const rawArray: any = []
+        for (let i = 0; i < syncItem.value.length; i++) {
+          const item: any = toRaw(syncItem.value[i])
+          // rawArray.push({
+          //   type: item.type,
+          //   itemSize: item.itemSize,
+          //   span: item.span,
+          //   decoration: item.decoration ? item.decoration : {},
+          // })
+          rawArray.push(item)
+        }
+        currentLength.value = syncItem.value.length
+
+        nextTick(() => {
+          setDataStartTime = new Date().getTime()
+          Native.callUIFunction(viewRef.value, 'setListDataWithParams', [
+            rawArray,
+            false,
+            false,
+            {},
+          ])
+        })
+        const endTime = new Date().getTime()
+        console.log('-----QTUL----watch---END---耗时---->>>>>', endTime - watchStartTime)
+      }
 
       function crateH(batch: [], hashTag: string) {
         const startTime = new Date().getTime()
