@@ -131,7 +131,8 @@
     "css-loader": "^3.5.2",
     "webpack-node-externals": "^3.0.0",
     "rollup-plugin-flow-no-whitespace": "^1.0.0",
-    "compressing": "^1.10.0"
+    "compressing": "^1.10.0",
+    "@extscreen/es3-dynamic-import-plugin": "^0.0.5"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "prettier --write"

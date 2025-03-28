@@ -20,4 +20,6 @@ export interface QTIUL extends QTIListView {
   refreshListData(): void
 
   getScrollOffset(): Promise<QTPosition>
+
+  setPendingListCount(count: number): void
 }

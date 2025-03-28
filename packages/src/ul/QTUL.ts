@@ -108,6 +108,16 @@ function registerQTUL(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'scrollToPositionWithOffset', [y, offset, anim])
       }
 
+      function setPendingListCount(count: number) {
+        console.log('setPendingListCount', count)
+        Native.callUIFunction(viewRef.value, 'setListDataWithParams', [
+          [],
+          false,
+          false,
+          { pendingCount: count },
+        ])
+      }
+
       function scrollToPositionWithOffsetInfiniteMode(
         position: number,
         offset: number,
@@ -397,6 +407,7 @@ function registerQTUL(app: ESApp) {
         scrollToPositionWithOffset,
         scrollToPositionWithOffsetInfiniteMode,
         scrollToPosition,
+        setPendingListCount,
         refreshListData,
         updateItemTraverse,
         requestItemLayout,
@@ -904,6 +915,7 @@ function registerQTUL(app: ESApp) {
           return {
             defaultTemplateOnly: false,
             enablePostDelay: false,
+            disableTemplate: false,
           }
         },
       },
