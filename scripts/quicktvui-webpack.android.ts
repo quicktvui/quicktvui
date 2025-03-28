@@ -4,8 +4,10 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
+const WebpackObfuscator = require('webpack-obfuscator')
 const platform = 'android'
 const pkg = require('../package.json')
+let cssLoader = '@hippy/vue-css-loader'
 
 module.exports = {
   mode: 'production',
@@ -21,13 +23,7 @@ module.exports = {
     assetModuleFilename: '[hash][ext][query]',
     // CDN path can be configured to load children bundles from remote server
     // publicPath: 'https://xxx/hippy/hippyVueNextDemo/',
-    publicPath: './', // ✅ 生成的资源路径不会携带 host 和 port
-  },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-      publicPath: '/', // ✅ 避免图片路径带上 host 和 port
-    },
+    publicPath: './',
   },
   optimization: {
     moduleIds: 'named',
@@ -64,9 +60,7 @@ module.exports = {
         defaultVendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10,
-          chunks: 'all',
           reuseExistingChunk: true,
-          name: 'vendor',
           filename: 'vendor.android.js',
         },
         default: {
@@ -79,30 +73,71 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
       __PLATFORM__: JSON.stringify(platform),
       __DEV__: false,
       __TEST__: false,
       __FEATURE_PROD_DEVTOOLS__: false,
       __BROWSER__: false,
-      __VUE_OPTIONS_API__: true,
-      __VUE_PROD_DEVTOOLS__: false,
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+      'process.env': '{}',
     }),
     new CaseSensitivePathsPlugin(),
     new VueLoaderPlugin(),
     new ESDynamicImportPlugin(),
+    new WebpackObfuscator(
+      {
+        rotateStringArray: true,
+      },
+      ['']
+    ),
   ],
   module: {
     rules: [
       {
         test: /\.vue$/,
-        use: ['vue-loader', 'unicode-loader'],
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              compilerOptions: {
+                // disable vue3 dom patch flag，because hippy do not support innerHTML
+                hoistStatic: false,
+                // whitespace handler, default is 'condense', it can be set 'preserve'
+                whitespace: 'condense',
+              },
+            },
+          },
+        ],
       },
       {
-        test: /\.css$/,
-        use: ['@huantv/vue-css-loader'],
+        test: /\.(le|c)ss$/,
+        use: [cssLoader, 'less-loader'],
+      },
+      {
+        test: /\.t|js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              sourceType: 'unambiguous',
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: {
+                      chrome: 57,
+                    },
+                  },
+                ],
+              ],
+              plugins: [
+                ['@babel/plugin-proposal-class-properties'],
+                ['@babel/plugin-proposal-decorators', { legacy: true }],
+                ['@babel/plugin-transform-runtime', { regenerator: true }],
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -113,15 +148,17 @@ module.exports = {
         },
       },
       {
-        test: /\.t|js$/,
+        test: /\.(ts)$/,
         use: [
           {
-            loader: 'esbuild-loader',
+            loader: 'ts-loader',
             options: {
-              target: 'es2018',
+              transpileOnly: true,
+              appendTsSuffixTo: [/\.vue$/],
             },
           },
         ],
+        exclude: /node_modules/,
       },
       {
         test: /\.mjs$/,
@@ -132,12 +169,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json', '.ts'],
-    alias: (() => {
-      const aliases = {
-        src: path.resolve('./src'),
-        '@': path.resolve('./src'),
-      }
-      return aliases
-    })(),
   },
 }
