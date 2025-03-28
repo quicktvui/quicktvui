@@ -6,8 +6,7 @@
       <qt-ul
         class="qt-ul-root"
         :stableItemSize="100"
-        :expectedTotalCount="100"
-        ref="qtUlSelectionsRef"
+        ref="ulRef"
         name="qt_selections"
         :pageNo="pageNo"
         :pageSize="10"
@@ -78,7 +77,7 @@ export default defineComponent({
       //list.value = buildData(pageNo.value)
       console.log('------buildViewItemList-------->>>', list)
       ulRef.value?.setPendingListCount(1000)
-      // Native.callUIFunction(ulRef.value, 'setListDataWithParams', [
+      // Native.callUIFunction(ulRef, 'setListDataWithParams', [
       //   [],
       //   false,
       //   false,

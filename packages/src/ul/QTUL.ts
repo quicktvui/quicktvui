@@ -838,7 +838,7 @@ function registerQTUL(app: ESApp) {
               // console.log('----QTUL---onBindItem------->>>>>', evt)
               //console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
               if (isLoadPage) {
-                if (!recordSyncItem[evt.position].type) {
+                if (recordSyncItem[evt.position] && !recordSyncItem[evt.position].type) {
                   if (Math.floor(evt.position / props.pageSize) + 1 != currntPage) {
                     currntPage = Math.floor(evt.position / props.pageSize) + 1
                     props.loadPage(currntPage)
