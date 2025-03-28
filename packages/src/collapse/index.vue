@@ -1,40 +1,46 @@
 <template>
-  <div class="qt-collapse-root-css"
-       ref="viewRef"
-       :clipChildren="false" :clipPadding="false"
-       :style="{width: collapseWidth, height: collapseHeight}">
+  <div
+    class="qt-collapse-root-css"
+    ref="viewRef"
+    :clipChildren="false"
+    :clipPadding="false"
+    :style="{ width: collapseWidth, height: collapseHeight }"
+  >
     <qt-animation
       v-for="(item, index) in collapseItemComponentList"
       :ref="(el) => initAnimComponentRef(el, item, index)"
-      class="qt-collapse-item-css">
+      class="qt-collapse-item-css"
+    >
       <component
         :is="item"
         :key="item.name"
         class="qt-collapse-item-css"
-        :ref="(el) => initComponentRef(el, item, index)"/>
+        :ref="(el) => initComponentRef(el, item, index)"
+      />
     </qt-animation>
   </div>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "@vue/runtime-core";
-import {ESLogLevel, useESLog} from "@extscreen/es3-core";
-import {QTICollapseItem} from "./core/QTICollapseItem";
-import {QTCollapseItem} from "./core/QTCollapseItem";
-import {QTCollapse} from "./core/QTCollapse";
-import {nextTick, ref} from "vue";
-import {QTIAnimation} from "../animation/QTIAnimation";
-import {QTAnimationPropertyName, QTAnimationValueType} from "../animation/types";
-import useBaseView from "../base/useBaseView";
+import { defineComponent } from '@vue/runtime-core'
+import { ESLogLevel, useESLog } from '@extscreen/es3-core'
+import { QTICollapseItem } from './core/QTICollapseItem'
+import { QTCollapseItem } from './core/QTCollapseItem'
+import { QTCollapse } from './core/QTCollapse'
+import { nextTick, ref } from 'vue'
+import { QTIAnimation } from '../animation/QTIAnimation'
+import {
+  QTAnimationInterpolatorType,
+  QTAnimationPropertyName,
+  QTAnimationValueType,
+} from '../animation/types'
+import useBaseView from '../base/useBaseView'
 
 const TAG = 'QTCollapse'
 
 export default defineComponent({
-  name: "qt-collapse",
-  emits: [
-    'onCollapseItemExpand',
-  ],
+  name: 'qt-collapse',
+  emits: ['onCollapseItemExpand'],
   setup(props, context) {
     const log = useESLog()
     const viewRef = ref()
@@ -86,17 +92,17 @@ export default defineComponent({
 
       initCollapseItem()
       nextTick(() => {
-        expandItemDelay(collapseItemIndex, 0)
+        expandItemDelay(collapseItemIndex, 0, true)
       })
     }
 
     function initCollapseItem() {
       if (!collapseItemList || collapseItemList.length <= 0) {
-        return;
+        return
       }
       const length = collapseItemList.length
       let itemY: number = 0
-      for (let i = (length - 1); i >= 0; i--) {
+      for (let i = length - 1; i >= 0; i--) {
         const item = collapseItemList[i]
         itemY = itemY + item.height
         item.__y = collapseHeight.value - itemY
@@ -114,19 +120,17 @@ export default defineComponent({
 
     function expand() {
       const length = collapseItemList.length
-      for (let i = (length - 1); i >= 0; i--) {
+      for (let i = length - 1; i >= 0; i--) {
         const item = collapseItemList[i]
         try {
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
-            itemRef.onCollapseItemExpand(true)
+            itemRef.onCollapseItemExpand(true, false)
           }
-        } catch (e) {
-        }
+        } catch (e) {}
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {
-          translationItem(i + '', item, animItemRef,
-            item.__translationY, 0, 0)
+          translationItem(i + '', item, animItemRef, item.__translationY, 0, 0)
         }
       }
     }
@@ -136,29 +140,34 @@ export default defineComponent({
       const item = collapseItemList[length - 1]
       const itemY = item.__y
       const translationY = collapseHeight.value - item.height - itemY
-      let itemTotalY: number = 0;
+      let itemTotalY: number = 0
 
-      for (let i = (length - 1); i >= 0; i--) {
+      for (let i = length - 1; i >= 0; i--) {
         const item = collapseItemList[i]
         const itemCollapseHeight = item.collapseHeight
         itemTotalY = itemTotalY + itemCollapseHeight
         try {
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
-            itemRef.onCollapseItemExpand(false)
+            itemRef.onCollapseItemExpand(false, false)
           }
-        } catch (e) {
-        }
+        } catch (e) {}
 
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {
-          translationItem(i + '', item, animItemRef,
-            item.__translationY, (translationY + itemTotalY), 0)
+          translationItem(
+            i + '',
+            item,
+            animItemRef,
+            item.__translationY,
+            translationY + itemTotalY,
+            0
+          )
         }
       }
     }
 
-    function expandItemDelay(index: number, delay: number) {
+    function expandItemDelay(index: number, delay: number, init: boolean = false) {
       const item = collapseItemList[index]
       const itemY = item.__y
       const translationY = collapseHeight.value - item.height - itemY
@@ -166,10 +175,10 @@ export default defineComponent({
         log.d(TAG, '-------expandItem------->>>>', index, translationY, itemY)
       }
       //
-      let itemTotalY: number = 0;
+      let itemTotalY: number = 0
       const length = collapseItemList.length
 
-      for (let i = (length - 1); i >= 0; i--) {
+      for (let i = length - 1; i >= 0; i--) {
         const item = collapseItemList[i]
         const itemHeight = item.height
         const itemCollapseHeight = item.collapseHeight
@@ -181,31 +190,46 @@ export default defineComponent({
         try {
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
-            itemRef.onCollapseItemExpand(i == index)
+            itemRef.onCollapseItemExpand(i == index, init)
           }
-        } catch (e) {
-        }
+        } catch (e) {}
 
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {
           if (log.isLoggable(ESLogLevel.DEBUG)) {
-            log.d(TAG, '-------expandItem----translationY--->>>>',
-              item, i, item.__translationY, (translationY + itemTotalY))
+            log.d(
+              TAG,
+              '-------expandItem----translationY--->>>>',
+              item,
+              i,
+              item.__translationY,
+              translationY + itemTotalY
+            )
           }
-          translationItem(i + '', item, animItemRef,
-            item.__translationY, (translationY + itemTotalY),
-            delay)
+          translationItem(
+            i + '',
+            item,
+            animItemRef,
+            item.__translationY,
+            translationY + itemTotalY,
+            delay
+          )
         }
       }
 
       try {
-        context.emit('onCollapseItemExpand', index, item)
-      } catch (e) {
-      }
+        context.emit('onCollapseItemExpand', index, item, init)
+      } catch (e) {}
     }
 
-    function translationItem(id: string, item: QTCollapseItem, animItemRef: QTIAnimation,
-                             fromY: number, toY: number, duration: number) {
+    function translationItem(
+      id: string,
+      item: QTCollapseItem,
+      animItemRef: QTIAnimation,
+      fromY: number,
+      toY: number,
+      duration: number
+    ) {
       animItemRef.objectAnimator2(
         id,
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
@@ -217,8 +241,12 @@ export default defineComponent({
         0,
         false,
         false,
+        {
+          type: QTAnimationInterpolatorType.QT_ACCELERATE_INTERPOLATOR,
+          params: [2],
+        }
       )
-      animItemRef.startAnimator(id);
+      animItemRef.startAnimator(id)
       item.__translationY = toY
     }
 
@@ -238,11 +266,10 @@ export default defineComponent({
       collapseWidth,
       collapseHeight,
       viewRef,
-      ...useBaseView(viewRef)
+      ...useBaseView(viewRef),
     }
   },
-});
-
+})
 </script>
 
 <style scoped>
@@ -255,7 +282,5 @@ export default defineComponent({
 }
 
 .qt-collapse-item-css {
-
 }
-
 </style>
