@@ -62,9 +62,6 @@ module.exports = {
       __PLATFORM__: null,
       __DEV__: true,
     }),
-    new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1,
-    }),
     new ESDynamicImportPlugin(),
     new CleanWebpackPlugin(),
   ],
@@ -96,7 +93,7 @@ module.exports = {
           {
             loader: 'esbuild-loader',
             options: {
-              target: 'es2018',
+              target: 'es2015',
             },
           },
         ],
@@ -134,8 +131,7 @@ module.exports = {
     alias: (() => {
       const aliases = {
         src: path.resolve('./src'),
-        '@': path.resolve('./src'),
-        '@quicktvui/quicktvui3': path.resolve('./packages'),
+        quicktvui: path.resolve('../dist/quicktvui'),
       }
       return aliases
     })(),
