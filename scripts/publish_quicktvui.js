@@ -1,5 +1,0 @@
-const cp = require('child_process')
-const p = require('process')
-const path = require('path')
-p.chdir(path.resolve('./packages/'))
-cp.execSync(`npm publish --access-public`)

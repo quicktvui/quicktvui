@@ -1,20 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const webpack = require('webpack');
-const HippyDynamicImportPlugin = require('@hippy/hippy-dynamic-import-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const {VueLoaderPlugin} = require('vue-loader');
-const watchPlugin = require('./webpack-watch.js');
-const pkg = require('../package.json');
-let cssLoader = '@hippy/vue-css-loader';
-const hippyVueCssLoaderPath = path.resolve(__dirname, '../../../packages/hippy-vue-css-loader/dist/css-loader.js');
-if (fs.existsSync(hippyVueCssLoaderPath)) {
-  console.warn(`* Using the @hippy/vue-css-loader in ${hippyVueCssLoaderPath}`);
-  cssLoader = hippyVueCssLoaderPath;
-} else {
-  console.warn('* Using the @hippy/vue-css-loader defined in package.json');
-}
+const path = require('path')
+const webpack = require('webpack')
+const ESDynamicImportPlugin = require('@extscreen/es3-dynamic-import-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
+const watchPlugin = require('./webpack-watch.ts')
 
+const pkg = require('../package.json')
+let cssLoader = '@hippy/vue-css-loader'
 
 module.exports = {
   mode: 'development',
@@ -46,7 +38,7 @@ module.exports = {
     },
   },
   entry: {
-    index: ['@hippy/rejection-tracking-polyfill', path.resolve(pkg.nativeMain)],
+    index: ['@hippy/rejection-tracking-polyfill', path.resolve(pkg.main)],
   },
   output: {
     filename: 'index.bundle',
@@ -54,6 +46,7 @@ module.exports = {
     strictModuleExceptionHandling: true,
     path: path.resolve('./dist/dev/'),
     globalObject: '(0, eval)("this")',
+    assetModuleFilename: '[hash][ext][query]',
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -69,17 +62,10 @@ module.exports = {
       __PLATFORM__: null,
       __DEV__: true,
     }),
-    new HippyDynamicImportPlugin(),
-    // LimitChunkCountPlugin can control dynamic import ability
-    // Using 1 will prevent any additional chunks from being added
-    // new webpack.optimize.LimitChunkCountPlugin({
-    //   maxChunks: 1,
-    // }),
-    // use SourceMapDevToolPlugin can generate sourcemap file while setting devtool to false
-    // new webpack.SourceMapDevToolPlugin({
-    //   test: /\.(js|jsbundle|css|bundle)($|\?)/i,
-    //   filename: '[file].map',
-    // }),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+    new ESDynamicImportPlugin(),
     new CleanWebpackPlugin(),
   ],
   module: {
@@ -110,38 +96,19 @@ module.exports = {
           {
             loader: 'esbuild-loader',
             options: {
-              target: 'es2015',
+              target: 'es2018',
             },
           },
         ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            limit: true,
-            // limit: 8192,
-            fallback: 'file-loader',
-            name: '[name].[ext]',
-            outputPath: 'assets/',
-            publicPath: 'assets',
-          },
-        }],
+        type: 'asset/resource',
+        generator: {
+          outputPath: 'assets/',
+          publicPath: 'assets/',
+        },
       },
-      // {
-      //   test: /\.(png|jpe?g|gif)$/i,
-      //   use: [{
-      //     loader: 'url-loader',
-      //     options: {
-      //       limit: true,
-      //       // limit: 8192,
-      //       // fallback: 'file-loader',
-      //       // name: '[name].[ext]',
-      //       // outputPath: 'assets/',
-      //     },
-      //   }],
-      // },
       {
         test: /\.(ts)$/,
         use: [
@@ -167,11 +134,9 @@ module.exports = {
     alias: (() => {
       const aliases = {
         src: path.resolve('./src'),
-        // '@': path.resolve('./src'),
-        // '@quicktvui/quicktvui3': path.resolve('./packages/src'),
-        // '@quicktvui/quicktvui3': path.resolve('./packages'),
-      };
-      return aliases;
+        '@': path.resolve('./src'),
+      }
+      return aliases
     })(),
   },
-};
+}
