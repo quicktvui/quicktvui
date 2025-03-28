@@ -8,7 +8,6 @@
   "license": "Apache-2.0",
   "author": "OpenHippy Team",
   "scripts": {
-    "rollup-dev": "cd packages && rollup -c --bundleConfigAsCjspwd && cd ../ && node ./scripts/env-polyfill.js hippy-dev -c ./scripts/hippy-webpack.dev.js",
     "dev": "tsx ./scripts/dev.ts",
     "pack": "tsx ./scripts/pack.ts",
     "clean:dist": "rimraf dist",
