@@ -9,12 +9,14 @@
         ref="ulRef"
         name="qt_selections"
         :pageNo="pageNo"
-        :pageSize="10"
+        :preLoadNumber="5"
+        :pageSize="PAGE_SIZE"
         :clipChildren="false"
         :chipPadding="false"
         padding="80,0,60,0"
         :horizontal="true"
         :loadPage="loadPage"
+        :expectedTotalCount="1000"
         :enablePlaceholder="false"
       >
         <template #item="{ item, index }">
@@ -57,10 +59,11 @@ export default defineComponent({
     const count = ref(10000)
     const ulRef = ref<QTIUL>()
     let index = 1
+    const PAGE_SIZE = 10
     let pageNo = ref(3)
     const buildData = (pIndex): any => {
       let arr: Array<any> = []
-      for (let i = pIndex * 10 - 10; i < pIndex * 10; i++) {
+      for (let i = pIndex * PAGE_SIZE - PAGE_SIZE; i < pIndex * PAGE_SIZE; i++) {
         arr.push({
           id: 'id' + i,
           name: 'name' + Math.random(),
@@ -76,7 +79,7 @@ export default defineComponent({
     function onESCreate() {
       //list.value = buildData(pageNo.value)
       console.log('------buildViewItemList-------->>>', list)
-      ulRef.value?.setPendingListCount(1000)
+      // ulRef.value?.setPendingListCount(1000)
       // Native.callUIFunction(ulRef, 'setListDataWithParams', [
       //   [],
       //   false,
@@ -84,9 +87,10 @@ export default defineComponent({
       //   {pendingCount:count},
       // ])
     }
-    const loadPage = (page) => {
+    const loadPage = (page, start, count) => {
       setTimeout(() => {
-        list.value = buildData(page)
+        const data = buildData(page)
+        ulRef.value?.notifyDataSetChanged(start, count, data)
       }, 500)
     }
     return {
@@ -96,6 +100,7 @@ export default defineComponent({
       list,
       onESCreate,
       loadPage,
+      PAGE_SIZE,
     }
   },
 })

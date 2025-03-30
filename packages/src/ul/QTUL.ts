@@ -118,6 +118,16 @@ function registerQTUL(app: ESApp) {
         ])
       }
 
+      function notifyDataSetChanged(position: number, count: number, data: Array<ESListViewItem>) {
+        console.log('call notifyDataSetChanged', position, count, data)
+
+        if (syncItem.value.length < position + count) {
+          syncItem.value.push(...Array(position + count - syncItem.value.length).fill({}))
+        }
+        syncItem.value.splice(position, count, ...data)
+        Native.callUIFunction(viewRef.value, 'notifyDataSetChanged', [position, count, data])
+      }
+
       function scrollToPositionWithOffsetInfiniteMode(
         position: number,
         offset: number,
@@ -408,6 +418,7 @@ function registerQTUL(app: ESApp) {
         scrollToPositionWithOffsetInfiniteMode,
         scrollToPosition,
         setPendingListCount,
+        notifyDataSetChanged,
         refreshListData,
         updateItemTraverse,
         requestItemLayout,
@@ -476,15 +487,23 @@ function registerQTUL(app: ESApp) {
       let watchStartTime = 0
       let setDataStartTime = -1
 
-      let isLoadPage =
-        props.pageNo > 0 && props.pageSize > 0 && props.expectedTotalCount > 0 ? true : false
       let syncItem = ref<Array<QTListViewItem>>([])
-      let recordSyncItem: Array<any> = []
+      // let recordSyncItem: Array<any> = []
       let currntPage = props.pageNo
 
+      let pageSlices: Map<number, PageSlice> = new Map()
+
+      let isLoadPage = props.pageSize > 0 && props.expectedTotalCount > 0
+
       onMounted(() => {
-        console.log(`--------QTUL-----------onMounted----->>>>`, props.items)
-        if (props.items && props.items.length > 0) {
+        const itemLength = props.items.length
+        const pageSize = props.pageSize
+        console.log(
+          `--------QTUL-----------onMounted----->>>> itemLength: ${itemLength},expectedTotalCount ${props.expectedTotalCount} ,pageSize:${pageSize}`
+        )
+        if (props.expectedTotalCount > 0) {
+          initPendingData()
+        } else if (props.items && props.items.length > 0) {
           initItemData()
         }
       })
@@ -493,56 +512,133 @@ function registerQTUL(app: ESApp) {
         () => props.items,
         (newVal, oldVal) => {
           console.log(`--------QTUL-----------watch----->>>>`, props.items)
-          initItemData()
+          if (!isLoadPage) {
+            initItemData()
+          }
         },
         {}
       )
 
-      function initItemData() {
-        console.log(`--------QTUL-----------initItemData----->>>>`, props.items)
-        watchStartTime = new Date().getTime()
-        if (isLoadPage) {
-          if (recordSyncItem.length != props.expectedTotalCount) {
-            recordSyncItem = Array(props.expectedTotalCount)
-              .fill(null)
-              .map(() => ({}))
-            let array = new Array(props.expectedTotalCount).fill(null).map(() => ({
-              type: (props.items as unknown as Array<QTListViewItem>)[0].type,
-            }))
-            syncItem.value.push(...array)
-          }
-          syncItem.value.splice(
-            (currntPage - 1) * props.pageSize,
-            10,
-            ...toRaw(props.items as unknown as Array<QTListViewItem>)
-          )
-          recordSyncItem.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
-        } else {
+      function initPendingData() {
+        console.log(`--------QTUL-----------initPendingData----->>>>`)
+        nextTick(() => {
           syncItem.value = props.items as unknown as Array<QTListViewItem>
+          setDataStartTime = new Date().getTime()
+          Native.callUIFunction(viewRef.value, 'setListDataWithParams', [
+            [],
+            false,
+            false,
+            props.expectedTotalCount > 0 ? { pendingCount: props.expectedTotalCount } : {},
+          ])
+        })
+      }
+
+      function loadPageIfNeeded(position: number) {
+        if (isLoadPage) {
+          const pageSize = props.pageSize
+          const expectedTotalCount = props.expectedTotalCount
+          const pageCount = Math.ceil(expectedTotalCount / pageSize)
+          const currentPage = Math.floor(position / pageSize) + 1
+          // let needLoad = false
+          let slice: PageSlice | undefined = pageSlices.get(currentPage)
+          // console.log(`loadPageIfNeeded pageSizes: ${pageSize},expectedTotalCount: ${expectedTotalCount},pageCount: ${pageCount},currentPage: ${currentPage}`)
+          if (currentPage < pageCount) {
+            if (slice) {
+              //const slice : PageSlice = pageSlices.get(currentPage) as PageSlice
+              // if(slice.dataState == 0){
+              //   slice.dataState = 1
+              // }
+            } else {
+              slice = {
+                dataState: 0,
+                pageNo: currentPage,
+                startPosition: (currentPage - 1) * pageSize,
+                endPosition: Math.min(currentPage * pageSize, expectedTotalCount),
+              }
+              pageSlices.set(currentPage, slice)
+            }
+            if (slice && slice.dataState == 0) {
+              slice.dataState = 1
+              console.warn(
+                `exe loadPage ---->>>>> currentPage: ${currentPage},startPosition: ${slice.startPosition},endPosition: ${slice.endPosition},pageSize: ${pageSize}`
+              )
+              props.loadPage(currentPage, slice.startPosition, pageSize)
+            }
+          }
         }
+      }
+
+      function preparePaging() {
+        if (props.pageSize > 0) {
+          // const pageSize = props.pageSize
+          // const expectedTotalCount = props.expectedTotalCount
+          // const pageCount = Math.ceil(expectedTotalCount / pageSize)
+          // let start = 0
+          // let end = pageSize
+          // for (let i = 0; i < pageCount; i++) {
+          //    let slice: PageSlice = {
+          //         readyState:false,
+          //         pageNo: i + 1,
+          //         startPosition: start,
+          //         endPosition: end
+          //    }
+          //     pageSlices.push(slice)
+          //     start = end
+          //     end = Math.min(end + pageSize, expectedTotalCount)
+          // }
+        }
+      }
+
+      function initItemData() {
+        const itemLength = props.items.length
+        const expectedTotalCount = props.expectedTotalCount
+
+        console.log(
+          `--------QTUL-----------initItemData----->>>> itemLength: ${itemLength},expectedTotalCount ${expectedTotalCount} ,`
+        )
+        watchStartTime = new Date().getTime()
+        // if (isLoadPage) {
+        // if (recordSyncItem.length != props.expectedTotalCount) {
+        //   recordSyncItem = Array(props.expectedTotalCount)
+        //     .fill(null)
+        //     .map(() => ({}))
+        //   let array = new Array(props.expectedTotalCount).fill(null).map(() => ({
+        //     type: (props.items as unknown as Array<QTListViewItem>)[0].type,
+        //   }))
+        //   syncItem.value.push(...array)
+        // }
+        // syncItem.value.splice(
+        //   (currntPage - 1) * props.pageSize,
+        //   10,
+        //   ...toRaw(props.items as unknown as Array<QTListViewItem>)
+        // )
+        // recordSyncItem.splice((currntPage - 1) * props.pageSize, 10, ...toRaw(props.items))
+        //   syncItem.value = props.items as unknown as Array<QTListViewItem>
+        // }
+        syncItem.value = props.items as unknown as Array<QTListViewItem>
         console.log('-----QTUL----watch---START----开始时间：--->>>>>', watchStartTime, syncItem)
-        if (holders.length < 1) {
-          let initCount = 0
-          if (pageSize > 0) {
-            // initCount =   Math.min(pageSize, syncItem.length)
-            // initCount =   Math.min(pageSize, syncItem.length)
-            initCount = 0
-          } else {
-            //pageSize小于0时，表示全部加载
-            initCount = syncItem.value.length
-          }
-          let batch: any = []
-          // const {itemType,position} = list[i]
-          for (let i = 0; i < initCount; i++) {
-            let item: any = toRaw(syncItem.value[i])
-            batch.push({
-              itemType: item.type,
-              position: i,
-              hdIndex: i,
-            })
-          }
-          crateH(batch, 'hashTag')
-        }
+        // if (holders.length < 1) {
+        //   let initCount = 0
+        //   if (pageSize > 0) {
+        //     // initCount =   Math.min(pageSize, syncItem.length)
+        //     // initCount =   Math.min(pageSize, syncItem.length)
+        //     initCount = 0
+        //   } else {
+        //     //pageSize小于0时，表示全部加载
+        //     initCount = syncItem.value.length
+        //   }
+        //   let batch: any = []
+        //   // const {itemType,position} = list[i]
+        //   for (let i = 0; i < initCount; i++) {
+        //     let item: any = toRaw(syncItem.value[i])
+        //     batch.push({
+        //       itemType: item.type,
+        //       position: i,
+        //       hdIndex: i,
+        //     })
+        //   }
+        //   crateH(batch, 'hashTag')
+        // }
         const rawArray: any = []
         for (let i = 0; i < syncItem.value.length; i++) {
           const item: any = toRaw(syncItem.value[i])
@@ -814,6 +910,7 @@ function registerQTUL(app: ESApp) {
             ref: viewRef,
             disableVirtualDOM: true,
             listenBoundEvent: true,
+            enableKeepFocus: true,
             onItemClick: (evt) => {
               console.log('----QTUL---onItemClick------->>>>>', evt)
               context.emit('item-click', evt)
@@ -835,14 +932,25 @@ function registerQTUL(app: ESApp) {
               context.emit('item-detached', evt)
             },
             onBindItem: (evt) => {
-              // console.log('----QTUL---onBindItem------->>>>>', evt)
+              let { position, sid } = evt
+              console.log(
+                `----QTUL---onBindItem------->>>>> position:${position},isLoadPage:${isLoadPage}`
+              )
               //console.log(evt.position,currentLength.value,evt.position == currentLength.value - 1,'item-binditem-binditem-bind')
               if (isLoadPage) {
-                if (recordSyncItem[evt.position] && !recordSyncItem[evt.position].type) {
-                  if (Math.floor(evt.position / props.pageSize) + 1 != currntPage) {
-                    currntPage = Math.floor(evt.position / props.pageSize) + 1
-                    props.loadPage(currntPage)
-                  }
+                // if (recordSyncItem[evt.position]) {
+                //   if (Math.floor(evt.position / props.pageSize) + 1 != currntPage) {
+                //     currntPage = Math.floor(evt.position / props.pageSize) + 1
+                //     props.loadPage(currntPage)
+                //   }
+                // }
+                if (evt.position && evt.position > -1) {
+                  //为了不看到空白，提前加载preLoadNumber个
+                  let wishPosition = Math.min(
+                    props.expectedTotalCount - 1,
+                    evt.position + props.preLoadNumber
+                  )
+                  loadPageIfNeeded(wishPosition)
                 }
               } else {
                 if (evt.position == currentLength.value - 1) {
@@ -905,6 +1013,10 @@ function registerQTUL(app: ESApp) {
         type: Number,
         default: -1,
       },
+      preLoadNumber: {
+        type: Number,
+        default: 5,
+      },
       disableDefaultPlaceholder: {
         type: Boolean,
         default: false,
@@ -932,6 +1044,13 @@ export interface QTULTemplate {
   realDOMTypes?: number[] //当defaultTemplateOnly为true时，需要创建真实dom的类型
   templateOnlyTypes?: number[] //当defaultTemplateOnly为false时，需要渲染为模板的类型
   skipWarningTypes?: number[] //暂时不用
+}
+
+interface PageSlice {
+  dataState: number //0:未加载，1:加载中，2:加载完成
+  pageNo: number
+  startPosition: number
+  endPosition: number
 }
 
 export default registerQTUL
