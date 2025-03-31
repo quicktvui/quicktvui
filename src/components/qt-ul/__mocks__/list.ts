@@ -225,6 +225,84 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
   }
 }
 
+export function buildRandomTitleTextItem(index: number, span?: number): QTULTextItem {
+  if (span && span != -1) {
+    return {
+      position: index,
+      itemSize: 200,
+      span: span,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT,
+      title: '🚀',
+      showTitle: index % 2 == 0,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 800,
+        height: 200,
+      },
+    }
+  } else if (span == -1) {
+    return {
+      position: index,
+      itemSize: 200,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT,
+      title: '🚀',
+      showTitle: index % 2 == 0,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 800,
+        height: 200,
+      },
+    }
+  } else {
+    return {
+      position: index,
+      span: 960,
+      itemSize: 200,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_TEXT,
+      title: '🚀',
+      showTitle: index % 2 == 0,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 800,
+        height: 200,
+      },
+    }
+  }
+}
+
 //--------------------------------固定生成Item---------------------------------------
 export function buildFixedImageItem(index: number, span?: number): QTULImageItem {
   if (span && span != -1) {
@@ -445,6 +523,14 @@ export function buildRandomMediumImageItemList(count: number, span?: number): Ar
     imageList.push(buildRandomMediumImageItem(i, span))
   }
   return imageList
+}
+
+export function buildRandomTitleTextItemList(count: number, span?: number): Array<QTULTextItem> {
+  const textList = []
+  for (let i = 0; i < count; i++) {
+    textList.push(buildRandomTitleTextItem(i, span))
+  }
+  return textList
 }
 
 export function buildRandomTextItemList(count: number, span?: number): Array<QTULTextItem> {
