@@ -12,10 +12,10 @@
         :enablePlaceholder="false"
       >
         <template #item="{ item }">
-          <qt-ul-item-text-v-if
+          <qt-ul-item-text-v-show
             :text="item.text"
             :title="item.title"
-            :show-title="item.showTitle"
+            :showTitle="item.showTitle"
             :background-color="item.raw.backgroundColor"
             v-if="item.type == 3"
             :focusable="true"
@@ -31,14 +31,14 @@
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
 import { buildRandomTitleTextItemList } from './__mocks__/list'
-import qt_ul_item_text_v_if from './item/text/qt-ul-item-text-v-if.vue'
+import qt_ul_item_text_v_show from './item/text/qt-ul-item-text-v-show.vue'
 import { QTListViewItem } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'v-if',
+  name: 'v-show',
   emits: [],
   components: {
-    'qt-ul-item-text-v-if': qt_ul_item_text_v_if,
+    'qt-ul-item-text-v-show': qt_ul_item_text_v_show,
   },
   setup(props, context) {
     const itemList = ref<Array<QTListViewItem>>([])
