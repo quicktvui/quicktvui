@@ -30,6 +30,7 @@ import qt_ul_post_delay_page from './qt-ul-post-delay-page'
 import qt_ul_update_page from './qt-ul-update-page'
 import qt_ul_v_if_page from './qt-ul-v-if-page'
 import qt_ul_v_show_page from './qt-ul-v-show-page'
+import qt_horizontal_ul_item_focus_scale_page from './qt-horizontal-ul-item-focus-scale-page'
 import qt_ul_item_focus_scale_page from './qt-ul-item-focus-scale-page'
 
 const QTULPageList = {
@@ -162,8 +163,12 @@ const QTULPageList = {
     component: qt_ul_v_show_page,
   },
   qt_ul_item_focus_scale_page: {
-    name: 'FocusScale(Horizontal)',
+    name: 'FocusScale',
     component: qt_ul_item_focus_scale_page,
+  },
+  qt_horizontal_ul_item_focus_scale_page: {
+    name: 'FocusScale(Horizontal)',
+    component: qt_horizontal_ul_item_focus_scale_page,
   },
 }
 export default QTULPageList

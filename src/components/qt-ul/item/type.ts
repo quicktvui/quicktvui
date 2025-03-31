@@ -1,6 +1,7 @@
 export const QT_UL_ITEM_TYPE_IMAGE = 2
 export const QT_UL_ITEM_TYPE_TEXT = 3
 export const QT_UL_ITEM_TYPE_TEXT_AUTO_WIDTH = 12
+export const QT_UL_ITEM_TYPE_LONG_TEXT = 13
 export const QT_UL_ITEM_TYPE_VIEW = 4
 export const QT_UL_ITEM_TYPE_POSTER = 5
 export const QT_UL_ITEM_TYPE_LIST = 6

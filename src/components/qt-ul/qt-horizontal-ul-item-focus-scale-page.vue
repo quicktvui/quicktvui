@@ -4,19 +4,17 @@
     <qt-view class="es-sdk-content-divider-css" />
     <qt-view class="qt-ul-root-page">
       <qt-ul
-        class="qt-ul-item-long-text-class"
+        class="qt-ul-class"
         ref="ulRef"
         name="ul"
         :items="itemList"
-        :spanCount="1920"
-        :clipChildren="false"
+        horizontal
         :enablePlaceholder="false"
       >
         <template #item="{ item }">
-          <qt-ul-item-long-text-focus-scale
+          <qt-ul-item-text-focus-scale
             :text="item.text"
-            :background-color="item.raw.backgroundColor"
-            v-if="item.type == 13"
+            v-if="item.type == 12"
             :focusable="true"
             :enableFocusBorder="true"
           />
@@ -29,25 +27,21 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { buildRandomLongTextItemList } from './__mocks__/list'
-import qt_ul_item_long_text_focus_scale from './item/text/qt-ul-item-long-text-focus-scale.vue'
+import { buildHorizontalRandomTextNoItemSizeItemList } from './__mocks__/list'
+import qt_ul_item_text_focus_scale from './item/text/qt-ul-item-text-focus-scale.vue'
 import { QTListViewItem } from '@quicktvui/quicktvui3'
 
-/**
- * 注意：
- * <qt-ul :clipChildren="false">
- */
 export default defineComponent({
-  name: 'FocusScale',
+  name: 'FocusScale(Horizontal)',
   emits: [],
   components: {
-    'qt-ul-item-long-text-focus-scale': qt_ul_item_long_text_focus_scale,
+    'qt-ul-item-text-focus-scale': qt_ul_item_text_focus_scale,
   },
   setup(props, context) {
     const itemList = ref<Array<QTListViewItem>>([])
 
     function onESCreate() {
-      const list = buildRandomLongTextItemList(100)
+      const list = buildHorizontalRandomTextNoItemSizeItemList(100)
       console.log('------buildTextItemList-------->>>', list)
       itemList.value = list
     }
@@ -67,11 +61,12 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: palevioletred;
 }
 
-.qt-ul-item-long-text-class {
+.qt-ul-class {
   width: 1920px;
-  height: 1080px;
+  height: 400px;
   background-color: darkgray;
 }
 </style>

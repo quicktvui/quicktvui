@@ -9,6 +9,7 @@ import {
   QT_UL_ITEM_TYPE_IMAGE,
   QT_UL_ITEM_TYPE_LIST,
   QT_UL_ITEM_TYPE_LONG_IMAGE,
+  QT_UL_ITEM_TYPE_LONG_TEXT,
   QT_UL_ITEM_TYPE_MEDIUM_IMAGE,
   QT_UL_ITEM_TYPE_PLAYER,
   QT_UL_ITEM_TYPE_TEXT,
@@ -219,6 +220,78 @@ export function buildRandomTextItem(index: number, span?: number): QTULTextItem 
       },
       style: {
         width: 800,
+        height: 200,
+      },
+    }
+  }
+}
+
+export function buildRandomLongTextItem(index: number, span?: number): QTULTextItem {
+  if (span && span != -1) {
+    return {
+      position: index,
+      itemSize: 200,
+      span: span,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_LONG_TEXT,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 1760,
+        height: 200,
+      },
+    }
+  } else if (span == -1) {
+    return {
+      position: index,
+      itemSize: 200,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_LONG_TEXT,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 1760,
+        height: 200,
+      },
+    }
+  } else {
+    return {
+      position: index,
+      span: 1920,
+      itemSize: 200,
+      id: index + '',
+      type: QT_UL_ITEM_TYPE_LONG_TEXT,
+      text: index + '、' + buildIndexText(index),
+      backgroundColor: buildRandomColor(),
+      raw: {
+        //原始数据，不会被生成模版时使用
+        backgroundColor: buildRandomColor(),
+      },
+      decoration: {
+        top: 80,
+        left: 80,
+        right: 80,
+      },
+      style: {
+        width: 1760,
         height: 200,
       },
     }
@@ -537,6 +610,14 @@ export function buildRandomTextItemList(count: number, span?: number): Array<QTU
   const textList = []
   for (let i = 0; i < count; i++) {
     textList.push(buildRandomTextItem(i, span))
+  }
+  return textList
+}
+
+export function buildRandomLongTextItemList(count: number, span?: number): Array<QTULTextItem> {
+  const textList = []
+  for (let i = 0; i < count; i++) {
+    textList.push(buildRandomLongTextItem(i, span))
   }
   return textList
 }
