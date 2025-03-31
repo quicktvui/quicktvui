@@ -35,7 +35,7 @@ import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import { QTListViewItem } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: '文字',
+  name: 'v-if',
   emits: [],
   components: {
     'qt-ul-item-text': qt_ul_item_text,
