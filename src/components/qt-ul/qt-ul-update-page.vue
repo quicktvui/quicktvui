@@ -11,6 +11,13 @@
       <qt-button
         size="small"
         class="text-button-class"
+        text="更新1多属性"
+        :requestFocus="true"
+        @click="onButtonTwoClick"
+      />
+      <qt-button
+        size="small"
+        class="text-button-class"
         text="更新第4个"
         :requestFocus="true"
         @click="onButtonFiveClick"
@@ -35,6 +42,13 @@
         text="更新第20个"
         :requestFocus="true"
         @click="onButtonTwentyClick"
+      />
+      <qt-button
+        size="small"
+        class="text-button-class"
+        text="更新2和5个"
+        :requestFocus="true"
+        @click="onButtonMultiClick"
       />
     </qt-row>
     <qt-view class="es-sdk-content-divider-css" />
@@ -67,6 +81,7 @@ import { ref } from 'vue'
 import { buildRandomTextItemList } from './__mocks__/list'
 import qt_ul_item_text from './item/text/qt-ul-item-text.vue'
 import { QTListViewItem } from '@quicktvui/quicktvui3'
+import { buildRandomColor } from './__mocks__/colors'
 
 export default defineComponent({
   name: '更新',
@@ -76,6 +91,16 @@ export default defineComponent({
   },
   setup(props, context) {
     const itemList = ref<Array<QTListViewItem>>([])
+
+    function onButtonMultiClick() {
+      itemList.value[2].text = '更新第3个文本'
+      itemList.value[5].text = '更新第6个文本'
+    }
+
+    function onButtonTwoClick() {
+      itemList.value[1].text = '更新第2个文本'
+      itemList.value[1].raw.backgroundColor = buildRandomColor()
+    }
 
     function onButtonOneClick() {
       itemList.value[0].text = '更新第1个文本'
@@ -106,6 +131,8 @@ export default defineComponent({
     return {
       itemList,
       onESCreate,
+      onButtonTwoClick,
+      onButtonMultiClick,
       onButtonOneClick,
       onButtonFiveClick,
       onButtonEightClick,

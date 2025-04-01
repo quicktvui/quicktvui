@@ -1,7 +1,9 @@
 import {
+  computed,
   defineComponent,
   getCurrentInstance,
   h,
+  onBeforeUnmount,
   onMounted,
   reactive,
   ref,
@@ -20,6 +22,7 @@ import {
   ESListViewItemFunctionParams,
 } from '@extscreen/es3-component'
 import { QTListViewItem } from '@quicktvui/quicktvui3'
+import { qtWatchAll } from '../qtListen'
 
 function registerQTUL(app: ESApp) {
   registerElement('RecyclePool', {
@@ -508,10 +511,41 @@ function registerQTUL(app: ESApp) {
         }
       })
 
+      const itemsList = computed(() => props.items ?? [])
+      watch(
+        () =>
+          itemsList.value.map((item) => (item && typeof item === 'object' ? { ...item } : item)),
+        (newValues, oldValues) => {
+          newValues.forEach((newItem, index) => {
+            const oldItem = oldValues[index]
+            if (!oldItem) return
+            if (typeof newItem === 'object' && newItem !== null) {
+              for (const key in newItem) {
+                if (newItem[key] !== oldItem[key]) {
+                  console.log(
+                    `-----watch--->>>>第 ${index} 个对象 `,
+                    newItem,
+                    `的属性 "${key}" 发生了变化: ${oldItem[key]} -> ${newItem[key]}`
+                  )
+                  nextTick(() => {
+                    updateItem(index, newItem as unknown as ESListViewItem)
+                  })
+                  break
+                }
+              }
+            }
+          })
+        }
+      )
+
       watch(
         () => props.items,
         (newVal, oldVal) => {
-          console.log(`--------QTUL-----------watch----->>>>`, props.items)
+          console.log(
+            `--------QTUL-----------wwwwwwatch----->>>>newVal`,
+            newVal,
+            'oldVal：' + oldVal
+          )
           if (!isLoadPage) {
             initItemData()
           }
