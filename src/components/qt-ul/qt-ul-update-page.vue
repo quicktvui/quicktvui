@@ -11,14 +11,14 @@
       <qt-button
         size="small"
         class="text-button-class"
-        text="更新1多属性"
+        text="1：多属性"
         :requestFocus="true"
         @click="onButtonTwoClick"
       />
       <qt-button
         size="small"
         class="text-button-class"
-        text="更新第4个"
+        text="4：深度对象"
         :requestFocus="true"
         @click="onButtonFiveClick"
       />
@@ -107,7 +107,7 @@ export default defineComponent({
     }
 
     function onButtonFiveClick() {
-      itemList.value[4].text = '更新第5个文本'
+      itemList.value[4].raw.backgroundColor = buildRandomColor()
     }
 
     function onButtonEightClick() {

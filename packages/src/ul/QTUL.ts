@@ -512,30 +512,38 @@ function registerQTUL(app: ESApp) {
       })
 
       const itemsList = computed(() => props.items ?? [])
+
+      // 深度拷贝方法，保证 Vue 能检测变化
+      const deepClone = (obj: any) => JSON.parse(JSON.stringify(obj))
+
+      // 监听数组中的对象变化
       watch(
-        () =>
-          itemsList.value.map((item) => (item && typeof item === 'object' ? { ...item } : item)),
-        (newValues, oldValues) => {
-          newValues.forEach((newItem, index) => {
-            const oldItem = oldValues[index]
+        () => deepClone(itemsList.value), // 👈 监听深拷贝数据
+        (newVals, oldVals) => {
+          console.log('-------watch---object--->>>>newVals:', newVals, 'oldVals:', oldVals)
+          newVals.forEach((newItem, index) => {
+            const oldItem = oldVals[index]
             if (!oldItem) return
-            if (typeof newItem === 'object' && newItem !== null) {
-              for (const key in newItem) {
-                if (newItem[key] !== oldItem[key]) {
-                  console.log(
-                    `-----watch--->>>>第 ${index} 个对象 `,
-                    newItem,
-                    `的属性 "${key}" 发生了变化: ${oldItem[key]} -> ${newItem[key]}`
-                  )
-                  nextTick(() => {
-                    updateItem(index, newItem as unknown as ESListViewItem)
-                  })
-                  break
-                }
+            const newObj = newItem as Record<string, any>
+            const oldObj = oldItem as Record<string, any>
+            const allKeys = new Set([...Object.keys(newObj), ...Object.keys(oldObj)])
+
+            for (const key of allKeys) {
+              if (JSON.stringify(newObj[key]) !== JSON.stringify(oldObj[key])) {
+                console.log(
+                  '-------watch----object---->>>>',
+                  `对象 ${newObj} 的属性 **"${key}"** 发生变化:`,
+                  oldObj[key],
+                  '->',
+                  newObj[key]
+                )
+                updateItem(index, newItem as unknown as ESListViewItem)
+                break
               }
             }
           })
-        }
+        },
+        { deep: false } // 👈 这里 **不能** 设置 `deep: true`
       )
 
       watch(
