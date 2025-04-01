@@ -34,7 +34,7 @@ import qt_waterfall_qtRef_page from "./qt-waterfall-qtRef.vue"
 import qt_waterfall_item_plugin_page from "./qt-waterfall-item-plugin-page.vue"
 import qt_waterfall_qtRef_sid from "./qt-waterfall-qtRef-sid.vue"
 import qt_tabs_qtRef_sid from "./qt-tabs-qtRef-sid.vue"
-
+import qt_waterfall_update_debug from './qt-waterfall-update-debug.vue'
 
 const QTWaterfallPageList = {
   qt_waterfall_start_page: {
@@ -49,14 +49,18 @@ const QTWaterfallPageList = {
     name: 'qtRef-waterfall',
     component: qt_waterfall_qtRef_page,
   },
-  qt_waterfall_qtRef_sid: {
-    name: 'qt-waterfall-qtRef-sid',
-    component: qt_waterfall_qtRef_sid,
+  qt_waterfall_update_debug: {
+    name: '测试waterfall更新bug',
+    component: qt_waterfall_update_debug,
   },
-  qt_tabs_qtRef_sid: {
-    name: 'qtRef-tabs-sid',
-    component: qt_tabs_qtRef_sid,
-  },
+  // qt_waterfall_qtRef_sid: {
+  //   name: 'qt-waterfall-qtRef-sid',
+  //   component: qt_waterfall_qtRef_sid,
+  // },
+  // qt_tabs_qtRef_sid: {
+  //   name: 'qtRef-tabs-sid',
+  //   component: qt_tabs_qtRef_sid,
+  // },
 };
 
 const QTWaterfallItemPageList = {
