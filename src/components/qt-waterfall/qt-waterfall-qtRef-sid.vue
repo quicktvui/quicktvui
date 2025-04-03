@@ -1,6 +1,5 @@
 <template>
   <qt-waterfall 
-    sid="waterfall-ref-sid-1028" 
     :list-data="waterfallDatas" 
     class="qt-waterfall-css-ref-sid"
     @item-click="onItemClickFn"
