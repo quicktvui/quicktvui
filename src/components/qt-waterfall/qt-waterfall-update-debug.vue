@@ -1,6 +1,6 @@
 <template>
-  <qt-waterfall 
-    :list-data="waterfallDatas" 
+  <qt-waterfall
+    :list-data="waterfallDatas"
     class="qt-waterfall-css-ref-sid"
     @item-click="onItemClickFn"
   >
@@ -9,6 +9,7 @@
       <SidItem3 />
     </template>
     <template v-slot:list-item>
+      <SidItem1 />
       <SidItem2 />
       <SidItem3 />
     </template>
@@ -121,15 +122,15 @@ const getListSection = (flag = ''):QTWaterfallSection => {
       marginBottom: 10,
       fontSize: 50
     },
-    itemList: buildPosterItemList(3, 2),
+    itemList: buildPosterItemList(10, 1),
     style: {
       width: 1920,
-      // height: -1,
+      height: 400,
     }
   }
 }
 const getList = (flag = '') => {
-  return [getFlexSection(flag),getFlexSection(flag)]
+  return [getListSection(flag),getFlexSection(flag)]
 }
 </script>
 
