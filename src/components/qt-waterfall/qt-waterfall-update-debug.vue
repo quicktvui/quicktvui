@@ -122,6 +122,7 @@ const getListSection = (flag = ''):QTWaterfallSection => {
       marginBottom: 10,
       fontSize: 50
     },
+    enableKeepFocus:true,
     itemList: buildPosterItemList(10, 1),
     style: {
       width: 1920,
