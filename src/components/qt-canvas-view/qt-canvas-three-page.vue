@@ -26,6 +26,7 @@ import { QTICanvasView } from '../../../packages'
 
 export default defineComponent({
   name: '使用初探',
+  emits: [],
   setup(props, context) {
     const canvasViewRef1 = ref<QTICanvasView>()
     const canvasViewRef2 = ref<QTICanvasView>()
