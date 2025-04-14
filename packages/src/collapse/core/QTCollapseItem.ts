@@ -1,8 +1,7 @@
 export interface QTCollapseItem {
+  height: number //整体高度
 
-  height: number
+  collapseHeight: number //内容高度
 
-  collapseHeight: number
-
-  [prop: string]: any;
+  [prop: string]: any
 }

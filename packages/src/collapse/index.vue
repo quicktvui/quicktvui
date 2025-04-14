@@ -196,6 +196,15 @@ export default defineComponent({
 
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {
+          let itemTitleTotalY: number = 0
+          if (i > index) {
+            for (let k = 0; k < i - index - 1; k++) {
+              const bottomItem = collapseItemList[k + index + 1]
+              const bottomItemTitleHeight = bottomItem.collapseHeight
+              itemTitleTotalY += bottomItemTitleHeight
+            }
+          }
+
           if (log.isLoggable(ESLogLevel.DEBUG)) {
             log.d(
               TAG,
@@ -203,15 +212,17 @@ export default defineComponent({
               item,
               i,
               item.__translationY,
-              translationY + itemTotalY
+              translationY + itemTotalY - itemTitleTotalY,
+              itemTitleTotalY
             )
           }
+
           translationItem(
             i + '',
             item,
             animItemRef,
             item.__translationY,
-            translationY + itemTotalY,
+            translationY + itemTotalY - itemTitleTotalY,
             delay
           )
         }
