@@ -169,10 +169,10 @@ const QTAPINavPageList = {
     name: 'QTComponent',
     component: qt_nav_component_page,
   },
-  qt_nav_canvas_page: {
+  /*qt_nav_canvas_page: {
     name: 'QTCanvas',
     component: qt_nav_canvas_page,
-  },
+  },*/
 }
 
 export default QTAPINavPageList
