@@ -14,6 +14,7 @@ import VueSection from './section/index.vue'
 import ClassifiedListView from './classified-list-view/index.vue'
 import QTMediaSeries from './series/index.vue'
 import QTCollapse from './collapse/index.vue'
+import LongImage from './long-image/index.vue'
 
 //
 import { arrangeChildren4ListView } from './utils/utils'
@@ -36,6 +37,7 @@ import registerQTLottieView from './lottie/QTLottieView'
 import { QTListViewItemState } from './list-view/core/QTListViewItemState'
 import registerAppIconView from './app/QTAppIcon'
 import registerQTIReplaceChildView from './replace-child/QTReplaceChildView'
+import registerQTLongImageComponent from './long-image/QTLongImage'
 
 export {
   qtRef,
@@ -66,6 +68,7 @@ const components = [
   VueSection,
   QTMediaSeries,
   QTCollapse,
+  LongImage,
 ]
 
 //---------------------------------------------------------------------------
@@ -105,6 +108,7 @@ export const QuickTVUI = (Vue) => {
   registerQTPluginView(Vue)
   registerQTIReplaceChildView(Vue)
   registerQTCanvasView(Vue)
+  registerQTLongImageComponent(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
@@ -327,3 +331,6 @@ export { VirtualView } from './utils/VirtualView'
 
 //--------------------------------QTCanvasView---------------------------------
 export type { QTICanvasView } from './canvas/QTICanvasView'
+
+//--------------------------------QTIText---------------------------------
+export type { QTILongImage } from './long-image/QTILongImage'

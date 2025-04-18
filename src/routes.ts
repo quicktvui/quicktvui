@@ -54,6 +54,8 @@ import QtModulePageList from './components/qt-module'
 import QtComponentPageList from './components/qt-component'
 import QTCanvasViewPageList from './components/qt-canvas-view'
 
+import QTLongImagePageList from './components/qt-long-image'
+
 const routes = [
   {
     path: '/splash',
@@ -301,6 +303,11 @@ const routes = [
     path: `/canvas/${item}`,
     name: `canvas/${item}`,
     component: QTCanvasViewPageList[item].component,
+  })),
+  ...Object.keys(QTLongImagePageList).map((item) => ({
+    path: `/long-image/${item}`,
+    name: `long-image/${item}`,
+    component: QTLongImagePageList[item].component,
   })),
 ]
 

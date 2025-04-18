@@ -34,6 +34,7 @@ import qt_indicator_list_view_page from './qt-nav-indicator-list-view-page.vue'
 import qt_nav_module_page from './qt-nav-module-page'
 import qt_nav_component_page from './qt-nav-component-page'
 import qt_nav_canvas_page from './qt-nav-canvas-view-page'
+import qt_nav_long_image_page from './qt-nav-long-image-page'
 
 const QTAPINavPageList = {
   qt_nav_view_page: {
@@ -173,6 +174,11 @@ const QTAPINavPageList = {
     name: 'QTCanvas',
     component: qt_nav_canvas_page,
   },*/
+
+  qt_nav_long_image_page: {
+    name: 'QTLongImage',
+    component: qt_nav_long_image_page,
+  },
 }
 
 export default QTAPINavPageList
