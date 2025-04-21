@@ -62,6 +62,6 @@ export default defineComponent({
 .qt-long-image-css {
   width: 1920px;
   height: 1080px;
-  background-color: red;
+  background-color: black;
 }
 </style>
