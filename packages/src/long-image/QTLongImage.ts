@@ -22,7 +22,7 @@ function registerQTLongImageComponent(app: ESApp) {
       ) {
         const { handler: event, __evt: nativeEventName } = evtData
         switch (nativeEventName) {
-          case 'onLoad':
+          case 'onLongImageChange':
             console.log('-----------onLoad-------->>>>', nativeEventParams)
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
