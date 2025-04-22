@@ -3,6 +3,8 @@
     ref="viewRef"
     v-if="componentInitialized"
     :size="size"
+    :imageUrl="src"
+    :isScaleEnabled="zoomEnabled"
     :activeColor="activeColor"
     :inactiveColor="inactiveColor"
     :inactiveBorderColor="inactiveBorderColor"
@@ -14,8 +16,8 @@
     :borderSize="borderSize"
     :sliderAssetsIcon="sliderAssetsIcon"
     :sliderNetworkIcon="sliderNetworkIcon"
-    :setScaleEnabled="setScaleEnabled"
-    @onLongImageChange="onLongImageChange"
+    @onLoad="onLoad"
+    @onScroll="onScroll"
   />
 </template>
 
@@ -28,7 +30,7 @@ import { QTILongImage } from './QTILongImage'
 
 export default defineComponent({
   name: 'qt-long-image',
-  emits: ['onLongImageChange', 'onInitializeSuccess', 'onInitializeError'],
+  emits: ['onLoad', 'onScroll', 'onInitializeSuccess', 'onInitializeError'],
   props: {
     size: {
       type: String,
@@ -78,9 +80,13 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    setScaleEnabled: {
+    zoomEnabled: {
       type: Boolean,
       default: true,
+    },
+    src: {
+      type: String,
+      default: '',
     },
   },
   setup(props, context) {
@@ -147,18 +153,70 @@ export default defineComponent({
       plugin.installPlugin(p)
     }
 
-    const setSrc = (url) => {
+    const setSrc = (url: string): void => {
       viewRef.value?.setSrc(url)
     }
 
-    const onLongImageChange = (success: boolean, message: string) => {
-      context.emit('onLongImageChange', success, message)
+    const setZoomEnabled = (value: boolean): void => {
+      viewRef.value?.setZoomEnabled(value)
+    }
+
+    const zoomIn = (step: number): void => {
+      viewRef.value?.zoomIn(step)
+    }
+
+    const zoomOut = (step: number): void => {
+      viewRef.value?.zoomOut(step)
+    }
+
+    const scrollDown = (step: number): void => {
+      viewRef.value?.scrollDown(step)
+    }
+
+    const scrollUp = (step: number): void => {
+      viewRef.value?.scrollUp(step)
+    }
+
+    const scrollLeft = (step: number): void => {
+      viewRef.value?.scrollLeft(step)
+    }
+
+    const scrollRight = (step: number): void => {
+      viewRef.value?.scrollRight(step)
+    }
+
+    //---------------------------------------------------------------
+    const onLoad = (
+      status: number,
+      progress: number,
+      message: string,
+      width: number,
+      height: number
+    ) => {
+      context.emit('onLoad', status, progress, message, width, height)
+    }
+    const onScroll = (
+      direction: number,
+      percent: number,
+      isScroll,
+      width: number,
+      height: number
+    ) => {
+      context.emit('onScroll', direction, percent, isScroll, width, height)
     }
 
     return {
       viewRef,
       setSrc,
-      onLongImageChange,
+      setZoomEnabled,
+      zoomIn,
+      zoomOut,
+      scrollDown,
+      scrollUp,
+      scrollLeft,
+      scrollRight,
+      onLoad,
+      onScroll,
       componentInitialized,
       ...useBaseView(viewRef),
     }

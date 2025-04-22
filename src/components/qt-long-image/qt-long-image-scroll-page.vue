@@ -2,20 +2,25 @@
   <qt-view class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <qt-view class="es-sdk-content-divider-css" />
-
-    <div class="es-sdk-content-row-css">
-      <s-text-view :text="eventText" />
-    </div>
-
-    <qt-view class="qt-long-image-start-page">
+    <qt-view class="qt-long-image-scroll-page">
       <qt-long-image
         ref="viewRef"
         @onLoad="onLoad"
+        @onScroll="onScroll"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"
         class="qt-long-image-css"
       />
     </qt-view>
+    <div class="es-sdk-content-row-css">
+      <s-text-button text="向左滚动" @onButtonClicked="onLeftButtonClicked" />
+      <s-text-button text="向右滚动" @onButtonClicked="onRightButtonClicked" />
+      <s-text-button text="向上滚动" @onButtonClicked="onUpButtonClicked" />
+      <s-text-button text="向下滚动" @onButtonClicked="onDownButtonClicked" />
+    </div>
+    <div class="es-sdk-content-row-css">
+      <s-text-view :text="eventText" />
+    </div>
   </qt-view>
 </template>
 
@@ -25,12 +30,30 @@ import { ref } from 'vue'
 import { QTILongImage } from '../../../packages'
 
 export default defineComponent({
-  name: '使用初探',
+  name: '滚动',
   emits: [],
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
+    const step = 10
     const eventText = ref<string>('')
 
+    function onLeftButtonClicked() {
+      viewRef.value?.scrollLeft(step)
+    }
+
+    function onRightButtonClicked() {
+      viewRef.value?.scrollRight(step)
+    }
+
+    function onUpButtonClicked() {
+      viewRef.value?.scrollUp(step)
+    }
+
+    function onDownButtonClicked() {
+      viewRef.value?.scrollDown(step)
+    }
+
+    //-----------------------------------------------------------------
     function onLoad(
       status: number,
       progress: number,
@@ -53,6 +76,23 @@ export default defineComponent({
         height
     }
 
+    function onScroll(direction: number, percent: number, isScroll, width: number, height: number) {
+      console.log('----------onScroll--------->>>>', direction, percent, isScroll, width, height)
+      eventText.value =
+        'onScroll: ' +
+        'direction:' +
+        direction +
+        'percent:' +
+        percent +
+        'isScroll:' +
+        isScroll +
+        'width:' +
+        width +
+        'height:' +
+        height
+    }
+
+    //-----------------------------------------------------------------
     function onInitializeSuccess() {
       console.log('----------onInitializeSuccess--------->>>>')
       viewRef.value?.setSrc(
@@ -65,18 +105,23 @@ export default defineComponent({
     }
 
     return {
-      eventText,
       viewRef,
+      eventText,
       onLoad,
+      onScroll,
       onInitializeSuccess,
       onInitializeError,
+      onLeftButtonClicked,
+      onRightButtonClicked,
+      onUpButtonClicked,
+      onDownButtonClicked,
     }
   },
 })
 </script>
 
 <style>
-.qt-long-image-start-page {
+.qt-long-image-scroll-page {
   width: 1920px;
   height: 1080px;
   background-color: transparent;

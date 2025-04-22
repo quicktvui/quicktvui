@@ -25,7 +25,7 @@ import { ref } from 'vue'
 import { QTILongImage } from '../../../packages'
 
 export default defineComponent({
-  name: '使用初探',
+  name: '事件',
   emits: [],
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
@@ -65,8 +65,8 @@ export default defineComponent({
     }
 
     return {
-      eventText,
       viewRef,
+      eventText,
       onLoad,
       onInitializeSuccess,
       onInitializeError,

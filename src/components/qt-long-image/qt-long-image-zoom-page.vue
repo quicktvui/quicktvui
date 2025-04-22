@@ -2,11 +2,14 @@
   <qt-view class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <qt-view class="es-sdk-content-divider-css" />
-
     <div class="es-sdk-content-row-css">
       <s-text-view :text="eventText" />
     </div>
-
+    <div class="es-sdk-content-row-css">
+      <s-text-button :text="zoomEnableText" @onButtonClicked="onZoomEnableButtonClicked" />
+      <s-text-button text="放大" @onButtonClicked="onZoomInButtonClicked" />
+      <s-text-button text="缩小" @onButtonClicked="onZoomOutButtonClicked" />
+    </div>
     <qt-view class="qt-long-image-start-page">
       <qt-long-image
         ref="viewRef"
@@ -25,11 +28,13 @@ import { ref } from 'vue'
 import { QTILongImage } from '../../../packages'
 
 export default defineComponent({
-  name: '使用初探',
+  name: '放大缩小',
   emits: [],
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
     const eventText = ref<string>('')
+    const zoomEnable = ref<boolean>(false)
+    const zoomEnableText = ref<string>('')
 
     function onLoad(
       status: number,
@@ -64,12 +69,38 @@ export default defineComponent({
       console.log('----------onInitializeError--------->>>>', error)
     }
 
+    //----------------------------------------------------------
+
+    function onZoomInButtonClicked() {
+      viewRef.value?.zoomIn()
+    }
+
+    function onZoomOutButtonClicked() {
+      viewRef.value?.zoomOut()
+    }
+
+    function onZoomEnableButtonClicked() {
+      const value = !zoomEnable.value
+      viewRef.value?.setZoomEnabled(value)
+      zoomEnable.value = value
+      if (value) {
+        zoomEnableText.value = '可以缩放'
+      } else {
+        zoomEnableText.value = '不可缩放'
+      }
+    }
+
     return {
-      eventText,
       viewRef,
+      eventText,
       onLoad,
       onInitializeSuccess,
       onInitializeError,
+      onZoomInButtonClicked,
+      onZoomOutButtonClicked,
+      onZoomEnableButtonClicked,
+      zoomEnable,
+      zoomEnableText,
     }
   },
 })
