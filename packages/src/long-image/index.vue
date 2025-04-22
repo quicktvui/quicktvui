@@ -86,7 +86,6 @@ export default defineComponent({
     },
     src: {
       type: String,
-      default: '',
     },
   },
   setup(props, context) {
