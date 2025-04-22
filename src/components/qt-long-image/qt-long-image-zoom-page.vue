@@ -3,6 +3,7 @@
     <qt-view class="qt-long-image-start-page">
       <qt-long-image
         ref="viewRef"
+        :focusable="false"
         @onLoad="onLoad"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"
@@ -35,6 +36,7 @@ export default defineComponent({
     const eventText = ref<string>('')
     const zoomEnable = ref<boolean>(false)
     const zoomEnableText = ref<string>('不可缩放')
+    const zoomStep = 200
 
     function onLoad(
       status: number,
@@ -72,11 +74,11 @@ export default defineComponent({
     //----------------------------------------------------------
 
     function onZoomInButtonClicked() {
-      viewRef.value?.zoomIn()
+      viewRef.value?.zoomIn(zoomStep)
     }
 
     function onZoomOutButtonClicked() {
-      viewRef.value?.zoomOut()
+      viewRef.value?.zoomOut(zoomStep)
     }
 
     function onZoomEnableButtonClicked() {

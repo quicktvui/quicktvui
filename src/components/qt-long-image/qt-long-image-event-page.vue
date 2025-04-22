@@ -3,6 +3,7 @@
     <qt-view class="qt-long-image-start-page">
       <qt-long-image
         ref="viewRef"
+        :focusable="false"
         @onLoad="onLoad"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"

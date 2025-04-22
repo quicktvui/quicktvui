@@ -3,6 +3,7 @@
     <qt-view class="qt-long-image-scroll-page">
       <qt-long-image
         ref="viewRef"
+        :focusable="false"
         @onLoad="onLoad"
         @onScroll="onScroll"
         @onInitializeSuccess="onInitializeSuccess"
@@ -14,8 +15,10 @@
     <qt-view class="es-sdk-content-divider-css" />
 
     <div class="es-sdk-content-row-css">
+      <s-text-button text="放大" @onButtonClicked="onZoomInButtonClicked" />
       <s-text-button text="向上滚动" @onButtonClicked="onUpButtonClicked" />
       <s-text-button text="向下滚动" @onButtonClicked="onDownButtonClicked" />
+      <s-text-button text="缩小" @onButtonClicked="onZoomOutButtonClicked" />
     </div>
     <div class="es-sdk-content-row-css">
       <s-text-view :text="eventText" />
@@ -33,7 +36,8 @@ export default defineComponent({
   emits: [],
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
-    const step = 10
+    const step = 200
+    const zoomStep = 200
     const eventText = ref<string>('')
 
     function onUpButtonClicked() {
@@ -42,6 +46,14 @@ export default defineComponent({
 
     function onDownButtonClicked() {
       viewRef.value?.scrollDown(step)
+    }
+
+    function onZoomInButtonClicked() {
+      viewRef.value?.zoomIn(zoomStep)
+    }
+
+    function onZoomOutButtonClicked() {
+      viewRef.value?.zoomOut(zoomStep)
     }
 
     //-----------------------------------------------------------------
@@ -106,6 +118,8 @@ export default defineComponent({
       onInitializeError,
       onUpButtonClicked,
       onDownButtonClicked,
+      onZoomInButtonClicked,
+      onZoomOutButtonClicked,
     }
   },
 })

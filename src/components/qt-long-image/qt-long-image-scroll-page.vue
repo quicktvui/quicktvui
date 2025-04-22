@@ -3,6 +3,7 @@
     <qt-view class="qt-long-image-scroll-page">
       <qt-long-image
         ref="viewRef"
+        :focusable="false"
         @onLoad="onLoad"
         @onScroll="onScroll"
         @onInitializeSuccess="onInitializeSuccess"
