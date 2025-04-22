@@ -193,6 +193,14 @@ export default defineComponent({
       width: number,
       height: number
     ) => {
+      console.log(
+        '---------onLoad-------xxx------------->>>>',
+        status,
+        progress,
+        message,
+        width,
+        height
+      )
       context.emit('onLoad', status, progress, message, width, height)
     }
     const onScroll = (

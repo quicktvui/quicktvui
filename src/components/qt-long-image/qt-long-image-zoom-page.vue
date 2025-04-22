@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { QTILongImage } from '../../../packages'
+import { QTILongImage } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '放大缩小',

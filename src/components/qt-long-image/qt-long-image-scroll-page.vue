@@ -27,7 +27,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { QTILongImage } from '../../../packages'
+import { QTILongImage } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '滚动',
@@ -62,7 +62,7 @@ export default defineComponent({
       height: number
     ) {
       console.log('----------onLoad--------->>>>', status, progress, message, width, height)
-      eventText.value =
+      const text =
         'onLoad: ' +
         'status:' +
         status +
@@ -74,11 +74,12 @@ export default defineComponent({
         width +
         'height:' +
         height
+      eventText.value = text
     }
 
     function onScroll(direction: number, percent: number, isScroll, width: number, height: number) {
       console.log('----------onScroll--------->>>>', direction, percent, isScroll, width, height)
-      eventText.value =
+      const text =
         'onScroll: ' +
         'direction:' +
         direction +
@@ -90,6 +91,7 @@ export default defineComponent({
         width +
         'height:' +
         height
+      eventText.value = text
     }
 
     //-----------------------------------------------------------------

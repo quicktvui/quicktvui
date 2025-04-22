@@ -23,6 +23,7 @@ function registerQTLongImageComponent(app: ESApp) {
         const { handler: event, __evt: nativeEventName } = evtData
         switch (nativeEventName) {
           case 'onLoad':
+            console.log('-----------onLoad-------->>>>', nativeEventParams)
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
             event.status = nativeEventParams.status
@@ -30,6 +31,7 @@ function registerQTLongImageComponent(app: ESApp) {
             event.message = nativeEventParams.message
             break
           case 'onScroll':
+            console.log('-----------onScroll-------->>>>', nativeEventParams)
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
             event.direction = nativeEventParams.direction
@@ -108,6 +110,15 @@ function registerQTLongImageComponent(app: ESApp) {
             const status = evt.status
             const message = evt.message
             const progress = evt.progress
+            console.log(
+              '---------onLongImageChange------------->>>>',
+              status,
+              progress,
+              message,
+              width,
+              height
+            )
+
             context.emit('onLoad', status, progress, message, width, height)
           },
           onScroll: (evt) => {

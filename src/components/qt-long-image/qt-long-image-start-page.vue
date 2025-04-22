@@ -13,7 +13,7 @@
         @onLoad="onLoad"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"
-        class="qt-long-image-css"
+        class="qt-long-image-root-css"
       />
     </qt-view>
   </qt-view>
@@ -22,7 +22,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { QTILongImage } from '../../../packages'
+import { QTILongImage } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '使用初探',
@@ -86,9 +86,9 @@ export default defineComponent({
   position: absolute;
 }
 
-.qt-long-image-css {
+.qt-long-image-root-css {
   width: 1920px;
   height: 1080px;
-  background-color: black;
+  background-color: red;
 }
 </style>
