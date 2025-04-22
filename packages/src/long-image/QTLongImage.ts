@@ -16,8 +16,8 @@ function registerQTLongImageComponent(app: ESApp) {
           width: number
           height: number
           direction: number
-          percent: number
-          isScroll: boolean
+          scrollProgressIndicator: number
+          isScrollEdge: boolean
         }
       ) {
         const { handler: event, __evt: nativeEventName } = evtData
@@ -35,8 +35,8 @@ function registerQTLongImageComponent(app: ESApp) {
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
             event.direction = nativeEventParams.direction
-            event.percent = nativeEventParams.percent
-            event.isScroll = nativeEventParams.isScroll
+            event.percent = nativeEventParams.scrollProgressIndicator
+            event.isScroll = nativeEventParams.isScrollEdge
             break
           default:
             break

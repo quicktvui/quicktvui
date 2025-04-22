@@ -81,7 +81,14 @@ export default defineComponent({
     }
 
     function onScroll(direction: number, percent: number, isScroll, width: number, height: number) {
-      console.log('----------onScroll--------->>>>', direction, percent, isScroll, width, height)
+      console.log(
+        '----------onScroll----page----->>>>',
+        direction,
+        percent,
+        isScroll,
+        width,
+        height
+      )
       const text =
         ' onScroll: ' +
         ' direction:' +
