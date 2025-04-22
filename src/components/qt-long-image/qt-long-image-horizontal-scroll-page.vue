@@ -16,8 +16,6 @@
     <div class="es-sdk-content-row-css">
       <s-text-button text="向左滚动" @onButtonClicked="onLeftButtonClicked" />
       <s-text-button text="向右滚动" @onButtonClicked="onRightButtonClicked" />
-      <s-text-button text="向上滚动" @onButtonClicked="onUpButtonClicked" />
-      <s-text-button text="向下滚动" @onButtonClicked="onDownButtonClicked" />
     </div>
     <div class="es-sdk-content-row-css">
       <s-text-view :text="eventText" />
@@ -31,7 +29,7 @@ import { ref } from 'vue'
 import { QTILongImage } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: '滚动',
+  name: '横向滚动',
   emits: [],
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
@@ -44,14 +42,6 @@ export default defineComponent({
 
     function onRightButtonClicked() {
       viewRef.value?.scrollRight(step)
-    }
-
-    function onUpButtonClicked() {
-      viewRef.value?.scrollUp(step)
-    }
-
-    function onDownButtonClicked() {
-      viewRef.value?.scrollDown(step)
     }
 
     //-----------------------------------------------------------------
@@ -116,8 +106,6 @@ export default defineComponent({
       onInitializeError,
       onLeftButtonClicked,
       onRightButtonClicked,
-      onUpButtonClicked,
-      onDownButtonClicked,
     }
   },
 })

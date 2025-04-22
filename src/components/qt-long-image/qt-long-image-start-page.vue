@@ -1,12 +1,5 @@
 <template>
   <qt-view class="es-sdk-root-css" :clipChildren="false">
-    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
-    <qt-view class="es-sdk-content-divider-css" />
-
-    <div class="es-sdk-content-row-css">
-      <s-text-view :text="eventText" />
-    </div>
-
     <qt-view class="qt-long-image-start-page">
       <qt-long-image
         ref="viewRef"
@@ -16,6 +9,12 @@
         class="qt-long-image-root-css"
       />
     </qt-view>
+    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
+    <qt-view class="es-sdk-content-divider-css" />
+
+    <div class="es-sdk-content-row-css">
+      <s-text-view :text="eventText" />
+    </div>
   </qt-view>
 </template>
 
@@ -40,23 +39,23 @@ export default defineComponent({
     ) {
       console.log('----------onLoad--------->>>>', status, progress, message, width, height)
       eventText.value =
-        'onLoad: ' +
-        'status:' +
+        ' onLoad: ' +
+        ' status:' +
         status +
-        'progress:' +
+        ' progress:' +
         progress +
-        'message:' +
+        ' message:' +
         message +
-        'width:' +
+        ' width:' +
         width +
-        'height:' +
+        ' height:' +
         height
     }
 
     function onInitializeSuccess() {
       console.log('----------onInitializeSuccess--------->>>>')
       viewRef.value?.setSrc(
-        'https://www.shuomingshu.cn/wp-content/uploads/images/2023/06/23/4b30c4d172cd4c709d170e8194cae245_ajwo1tt5eln.jpg'
+        'https://pic.rmb.bdstatic.com/bjh/news/d7c0290dccdfaec5fff57eb6c6829fda.jpeg@q_90'
       )
     }
 
@@ -89,6 +88,6 @@ export default defineComponent({
 .qt-long-image-root-css {
   width: 1920px;
   height: 1080px;
-  background-color: red;
+  background-color: black;
 }
 </style>

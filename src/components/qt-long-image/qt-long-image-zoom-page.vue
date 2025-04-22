@@ -1,5 +1,14 @@
 <template>
   <qt-view class="es-sdk-root-css" :clipChildren="false">
+    <qt-view class="qt-long-image-start-page">
+      <qt-long-image
+        ref="viewRef"
+        @onLoad="onLoad"
+        @onInitializeSuccess="onInitializeSuccess"
+        @onInitializeError="onInitializeError"
+        class="qt-long-image-css"
+      />
+    </qt-view>
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <qt-view class="es-sdk-content-divider-css" />
     <div class="es-sdk-content-row-css">
@@ -10,15 +19,6 @@
       <s-text-button text="放大" @onButtonClicked="onZoomInButtonClicked" />
       <s-text-button text="缩小" @onButtonClicked="onZoomOutButtonClicked" />
     </div>
-    <qt-view class="qt-long-image-start-page">
-      <qt-long-image
-        ref="viewRef"
-        @onLoad="onLoad"
-        @onInitializeSuccess="onInitializeSuccess"
-        @onInitializeError="onInitializeError"
-        class="qt-long-image-css"
-      />
-    </qt-view>
   </qt-view>
 </template>
 
@@ -34,7 +34,7 @@ export default defineComponent({
     const viewRef = ref<QTILongImage>()
     const eventText = ref<string>('')
     const zoomEnable = ref<boolean>(false)
-    const zoomEnableText = ref<string>('')
+    const zoomEnableText = ref<string>('不可缩放')
 
     function onLoad(
       status: number,
@@ -45,23 +45,23 @@ export default defineComponent({
     ) {
       console.log('----------onLoad--------->>>>', status, progress, message, width, height)
       eventText.value =
-        'onLoad: ' +
-        'status:' +
+        ' onLoad: ' +
+        ' status:' +
         status +
-        'progress:' +
+        ' progress:' +
         progress +
-        'message:' +
+        ' message:' +
         message +
-        'width:' +
+        ' width:' +
         width +
-        'height:' +
+        ' height:' +
         height
     }
 
     function onInitializeSuccess() {
       console.log('----------onInitializeSuccess--------->>>>')
       viewRef.value?.setSrc(
-        'https://www.shuomingshu.cn/wp-content/uploads/images/2023/06/23/4b30c4d172cd4c709d170e8194cae245_ajwo1tt5eln.jpg'
+        'https://pic.rmb.bdstatic.com/bjh/news/d7c0290dccdfaec5fff57eb6c6829fda.jpeg@q_90'
       )
     }
 

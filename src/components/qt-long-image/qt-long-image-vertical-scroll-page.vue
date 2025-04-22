@@ -14,8 +14,6 @@
     <qt-view class="es-sdk-content-divider-css" />
 
     <div class="es-sdk-content-row-css">
-      <s-text-button text="向左滚动" @onButtonClicked="onLeftButtonClicked" />
-      <s-text-button text="向右滚动" @onButtonClicked="onRightButtonClicked" />
       <s-text-button text="向上滚动" @onButtonClicked="onUpButtonClicked" />
       <s-text-button text="向下滚动" @onButtonClicked="onDownButtonClicked" />
     </div>
@@ -31,20 +29,12 @@ import { ref } from 'vue'
 import { QTILongImage } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: '滚动',
+  name: '竖向滚动',
   emits: [],
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
     const step = 10
     const eventText = ref<string>('')
-
-    function onLeftButtonClicked() {
-      viewRef.value?.scrollLeft(step)
-    }
-
-    function onRightButtonClicked() {
-      viewRef.value?.scrollRight(step)
-    }
 
     function onUpButtonClicked() {
       viewRef.value?.scrollUp(step)
@@ -114,8 +104,6 @@ export default defineComponent({
       onScroll,
       onInitializeSuccess,
       onInitializeError,
-      onLeftButtonClicked,
-      onRightButtonClicked,
       onUpButtonClicked,
       onDownButtonClicked,
     }
