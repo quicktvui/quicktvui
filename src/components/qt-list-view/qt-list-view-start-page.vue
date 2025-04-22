@@ -1,68 +1,87 @@
 <template>
   <qt-view class="es-sdk-root-css">
-    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
-    <qt-view class="es-sdk-content-divider-css"/>
+    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
+    <qt-view class="es-sdk-content-divider-css" />
     <qt-view class="quick-list-view">
-      <qt-list-view class="list_view" ref="listViewRef" :clipChildren="false" :clipPadding="false"
-                    @item-click="onItemClick"
-                    @item-bind="onItemBind" horizontal :padding="'0,0,30,0'" :defaultFocus="defaultFocus"
-                    :blockFocusDirections="['left','right']">
+      <qt-list-view
+        class="list_view"
+        ref="listViewRef"
+        :clipChildren="false"
+        :clipPadding="false"
+        @item-click="onItemClick"
+        @item-bind="onItemBind"
+        horizontal
+        :padding="'0,0,30,0'"
+        :defaultFocus="defaultFocus"
+        :blockFocusDirections="['left', 'right']"
+      >
         <!-- item -->
-        <qt-poster/>
+        <qt-poster />
       </qt-list-view>
-      <qt-list-view style="width: 1920px;height: 76px;background-color: transparent;" ref="cmdListViewRef" horizontal
-                    @item-click="onCMDCLick">
-        <qt-button :enable-flex-style="true" text="text" type="1" size="mini" autoWidth
-                   style="padding-left: 20px;padding-right: 20px;background-color: green;"></qt-button>
+      <qt-list-view
+        style="width: 1920px; height: 76px; background-color: transparent"
+        ref="cmdListViewRef"
+        horizontal
+        @item-click="onCMDCLick"
+      >
+        <qt-button
+          :enable-flex-style="true"
+          text="text"
+          type="1"
+          size="mini"
+          autoWidth
+          style="padding-left: 20px; padding-right: 20px; background-color: green"
+        ></qt-button>
       </qt-list-view>
     </qt-view>
   </qt-view>
 </template>
 
 <script lang="ts">
-
-import {defineComponent, nextTick} from "@vue/runtime-core";
-import {ref, reactive, watch, watchEffect} from "vue";
-import {QTIListView, QTListViewItem, QTPoster} from "@quicktvui/quicktvui3";
-import {ElementFlags} from "typescript";
+import { defineComponent, nextTick } from '@vue/runtime-core'
+import { ref, reactive, watch, watchEffect } from 'vue'
+import { QTIListView, QTListViewItem, QTPoster } from '@quicktvui/quicktvui3'
+import { ElementFlags } from 'typescript'
 
 export default defineComponent({
   name: '使用初探',
+  emits: [],
   setup(props, context) {
     const listViewRef = ref<QTIListView>()
     const cmdListViewRef = ref<QTIListView>()
     let defaultFocus = ref(0)
-    let listDataRec: Array<QTListViewItem> = [];
+    let listDataRec: Array<QTListViewItem> = []
     const onESCreate = (params) => {
       let arr: Array<QTListViewItem> = []
       for (let i = 0; i < 24; i++) {
-        let imgSrc = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
+        let imgSrc =
+          'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
         const poster: QTPoster = {
           type: 10001,
           focus: {
             enable: true,
             scale: 1.1,
-            border: false
+            border: false,
           },
           decoration: {
             top: 20,
             left: 20,
             right: 20,
-            bottom: 20
+            bottom: 20,
           },
           title: {
             text: '主标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           subTitle: {
             text: '副标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           floatTitle: {
             text: '浮动标题',
@@ -70,7 +89,7 @@ export default defineComponent({
             style: {
               width: 260,
             },
-            background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+            background: { colors: ['#e5000000', '#00000000'], orientation: 4 },
           },
           shimmer: {
             enable: true,
@@ -81,28 +100,28 @@ export default defineComponent({
               right: 0,
               bottom: 0,
               marginRight: -12,
-            }
+            },
           },
           image: {
             src: imgSrc,
             enable: true,
             style: {
               width: 260,
-              height: 320
-            }
+              height: 320,
+            },
           },
           corner: {
             text: '角标' + i,
             enable: true,
             style: {
               width: 260,
-              height: 30
+              height: 30,
             },
             background: {
               colors: ['#A06419', '#CDA048'],
               cornerRadii4: [0, 8, 0, 8],
-              orientation: 2
-            }
+              orientation: 2,
+            },
           },
           style: {
             width: 260,
@@ -113,7 +132,7 @@ export default defineComponent({
             height: 120,
             marginTop: 320 - 60,
           },
-          titleFocusStyle: {width: 260, marginTop: 320 - 100},
+          titleFocusStyle: { width: 260, marginTop: 320 - 100 },
         }
         arr.push(poster)
       }
@@ -122,15 +141,15 @@ export default defineComponent({
     }
     const initBtnList = () => {
       let cmdData: Array<QTListViewItem> = [
-        {text: '更新Item', type: 1},
-        {text: 'push(单)', type: 1},
-        {text: 'push(多)', type: 1},
-        {text: 'splice(1个参数)', type: 1},
-        {text: 'splice(2个参数)', type: 1},
-        {text: 'splice(3+参数-替换)', type: 1},
-        {text: 'splice(3+参数-插入)', type: 1},
-        {text: 'concat', type: 1},
-        {text: 'pop', type: 1},
+        { text: '更新Item', type: 1 },
+        { text: 'push(单)', type: 1 },
+        { text: 'push(多)', type: 1 },
+        { text: 'splice(1个参数)', type: 1 },
+        { text: 'splice(2个参数)', type: 1 },
+        { text: 'splice(3+参数-替换)', type: 1 },
+        { text: 'splice(3+参数-插入)', type: 1 },
+        { text: 'concat', type: 1 },
+        { text: 'pop', type: 1 },
         //{text:'deleteItem',type: 1},
         // {text:'updateItemProps'},
         // {text:'scrollToTop',type: 1},
@@ -142,40 +161,40 @@ export default defineComponent({
         // {text:'scrollToSelected',type: 1},
       ]
       cmdData.forEach((el) => {
-        el.decoration = {right: 40, top: 6, bottom: 6}
+        el.decoration = { right: 40, top: 6, bottom: 6 }
       })
       cmdListViewRef.value?.init(cmdData)
     }
     const onCMDCLick = (e: any) => {
-      let {position, item} = e
+      let { position, item } = e
       switch (item.text) {
-        case '更新Item' : //更新Item
+        case '更新Item': //更新Item
           listDataRec![0].title.text = '修改标题'
-          break;
-        case 'push(单)' :
+          break
+        case 'push(单)':
           push('单')
-          break;
-        case 'push(多)' :
+          break
+        case 'push(多)':
           push('多')
-          break;
-        case 'splice(1个参数)' :
+          break
+        case 'splice(1个参数)':
           splice('1个参数')
-          break;
-        case 'splice(2个参数)' :
+          break
+        case 'splice(2个参数)':
           splice('2个参数')
-          break;
-        case 'splice(3+参数-替换)' :
+          break
+        case 'splice(3+参数-替换)':
           splice('3+参数-替换')
-          break;
-        case 'splice(3+参数-插入)' :
+          break
+        case 'splice(3+参数-插入)':
           splice('3+参数-插入')
-          break;
-        case 'concat' :  //数组拼接
+          break
+        case 'concat': //数组拼接
           concat()
-          break;
-        case 'pop' :  //删除末尾数据
+          break
+        case 'pop': //删除末尾数据
           listDataRec.pop()
-          break;
+          break
         // case 'deleteItem' : // 根据id删除item
         //   listDataRec.deleteItem(3,1) //根据id删除 第一个参数是id 第二个参数为删除该id之后几个元素（包含当前id）
         //   break;
@@ -208,33 +227,34 @@ export default defineComponent({
     const push = (type: string) => {
       let arr: Array<QTListViewItem> = []
       for (let i = 0; i < 2; i++) {
-        let imgSrc = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
+        let imgSrc =
+          'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
         const poster: QTPoster = {
           type: 10001,
           focus: {
             enable: true,
             scale: 1.1,
-            border: false
+            border: false,
           },
           decoration: {
             top: 20,
             left: 20,
             right: 20,
-            bottom: 20
+            bottom: 20,
           },
           title: {
             text: 'push主标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           subTitle: {
             text: 'push副标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           floatTitle: {
             text: 'push浮动标题',
@@ -242,7 +262,7 @@ export default defineComponent({
             style: {
               width: 260,
             },
-            background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+            background: { colors: ['#e5000000', '#00000000'], orientation: 4 },
           },
           shimmer: {
             enable: true,
@@ -253,28 +273,28 @@ export default defineComponent({
               right: 0,
               bottom: 0,
               marginRight: -12,
-            }
+            },
           },
           image: {
             src: imgSrc,
             enable: true,
             style: {
               width: 260,
-              height: 320
-            }
+              height: 320,
+            },
           },
           corner: {
             text: '角标' + i,
             enable: true,
             style: {
               width: 260,
-              height: 30
+              height: 30,
             },
             background: {
               colors: ['#A06419', '#CDA048'],
               cornerRadii4: [0, 8, 0, 8],
-              orientation: 2
-            }
+              orientation: 2,
+            },
           },
           style: {
             width: 260,
@@ -285,7 +305,7 @@ export default defineComponent({
             height: 120,
             marginTop: 320 - 60,
           },
-          titleFocusStyle: {width: 260, marginTop: 320 - 100},
+          titleFocusStyle: { width: 260, marginTop: 320 - 100 },
         }
         arr.push(poster)
       }
@@ -298,33 +318,34 @@ export default defineComponent({
     const splice = (type: string) => {
       let arr: Array<QTListViewItem> = []
       for (let i = 0; i < 2; i++) {
-        let imgSrc = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
+        let imgSrc =
+          'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
         const poster: QTPoster = {
           type: 10001,
           focus: {
             enable: true,
             scale: 1.1,
-            border: false
+            border: false,
           },
           decoration: {
             top: 20,
             left: 20,
             right: 20,
-            bottom: 20
+            bottom: 20,
           },
           title: {
             text: type,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           subTitle: {
             text: '副标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           floatTitle: {
             text: '浮动标题',
@@ -332,7 +353,7 @@ export default defineComponent({
             style: {
               width: 260,
             },
-            background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+            background: { colors: ['#e5000000', '#00000000'], orientation: 4 },
           },
           shimmer: {
             enable: true,
@@ -343,28 +364,28 @@ export default defineComponent({
               right: 0,
               bottom: 0,
               marginRight: -12,
-            }
+            },
           },
           image: {
             src: imgSrc,
             enable: true,
             style: {
               width: 260,
-              height: 320
-            }
+              height: 320,
+            },
           },
           corner: {
             text: '角标' + i,
             enable: true,
             style: {
               width: 260,
-              height: 30
+              height: 30,
             },
             background: {
               colors: ['#A06419', '#CDA048'],
               cornerRadii4: [0, 8, 0, 8],
-              orientation: 2
-            }
+              orientation: 2,
+            },
           },
           style: {
             width: 260,
@@ -375,14 +396,14 @@ export default defineComponent({
             height: 120,
             marginTop: 320 - 60,
           },
-          titleFocusStyle: {width: 260, marginTop: 320 - 100},
+          titleFocusStyle: { width: 260, marginTop: 320 - 100 },
         }
         arr.push(poster)
       }
       if (type == '1个参数') {
-        listDataRec.splice(0)  //删除当前索引及之后所有元素
+        listDataRec.splice(0) //删除当前索引及之后所有元素
       } else if (type == '2个参数') {
-        listDataRec.splice(2, 1)  //（从第2个开始 删除1条数据）
+        listDataRec.splice(2, 1) //（从第2个开始 删除1条数据）
       } else if (type == '3+参数-替换') {
         listDataRec.splice(4, 2, ...arr) //从索引位置 4 开始，替换两个元素，替换的data （当第二个参数不为0时 为替换）
       } else if (type == '3+参数-插入') {
@@ -392,33 +413,34 @@ export default defineComponent({
     const concat = () => {
       let arr: Array<QTListViewItem> = []
       for (let i = 0; i < 2; i++) {
-        let imgSrc = 'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
+        let imgSrc =
+          'https://img1.baidu.com/it/u=2666955302,2339578501&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750'
         const poster: QTPoster = {
           type: 10001,
           focus: {
             enable: true,
             scale: 1.1,
-            border: false
+            border: false,
           },
           decoration: {
             top: 20,
             left: 20,
             right: 20,
-            bottom: 20
+            bottom: 20,
           },
           title: {
             text: 'concat主标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           subTitle: {
             text: 'concat副标题' + i,
             enable: true,
             style: {
               width: 260,
-            }
+            },
           },
           floatTitle: {
             text: 'concat浮动标题',
@@ -426,7 +448,7 @@ export default defineComponent({
             style: {
               width: 260,
             },
-            background: {colors: ['#e5000000', '#00000000'], orientation: 4}
+            background: { colors: ['#e5000000', '#00000000'], orientation: 4 },
           },
           shimmer: {
             enable: true,
@@ -437,28 +459,28 @@ export default defineComponent({
               right: 0,
               bottom: 0,
               marginRight: -12,
-            }
+            },
           },
           image: {
             src: imgSrc,
             enable: true,
             style: {
               width: 260,
-              height: 320
-            }
+              height: 320,
+            },
           },
           corner: {
             text: '角标' + i,
             enable: true,
             style: {
               width: 260,
-              height: 30
+              height: 30,
             },
             background: {
               colors: ['#A06419', '#CDA048'],
               cornerRadii4: [0, 8, 0, 8],
-              orientation: 2
-            }
+              orientation: 2,
+            },
           },
           style: {
             width: 260,
@@ -469,16 +491,14 @@ export default defineComponent({
             height: 120,
             marginTop: 320 - 60,
           },
-          titleFocusStyle: {width: 260, marginTop: 320 - 100},
+          titleFocusStyle: { width: 260, marginTop: 320 - 100 },
         }
         arr.push(poster)
       }
       listDataRec = listDataRec!.concat(arr)
     }
-    const onItemClick = () => {
-    }
-    const onItemBind = () => {
-    }
+    const onItemClick = () => {}
+    const onItemBind = () => {}
     return {
       listViewRef,
       cmdListViewRef,
@@ -494,8 +514,7 @@ export default defineComponent({
       onItemClick,
     }
   },
-});
-
+})
 </script>
 
 <style scoped>
