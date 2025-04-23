@@ -18,4 +18,6 @@ export interface QTILongImage extends QTIView {
   scrollLeft(step: number): void
 
   scrollRight(step: number): void
+
+  scrollTo(offsetX: number, offsetY: number): void
 }

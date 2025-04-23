@@ -184,6 +184,10 @@ export default defineComponent({
       viewRef.value?.scrollRight(step)
     }
 
+    const scrollTo = (offsetX: number, offsetY: number): void => {
+      viewRef.value?.scrollTo(offsetX, offsetY)
+    }
+
     //---------------------------------------------------------------
     const onLoad = (
       status: number,
@@ -224,6 +228,7 @@ export default defineComponent({
       scrollRight,
       onLoad,
       onScroll,
+      scrollTo,
       componentInitialized,
       ...useBaseView(viewRef),
     }

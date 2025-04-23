@@ -23,7 +23,6 @@ function registerQTLongImageComponent(app: ESApp) {
         const { handler: event, __evt: nativeEventName } = evtData
         switch (nativeEventName) {
           case 'onLongImageChange':
-            console.log('-----------onLoad-------->>>>', nativeEventParams)
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
             event.status = nativeEventParams.status
@@ -31,7 +30,6 @@ function registerQTLongImageComponent(app: ESApp) {
             event.message = nativeEventParams.message
             break
           case 'onScroll':
-            console.log('-----------onScroll-------->>>>', nativeEventParams)
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
             event.direction = nativeEventParams.direction
@@ -88,6 +86,10 @@ function registerQTLongImageComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'actionRight', [step])
       }
 
+      const scrollTo = (offsetX: number, offsetY: number): void => {
+        Native.callUIFunction(viewRef.value, 'scrollToPosition', [offsetX, offsetY])
+      }
+
       context.expose({
         viewRef,
         setSrc,
@@ -98,6 +100,7 @@ function registerQTLongImageComponent(app: ESApp) {
         scrollUp,
         scrollLeft,
         scrollRight,
+        scrollTo,
         ...useBaseView(viewRef),
       })
 
