@@ -16,6 +16,9 @@
     <div class="es-sdk-content-row-css">
       <s-text-view :text="eventText" />
     </div>
+    <div class="es-sdk-content-row-css">
+      <s-text-button text="跳转" @onButtonClicked="onButtonClicked" />
+    </div>
   </qt-view>
 </template>
 
@@ -23,6 +26,7 @@
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
 import { QTILongImage } from '@quicktvui/quicktvui3'
+import { useESRouter } from '@extscreen/es3-router'
 
 export default defineComponent({
   name: '使用初探',
@@ -30,6 +34,7 @@ export default defineComponent({
   setup(props, context) {
     const viewRef = ref<QTILongImage>()
     const eventText = ref<string>('')
+    const router = useESRouter()
 
     function onLoad(
       status: number,
@@ -56,12 +61,19 @@ export default defineComponent({
     function onInitializeSuccess() {
       console.log('----------onInitializeSuccess--------->>>>')
       viewRef.value?.setSrc(
-        'https://pic.rmb.bdstatic.com/bjh/news/d7c0290dccdfaec5fff57eb6c6829fda.jpeg@q_90'
+        'https://ss2.meipian.me/users/1034/b11ca8a3e4d3fb27ca6bdb1d894716c3mpand.jpg'
       )
     }
 
     function onInitializeError(error) {
       console.log('----------onInitializeError--------->>>>', error)
+    }
+
+    function onButtonClicked() {
+      router.push({
+        name: 'long-image/qt_long_image_vertical_scroll_page',
+        params: {},
+      })
     }
 
     return {
@@ -70,6 +82,7 @@ export default defineComponent({
       onLoad,
       onInitializeSuccess,
       onInitializeError,
+      onButtonClicked,
     }
   },
 })
