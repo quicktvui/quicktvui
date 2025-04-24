@@ -18,6 +18,7 @@ function registerQTLongImageComponent(app: ESApp) {
           direction: number
           scrollProgressIndicator: number
           isScrollEdge: boolean
+          isScroll: boolean
         }
       ) {
         const { handler: event, __evt: nativeEventName } = evtData
@@ -35,6 +36,13 @@ function registerQTLongImageComponent(app: ESApp) {
             event.direction = nativeEventParams.direction
             event.percent = nativeEventParams.scrollProgressIndicator
             event.isScroll = nativeEventParams.isScrollEdge
+            break
+          case 'onShow':
+            event.width = nativeEventParams.width
+            event.height = nativeEventParams.height
+            event.direction = nativeEventParams.direction
+            event.percent = nativeEventParams.scrollProgressIndicator
+            event.isScroll = nativeEventParams.isScroll
             break
           default:
             break
@@ -131,6 +139,10 @@ function registerQTLongImageComponent(app: ESApp) {
             const percent = evt.percent
             const isScroll = evt.isScroll
             context.emit('onScroll', direction, percent, isScroll, width, height)
+          },
+          onShow: (evt) => {
+            const scrollable = evt.isScroll
+            context.emit('onRendered', scrollable)
           },
         })
       }

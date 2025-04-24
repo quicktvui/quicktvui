@@ -16,6 +16,7 @@
     :borderSize="borderSize"
     :sliderAssetsIcon="sliderAssetsIcon"
     :sliderNetworkIcon="sliderNetworkIcon"
+    @onRendered="onRendered"
     @onLoad="onLoad"
     @onScroll="onScroll"
   />
@@ -30,7 +31,7 @@ import { QTILongImage } from './QTILongImage'
 
 export default defineComponent({
   name: 'qt-long-image',
-  emits: ['onLoad', 'onScroll', 'onInitializeSuccess', 'onInitializeError'],
+  emits: ['onLoad', 'onScroll', 'onInitializeSuccess', 'onInitializeError', 'onRendered'],
   props: {
     size: {
       type: String,
@@ -189,6 +190,10 @@ export default defineComponent({
     }
 
     //---------------------------------------------------------------
+    const onRendered = (scrollable: boolean) => {
+      context.emit('onRendered', scrollable)
+    }
+
     const onLoad = (
       status: number,
       progress: number,
@@ -196,14 +201,6 @@ export default defineComponent({
       width: number,
       height: number
     ) => {
-      console.log(
-        '---------onLoad-------xxx------------->>>>',
-        status,
-        progress,
-        message,
-        width,
-        height
-      )
       context.emit('onLoad', status, progress, message, width, height)
     }
     const onScroll = (
@@ -227,6 +224,7 @@ export default defineComponent({
       scrollLeft,
       scrollRight,
       onLoad,
+      onRendered,
       onScroll,
       scrollTo,
       componentInitialized,
