@@ -7,10 +7,12 @@
       @onCollapseItemExpand="onCollapseItemExpand"
       class="qt-collapse-root-css"
     >
-      <qt-collapse-menu-item-one />
+      <qt-collapse-menu-item-one v-if="false" />
       <qt-collapse-menu-item-two />
+      <!-- 注释 -->
       <qt-collapse-menu-item-three />
       <qt-collapse-menu-item-four />
+      <!-- 注释 -->
       <qt-collapse-menu-item-five />
     </qt-collapse>
   </div>
@@ -54,10 +56,10 @@ export default defineComponent({
         defaultIndex: 0, //默认0
         expandDuration: 200, //默认200
         itemList: [
-          {
-            height: 200,
-            collapseHeight: 150,
-          },
+          // {
+          //   height: 200,
+          //   collapseHeight: 150,
+          // },
           {
             height: 200,
             collapseHeight: 150,

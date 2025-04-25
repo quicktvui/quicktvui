@@ -35,6 +35,7 @@ import {
   QTAnimationValueType,
 } from '../animation/types'
 import useBaseView from '../base/useBaseView'
+import { VNode } from 'vue'
 
 const TAG = 'QTCollapse'
 
@@ -74,7 +75,10 @@ export default defineComponent({
     }
 
     function init(collapse: QTCollapse): void {
-      collapseItemComponentList.value = context.slots.default && context.slots.default()
+      const defaultSlot = context.slots.default?.() ?? []
+      collapseItemComponentList.value = defaultSlot.filter((v: VNode) => {
+        return typeof v.type === 'object' || typeof v.type === 'function'
+      })
 
       collapseItemIndex = collapse.defaultIndex ?? 0
       collapseItemList = collapse.itemList
