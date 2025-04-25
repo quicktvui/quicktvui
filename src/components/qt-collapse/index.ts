@@ -1,6 +1,7 @@
 import qt_collapse_start_page from './qt-collapse-start-page.vue'
 import qt_collapse_async_data_page from './qt-collapse-async-data-page.vue'
 import qt_collapse_menu_page from './qt-collapse-menu-page.vue'
+import qt_collapse_setup_menu_page from './qt-collapse-setup-menu-page.vue'
 
 const QTCollapsePageList = {
   qt_collapse_start_page: {
@@ -14,6 +15,10 @@ const QTCollapsePageList = {
   qt_collapse_menu_page: {
     name: '菜单示例',
     component: qt_collapse_menu_page,
+  },
+  qt_collapse_setup_menu_page: {
+    name: '菜单示例 setup',
+    component: qt_collapse_setup_menu_page,
   },
 }
 
