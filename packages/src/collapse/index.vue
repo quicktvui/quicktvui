@@ -126,8 +126,16 @@ export default defineComponent({
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
             itemRef.onCollapseItemExpand(true, false)
+          } else {
+            if (log.isLoggable(ESLogLevel.DEBUG)) {
+              log.d(TAG, '----itemRef is null---->>>>', item)
+            }
           }
-        } catch (e) {}
+        } catch (e) {
+          if (log.isLoggable(ESLogLevel.DEBUG)) {
+            log.d(TAG, '----itemRef onCollapseItemExpand error---->>>>', e)
+          }
+        }
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {
           translationItem(i + '', item, animItemRef, item.__translationY, 0, 0)
@@ -150,8 +158,16 @@ export default defineComponent({
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
             itemRef.onCollapseItemExpand(false, false)
+          } else {
+            if (log.isLoggable(ESLogLevel.DEBUG)) {
+              log.d(TAG, '----itemRef is null---->>>>', item)
+            }
           }
-        } catch (e) {}
+        } catch (e) {
+          if (log.isLoggable(ESLogLevel.DEBUG)) {
+            log.d(TAG, '----itemRef onCollapseItemExpand error---->>>>', e)
+          }
+        }
 
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {
@@ -191,8 +207,16 @@ export default defineComponent({
           const itemRef: QTICollapseItem | undefined = getItem(i)
           if (itemRef) {
             itemRef.onCollapseItemExpand(i == index, init)
+          } else {
+            if (log.isLoggable(ESLogLevel.DEBUG)) {
+              log.d(TAG, '----itemRef is null---->>>>', item)
+            }
           }
-        } catch (e) {}
+        } catch (e) {
+          if (log.isLoggable(ESLogLevel.DEBUG)) {
+            log.d(TAG, '----itemRef onCollapseItemExpand error---->>>>', e)
+          }
+        }
 
         const animItemRef: QTIAnimation = getAnimItem(i)
         if (animItemRef) {

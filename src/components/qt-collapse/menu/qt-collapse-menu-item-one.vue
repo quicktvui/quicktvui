@@ -72,6 +72,7 @@ export default defineComponent({
     }
 
     function onCollapseItemExpand(value: boolean) {
+      console.log('---------onCollapseItemExpand------one------>>>', value)
       isExpand.value = value
       if (value) {
         show(500)
