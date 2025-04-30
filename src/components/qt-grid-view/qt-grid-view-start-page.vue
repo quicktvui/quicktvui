@@ -4,13 +4,15 @@
     <qt-view class="es-sdk-content-divider-css"/>
     <qt-view class="qt-grid-view">
       <qt-grid-view class="grid_view" ref="gridViewRef" :clipChildren="false" :clipPadding="false"
+                    :useLayoutAnimation="[100,4,300,0.2]"
                     @item-click="onItemClick"
+                    sid="myGrid"
                     @item-bind="onItemBind" :spanCount="6" :areaWidth="1800" :itemHeight="320" :padding="'0,0,10,16'"
                     :defaultFocus="defaultFocus" :blockFocusDirections="['left','right']">
         <!-- item -->
         <qt-poster/>
       </qt-grid-view>
-      <qt-list-view style="width: 1920px;height: 76px;background-color: transparent;" ref="cmdListViewRef" horizontal
+      <qt-list-view style="width: 1920px;height: 76px;background-color: transparent;" ref="cmdListViewRef" horizontal :useLayoutAnimation="[100,4,300,0.2]"
                     @item-click="onCMDCLick">
         <qt-button :enable-flex-style="true" text="text" type="1" size="mini" autoWidth
                    style="padding-left: 20px;padding-right: 20px;background-color: green;"></qt-button>
@@ -23,7 +25,7 @@
 
 import {defineComponent} from "@vue/runtime-core";
 import {ref, reactive} from "vue";
-import {QTIListView, QTIGridView, QTGridViewItem, QTPoster} from "@quicktvui/quicktvui3";
+import {QTIListView, QTIGridView, QTGridViewItem, QTPoster, VirtualView} from "@quicktvui/quicktvui3";
 
 export default defineComponent({
   name: '使用初探',
@@ -127,6 +129,8 @@ export default defineComponent({
     }
     const initBtnList = () => {
       let cmdData: Array<QTGridViewItem> = [
+        {text: 'leftIn', type: 1},
+        {text: 'rightIn', type: 1},
         {text: '更新Item', type: 1},
         {text: 'push(单)', type: 1},
         {text: 'push(多)', type: 1},
@@ -156,6 +160,8 @@ export default defineComponent({
       switch (item.text) {
         case '更新Item' : //更新Item
           listDataRec![0].title.text = '修改标题'
+          //gridViewRef.value?.
+
           break;
         case 'push(单)' :
           push('单')
@@ -180,6 +186,12 @@ export default defineComponent({
           break;
         case 'pop' :  //删除末尾数据
           listDataRec.pop()
+          break;
+        case "leftIn":
+            VirtualView.call('myGrid','scheduleLayoutAnimation',[102,4,300,0.2])
+          break;
+        case "rightIn":
+            VirtualView.call('myGrid','scheduleLayoutAnimation',[103,4,300,0.2])
           break;
         // case 'deleteItem' : // 根据id删除item
         //   listDataRec.deleteItem(3,1) //根据id删除 第一个参数是id 第二个参数为删除该id之后几个元素（包含当前id）

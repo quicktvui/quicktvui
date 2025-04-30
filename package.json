@@ -1,5 +1,5 @@
 {
-  "name": "quicktvui-vue3",
+  "name": "@quicktvui/quicktvui-vue3",
   "version": "2.0.0",
   "description": "A Demo Example For Hippy-Vue-Next Library To Show.",
   "private": true,
