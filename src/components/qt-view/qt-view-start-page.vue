@@ -1,21 +1,46 @@
 <template>
   <div class="es-sdk-root-css" :clipChildren="false">
-    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
-    <qt-view class="es-sdk-content-divider-css"/>
+    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
+    <qt-view class="es-sdk-content-divider-css" />
     <qt-view class="qt-view-start-page">
-      <qt-view class="qt-view-start-page-sec1"
-               :gradientBackground="{type: 0, shape: 0,colors: ['#ff0000', '#00ff00'],cornerRadii4: [0, 5, 20, 0]}">
-        <qt-text class="qt-view-start-page-sec-title"
-                 text="flex-direction: row 横向布局"></qt-text>
+      <qt-view
+        class="qt-view-start-page-sec1"
+        :gradientBackground="{
+          type: 0,
+          shape: 0,
+          colors: ['#ff0000', '#00ff00'],
+          cornerRadii4: [0, 5, 20, 0],
+        }"
+      >
+        <qt-text class="qt-view-start-page-sec-title" text="flex-direction: row 横向布局"></qt-text>
         <qt-view class="qt-view-start-page-sec1-flex" ref="item">
-          <qt-view class="flex-item" :focusable="true" ref="item1" :enableFocusBorder="true" @click="click"></qt-view>
-          <qt-view class="flex-item" :opacity="0.5" :focusable="true" ref="item2" :enableFocusBorder="true"></qt-view>
-          <qt-view class="flex-item" :focusable="true" ref="item3" :enableFocusBorder="true"></qt-view>
+          <qt-view
+            class="flex-item"
+            :focusable="true"
+            ref="item1"
+            :enableFocusBorder="true"
+            @click="click"
+          ></qt-view>
+          <qt-view
+            class="flex-item"
+            :opacity="0.5"
+            :focusable="true"
+            ref="item2"
+            :enableFocusBorder="true"
+          ></qt-view>
+          <qt-view
+            class="flex-item"
+            :focusable="true"
+            ref="item3"
+            :enableFocusBorder="true"
+          ></qt-view>
         </qt-view>
       </qt-view>
       <qt-view class="qt-view-start-page-sec2">
-        <qt-text class="qt-view-start-page-sec-title"
-                 text="flex-direction: column 纵向布局"></qt-text>
+        <qt-text
+          class="qt-view-start-page-sec-title"
+          text="flex-direction: column 纵向布局"
+        ></qt-text>
         <qt-view class="qt-view-start-page-sec2-flex">
           <qt-view class="flex-item demo-text-1"></qt-view>
           <qt-view class="flex-item demo-text-2"></qt-view>
@@ -27,11 +52,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "@vue/runtime-core";
-import {ref, reactive, watch, watchEffect} from "vue";
+import { defineComponent } from '@vue/runtime-core'
+import { ref, reactive, watch, watchEffect } from 'vue'
 
 export default defineComponent({
   name: '使用初探',
+  emits: [],
   setup(props, context) {
     const item = ref()
     const item1 = ref()
@@ -42,15 +68,25 @@ export default defineComponent({
     }
     const onESCreate = (params) => {
       item2.value.requestFocus()
-
+      item2.value?.hasFocus().then(
+        (ret) => {
+          console.log('--------hasFocus---success---->>>>', ret)
+        },
+        (error) => {
+          console.log('--------hasFocus---error---->>>>', error)
+        }
+      )
     }
     return {
       onESCreate,
       click,
-      item, item1, item2, item3
+      item,
+      item1,
+      item2,
+      item3,
     }
   },
-});
+})
 </script>
 
 <style>

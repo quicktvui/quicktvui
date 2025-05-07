@@ -29,6 +29,7 @@ import QTAPIPageList from './components/qt-api'
 import QTSwiperPageList from './components/qt-swiper'
 import QTLottiePageList from './components/qt-lottie'
 import QTIndicatorPageList from './components/qt-indicator-list-view'
+import QTDialogPageList from './components/qt-dialog'
 
 import {
   QTWaterfallItemPageList,
@@ -308,6 +309,11 @@ const routes = [
     path: `/long-image/${item}`,
     name: `long-image/${item}`,
     component: QTLongImagePageList[item].component,
+  })),
+  ...Object.keys(QTDialogPageList).map((item) => ({
+    path: `/dialog/${item}`,
+    name: `dialog/${item}`,
+    component: QTDialogPageList[item].component,
   })),
 ]
 
