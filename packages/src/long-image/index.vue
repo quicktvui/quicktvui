@@ -14,6 +14,7 @@
     :disabled="disabled"
     :modelValue="modelValue"
     :borderSize="borderSize"
+    :scaleType="scaleType"
     :sliderAssetsIcon="sliderAssetsIcon"
     :sliderNetworkIcon="sliderNetworkIcon"
     @onRendered="onRendered"
@@ -87,6 +88,10 @@ export default defineComponent({
     },
     src: {
       type: String,
+    },
+    scaleType: {
+      type: Number,
+      default: 4,
     },
   },
   setup(props, context) {
