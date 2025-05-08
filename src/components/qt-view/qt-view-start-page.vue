@@ -68,15 +68,26 @@ export default defineComponent({
     }
     const onESCreate = (params) => {
       item2.value.requestFocus()
-      item2.value?.hasFocus().then(
+
+      qt.view.hasFocus(item2).then(
         (ret) => {
-          console.log('--------hasFocus---success---->>>>', ret)
+          console.log('-----qt.view---hasFocus---success---->>>>', ret)
         },
         (error) => {
-          console.log('--------hasFocus---error---->>>>', error)
+          console.log('----qt.view----hasFocus---error---->>>>', error)
+        }
+      )
+
+      item2.value?.hasFocus().then(
+        (ret) => {
+          console.log('---item2.value-----hasFocus---success---->>>>', ret)
+        },
+        (error) => {
+          console.log('----item2.value----hasFocus---error---->>>>', error)
         }
       )
     }
+
     return {
       onESCreate,
       click,
