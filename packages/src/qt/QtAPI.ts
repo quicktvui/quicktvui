@@ -1,4 +1,5 @@
 import { createQtBaseViewAPI, QtBaseViewAPI } from '../base/QtBaseViewAPI'
+import { createQtBaseNativeViewAPI } from '../base/QtBaseNativeViewAPI'
 import { createQtViewAPI, QtViewAPI } from '../view/QtViewAPI'
 import { createQtWebViewAPI, QtWebViewAPI } from '../webview/QtWebViewAPI'
 import { createQtListViewAPI, QtListViewAPI } from '../list-view/QtListViewAPI'
@@ -170,10 +171,13 @@ export interface QtAPI {
 export function createQtAPI(): QtAPI {
   //base
   const baseViewAPI: QtBaseViewAPI = createQtBaseViewAPI()
+  const baseNativeViewAPI: QtBaseViewAPI = createQtBaseNativeViewAPI()
+
   const baseListViewAPI: QtBaseListViewAPI = createQtBaseListViewAPI()
   //------------------------------------------------------------------------
   //
   const viewAPI: QtViewAPI = createQtViewAPI(baseViewAPI)
+  const viewNativeAPI: QtViewAPI = createQtViewAPI(baseNativeViewAPI)
 
   //
   const listViewAPI: QtListViewAPI = createQtListViewAPI(baseViewAPI, baseListViewAPI)
@@ -188,7 +192,7 @@ export function createQtAPI(): QtAPI {
   const webViewAPI: QtWebViewAPI = createQtWebViewAPI(baseViewAPI)
   const x5WebViewAPI: QtX5WebViewAPI = createQtX5WebViewAPI(baseViewAPI)
 
-  const ulAPI: QtULAPI = createQtULAPI(baseViewAPI)
+  const ulAPI: QtULAPI = createQtULAPI(baseNativeViewAPI)
   const scrollViewAPI: QtScrollViewAPI = createQtScrollViewAPI(baseViewAPI)
   const textAPI: QtTextAPI = createQtTextAPI(baseViewAPI)
   const replaceChildViewAPI: QtReplaceChildViewAPI = createQtReplaceChildViewAPI(baseViewAPI)
@@ -214,17 +218,19 @@ export function createQtAPI(): QtAPI {
   const longImageAPI: QtLongImageAPI = createQtLongImageAPI(baseViewAPI)
 
   return {
-    div: viewAPI,
-    img: viewAPI,
-    li: viewAPI,
-    p: viewAPI,
+    //底层组件
+    div: viewNativeAPI,
+    img: viewNativeAPI,
+    ul: ulAPI,
+    li: viewNativeAPI,
+    p: viewNativeAPI,
+    //扩展组件
     view: viewAPI,
     webView: webViewAPI,
     listView: listViewAPI,
     gridView: gridViewAPI,
     waterfall: waterfallAPI,
     image: imageAPI,
-    ul: ulAPI,
     scrollView: scrollViewAPI,
     text: textAPI,
     replaceChildView: replaceChildViewAPI,
@@ -250,6 +256,7 @@ export function createQtAPI(): QtAPI {
     row: rowAPI,
     virtualView: virtualViewAPI,
     indicator: indicatorViewAPI,
+    //模块
     log: log,
     es: es,
     develop: develop,
