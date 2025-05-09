@@ -1,0 +1,5 @@
+export enum QTScrollState {
+  SCROLL_STATE_IDLE = 0,
+  SCROLL_STATE_DRAGGING = 1,
+  SCROLL_STATE_SETTLING = 2,
+}

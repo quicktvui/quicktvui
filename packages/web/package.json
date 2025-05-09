@@ -1,0 +1,26 @@
+{
+  "name": "@quicktvui/web",
+  "version": "0.0.1",
+  "description": "ExtScreen framework",
+  "author": "ExtScreen Team",
+  "homepage": "http://extscreen.com",
+  "license": "Apache-2.0",
+  "entry": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/src/index.d.ts",
+  "keywords": [
+    "native",
+    "web",
+    "framework",
+    "compiler"
+  ],
+  "peerDependencies": {
+    "@extscreen/es3-core": "^1.1.24",
+    "@extscreen/es3-router": "^1.1.14"
+  },
+  "files": [
+    "dist",
+    "web-types.json"
+  ]
+}
