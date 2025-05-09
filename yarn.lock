@@ -1612,10 +1612,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@quicktvui/quicktvui3@1.2.0-beta.23":
-  version "1.2.0-beta.23"
-  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-1.2.0-beta.23.tgz#013203de8752297f6e103b35fa7ec3dea474e446"
-  integrity sha512-QfCIi4mebYolxOT3WeVyzeWXv41nea5bYEM7bmBgSELnMffQ+UlhS9O3WJ9q1H6vldyr+9kbJajB7Plm6lBIWA==
+"@quicktvui/quicktvui3@1.2.0-beta.34":
+  version "1.2.0-beta.34"
+  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-1.2.0-beta.34.tgz#6da61a7fbbec5aafc6a5f23e0cef45985a3d0a41"
+  integrity sha512-mgNzQqKA1p9d+GnKsLNJ9wYD+Ww2VcoN9sExYuBFp0sASy/I74PDq1ogiurNl0vB/n0EiXSPW2/r2tDgKaW5ag==
 
 "@rollup/plugin-alias@^3.1.9":
   version "3.1.9"

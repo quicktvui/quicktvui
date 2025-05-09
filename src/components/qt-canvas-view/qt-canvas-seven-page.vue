@@ -14,9 +14,8 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-// import { QTIListView, QTListViewItem, QTPoster, qtRef } from '@quicktvui/quicktvui3'
 import { useESToast } from '@extscreen/es3-core'
-import { QTICanvasView } from '../../../packages'
+import { QTICanvasView } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '使用初探',

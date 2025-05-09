@@ -4,11 +4,11 @@ import { Native } from '@extscreen/es3-vue'
 import { QT_API_MODULE, QT_CALL_UI_FUNCTION } from '../qt/QtAPIModule'
 import { QTICanvasView } from './QTICanvasView'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
-import type { Position2DWithRadius } from './Gradient'
-import CanvasGradient, { RadialGradient } from './Gradient'
+import type { Position2DWithRadius } from './CanvasGradient'
+import { CanvasGradient, RadialGradient } from './CanvasGradient'
 
 export interface QtCanvasViewAPI extends QtBaseViewAPI {
-  destoryView(instance: string | Ref<QTICanvasView | undefined>): void
+  destroyView(instance: string | Ref<QTICanvasView | undefined>): void
 
   drawAction(instance: string | Ref<QTICanvasView | undefined>, str: string): void
 
@@ -199,11 +199,11 @@ export interface QtCanvasViewAPI extends QtBaseViewAPI {
 }
 
 export function createQtCanvasViewAPI(viewAPI: QtBaseViewAPI): QtCanvasViewAPI {
-  function destoryView(instance: string | Ref<QTICanvasView | undefined>): void {
+  function destroyView(instance: string | Ref<QTICanvasView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'destoryView', []])
     } else if (isRef(instance) && instance.value) {
-      instance.value?.destoryView()
+      instance.value?.destroyView()
     }
   }
 
@@ -796,7 +796,7 @@ export function createQtCanvasViewAPI(viewAPI: QtBaseViewAPI): QtCanvasViewAPI {
 
   return {
     ...viewAPI,
-    destoryView,
+    destroyView,
     drawAction,
     drawFinish,
     fillStyle,

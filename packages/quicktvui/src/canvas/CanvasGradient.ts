@@ -35,7 +35,7 @@ export interface RadialGradient {
 export type GradientInput = LinearGradient | RadialGradient | string
 
 // 类定义
-class CanvasGradient {
+export class CanvasGradient {
   start_pos: Position2D | Position2DWithRadius
   end_pos: Position2D | Position2DWithRadius
   type: GradientType
@@ -75,4 +75,3 @@ class CanvasGradient {
     }
   }
 }
-export default CanvasGradient

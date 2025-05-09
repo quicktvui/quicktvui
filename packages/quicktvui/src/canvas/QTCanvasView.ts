@@ -2,7 +2,7 @@ import { h, ref } from 'vue'
 import { ESApp, Native, registerElement } from '@extscreen/es3-vue'
 
 import useBaseView from '../base/useBaseView'
-import CanvasGradient, { Position2DWithRadius, RadialGradient } from './Gradient'
+import { CanvasGradient, Position2DWithRadius, RadialGradient } from './CanvasGradient'
 
 function registerQTCanvasView(app: ESApp) {
   registerElement('CanvasView2D', {
@@ -15,7 +15,7 @@ function registerQTCanvasView(app: ESApp) {
     setup(props, context) {
       const viewRef = ref()
 
-      const destoryView = () => {
+      const destroyView = () => {
         Native.callUIFunction(viewRef.value, 'destoryView', [])
       }
 
@@ -336,7 +336,7 @@ function registerQTCanvasView(app: ESApp) {
 
       context.expose({
         viewRef,
-        destoryView,
+        destroyView,
         drawAction,
         drawFinish,
         fillStyle,

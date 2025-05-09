@@ -1,7 +1,7 @@
 import { QTIView } from '../view/QTIView'
 
 export interface QTICanvasView extends QTIView {
-  destoryView(): void
+  destroyView(): void
 
   drawAction(str: string): void
 

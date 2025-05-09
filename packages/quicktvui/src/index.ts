@@ -334,3 +334,17 @@ export type { QTICanvasView } from './canvas/QTICanvasView'
 
 //--------------------------------QTIText---------------------------------
 export type { QTILongImage } from './long-image/QTILongImage'
+
+//--------------------------------QTCanvas---------------------------------
+
+export { CanvasGradient } from './canvas/CanvasGradient'
+
+export type {
+  GradientInput,
+  RadialGradient,
+  LinearGradient,
+  GradientStop,
+  Position2DWithRadius,
+  Position2D,
+  GradientType,
+} from './canvas/CanvasGradient'

@@ -35,7 +35,9 @@ import qt_nav_module_page from './qt-nav-module-page'
 import qt_nav_component_page from './qt-nav-component-page'
 import qt_nav_canvas_page from './qt-nav-canvas-view-page'
 import qt_nav_long_image_page from './qt-nav-long-image-page'
-
+//--------------------------------------------------------------------
+import web_nav_video_page from './web-nav-video-page'
+//--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
     name: 'QTView',
@@ -182,6 +184,10 @@ const QTAPINavPageList = {
   qt_nav_dialog_page: {
     name: 'QTDialog',
     component: qt_nav_dialog_page,
+  },
+  web_nav_video_page: {
+    name: 'Video',
+    component: web_nav_video_page,
   },
 }
 

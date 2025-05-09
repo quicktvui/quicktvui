@@ -2,8 +2,9 @@
 node_modules
 /dist
 ./dist
-./packages/web/dist
-./packages/quicktvui/dist
+packages/web/dist
+packages/quicktvui/dist
+packages/quicktvui/dist/
 packages/dist/
 # local env files
 .env.local
