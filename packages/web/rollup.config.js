@@ -27,6 +27,7 @@ export default {
   external: [
     '@extscreen/es3-video-player',
     '@extscreen/es3-player',
+    '@extscreen/es3-audio-player',
     '@extscreen/es3-vue',
     'vue',
     '@extscreen/es3-core',

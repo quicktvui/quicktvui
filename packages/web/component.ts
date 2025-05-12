@@ -1,5 +1,6 @@
 import { Video } from './video'
-import { Source } from './video'
+import { Audio } from './audio'
+import { Source } from './source'
 import type { Plugin } from 'vue'
 
-export default [Video, Source] as Plugin[]
+export default [Video, Source, Audio] as Plugin[]

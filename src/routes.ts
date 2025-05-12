@@ -58,6 +58,7 @@ import QTCanvasViewPageList from './components/qt-canvas-view'
 import QTLongImagePageList from './components/qt-long-image'
 //--------------------------------WEB------------------------------------------------
 import WebVideoPageList from './components/web-video'
+import WebAudioPageList from './components/web-audio'
 
 const routes = [
   {
@@ -322,6 +323,11 @@ const routes = [
     path: `/web-video/${item}`,
     name: `web-video/${item}`,
     component: WebVideoPageList[item].component,
+  })),
+  ...Object.keys(WebAudioPageList).map((item) => ({
+    path: `/web-audio/${item}`,
+    name: `web-audio/${item}`,
+    component: WebAudioPageList[item].component,
   })),
 ]
 

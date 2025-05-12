@@ -1262,15 +1262,15 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-ad-player/-/es3-ad-player-0.0.10.tgz#15aca6cd7f43586783bbb0bee47ff10fb4451e95"
   integrity sha512-RjP5B8RtZUjZY96DbRKvDO2uOAU5u1xlS6U5SqFwJDXJ/J9LoqQ7/t/PyX7Kok4TKngKlS1wUhhNsX4A9AtBuA==
 
-"@extscreen/es3-audio-player@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-player/-/es3-audio-player-0.0.5.tgz#0ee933f24f9d18942e9a4867557b899bcbb7fe8e"
-  integrity sha512-su03FPGAhXDRB+Iu7v34VV3wLmLnA9F+gHTH69J8oqpGB5yLoiKPEhOucDjL/JFq9vfijlH2sU5T3v3/HiDiYw==
+"@extscreen/es3-audio-player@1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-player/-/es3-audio-player-1.0.16.tgz#c2004d3b2a9e5bbfc223bf32c652758074a19fba"
+  integrity sha512-vHGUFOl6MgOPA5kl5qiIs6ayhGlZKwqejX+YIAUn9IxeQarzIuml6K6gAlC7im/AQ0/qKhWC7cRK2dBIZTjaQg==
 
-"@extscreen/es3-audio-service-player@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-service-player/-/es3-audio-service-player-0.0.5.tgz#caa764c135148f9e498527ffcf72c50e733bc55f"
-  integrity sha512-DqwYyXEioDAyJQkQby3+Bkwqq9q7xFJ+JzBUxGnSELR4CtW5Mg4SWNZZ73ZB/DmZPkB8m+MsDBNZM5qkTIKB9A==
+"@extscreen/es3-audio-service-player@1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-service-player/-/es3-audio-service-player-1.0.13.tgz#5de28102815ac1c602f8849a1f08bf3b3fad03bc"
+  integrity sha512-KOOpzyvd+sFTUaZlCGcu4gWzyyQW6nv7ZYAFLuVhltPe3RONkooXFyogiLs0kUQzNXuTWa2Z+FQLq0uBHejnfA==
 
 "@extscreen/es3-component@1.0.35":
   version "1.0.35"

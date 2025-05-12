@@ -1,6 +1,6 @@
 <template>
-  <es-video-player
-    ref="videoPlayer"
+  <es-audio-player
+    ref="audioPlayer"
     :player-width="width"
     :player-height="height"
     @onPlayerInitialized="onPlayerInitialized"
@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref, useSlots } from 'vue'
-import { videoProps } from './video'
+import { audioProps } from './audio'
 import Source from '../../source/src/source.vue'
 import {
   ESIPlayer,
@@ -17,19 +17,18 @@ import {
   ESMediaSourceList,
   ESPlayerPlayMode,
 } from '@extscreen/es3-player'
-import { ESVideoPlayer } from '@extscreen/es3-video-player'
-
-const TAG = 'WebVideo'
+import { ESAudioPlayer } from '@extscreen/es3-audio-player'
+const TAG = 'WebAudio'
 
 export default defineComponent({
-  name: 'Video',
-  props: videoProps,
+  name: 'Audio',
+  props: audioProps,
   emits: [],
   components: {
-    'es-video-player': ESVideoPlayer,
+    'es-audio-player': ESAudioPlayer,
   },
   setup(props, context) {
-    const videoPlayer = ref<ESIPlayer>()
+    const audioPlayer = ref<ESIPlayer>()
     const slots = useSlots()
 
     const sources = computed(() => {
@@ -44,13 +43,13 @@ export default defineComponent({
 
     onMounted(() => {
       if (props.autoplay) {
-        videoPlayer.value?.initialize()
+        audioPlayer.value?.initialize()
       }
     })
 
     onUnmounted(() => {
-      videoPlayer.value?.stop()
-      videoPlayer.value?.release()
+      audioPlayer.value?.stop()
+      audioPlayer.value?.release()
     })
 
     const onPlayerInitialized = (playerType) => {
@@ -72,35 +71,35 @@ export default defineComponent({
       }
       //loop
       if (props.loop) {
-        videoPlayer.value?.setPlayMode(ESPlayerPlayMode.ES_PLAYER_PLAY_MODE_REPEAT)
+        audioPlayer.value?.setPlayMode(ESPlayerPlayMode.ES_PLAYER_PLAY_MODE_REPEAT)
       } else {
-        videoPlayer.value?.setPlayMode(ESPlayerPlayMode.ES_PLAYER_PLAY_MODE_ONCE)
+        audioPlayer.value?.setPlayMode(ESPlayerPlayMode.ES_PLAYER_PLAY_MODE_ONCE)
       }
       //muted
       if (props.muted) {
-        videoPlayer.value?.setVolume(0)
+        audioPlayer.value?.setVolume(0)
       } else {
-        videoPlayer.value?.setVolume(1)
+        audioPlayer.value?.setVolume(1)
       }
       //start
-      videoPlayer.value?.playMediaSourceList(mediaSourceList)
-      videoPlayer.value?.start(0)
+      audioPlayer.value?.playMediaSourceList(mediaSourceList)
+      audioPlayer.value?.start(0)
     }
 
     //开始播放
     const play = () => {
-      videoPlayer.value?.initialize()
+      audioPlayer.value?.initialize()
     }
     //暂停播放
     const pause = () => {
-      videoPlayer.value?.pause()
+      audioPlayer.value?.pause()
     }
     //重新加载媒体
     const load = () => {
-      videoPlayer.value?.initialize()
+      audioPlayer.value?.initialize()
     }
     return {
-      videoPlayer,
+      audioPlayer,
       sources,
       onPlayerInitialized,
       play,
