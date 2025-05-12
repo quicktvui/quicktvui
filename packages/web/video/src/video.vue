@@ -8,7 +8,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref, useSlots } from 'vue'
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  onUnmounted,
+  ref,
+  useSlots,
+} from 'vue'
 import { videoProps } from './video'
 import Source from '../../source/src/source.vue'
 import {
@@ -48,7 +56,7 @@ export default defineComponent({
       }
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       videoPlayer.value?.stop()
       videoPlayer.value?.release()
     })
@@ -95,6 +103,10 @@ export default defineComponent({
     const pause = () => {
       videoPlayer.value?.pause()
     }
+    const stop = () => {
+      videoPlayer.value?.stop()
+      videoPlayer.value?.release()
+    }
     //重新加载媒体
     const load = () => {
       videoPlayer.value?.initialize()
@@ -106,6 +118,7 @@ export default defineComponent({
       play,
       pause,
       load,
+      stop,
     }
   },
 })

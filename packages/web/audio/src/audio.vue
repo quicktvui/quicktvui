@@ -8,7 +8,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref, useSlots } from 'vue'
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  onUnmounted,
+  ref,
+  useSlots,
+} from 'vue'
 import { audioProps } from './audio'
 import Source from '../../source/src/source.vue'
 import {
@@ -18,6 +26,7 @@ import {
   ESPlayerPlayMode,
 } from '@extscreen/es3-player'
 import { ESAudioPlayer } from '@extscreen/es3-audio-player'
+
 const TAG = 'WebAudio'
 
 export default defineComponent({
@@ -47,7 +56,7 @@ export default defineComponent({
       }
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       audioPlayer.value?.stop()
       audioPlayer.value?.release()
     })
@@ -98,6 +107,10 @@ export default defineComponent({
     const load = () => {
       audioPlayer.value?.initialize()
     }
+    const stop = () => {
+      audioPlayer.value?.stop()
+      audioPlayer.value?.release()
+    }
     return {
       audioPlayer,
       sources,
@@ -105,6 +118,7 @@ export default defineComponent({
       play,
       pause,
       load,
+      stop,
     }
   },
 })
