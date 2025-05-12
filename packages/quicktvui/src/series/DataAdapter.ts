@@ -87,6 +87,7 @@ export function buildCommonParams(
         initPosition: data.initPosition,
         contentHeight: contentHeight,
       }
+    case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_CUSTOM:
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER:
       return {
         contentWidth: 1740,
@@ -179,6 +180,7 @@ export function buildMediaSeriesContentHeight(
   switch (type) {
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_LEFT_RIGHT:
       break
+    case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_CUSTOM:
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_NUMBER:
       return data.dataStyle?.itemHeight ?? 80
     case QTMediaSeriesType.QT_MEDIA_SERIES_TYPE_TEXT:
