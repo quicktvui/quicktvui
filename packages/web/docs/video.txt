@@ -1,0 +1,88 @@
+以下是 HTML5 原生 <video> 元素的完整属性、事件、方法整理，适合你用于构建一个自定义 <Video> 组件时参考和模拟。
+
+⸻
+
+🎛️ 属性（Attributes / Properties）
+
+属性名	类型	说明
+src	string	视频源 URL（可配合 <source> 使用）
+controls	boolean	是否显示默认控制条
+autoplay	boolean	自动播放
+loop	boolean	播放结束后是否重新播放
+muted	boolean	是否静音
+poster	string	视频加载前显示的图片
+preload	"auto" | "metadata" | "none"	预加载策略
+width / height	number / string	展示尺寸
+playsinline	boolean	是否内联播放（移动端常用）
+crossOrigin	"anonymous" / "use-credentials"	跨域设置
+disablePictureInPicture	boolean	禁用画中画（某些浏览器）
+
+
+⸻
+
+📢 事件（Event List）
+
+这些事件可用于实现播放进度、加载状态、错误处理等逻辑：
+
+事件名	说明
+loadstart	开始加载媒体数据
+progress	下载媒体数据时触发
+suspend	下载暂停
+abort	用户中止下载
+error	加载失败
+loadedmetadata	元数据（如时长、尺寸）加载完成
+loadeddata	第一帧已加载
+canplay	能够播放但可能要缓冲
+canplaythrough	能够顺畅播放
+play	播放请求（不会等待实际播放）
+playing	媒体已开始播放
+pause	暂停
+waiting	等待更多数据
+seeking	跳转中
+seeked	跳转完成
+timeupdate	播放进度变化
+ended	播放结束
+durationchange	媒体时长变化
+volumechange	音量或静音状态变化
+ratechange	播放速度改变
+stalled	数据取不到
+resize	视频尺寸改变（部分浏览器）
+enterpictureinpicture / leavepictureinpicture	画中画进入/离开
+
+
+⸻
+
+🧠 方法（DOM API）
+
+你在 JS 或 Vue 组件中常用的 videoRef.value.<method>：
+
+方法名	返回 / 参数	说明
+play()	Promise<void>	开始播放
+pause()	void	暂停播放
+load()	void	重新加载媒体
+canPlayType(type: string)	"" / "maybe" / "probably"	检查浏览器是否能播放某种类型
+requestFullscreen()	Promise<void>	请求全屏（部分浏览器需要用户手势）
+requestPictureInPicture()	Promise<PictureInPictureWindow>	请求画中画
+
+
+⸻
+
+📌 常用状态属性（可读）
+
+属性名	类型	说明
+currentTime	number	当前播放时间（秒）
+duration	number	总时长（秒）
+paused	boolean	是否暂停
+ended	boolean	是否播放完
+volume	number（0–1）	当前音量
+muted	boolean	是否静音
+readyState	number（0–4）	媒体准备程度
+networkState	number（0–3）	网络加载状态
+seeking	boolean	是否在跳转
+buffered	TimeRanges	已缓冲的范围
+videoWidth / videoHeight	number	实际像素尺寸
+
+
+⸻
+
+是否需要我帮你把这些内容封装成一个完整的 TypeScript 接口，以便用于你的自定义组件 props / emits / expose？

@@ -1,29 +1,58 @@
 <template>
   <div id="root">
-    <es-router-view/>
+    <es-router-view />
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from '@vue/runtime-core';
-import {ESLogLevel, useESLog, ESAppParams} from "@extscreen/es3-core";
-import {ESApp} from "@extscreen/es3-vue";
+import { defineComponent } from '@vue/runtime-core'
+import { ESLogLevel, useESLog, ESAppParams, useESRuntime, useESDevice } from '@extscreen/es3-core'
+import { ESApp } from '@extscreen/es3-vue'
+import {
+  ESPlayerConfiguration,
+  ESPlayerDisplay,
+  useESPlayer,
+  useESPlayerLog,
+} from '@extscreen/es3-player'
 
 export default defineComponent({
   name: 'App',
+  emits: [],
   setup() {
     const log = useESLog()
 
+    const playerManager = useESPlayer()
+    const runtime = useESRuntime()
+    const device = useESDevice()
+
     function onESCreate(app: ESApp, params: ESAppParams) {
       log.setMinimumLoggingLevel(ESLogLevel.DEBUG)
+      return Promise.resolve().then(() => {
+        const playerDisplay: ESPlayerDisplay = {
+          screenWidth: device.getScreenWidth(),
+          screenHeight: device.getScreenHeight(),
+        }
+        const config: ESPlayerConfiguration = {
+          debug: true,
+          display: playerDisplay,
+          device: {
+            deviceType: runtime.getRuntimeDeviceType() ?? '',
+          },
+        }
+        return playerManager.init(config)
+      })
+    }
+
+    function onESCreated(success: boolean) {
+      console.log('---应用生命周期---app-------onESCreated---->>>>>', success)
     }
 
     return {
-      onESCreate
-    };
+      onESCreate,
+      onESCreated,
+    }
   },
-});
-
+})
 </script>
 
 <style scoped>
@@ -34,5 +63,4 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
 }
-
 </style>

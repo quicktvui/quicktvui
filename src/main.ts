@@ -32,3 +32,25 @@ import '@quicktvui/quicktvui3/dist/index.css'
 import { QuickTVUI } from '@quicktvui/quicktvui3'
 
 app.use(QuickTVUI)
+
+//---------------------------------------------------------------------------
+import { createESPlayer } from '@extscreen/es3-player'
+
+const player = createESPlayer()
+app.use(player)
+
+//---------------------------------------------------------------------------
+import { createESPlayerManager } from '@extscreen/es3-player-manager'
+
+const playerManager = createESPlayerManager()
+app.use(playerManager)
+//---------------------------------------------------------------------------
+import { createESVideoPlayer } from '@extscreen/es3-video-player'
+
+const videoPlayer = createESVideoPlayer()
+app.use(videoPlayer)
+
+//---------------------------------------------------------------------------
+// import QuickTVWeb from '@quicktvui/web'
+import QuickTVWeb from '../packages/web'
+app.use(QuickTVWeb)

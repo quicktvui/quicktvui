@@ -24,5 +24,12 @@ export default {
     commonjs(),
     resolve(),
   ],
-  external: ['@extscreen/es3-vue', 'vue', '@extscreen/es3-core', '@extscreen/es3-component'],
+  external: [
+    '@extscreen/es3-video-player',
+    '@extscreen/es3-player',
+    '@extscreen/es3-vue',
+    'vue',
+    '@extscreen/es3-core',
+    '@extscreen/es3-component',
+  ],
 }

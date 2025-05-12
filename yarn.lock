@@ -1351,15 +1351,15 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-m1905-player/-/es3-m1905-player-0.0.12.tgz#b637234dc716da68e960e9a2ab95c87c1946ad48"
   integrity sha512-6uNWqe6Jbcz7wwVo+P/VTy7kKr6ksVorUmiCEtuSdtUBqmhBXmtGZVvNcH4LbwSOT1IXLr/Res2udo3DNYTIyQ==
 
-"@extscreen/es3-player-manager@0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-player-manager/-/es3-player-manager-0.0.10.tgz#06b9280f0934d99813cc3568a3d76f213271d6c7"
-  integrity sha512-ggYOorhgehdFxwBJY/dOalXC8ZtY1WGOJcldKtWoc15q24mQbNwKhXauTtsm7qt/CjXkezeyUbZXxXKSIPaz/w==
+"@extscreen/es3-player-manager@1.0.48":
+  version "1.0.48"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-player-manager/-/es3-player-manager-1.0.48.tgz#4b2610d0a82a1f1a6b97f41bc6578a4192cf7bcc"
+  integrity sha512-hrABMpv6ImXxHIh2enA+kmMFEE47w8kG3RSYkyYFkWlYLiQbhQNA46uBahRmkFcTOqANg4gwpYUxUK0DeSkKBA==
 
-"@extscreen/es3-player@0.0.50":
-  version "0.0.50"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-player/-/es3-player-0.0.50.tgz#5c910d52900bfe79d567f2d53e8725004f3891a1"
-  integrity sha512-rEcL5X6omLoTOBTPGTlgmIVZCY8UfBmfmAzFAB+74ysJeqPol02knsxriNPErxJbVayVWPOVy1bX42AYgHDdVw==
+"@extscreen/es3-player@1.0.33":
+  version "1.0.33"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-player/-/es3-player-1.0.33.tgz#ec88e3173562f2975aec1a8201e9cf0ea2d02b75"
+  integrity sha512-VNt5iMsUYquH2E9X9Cx1mP21sosNu3YQrLFwQvfCXAt7l62+eI5D4/i6UQ+i4IK0aBcYWJG+nDfUku9JSLDADQ==
 
 "@extscreen/es3-router@1.1.18":
   version "1.1.18"
@@ -1373,10 +1373,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-soundpool-player/-/es3-soundpool-player-0.0.8.tgz#0a0122e6dcb14a1b00040d8b695be04e07597c81"
   integrity sha512-EFGBhMani51wrmkVmpQ9H2j58hbDLtIJzGKrlQinJ2wJ1+k5Y6elIOa807p1kdU8Fv/GsLG8Q5FklW4lG2gtJA==
 
-"@extscreen/es3-video-player@0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-video-player/-/es3-video-player-0.0.32.tgz#d07a46dcd5fd62a7521431e3ffcc398411505a6e"
-  integrity sha512-QlBauG0qwZeAWS9KqdP6zMY59NsQCYXC9sjd1Ic7yrEv7J/1AGupdSLT/T5/mSF/i6Vo0CBb1z2ha3tLhIYGIw==
+"@extscreen/es3-video-player@1.0.45":
+  version "1.0.45"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-video-player/-/es3-video-player-1.0.45.tgz#4b0daa33ac6304b001e47bfcd0c059a73f065802"
+  integrity sha512-Mk+CEBCKjwmblFaK8PO3kZTa1yCJn/p8LAVLxocw8+viMqhOISnBkltSUA15gzVhd0NxdHba1FM0tE41gE3b8A==
 
 "@extscreen/es3-vue-style-parser@0.0.8":
   version "0.0.8"

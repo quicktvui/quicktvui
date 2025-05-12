@@ -1,36 +1,34 @@
-import { buildProps, keysOf } from '../../utils'
+import { buildProps } from '../../utils'
 import type { ExtractPropTypes } from 'vue'
 
-export const videoEffects = ['light', 'dark'] as const
+export const videoPreload = ['auto', 'metadata', 'none'] as const
 
 export const videoProps = buildProps({
-  title: {
+  width: {
+    type: Number,
+  },
+  height: {
+    type: Number,
+  },
+  muted: Boolean,
+  loop: Boolean,
+  autoplay: Boolean,
+  controls: Boolean,
+  src: {
     type: String,
     default: '',
   },
-  description: {
+  poster: {
     type: String,
     default: '',
   },
-  closable: {
-    type: Boolean,
-    default: true,
-  },
-  closeText: {
+  preload: {
     type: String,
-    default: '',
-  },
-  showIcon: Boolean,
-  center: Boolean,
-  effect: {
-    type: String,
-    values: videoEffects,
-    default: 'light',
+    values: videoPreload,
+    default: 'auto',
   },
 } as const)
 export type VideoProps = ExtractPropTypes<typeof videoProps>
 
-export const videoEmits = {
-  close: (evt: MouseEvent) => evt instanceof MouseEvent,
-}
+export const videoEmits = {}
 export type VideoEmits = typeof videoEmits
