@@ -11,4 +11,5 @@ export default installer
 
 export * from './video'
 export * from './audio'
+export * from './audio-service'
 export * from './source'

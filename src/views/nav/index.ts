@@ -38,6 +38,7 @@ import qt_nav_long_image_page from './qt-nav-long-image-page'
 //--------------------------------------------------------------------
 import web_nav_video_page from './web-nav-video-page'
 import web_nav_audio_page from './web-nav-audio-page'
+import web_nav_audio_service_page from './web-nav-audio-service-page'
 //--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
@@ -193,6 +194,10 @@ const QTAPINavPageList = {
   web_nav_audio_page: {
     name: 'Audio',
     component: web_nav_audio_page,
+  },
+  web_nav_audio_service_page: {
+    name: 'AudioService',
+    component: web_nav_audio_service_page,
   },
 }
 

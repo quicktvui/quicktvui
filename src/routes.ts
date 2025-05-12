@@ -59,6 +59,7 @@ import QTLongImagePageList from './components/qt-long-image'
 //--------------------------------WEB------------------------------------------------
 import WebVideoPageList from './components/web-video'
 import WebAudioPageList from './components/web-audio'
+import WebAudioServicePageList from './components/web-audio-service'
 
 const routes = [
   {
@@ -328,6 +329,11 @@ const routes = [
     path: `/web-audio/${item}`,
     name: `web-audio/${item}`,
     component: WebAudioPageList[item].component,
+  })),
+  ...Object.keys(WebAudioServicePageList).map((item) => ({
+    path: `/web-audio-service/${item}`,
+    name: `web-audio-service/${item}`,
+    component: WebAudioServicePageList[item].component,
   })),
 ]
 
