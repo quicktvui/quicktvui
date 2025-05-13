@@ -53,4 +53,5 @@ app.use(videoPlayer)
 //---------------------------------------------------------------------------
 // import QuickTVWeb from '@quicktvui/web'
 import QuickTVWeb from '../packages/web'
+import '../packages/web/dist/index.css'
 app.use(QuickTVWeb)

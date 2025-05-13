@@ -1,0 +1,6 @@
+.fake-h1 { font-size: 56px; }
+.fake-h2 { font-size: 48px; }
+.fake-h3 { font-size: 40px; }
+.fake-h4 { font-size: 32px; }
+.fake-h5 { font-size: 24px; }
+.fake-h6 { font-size: 18px; }
