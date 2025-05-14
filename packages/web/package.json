@@ -1,6 +1,6 @@
 {
-  "name": "@quicktvui/web",
-  "version": "0.0.1",
+  "name": "@quicktvui/html-core",
+  "version": "0.0.1-beta.1",
   "description": "ExtScreen framework",
   "author": "ExtScreen Team",
   "homepage": "http://extscreen.com",

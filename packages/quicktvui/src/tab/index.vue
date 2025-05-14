@@ -953,7 +953,8 @@ export default defineComponent({
 
         if (
           i != pageIndex &&
-          (i != lastTabPageIndex || (i == lastTabPageIndex && pageIndex - lastTabPageIndex > 1)) &&
+          (i != lastTabPageIndex ||
+            (i == lastTabPageIndex && Math.abs(lastTabPageIndex - pageIndex) > 1)) &&
           pageState &&
           Math.abs(i - pageIndex) > 1 &&
           pageState.state != QTTabPageState.QT_TAB_PAGE_STATE_INIT

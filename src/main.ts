@@ -40,17 +40,17 @@ const player = createESPlayer()
 app.use(player)
 
 //---------------------------------------------------------------------------
-import { createESPlayerManager } from '@extscreen/es3-player-manager'
-
-const playerManager = createESPlayerManager()
-app.use(playerManager)
-//---------------------------------------------------------------------------
 import { createESVideoPlayer } from '@extscreen/es3-video-player'
 
 const videoPlayer = createESVideoPlayer()
 app.use(videoPlayer)
 
 //---------------------------------------------------------------------------
+import { createESPlayerManager } from '@extscreen/es3-player-manager'
+
+const playerManager = createESPlayerManager()
+app.use(playerManager)
+
 // import QuickTVWeb from '@quicktvui/web'
 import QuickTVWeb from '../packages/web'
 import '../packages/web/dist/index.css'
