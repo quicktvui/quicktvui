@@ -51,7 +51,10 @@ import { createESPlayerManager } from '@extscreen/es3-player-manager'
 const playerManager = createESPlayerManager()
 app.use(playerManager)
 
-// import QuickTVWeb from '@quicktvui/web'
-import QuickTVWeb from '../packages/web'
+//
+import QuickTVHtml from '../packages/web'
 import '../packages/web/dist/index.css'
-app.use(QuickTVWeb)
+//
+// import QuickTVHtml from '@quicktvui/html-core'
+// import '@quicktvui/html-core/dist/index.css'
+app.use(QuickTVHtml)

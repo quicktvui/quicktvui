@@ -1,10 +1,23 @@
 <template>
-  <es-video-player
-    ref="videoPlayer"
-    :player-width="width"
-    :player-height="height"
-    @onPlayerInitialized="onPlayerInitialized"
-  />
+  <div :style="{ width: width, height: height }">
+    <es-video-player
+      ref="videoPlayer"
+      :player-width="width"
+      :player-height="height"
+      @onPlayerPreparing="onPlayerPreparing"
+      @onPlayerPrepared="onPlayerPrepared"
+      @onPlayerPlaying="onPlayerPlaying"
+      @onPlayerInitialized="onPlayerInitialized"
+      @onPlayerStopped="onPlayerStopped"
+      @onPlayerCompleted="onPlayerCompleted"
+    />
+    <img
+      :src="poster"
+      v-if="poster"
+      :visible="visible"
+      :style="{ width: width, height: height, position: 'absolute' }"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -39,6 +52,7 @@ export default defineComponent({
   setup(props, context) {
     const videoPlayer = ref<ESIPlayer>()
     const slots = useSlots()
+    const visible = ref<boolean>(true)
 
     const sources = computed(() => {
       const nodes = slots.default?.() ?? []
@@ -95,6 +109,22 @@ export default defineComponent({
       videoPlayer.value?.start(0)
     }
 
+    function onPlayerStopped(): void {
+      visible.value = true
+    }
+
+    function onPlayerCompleted(): void {
+      visible.value = true
+    }
+
+    function onPlayerPreparing(): void {}
+
+    function onPlayerPrepared(): void {}
+
+    function onPlayerPlaying(): void {
+      visible.value = false
+    }
+
     //开始播放
     const play = () => {
       videoPlayer.value?.initialize()
@@ -112,13 +142,19 @@ export default defineComponent({
       videoPlayer.value?.initialize()
     }
     return {
+      visible,
       videoPlayer,
       sources,
-      onPlayerInitialized,
       play,
       pause,
       load,
       stop,
+      onPlayerInitialized,
+      onPlayerPreparing,
+      onPlayerPrepared,
+      onPlayerPlaying,
+      onPlayerStopped,
+      onPlayerCompleted,
     }
   },
 })
