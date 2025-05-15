@@ -46,6 +46,12 @@ const videoPlayer = createESVideoPlayer()
 app.use(videoPlayer)
 
 //---------------------------------------------------------------------------
+import { createESSoundPoolPlayer } from '@extscreen/es3-soundpool-player'
+
+const soundPlayer = createESSoundPoolPlayer()
+app.use(soundPlayer)
+
+//---------------------------------------------------------------------------
 import { createESPlayerManager } from '@extscreen/es3-player-manager'
 
 const playerManager = createESPlayerManager()

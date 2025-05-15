@@ -10,7 +10,6 @@ export const audioProps = buildProps({
   height: {
     type: Number,
   },
-  muted: Boolean,
   loop: Boolean,
   autoplay: Boolean,
   controls: Boolean,
@@ -27,6 +26,7 @@ export const audioProps = buildProps({
     values: audioPreload,
     default: 'auto',
   },
+  playEffect: Boolean,
 } as const)
 export type AudioProps = ExtractPropTypes<typeof audioProps>
 

@@ -1,22 +1,26 @@
 <template>
-  <es-audio-player
-    ref="audioPlayer"
-    :player-width="width"
-    :player-height="height"
-    @onPlayerInitialized="onPlayerInitialized"
-  />
+  <div :style="{ width: width, height: height }">
+    <es-audio-player
+      ref="audioPlayer"
+      v-if="!playEffect"
+      :player-width="width"
+      :player-height="height"
+      :style="{ width: width, height: height, position: 'absolute' }"
+      @onPlayerInitialized="onPlayerInitialized"
+    />
+    <es-sound-pool-player
+      ref="audioPlayer"
+      v-if="playEffect"
+      :player-width="width"
+      :player-height="height"
+      :style="{ width: width, height: height, position: 'absolute' }"
+      @onPlayerInitialized="onPlayerInitialized"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onBeforeUnmount,
-  onMounted,
-  onUnmounted,
-  ref,
-  useSlots,
-} from 'vue'
+import { computed, defineComponent, onBeforeUnmount, ref, useSlots, watch } from 'vue'
 import { audioProps } from './audio'
 import Source from '../../source/src/source.vue'
 import {
@@ -26,6 +30,7 @@ import {
   ESPlayerPlayMode,
 } from '@extscreen/es3-player'
 import { ESAudioPlayer } from '@extscreen/es3-audio-player'
+import { ESSoundPoolPlayer } from '@extscreen/es3-soundpool-player'
 
 const TAG = 'WebAudio'
 
@@ -35,10 +40,23 @@ export default defineComponent({
   emits: [],
   components: {
     'es-audio-player': ESAudioPlayer,
+    'es-sound-pool-player': ESSoundPoolPlayer,
   },
   setup(props, context) {
     const audioPlayer = ref<ESIPlayer>()
     const slots = useSlots()
+
+    watch(
+      () => [audioPlayer.value] as const,
+      ([instance], [oldInstance]) => {
+        if (instance) {
+          if (props.autoplay) {
+            audioPlayer.value?.initialize()
+          }
+        }
+      },
+      { flush: 'post' }
+    )
 
     const sources = computed(() => {
       const nodes = slots.default?.() ?? []
@@ -48,12 +66,6 @@ export default defineComponent({
           src: node.props?.src ?? '',
           type: node.props?.type ?? '',
         }))
-    })
-
-    onMounted(() => {
-      if (props.autoplay) {
-        audioPlayer.value?.initialize()
-      }
     })
 
     onBeforeUnmount(() => {
@@ -83,12 +95,6 @@ export default defineComponent({
         audioPlayer.value?.setPlayMode(ESPlayerPlayMode.ES_PLAYER_PLAY_MODE_REPEAT)
       } else {
         audioPlayer.value?.setPlayMode(ESPlayerPlayMode.ES_PLAYER_PLAY_MODE_ONCE)
-      }
-      //muted
-      if (props.muted) {
-        audioPlayer.value?.setVolume(0)
-      } else {
-        audioPlayer.value?.setVolume(1)
       }
       //start
       audioPlayer.value?.playMediaSourceList(mediaSourceList)

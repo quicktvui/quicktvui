@@ -1277,10 +1277,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.35.tgz#4d2f64f6a0a9ab2a396fdf093098388149f21ce6"
   integrity sha512-raOfJI5a0dzV47CSZsL7DXmKaLyCcYVbFwm5ZxEum93VCJrHLxK6IZU9TdvP2hXUd12OTarvdAMNPuUO4UdoZA==
 
-"@extscreen/es3-core@1.1.25":
-  version "1.1.25"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-core/-/es3-core-1.1.25.tgz#308d94ecdf702f5d885beae3e8fdd212fae93b0f"
-  integrity sha512-Fv78gs7c+hBQSqogeQssiZCNpM92efimMAk/wL7DEzqssqzW8sse4FM0sk58iQNRf8VZRv/hSKHjbqv/ppGP0Q==
+"@extscreen/es3-core@1.1.41":
+  version "1.1.41"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-core/-/es3-core-1.1.41.tgz#35305b65f8428dea5a8b815ee9d9a5922da08416"
+  integrity sha512-RbdWFzIHt9ddZuektr13i03uz1zS4vnqu151FV6Mo3h2GDs1cNE2YOJsfrsx2r9E0JDZLSJG0awcivyGGRgsxg==
 
 "@extscreen/es3-debug-server@0.0.5":
   version "0.0.5"
@@ -1368,10 +1368,10 @@
   dependencies:
     "@vue/devtools-api" "^6.5.0"
 
-"@extscreen/es3-soundpool-player@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-soundpool-player/-/es3-soundpool-player-0.0.8.tgz#0a0122e6dcb14a1b00040d8b695be04e07597c81"
-  integrity sha512-EFGBhMani51wrmkVmpQ9H2j58hbDLtIJzGKrlQinJ2wJ1+k5Y6elIOa807p1kdU8Fv/GsLG8Q5FklW4lG2gtJA==
+"@extscreen/es3-soundpool-player@1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-soundpool-player/-/es3-soundpool-player-1.0.17.tgz#3b7c7634b004883434383e79a4a4519a1fd13f57"
+  integrity sha512-+UrGzp5hOaDVU7Abxv7w5Slzd3pG9IpdqFaSTO3J1UjLEwnWLHQTZm8YAKKjCy1SvIlPuBCeNZCIXvX2pbC0bg==
 
 "@extscreen/es3-video-player@1.0.45":
   version "1.0.45"
