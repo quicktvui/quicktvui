@@ -67,6 +67,8 @@
           :custom-item-pool="customItemPool"
           :blockFocusDirections="horizontal ? blockViewPager : blockViewPagerVertical"
           :qt-tab-section-enable="qtTabSectionEnable"
+          :verticalFadingEdgeEnabled="tabContentVerticalFadingEdgeEnabled"
+          :fadingEdgeLength="tabContentFadingEdgeLength"
           @onSectionBind="onWaterfallSectionBind"
           @onSectionAttached="onWaterfallSectionAttached"
           @onSectionDetached="onWaterfallSectionDetached"
@@ -291,6 +293,14 @@ export default defineComponent({
     verticalFadingEdgeEnabled: {
       type: Boolean,
       default: false
+    },
+    tabContentVerticalFadingEdgeEnabled:{
+      type: Boolean,
+      default: false
+    },
+    tabContentFadingEdgeLength: {
+      type: Number,
+      default: 0
     },
     fadingEdgeLength: {
       type: Number,
