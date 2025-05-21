@@ -40,6 +40,23 @@ export interface QTIAnimation extends QTIView {
 
   playAfterDelay(animatorSetId: QTAnimatorId, delay: number)
 
+  playSequentially(animatorSetId: QTAnimatorId, animatorIds: Array<QTAnimatorId>)
+
+  playTogether(animatorSetId: QTAnimatorId, animatorIds: Array<QTAnimatorId>)
+
+  animator(
+    id: QTAnimatorId,
+    valueType: QTAnimationValueType,
+    propertyName: QTAnimationPropertyName,
+    values: number[],
+    duration: number,
+    repeatMode: QTAnimationRepeatMode,
+    repeatCount: number,
+    listenAnimator: boolean,
+    listenAnimatorValue: boolean,
+    interpolator?: QTAnimationInterpolator
+  )
+
   playSequentially1(animatorSetId: QTAnimatorId, animatorId1: QTAnimatorId)
 
   playSequentially2(

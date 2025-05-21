@@ -1617,10 +1617,10 @@
   resolved "https://registry.yarnpkg.com/@quicktvui/html-core/-/html-core-0.0.1-beta.1.tgz#a8f94b5ccb9398b07fe74edc44e65b19b194de48"
   integrity sha512-gHSsC3xLuv5Qgjj6jqdxJEZ77XeeatbKUsC00PT+yG+NoWq9ymHvPnixjA4ZZ8wjyxfCAxEdNhfFGS96fuNvUg==
 
-"@quicktvui/quicktvui3@1.2.0-beta.35":
-  version "1.2.0-beta.35"
-  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-1.2.0-beta.35.tgz#97f867fd327e4405810f7a847ed2aeff5d5ffe13"
-  integrity sha512-+dgrdk4Dxq8U+SmQP5F2r+GBx1EaolAFXhbgHCciCyyioRt/E9fgO84ntoiA++ubNQT7ANcH05qxFZa/s3gHjA==
+"@quicktvui/quicktvui3@1.2.0-beta.36":
+  version "1.2.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-1.2.0-beta.36.tgz#b7c103872f66a4ab2ce5bb98e92f5be6fa7118a7"
+  integrity sha512-QUiLi/nD81pRUtG7BzzJMeiBh3Y1nbBr302YtpsvhzZ3Mg5d92JsMInTSkXtzvnb4k9RvlAgzqIh5aVAKaAxHw==
 
 "@rollup/plugin-alias@^3.1.9":
   version "3.1.9"

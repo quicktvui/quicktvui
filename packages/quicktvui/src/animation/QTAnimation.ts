@@ -209,7 +209,7 @@ function registerQTAnimation(app: ESApp) {
         ])
       }
 
-      function objectAnimator(
+      function animator(
         id: QTAnimatorId,
         valueType: QTAnimationValueType,
         propertyName: QTAnimationPropertyName,
@@ -260,7 +260,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -287,7 +287,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -315,7 +315,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -344,7 +344,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -374,7 +374,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -405,7 +405,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -437,7 +437,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -470,7 +470,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -504,7 +504,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -539,7 +539,7 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        objectAnimator(
+        animator(
           id,
           valueType,
           propertyName,
@@ -582,7 +582,7 @@ function registerQTAnimation(app: ESApp) {
         playTogether3,
         playTogether4,
         playTogether5,
-        objectAnimator,
+        animator,
         objectAnimator1,
         objectAnimator2,
         objectAnimator3,
