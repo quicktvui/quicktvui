@@ -95,13 +95,17 @@ function registerQTAnimation(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'afterDelay', [animatorSetId, delay], (res) => {})
       }
 
+      //------------------------------------------------------------------------
+
+      function playSequentially(animatorSetId: QTAnimatorId, animatorIds: QTAnimatorId[]) {
+        const count = animatorIds.length
+        const funcName = `playSequentially${count}`
+
+        Native.callUIFunction(viewRef.value, funcName, [animatorSetId, ...animatorIds], (res) => {})
+      }
+
       function playSequentially1(animatorSetId: QTAnimatorId, animatorId1: QTAnimatorId) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playSequentially1',
-          [animatorSetId, animatorId1],
-          (res) => {}
-        )
+        playSequentially(animatorSetId, [animatorId1])
       }
 
       function playSequentially2(
@@ -109,12 +113,7 @@ function registerQTAnimation(app: ESApp) {
         animatorId1: QTAnimatorId,
         animatorId2: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playSequentially2',
-          [animatorSetId, animatorId1, animatorId2],
-          (res) => {}
-        )
+        playSequentially(animatorSetId, [animatorId1, animatorId2])
       }
 
       function playSequentially3(
@@ -123,12 +122,7 @@ function registerQTAnimation(app: ESApp) {
         animatorId2: QTAnimatorId,
         animatorId3: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playSequentially3',
-          [animatorSetId, animatorId1, animatorId2, animatorId3],
-          (res) => {}
-        )
+        playSequentially(animatorSetId, [animatorId1, animatorId2, animatorId3])
       }
 
       function playSequentially4(
@@ -138,12 +132,7 @@ function registerQTAnimation(app: ESApp) {
         animatorId3: QTAnimatorId,
         animatorId4: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playSequentially4',
-          [animatorSetId, animatorId1, animatorId2, animatorId3, animatorId4],
-          (res) => {}
-        )
+        playSequentially(animatorSetId, [animatorId1, animatorId2, animatorId3, animatorId4])
       }
 
       function playSequentially5(
@@ -154,21 +143,26 @@ function registerQTAnimation(app: ESApp) {
         animatorId4: QTAnimatorId,
         animatorId5: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playSequentially5',
-          [animatorSetId, animatorId1, animatorId2, animatorId3, animatorId4, animatorId5],
-          (res) => {}
-        )
+        playSequentially(animatorSetId, [
+          animatorId1,
+          animatorId2,
+          animatorId3,
+          animatorId4,
+          animatorId5,
+        ])
+      }
+
+      //----------------------------------------------------------------------------
+
+      function playTogether(animatorSetId: QTAnimatorId, animatorIds: QTAnimatorId[]) {
+        const count = animatorIds.length
+        const funcName = `playTogether${count}`
+
+        Native.callUIFunction(viewRef.value, funcName, [animatorSetId, ...animatorIds], (res) => {})
       }
 
       function playTogether1(animatorSetId: QTAnimatorId, animatorId1: QTAnimatorId) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playTogether1',
-          [animatorSetId, animatorId1],
-          (res) => {}
-        )
+        playTogether(animatorSetId, [animatorId1])
       }
 
       function playTogether2(
@@ -176,12 +170,7 @@ function registerQTAnimation(app: ESApp) {
         animatorId1: QTAnimatorId,
         animatorId2: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playTogether2',
-          [animatorSetId, animatorId1, animatorId2],
-          (res) => {}
-        )
+        playTogether(animatorSetId, [animatorId1, animatorId2])
       }
 
       function playTogether3(
@@ -190,12 +179,7 @@ function registerQTAnimation(app: ESApp) {
         animatorId2: QTAnimatorId,
         animatorId3: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playTogether3',
-          [animatorSetId, animatorId1, animatorId2, animatorId3],
-          (res) => {}
-        )
+        playTogether(animatorSetId, [animatorId1, animatorId2, animatorId3])
       }
 
       function playTogether4(
@@ -205,12 +189,7 @@ function registerQTAnimation(app: ESApp) {
         animatorId3: QTAnimatorId,
         animatorId4: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playTogether4',
-          [animatorSetId, animatorId1, animatorId2, animatorId3, animatorId4],
-          (res) => {}
-        )
+        playTogether(animatorSetId, [animatorId1, animatorId2, animatorId3, animatorId4])
       }
 
       function playTogether5(
@@ -221,18 +200,20 @@ function registerQTAnimation(app: ESApp) {
         animatorId4: QTAnimatorId,
         animatorId5: QTAnimatorId
       ) {
-        Native.callUIFunction(
-          viewRef.value,
-          'playTogether5',
-          [animatorSetId, animatorId1, animatorId2, animatorId3, animatorId4, animatorId5],
-          (res) => {}
-        )
+        playTogether(animatorSetId, [
+          animatorId1,
+          animatorId2,
+          animatorId3,
+          animatorId4,
+          animatorId5,
+        ])
       }
 
       function objectAnimator(
         id: QTAnimatorId,
         valueType: QTAnimationValueType,
         propertyName: QTAnimationPropertyName,
+        values: number[],
         duration: number,
         repeatMode: QTAnimationRepeatMode,
         repeatCount: number,
@@ -240,13 +221,22 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
+        const isTranslationProp =
+          propertyName === QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
+          propertyName === QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
+          propertyName === QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
+
+        const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
+
+        const funcName = `objectAnimator${values.length == 0 ? '' : values.length}`
         Native.callUIFunction(
           viewRef.value,
-          'objectAnimator',
+          funcName,
           [
             id,
             valueType,
             propertyName,
+            ...scaledValues,
             duration,
             repeatMode,
             repeatCount,
@@ -270,29 +260,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator1',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -309,31 +287,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator2',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -351,33 +315,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator3',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -396,35 +344,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator4',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -444,37 +374,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-          value5 = value5 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator5',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            value5,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4, value5],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -495,39 +405,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-          value5 = value5 * displayScale
-          value6 = value6 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator6',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            value5,
-            value6,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4, value5, value6],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -549,41 +437,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-          value5 = value5 * displayScale
-          value6 = value6 * displayScale
-          value7 = value7 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator7',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            value5,
-            value6,
-            value7,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4, value5, value6, value7],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -606,43 +470,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-          value5 = value5 * displayScale
-          value6 = value6 * displayScale
-          value7 = value7 * displayScale
-          value8 = value8 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator8',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            value5,
-            value6,
-            value7,
-            value8,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4, value5, value6, value7, value8],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -666,45 +504,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-          value5 = value5 * displayScale
-          value6 = value6 * displayScale
-          value7 = value7 * displayScale
-          value8 = value8 * displayScale
-          value9 = value9 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator9',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            value5,
-            value6,
-            value7,
-            value8,
-            value9,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4, value5, value6, value7, value8, value9],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -729,47 +539,17 @@ function registerQTAnimation(app: ESApp) {
         listenAnimatorValue: boolean,
         interpolator?: QTAnimationInterpolator
       ) {
-        if (
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
-          propertyName == QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
-        ) {
-          value1 = value1 * displayScale
-          value2 = value2 * displayScale
-          value3 = value3 * displayScale
-          value4 = value4 * displayScale
-          value5 = value5 * displayScale
-          value6 = value6 * displayScale
-          value7 = value7 * displayScale
-          value8 = value8 * displayScale
-          value9 = value9 * displayScale
-          value10 = value10 * displayScale
-        }
-        Native.callUIFunction(
-          viewRef.value,
-          'objectAnimator10',
-          [
-            id,
-            valueType,
-            propertyName,
-            value1,
-            value2,
-            value3,
-            value4,
-            value5,
-            value6,
-            value7,
-            value8,
-            value9,
-            value10,
-            duration,
-            repeatMode,
-            repeatCount,
-            listenAnimator,
-            listenAnimatorValue,
-            interpolator,
-          ],
-          (res) => {}
+        objectAnimator(
+          id,
+          valueType,
+          propertyName,
+          [value1, value2, value3, value4, value5, value6, value7, value8, value9, value10],
+          duration,
+          repeatMode,
+          repeatCount,
+          listenAnimator,
+          listenAnimatorValue,
+          interpolator
         )
       }
 
@@ -790,11 +570,13 @@ function registerQTAnimation(app: ESApp) {
         playBefore,
         playAfter,
         playAfterDelay,
+        playSequentially,
         playSequentially1,
         playSequentially2,
         playSequentially3,
         playSequentially4,
         playSequentially5,
+        playTogether,
         playTogether1,
         playTogether2,
         playTogether3,
