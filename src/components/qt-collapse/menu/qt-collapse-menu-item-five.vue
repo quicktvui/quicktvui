@@ -34,12 +34,11 @@ export default defineComponent({
       if (alpha == 1) {
         return
       }
-      animationRef.value?.objectAnimator2(
+      animationRef.value?.objectAnimator(
         '1',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
-        alpha,
-        1,
+        [alpha, 1],
         delay,
         -1,
         0,
@@ -54,12 +53,11 @@ export default defineComponent({
       if (alpha == 0) {
         return
       }
-      animationRef.value?.objectAnimator2(
+      animationRef.value?.objectAnimator(
         '2',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
-        alpha,
-        0,
+        [alpha, 0],
         delay,
         -1,
         0,
