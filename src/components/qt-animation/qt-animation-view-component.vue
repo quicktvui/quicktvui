@@ -37,7 +37,7 @@ export default defineComponent({
     const star_view_animation = ref<QTIAnimation>()
 
     function playRotationAnim() {
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '0',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ROTATION,
@@ -50,12 +50,12 @@ export default defineComponent({
       )
       star_view_animation.value?.setPivotX(0)
       star_view_animation.value?.setPivotY(0)
-      star_view_animation.value?.startAnimator('0')
+      star_view_animation.value?.start('0')
     }
 
     function playStarAnim() {
       //SCALE_X
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '0',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
@@ -68,7 +68,7 @@ export default defineComponent({
       )
 
       //SCALE_Y
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '1',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_Y,
@@ -81,7 +81,7 @@ export default defineComponent({
       )
 
       //alpha
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '2',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
@@ -94,7 +94,7 @@ export default defineComponent({
       )
 
       //旋转
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '3',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ROTATION,
@@ -106,7 +106,7 @@ export default defineComponent({
         false
       )
 
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '4',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
@@ -118,7 +118,7 @@ export default defineComponent({
         false
       )
 
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '5',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
@@ -133,7 +133,7 @@ export default defineComponent({
       //集合
       star_view_animation.value?.animatorSet('starAnimation', -1, false)
       //旋转
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '6',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ROTATION,
@@ -164,11 +164,11 @@ export default defineComponent({
       // star_view_animation.value?.before("测试", "4");
       // star_view_animation.value?.with("测试", "5");
 
-      star_view_animation.value?.startAnimator('starAnimation')
+      star_view_animation.value?.start('starAnimation')
     }
 
     function playTranslationStarAnim() {
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '4',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
@@ -180,7 +180,7 @@ export default defineComponent({
         false
       )
 
-      star_view_animation.value?.objectAnimator(
+      star_view_animation.value?.animator(
         '5',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
@@ -193,11 +193,11 @@ export default defineComponent({
       )
       star_view_animation.value?.animatorSet('translation', -1, false)
       star_view_animation.value?.playTogether('translation', ['4', '5'])
-      star_view_animation.value?.startAnimator('translation')
+      star_view_animation.value?.start('translation')
     }
 
     function playTranslationYAnim() {
-      animation_view_rotation.value?.objectAnimator(
+      animation_view_rotation.value?.animator(
         '23', //id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
@@ -229,11 +229,11 @@ export default defineComponent({
       // },
       //
 
-      animation_view_rotation.value?.startAnimatorDelay('23', 2000)
+      animation_view_rotation.value?.startDelay('23', 2000)
     }
 
     function resetViewAnimators() {
-      star_view_animation.value?.resetAnimators()
+      star_view_animation.value?.reset()
     }
 
     return {

@@ -15,8 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent } from '@vue/runtime-core'
-import { ESLogLevel, useESLog, useESToast } from '@extscreen/es3-core'
 import { ref } from 'vue'
 import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
 
@@ -30,7 +28,7 @@ function show(delay) {
   if (alpha == 1) {
     return
   }
-  animationRef.value?.objectAnimator(
+  animationRef.value?.animator(
     '1',
     QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
     QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
@@ -41,7 +39,7 @@ function show(delay) {
     false,
     false
   )
-  animationRef.value?.startAnimator('1')
+  animationRef.value?.start('1')
   alpha = 1
 }
 
@@ -49,7 +47,7 @@ function dismiss(delay) {
   if (alpha == 0) {
     return
   }
-  animationRef.value?.objectAnimator(
+  animationRef.value?.animator(
     '2',
     QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
     QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
@@ -60,7 +58,7 @@ function dismiss(delay) {
     false,
     false
   )
-  animationRef.value?.startAnimator('2')
+  animationRef.value?.start('2')
   alpha = 0
 }
 

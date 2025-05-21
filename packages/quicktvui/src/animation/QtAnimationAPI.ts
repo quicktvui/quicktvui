@@ -19,7 +19,19 @@ export interface QtAnimationAPI extends QtBaseViewAPI {
 
   resetPivot(instance: string | Ref<QTIAnimation | undefined>)
 
-  resetAnimators(instance: string | Ref<QTIAnimation | undefined>)
+  animator(
+    instance: string | Ref<QTIAnimation | undefined>,
+    id: QTAnimatorId,
+    valueType: QTAnimationValueType,
+    propertyName: QTAnimationPropertyName,
+    values: number[],
+    duration: number,
+    repeatMode: QTAnimationRepeatMode,
+    repeatCount: number,
+    listenAnimator: boolean,
+    listenAnimatorValue: boolean,
+    interpolator?: QTAnimationInterpolator
+  )
 
   animatorSet(
     instance: string | Ref<QTIAnimation | undefined>,
@@ -28,21 +40,23 @@ export interface QtAnimationAPI extends QtBaseViewAPI {
     listenAnimator: boolean
   )
 
-  startAnimator(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  reset(instance: string | Ref<QTIAnimation | undefined>)
 
-  startAnimatorDelay(
+  start(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+
+  startDelay(
     instance: string | Ref<QTIAnimation | undefined>,
     animatorId: QTAnimatorId,
     delay: number
   )
 
-  pauseAnimator(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  pause(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
 
-  resumeAnimator(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  resume(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
 
-  cancelAnimator(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  cancel(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
 
-  reverseAnimator(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  reverse(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
 
   play(
     instance: string | Ref<QTIAnimation | undefined>,
@@ -85,20 +99,6 @@ export interface QtAnimationAPI extends QtBaseViewAPI {
     animatorSetId: QTAnimatorId,
     animatorIds: Array<QTAnimatorId>
   )
-
-  animator(
-    instance: string | Ref<QTIAnimation | undefined>,
-    id: QTAnimatorId,
-    valueType: QTAnimationValueType,
-    propertyName: QTAnimationPropertyName,
-    values: number[],
-    duration: number,
-    repeatMode: QTAnimationRepeatMode,
-    repeatCount: number,
-    listenAnimator: boolean,
-    listenAnimatorValue: boolean,
-    interpolator?: QTAnimationInterpolator
-  )
 }
 
 export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
@@ -126,7 +126,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function resetAnimators(instance: string | Ref<QTIAnimation | undefined>) {
+  function reset(instance: string | Ref<QTIAnimation | undefined>) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetAnimators', []])
     } else if (isRef(instance)) {
@@ -151,10 +151,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function startAnimator(
-    instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId
-  ) {
+  function start(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -166,7 +163,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function startAnimatorDelay(
+  function startDelay(
     instance: string | Ref<QTIAnimation | undefined>,
     animatorId: QTAnimatorId,
     delay: number
@@ -182,10 +179,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function pauseAnimator(
-    instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId
-  ) {
+  function pause(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -197,10 +191,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function resumeAnimator(
-    instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId
-  ) {
+  function resume(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -212,10 +203,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function cancelAnimator(
-    instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId
-  ) {
+  function cancel(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -227,10 +215,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function reverseAnimator(
-    instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId
-  ) {
+  function reverse(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -410,14 +395,14 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     setPivotX,
     setPivotY,
     resetPivot,
-    resetAnimators,
+    reset,
     animatorSet,
-    startAnimator,
-    startAnimatorDelay,
-    pauseAnimator,
-    resumeAnimator,
-    cancelAnimator,
-    reverseAnimator,
+    start,
+    startDelay,
+    pause,
+    resume,
+    cancel,
+    reverse,
     play,
     playWith,
     playBefore,

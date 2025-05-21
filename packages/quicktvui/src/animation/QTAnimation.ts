@@ -41,6 +41,9 @@ function registerQTAnimation(app: ESApp) {
       function resetAnimators() {
         Native.callUIFunction(viewRef.value, 'resetAnimators', [], (res) => {})
       }
+      function reset() {
+        Native.callUIFunction(viewRef.value, 'resetAnimators', [], (res) => {})
+      }
 
       function animatorSet(animatorId: QTAnimatorId, duration: number, listenAnimator: boolean) {
         Native.callUIFunction(
@@ -54,8 +57,15 @@ function registerQTAnimation(app: ESApp) {
       function startAnimator(animatorId: QTAnimatorId) {
         Native.callUIFunction(viewRef.value, 'startAnimator', [animatorId], (res) => {})
       }
+      function start(animatorId: QTAnimatorId) {
+        Native.callUIFunction(viewRef.value, 'startAnimator', [animatorId], (res) => {})
+      }
 
       function startAnimatorDelay(animatorId: QTAnimatorId, delay: number) {
+        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [animatorId, delay], (res) => {})
+      }
+
+      function startDelay(animatorId: QTAnimatorId, delay: number) {
         Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [animatorId, delay], (res) => {})
       }
 
@@ -63,7 +73,15 @@ function registerQTAnimation(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'pauseAnimator', [animatorId], (res) => {})
       }
 
+      function pause(animatorId: QTAnimatorId) {
+        Native.callUIFunction(viewRef.value, 'pauseAnimator', [animatorId], (res) => {})
+      }
+
       function resumeAnimator(animatorId: QTAnimatorId) {
+        Native.callUIFunction(viewRef.value, 'resumeAnimator', [animatorId], (res) => {})
+      }
+
+      function resume(animatorId: QTAnimatorId) {
         Native.callUIFunction(viewRef.value, 'resumeAnimator', [animatorId], (res) => {})
       }
 
@@ -71,7 +89,15 @@ function registerQTAnimation(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'cancelAnimator', [animatorId], (res) => {})
       }
 
+      function cancel(animatorId: QTAnimatorId) {
+        Native.callUIFunction(viewRef.value, 'cancelAnimator', [animatorId], (res) => {})
+      }
+
       function reverseAnimator(animatorId: QTAnimatorId) {
+        Native.callUIFunction(viewRef.value, 'reverseAnimator', [animatorId], (res) => {})
+      }
+
+      function reverse(animatorId: QTAnimatorId) {
         Native.callUIFunction(viewRef.value, 'reverseAnimator', [animatorId], (res) => {})
       }
 
@@ -554,17 +580,29 @@ function registerQTAnimation(app: ESApp) {
       }
 
       context.expose({
+        animator,
+        animatorSet,
+        //
+        reset,
+        start,
+        startDelay,
+        pause,
+        resume,
+        cancel,
+        reverse,
+        //
         setPivotX,
         setPivotY,
         resetPivot,
+        //
         resetAnimators,
-        animatorSet,
         startAnimator,
         startAnimatorDelay,
         pauseAnimator,
         resumeAnimator,
         cancelAnimator,
         reverseAnimator,
+        //
         play,
         playWith,
         playBefore,
@@ -582,7 +620,7 @@ function registerQTAnimation(app: ESApp) {
         playTogether3,
         playTogether4,
         playTogether5,
-        animator,
+        //
         objectAnimator1,
         objectAnimator2,
         objectAnimator3,

@@ -41,7 +41,7 @@ export default defineComponent({
     const router = useESRouter()
 
     function restartMode() {
-      animation_view.value?.objectAnimator(
+      animation_view.value?.animator(
         'AnimationRestartRepeatMode', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
@@ -52,11 +52,11 @@ export default defineComponent({
         false,
         false
       )
-      animation_view.value?.startAnimator('AnimationRestartRepeatMode')
+      animation_view.value?.start('AnimationRestartRepeatMode')
     }
 
     function reverseMode() {
-      animation_view.value?.objectAnimator(
+      animation_view.value?.animator(
         'AnimationReverseRepeatMode', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
@@ -67,11 +67,11 @@ export default defineComponent({
         false,
         false
       )
-      animation_view.value?.startAnimator('AnimationReverseRepeatMode')
+      animation_view.value?.start('AnimationReverseRepeatMode')
     }
 
     function infiniteMode() {
-      animation_view.value?.objectAnimator(
+      animation_view.value?.animator(
         'AnimationRepeatInfinite', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
@@ -82,11 +82,11 @@ export default defineComponent({
         false,
         false
       )
-      animation_view.value?.startAnimator('AnimationRepeatInfinite')
+      animation_view.value?.start('AnimationRepeatInfinite')
     }
 
     function resetAnimators() {
-      animation_view.value?.resetAnimators()
+      animation_view.value?.reset()
     }
 
     function onBackPressed() {

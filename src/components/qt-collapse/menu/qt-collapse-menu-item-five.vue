@@ -34,7 +34,7 @@ export default defineComponent({
       if (alpha == 1) {
         return
       }
-      animationRef.value?.objectAnimator(
+      animationRef.value?.animator(
         '1',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
@@ -45,7 +45,7 @@ export default defineComponent({
         false,
         false
       )
-      animationRef.value?.startAnimator('1')
+      animationRef.value?.start('1')
       alpha = 1
     }
 
@@ -53,7 +53,7 @@ export default defineComponent({
       if (alpha == 0) {
         return
       }
-      animationRef.value?.objectAnimator(
+      animationRef.value?.animator(
         '2',
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
@@ -64,7 +64,7 @@ export default defineComponent({
         false,
         false
       )
-      animationRef.value?.startAnimator('2')
+      animationRef.value?.start('2')
       alpha = 0
     }
 

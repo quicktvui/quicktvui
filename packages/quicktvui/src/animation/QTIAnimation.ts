@@ -8,15 +8,46 @@ import {
 import { QTIView } from '../view/QTIView'
 
 export interface QTIAnimation extends QTIView {
+  animator(
+    id: QTAnimatorId,
+    valueType: QTAnimationValueType,
+    propertyName: QTAnimationPropertyName,
+    values: number[],
+    duration: number,
+    repeatMode: QTAnimationRepeatMode,
+    repeatCount: number,
+    listenAnimator: boolean,
+    listenAnimatorValue: boolean,
+    interpolator?: QTAnimationInterpolator
+  )
+
+  animatorSet(animatorId: QTAnimatorId, duration: number, listenAnimator: boolean)
+
+  //----------------------------------------
+
+  reset()
+
+  start(animatorId: QTAnimatorId)
+
+  startDelay(animatorId: QTAnimatorId, delay: number)
+
+  pause(animatorId: QTAnimatorId)
+
+  resume(animatorId: QTAnimatorId)
+
+  cancel(animatorId: QTAnimatorId)
+
+  reverse(animatorId: QTAnimatorId)
+
+  //----------------------------------------
   setPivotX(pivotX: number)
 
   setPivotY(pivotY: number)
 
   resetPivot()
 
+  //----------------------------------------
   resetAnimators()
-
-  animatorSet(animatorId: QTAnimatorId, duration: number, listenAnimator: boolean)
 
   startAnimator(animatorId: QTAnimatorId)
 
@@ -30,6 +61,7 @@ export interface QTIAnimation extends QTIView {
 
   reverseAnimator(animatorId: QTAnimatorId)
 
+  //----------------------------------------
   play(animatorSetId: QTAnimatorId, animatorId: QTAnimatorId)
 
   playWith(animatorSetId: QTAnimatorId, animatorId: QTAnimatorId)
@@ -43,19 +75,6 @@ export interface QTIAnimation extends QTIView {
   playSequentially(animatorSetId: QTAnimatorId, animatorIds: Array<QTAnimatorId>)
 
   playTogether(animatorSetId: QTAnimatorId, animatorIds: Array<QTAnimatorId>)
-
-  animator(
-    id: QTAnimatorId,
-    valueType: QTAnimationValueType,
-    propertyName: QTAnimationPropertyName,
-    values: number[],
-    duration: number,
-    repeatMode: QTAnimationRepeatMode,
-    repeatCount: number,
-    listenAnimator: boolean,
-    listenAnimatorValue: boolean,
-    interpolator?: QTAnimationInterpolator
-  )
 
   playSequentially1(animatorSetId: QTAnimatorId, animatorId1: QTAnimatorId)
 
