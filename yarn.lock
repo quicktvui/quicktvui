@@ -1368,10 +1368,10 @@
   dependencies:
     "@vue/devtools-api" "^6.5.0"
 
-"@extscreen/es3-soundpool-player@1.0.17":
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-soundpool-player/-/es3-soundpool-player-1.0.17.tgz#3b7c7634b004883434383e79a4a4519a1fd13f57"
-  integrity sha512-+UrGzp5hOaDVU7Abxv7w5Slzd3pG9IpdqFaSTO3J1UjLEwnWLHQTZm8YAKKjCy1SvIlPuBCeNZCIXvX2pbC0bg==
+"@extscreen/es3-soundpool-player@1.0.25":
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-soundpool-player/-/es3-soundpool-player-1.0.25.tgz#990d6cb8abe7a129ef18419cbbb5de6bdebc35ba"
+  integrity sha512-YWtd8+TfGWvjVEupk6wbYEo7Jit+5QKyTq3q12dMHvW7KyJJBvYhwzOj8lJXhr47euV5g7/byotVdfIzo+g4rQ==
 
 "@extscreen/es3-video-player@1.0.45":
   version "1.0.45"

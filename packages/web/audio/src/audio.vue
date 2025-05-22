@@ -98,7 +98,6 @@ export default defineComponent({
       }
       //start
       audioPlayer.value?.playMediaSourceList(mediaSourceList)
-      audioPlayer.value?.start(0)
     }
 
     //开始播放

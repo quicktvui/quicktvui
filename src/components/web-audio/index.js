@@ -3,7 +3,7 @@ import web_audio_sound_page from './web-audio-sound-page'
 
 const WebAudioPageList = {
   web_audio_start_page: {
-    name: '使用初探',
+    name: '音频',
     component: web_audio_start_page,
   },
   web_audio_sound_page: {
