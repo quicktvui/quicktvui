@@ -4,6 +4,7 @@ import {
   QTAnimationInterpolator,
   QTAnimationPropertyName,
   QTAnimationRepeatMode,
+  QTAnimationType,
   QTAnimationValueType,
   QTAnimator,
   QTAnimatorId,
@@ -37,6 +38,8 @@ function registerQTAnimation(app: ESApp) {
 
       const animatorProps = toRef(props, 'animator')
 
+      let propsAnimatorId: string | null | undefined
+
       // viewRef 初始化时触发（确保 animator 有值）
       watch(viewRef, (el) => {
         if (el && animatorProps.value) {
@@ -59,6 +62,19 @@ function registerQTAnimation(app: ESApp) {
         return Array.isArray((obj as QTAnimatorSet).animators)
       }
 
+      function isNonEmptyString(str): str is string {
+        return typeof str === 'string' && str.trim().length > 0
+      }
+
+      function generateUniqueId(id: string | undefined, prefix = 'id'): string {
+        if (isNonEmptyString(id)) {
+          return id
+        }
+        const timestamp = Date.now().toString(36) // 当前时间戳，转成36进制
+        const random = Math.random().toString(36).slice(2, 8) // 随机字符串
+        return `${prefix}_${timestamp}_${random}`
+      }
+
       function initAnimatorSet(animatorObject: QTAnimatorSet | QTAnimator) {
         if (!animatorObject) {
           return
@@ -67,12 +83,11 @@ function registerQTAnimation(app: ESApp) {
 
         if (isAnimatorSet(animatorObject)) {
           const ids: QTAnimatorId[] = []
-          //
-          for (const animatorValue of animatorObject.animators) {
+          animatorObject.animators.forEach((animatorValue, index) => {
             const {
               id,
               valueType,
-              propertyName,
+              type,
               values,
               duration,
               repeatMode,
@@ -81,13 +96,15 @@ function registerQTAnimation(app: ESApp) {
               listenAnimatorValue,
               interpolator,
             } = animatorValue
-            ids.push(id)
+
+            const uniqueId = generateUniqueId(id)
+            ids.push(uniqueId)
 
             //创建动画
-            animator(
-              id,
+            __animator(
+              uniqueId,
               valueType ?? QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-              propertyName,
+              type,
               values,
               duration,
               repeatMode ?? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
@@ -96,42 +113,44 @@ function registerQTAnimation(app: ESApp) {
               listenAnimatorValue ?? false,
               interpolator
             )
-          }
+          })
 
+          const uniqueId = generateUniqueId(animatorObject.id)
+          propsAnimatorId = uniqueId //赋值
           // 应用动画集的组合类型
           animatorSet(
-            animatorObject.id,
+            uniqueId,
             animatorObject.duration ?? -1,
             animatorObject.listenAnimator ?? false
           )
 
           switch (animatorObject.relationType) {
             case QTAnimatorRelationType.SEQUENCE:
-              playSequentially(animatorObject.id, ids)
+              playSequentially(uniqueId, ids)
               break
             case QTAnimatorRelationType.TOGETHER:
-              playTogether(animatorObject.id, ids)
+              playTogether(uniqueId, ids)
               break
             case QTAnimatorRelationType.WITH:
               if (ids.length >= 2) {
-                play(animatorObject.id, ids[0])
-                playWith(animatorObject.id, ids[1])
+                play(uniqueId, ids[0])
+                playWith(uniqueId, ids[1])
               }
               break
             case QTAnimatorRelationType.BEFORE:
               if (ids.length >= 2) {
-                play(animatorObject.id, ids[0])
-                playBefore(animatorObject.id, ids[1])
+                play(uniqueId, ids[0])
+                playBefore(uniqueId, ids[1])
               }
               break
             case QTAnimatorRelationType.AFTER:
               if (ids.length >= 2) {
-                play(animatorObject.id, ids[0])
-                playAfter(animatorObject.id, ids[1])
+                play(uniqueId, ids[0])
+                playAfter(uniqueId, ids[1])
               }
               break
             default:
-              playSequentially(animatorObject.id, ids)
+              playSequentially(uniqueId, ids)
               break
           }
         }
@@ -140,7 +159,7 @@ function registerQTAnimation(app: ESApp) {
           const {
             id,
             valueType,
-            propertyName,
+            type,
             values,
             duration,
             repeatMode,
@@ -150,11 +169,12 @@ function registerQTAnimation(app: ESApp) {
             interpolator,
           } = animatorObject
 
-          //创建动画
-          animator(
-            id,
+          const uniqueId = generateUniqueId(id)
+          propsAnimatorId = uniqueId
+          __animator(
+            uniqueId,
             valueType ?? QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-            propertyName,
+            type,
             values,
             duration,
             repeatMode ?? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
@@ -194,53 +214,104 @@ function registerQTAnimation(app: ESApp) {
         )
       }
 
-      function startAnimator(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'startAnimator', [animatorId], (res) => {})
-      }
-      function start(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'startAnimator', [animatorId], (res) => {})
-      }
-
-      function startAnimatorDelay(animatorId: QTAnimatorId, delay: number) {
-        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [animatorId, delay], (res) => {})
+      //-----------------------------------------------------------------------------------------------
+      function startAnimator(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
       }
 
-      function startDelay(animatorId: QTAnimatorId, delay: number) {
-        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [animatorId, delay], (res) => {})
+      function startAnimatorDelay(animatorId?: QTAnimatorId, delay?: number) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay ?? 0], (res) => {})
       }
 
-      function pauseAnimator(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'pauseAnimator', [animatorId], (res) => {})
+      function pauseAnimator(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'pauseAnimator', [id], (res) => {})
       }
 
-      function pause(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'pauseAnimator', [animatorId], (res) => {})
+      function resumeAnimator(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'resumeAnimator', [id], (res) => {})
       }
 
-      function resumeAnimator(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'resumeAnimator', [animatorId], (res) => {})
+      function cancelAnimator(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'cancelAnimator', [id], (res) => {})
       }
 
-      function resume(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'resumeAnimator', [animatorId], (res) => {})
+      function reverseAnimator(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'reverseAnimator', [id], (res) => {})
       }
 
-      function cancelAnimator(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'cancelAnimator', [animatorId], (res) => {})
+      function start(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
       }
 
-      function cancel(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'cancelAnimator', [animatorId], (res) => {})
+      function startDelay(animatorId?: QTAnimatorId, delay?: number) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay], (res) => {})
       }
 
-      function reverseAnimator(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'reverseAnimator', [animatorId], (res) => {})
+      function pause(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'pauseAnimator', [id], (res) => {})
       }
 
-      function reverse(animatorId: QTAnimatorId) {
-        Native.callUIFunction(viewRef.value, 'reverseAnimator', [animatorId], (res) => {})
+      function resume(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'resumeAnimator', [id], (res) => {})
       }
 
+      function cancel(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'cancelAnimator', [id], (res) => {})
+      }
+
+      function reverse(animatorId?: QTAnimatorId) {
+        if (!animatorId && !propsAnimatorId) {
+          return
+        }
+        const id = animatorId ?? propsAnimatorId
+        Native.callUIFunction(viewRef.value, 'reverseAnimator', [id], (res) => {})
+      }
+
+      //----------------------------------------------------------------------------------------------------------------
       function play(animatorSetId: QTAnimatorId, animatorId: QTAnimatorId) {
         Native.callUIFunction(viewRef.value, 'play', [animatorSetId, animatorId], (res) => {})
       }
@@ -373,6 +444,46 @@ function registerQTAnimation(app: ESApp) {
           animatorId4,
           animatorId5,
         ])
+      }
+
+      function __animator(
+        id: QTAnimatorId,
+        valueType: QTAnimationValueType,
+        type: QTAnimationType,
+        values: number[],
+        duration: number,
+        repeatMode: QTAnimationRepeatMode,
+        repeatCount: number,
+        listenAnimator: boolean,
+        listenAnimatorValue: boolean,
+        interpolator?: QTAnimationInterpolator
+      ) {
+        const isTranslationProp =
+          type === QTAnimationType.TRANSLATION_X ||
+          type === QTAnimationType.TRANSLATION_Y ||
+          type === QTAnimationType.TRANSLATION_Z
+
+        const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
+
+        const funcName = `objectAnimator${values.length == 0 ? '' : values.length}`
+
+        Native.callUIFunction(
+          viewRef.value,
+          funcName,
+          [
+            id,
+            valueType,
+            type,
+            ...scaledValues,
+            duration,
+            repeatMode,
+            repeatCount,
+            listenAnimator,
+            listenAnimatorValue,
+            interpolator,
+          ],
+          (res) => {}
+        )
       }
 
       function animator(

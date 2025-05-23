@@ -28,6 +28,7 @@ import {
   QTAnimationPropertyName,
   QTAnimationValueType,
   QTIAnimation,
+  QTAnimationType,
 } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
@@ -45,7 +46,7 @@ export default defineComponent({
         {
           id: 'animator_1',
           valueType: QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-          propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+          type: QTAnimationType.TRANSLATION_X,
           values: [0, 300, 60, -60, 60, 0, 800, 60, -600, 60],
           duration: 10000,
           repeatMode: -1,
@@ -59,7 +60,7 @@ export default defineComponent({
         {
           id: 'animator_2',
           valueType: QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-          propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
+          type: QTAnimationType.SCALE_X,
           values: [0, 2.5],
           duration: 2000,
           repeatMode: -1,
@@ -73,7 +74,7 @@ export default defineComponent({
         {
           id: 'animator_3',
           valueType: QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-          propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
+          type: QTAnimationType.ALPHA,
           values: [0, 1],
           duration: 2000,
           repeatMode: -1,

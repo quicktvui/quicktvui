@@ -21,7 +21,7 @@
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
 import { useESRouter } from '@extscreen/es3-router'
-import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
+import { QTAnimationType, QTIAnimation } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: 'AnimatorPropsDefault',
@@ -30,30 +30,29 @@ export default defineComponent({
     const animation_view = ref<QTIAnimation>()
     const router = useESRouter()
     const animator = {
-      id: 'n',
-      propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+      type: QTAnimationType.TRANSLATION_X,
       values: [0, 300, 60, -60, 60, 0, 800, 60, -600, 60],
       duration: 10000,
     }
 
     function startAnimator() {
-      animation_view.value?.start('n')
+      animation_view.value?.start()
     }
 
     function reverseAnimator() {
-      animation_view.value?.reverse('n')
+      animation_view.value?.reverse()
     }
 
     function pauseAnimator() {
-      animation_view.value?.pause('n')
+      animation_view.value?.pause()
     }
 
     function resumeAnimator() {
-      animation_view.value?.resume('n')
+      animation_view.value?.resume()
     }
 
     function cancelAnimator() {
-      animation_view.value?.cancel('n')
+      animation_view.value?.cancel()
     }
 
     function resetAnimators() {

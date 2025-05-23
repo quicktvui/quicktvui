@@ -28,6 +28,7 @@ import {
   QTAnimationPropertyName,
   QTAnimationValueType,
   QTIAnimation,
+  QTAnimationType,
 } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
@@ -37,23 +38,19 @@ export default defineComponent({
     const animation_view = ref<QTIAnimation>()
     const router = useESRouter()
     const animator = {
-      id: 'AnimatorSet',
       animators: [
         {
-          id: 'animator_1',
-          propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+          type: QTAnimationType.TRANSLATION_X,
           values: [0, 300, 60, -60, 60, 0, 800, 60, -600, 60],
           duration: 10000,
         },
         {
-          id: 'animator_2',
-          propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
+          type: QTAnimationType.SCALE_X,
           values: [0, 2.5],
           duration: 2000,
         },
         {
-          id: 'animator_3',
-          propertyName: QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
+          type: QTAnimationType.ALPHA,
           values: [0, 1],
           duration: 2000,
         },
@@ -61,23 +58,23 @@ export default defineComponent({
     }
 
     function startAnimator() {
-      animation_view.value?.start('AnimatorSet')
+      animation_view.value?.start()
     }
 
     function reverseAnimator() {
-      animation_view.value?.reverse('AnimatorSet')
+      animation_view.value?.reverse()
     }
 
     function pauseAnimator() {
-      animation_view.value?.pause('AnimatorSet')
+      animation_view.value?.pause()
     }
 
     function resumeAnimator() {
-      animation_view.value?.resume('AnimatorSet')
+      animation_view.value?.resume()
     }
 
     function cancelAnimator() {
-      animation_view.value?.cancel('AnimatorSet')
+      animation_view.value?.cancel()
     }
 
     function resetAnimators() {

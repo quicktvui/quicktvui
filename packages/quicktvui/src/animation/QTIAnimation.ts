@@ -27,17 +27,17 @@ export interface QTIAnimation extends QTIView {
 
   reset()
 
-  start(animatorId: QTAnimatorId)
+  start(animatorId?: QTAnimatorId)
 
-  startDelay(animatorId: QTAnimatorId, delay: number)
+  startDelay(animatorId?: QTAnimatorId, delay?: number)
 
-  pause(animatorId: QTAnimatorId)
+  pause(animatorId?: QTAnimatorId)
 
-  resume(animatorId: QTAnimatorId)
+  resume(animatorId?: QTAnimatorId)
 
-  cancel(animatorId: QTAnimatorId)
+  cancel(animatorId?: QTAnimatorId)
 
-  reverse(animatorId: QTAnimatorId)
+  reverse(animatorId?: QTAnimatorId)
 
   //----------------------------------------
   setPivotX(pivotX: number)
@@ -49,17 +49,17 @@ export interface QTIAnimation extends QTIView {
   //----------------------------------------
   resetAnimators()
 
-  startAnimator(animatorId: QTAnimatorId)
+  startAnimator(animatorId?: QTAnimatorId)
 
-  startAnimatorDelay(animatorId: QTAnimatorId, delay: number)
+  startAnimatorDelay(animatorId?: QTAnimatorId, delay?: number)
 
-  pauseAnimator(animatorId: QTAnimatorId)
+  pauseAnimator(animatorId?: QTAnimatorId)
 
-  resumeAnimator(animatorId: QTAnimatorId)
+  resumeAnimator(animatorId?: QTAnimatorId)
 
-  cancelAnimator(animatorId: QTAnimatorId)
+  cancelAnimator(animatorId?: QTAnimatorId)
 
-  reverseAnimator(animatorId: QTAnimatorId)
+  reverseAnimator(animatorId?: QTAnimatorId)
 
   //----------------------------------------
   play(animatorSetId: QTAnimatorId, animatorId: QTAnimatorId)

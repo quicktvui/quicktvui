@@ -9,7 +9,7 @@ export enum QTAnimatorRelationType {
 }
 
 export interface QTAnimatorSet {
-  id: QTAnimatorId
+  id?: QTAnimatorId
   animators: QTAnimator[]
   duration?: number
   listenAnimator?: boolean
@@ -17,9 +17,9 @@ export interface QTAnimatorSet {
 }
 
 export interface QTAnimator {
-  id: QTAnimatorId
+  id?: QTAnimatorId
   valueType?: QTAnimationValueType
-  propertyName: QTAnimationPropertyName
+  type: QTAnimationType
   values: number[]
   duration: number
   repeatMode?: QTAnimationRepeatMode
@@ -66,6 +66,23 @@ export enum QTAnimationPropertyName {
   QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X = 'translationX',
   QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y = 'translationY',
   QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z = 'translationZ',
+}
+
+export enum QTAnimationType {
+  ALPHA = 'alpha',
+
+  ROTATION = 'rotation',
+  ROTATION_X = 'rotationX',
+  ROTATION_Y = 'rotationY',
+  ROTATION_Z = 'rotationZ',
+
+  SCALE_X = 'scaleX',
+  SCALE_Y = 'scaleY',
+  SCALE_Z = 'scaleZ',
+
+  TRANSLATION_X = 'translationX',
+  TRANSLATION_Y = 'translationY',
+  TRANSLATION_Z = 'translationZ',
 }
 
 export enum QTAnimationRepeatMode {

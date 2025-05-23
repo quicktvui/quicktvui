@@ -42,21 +42,21 @@ export interface QtAnimationAPI extends QtBaseViewAPI {
 
   reset(instance: string | Ref<QTIAnimation | undefined>)
 
-  start(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  start(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId)
 
   startDelay(
     instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId,
-    delay: number
+    animatorId?: QTAnimatorId,
+    delay?: number
   )
 
-  pause(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  pause(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId)
 
-  resume(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  resume(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId)
 
-  cancel(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  cancel(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId)
 
-  reverse(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId)
+  reverse(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId)
 
   play(
     instance: string | Ref<QTIAnimation | undefined>,
@@ -151,7 +151,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function start(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
+  function start(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -165,8 +165,8 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
 
   function startDelay(
     instance: string | Ref<QTIAnimation | undefined>,
-    animatorId: QTAnimatorId,
-    delay: number
+    animatorId?: QTAnimatorId,
+    delay?: number
   ) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -179,7 +179,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function pause(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
+  function pause(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -191,7 +191,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function resume(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
+  function resume(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -203,7 +203,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function cancel(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
+  function cancel(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,
@@ -215,7 +215,7 @@ export function createQtAnimationAPI(viewAPI: QtBaseViewAPI): QtAnimationAPI {
     }
   }
 
-  function reverse(instance: string | Ref<QTIAnimation | undefined>, animatorId: QTAnimatorId) {
+  function reverse(instance: string | Ref<QTIAnimation | undefined>, animatorId?: QTAnimatorId) {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
         instance,

@@ -258,6 +258,7 @@ export {
   QTAnimationRepeatMode,
   QTAnimationValueType,
   QTAnimatorRelationType,
+  QTAnimationType,
 } from './animation/types'
 
 export type {
