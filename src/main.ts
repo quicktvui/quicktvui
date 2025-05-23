@@ -19,6 +19,39 @@ const routerOptions = {
 
 const router: Router = createESRouter(routerOptions)
 const app: ESApp = createESApp(application, router)
+app.config.errorHandler = (err, instance, info) => {
+  console.error('🌋 Vue ErrorHandler:', err)
+  console.error('👉 Component instance:', instance)
+  console.error('🧩 Info:', info)
+  // 如果你希望中断调试或抛出，可以手动 throw
+  // throw err
+}
+
+// app.config.errorHandler = (err, instance, info) => {
+//   const componentName = instance?.type?.name || '(anonymous component)'
+//   const propsData = instance?.props || {}
+//
+//   console.groupCollapsed(
+//       `%c💥 Vue Error in ${componentName} %c(${info})`,
+//       'color: red; font-weight: bold;',
+//       'color: gray;'
+//   )
+//
+//   console.error('🚨 Error Message:', err)
+//   console.log('🔍 Component Props:', propsData)
+//   console.log('📌 Info:', info)
+//
+//   console.groupEnd()
+//
+//   // 可选：开发环境提示
+//   if (import.meta.env.DEV) {
+//     // 如需要弹出 toast 可调用你自定义的组件，比如：
+//     // showToast(`Error in ${componentName}: ${err.message}`)
+//   }
+//
+//   // 可选：日志上报
+//   // reportToServer({ error: err, info, props: propsData, component: componentName })
+// }
 
 import { install } from './components'
 

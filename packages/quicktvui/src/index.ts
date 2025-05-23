@@ -257,9 +257,15 @@ export {
   QTAnimationPropertyName,
   QTAnimationRepeatMode,
   QTAnimationValueType,
+  QTAnimatorRelationType,
 } from './animation/types'
 
-export type { QTAnimationInterpolator, QTAnimatorId } from './animation/types'
+export type {
+  QTAnimationInterpolator,
+  QTAnimatorId,
+  QTAnimator,
+  QTAnimatorSet,
+} from './animation/types'
 
 //--------------------------------QTMediaSeries------------------------------
 export type { QTIMediaSeries } from './series/QTIMediaSeries'

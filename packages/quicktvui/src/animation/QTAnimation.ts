@@ -1,17 +1,26 @@
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, ref, toRef, watch } from 'vue'
 import { ESApp, Native } from '@extscreen/es3-vue'
 import {
   QTAnimationInterpolator,
   QTAnimationPropertyName,
   QTAnimationRepeatMode,
   QTAnimationValueType,
+  QTAnimator,
   QTAnimatorId,
+  QTAnimatorRelationType,
+  QTAnimatorSet,
 } from './types'
 import useBaseView from '../base/useBaseView'
 import { useESDisplay } from '@extscreen/es3-core'
+import { definePropType } from '../utils'
 
 function registerQTAnimation(app: ESApp) {
   const AnimationViewImpl = defineComponent({
+    props: {
+      animator: {
+        type: definePropType<QTAnimatorSet | QTAnimator>(Object),
+      },
+    },
     emits: [
       'onAnimationEnd',
       'onAnimationCancel',
@@ -25,6 +34,137 @@ function registerQTAnimation(app: ESApp) {
       const viewRef = ref()
       const display = useESDisplay()
       const displayScale = display.getDisplayScale()
+
+      const animatorProps = toRef(props, 'animator')
+
+      // viewRef 初始化时触发（确保 animator 有值）
+      watch(viewRef, (el) => {
+        if (el && animatorProps.value) {
+          initAnimatorSet(animatorProps.value)
+        }
+      })
+
+      // animator 变化时触发（确保 viewRef 已准备好）
+      watch(
+        animatorProps,
+        (newVal) => {
+          if (newVal && viewRef.value) {
+            initAnimatorSet(newVal)
+          }
+        },
+        { deep: true }
+      )
+
+      function isAnimatorSet(obj: QTAnimatorSet | QTAnimator): obj is QTAnimatorSet {
+        return Array.isArray((obj as QTAnimatorSet).animators)
+      }
+
+      function initAnimatorSet(animatorObject: QTAnimatorSet | QTAnimator) {
+        if (!animatorObject) {
+          return
+        }
+        reset()
+
+        if (isAnimatorSet(animatorObject)) {
+          const ids: QTAnimatorId[] = []
+          //
+          for (const animatorValue of animatorObject.animators) {
+            const {
+              id,
+              valueType,
+              propertyName,
+              values,
+              duration,
+              repeatMode,
+              repeatCount,
+              listenAnimator,
+              listenAnimatorValue,
+              interpolator,
+            } = animatorValue
+            ids.push(id)
+
+            //创建动画
+            animator(
+              id,
+              valueType ?? QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
+              propertyName,
+              values,
+              duration,
+              repeatMode ?? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
+              repeatCount ?? 0,
+              listenAnimator ?? false,
+              listenAnimatorValue ?? false,
+              interpolator
+            )
+          }
+
+          // 应用动画集的组合类型
+          animatorSet(
+            animatorObject.id,
+            animatorObject.duration ?? -1,
+            animatorObject.listenAnimator ?? false
+          )
+
+          switch (animatorObject.relationType) {
+            case QTAnimatorRelationType.SEQUENCE:
+              playSequentially(animatorObject.id, ids)
+              break
+            case QTAnimatorRelationType.TOGETHER:
+              playTogether(animatorObject.id, ids)
+              break
+            case QTAnimatorRelationType.WITH:
+              if (ids.length >= 2) {
+                play(animatorObject.id, ids[0])
+                playWith(animatorObject.id, ids[1])
+              }
+              break
+            case QTAnimatorRelationType.BEFORE:
+              if (ids.length >= 2) {
+                play(animatorObject.id, ids[0])
+                playBefore(animatorObject.id, ids[1])
+              }
+              break
+            case QTAnimatorRelationType.AFTER:
+              if (ids.length >= 2) {
+                play(animatorObject.id, ids[0])
+                playAfter(animatorObject.id, ids[1])
+              }
+              break
+            default:
+              playSequentially(animatorObject.id, ids)
+              break
+          }
+        }
+        //
+        else {
+          const {
+            id,
+            valueType,
+            propertyName,
+            values,
+            duration,
+            repeatMode,
+            repeatCount,
+            listenAnimator,
+            listenAnimatorValue,
+            interpolator,
+          } = animatorObject
+
+          //创建动画
+          animator(
+            id,
+            valueType ?? QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
+            propertyName,
+            values,
+            duration,
+            repeatMode ?? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
+            repeatCount ?? 0,
+            listenAnimator ?? false,
+            listenAnimatorValue ?? false,
+            interpolator
+          )
+        }
+      }
 
       function setPivotX(pivotX: number) {
         Native.callUIFunction(viewRef.value, 'setPivotX', [pivotX], (res) => {})
@@ -255,6 +395,7 @@ function registerQTAnimation(app: ESApp) {
         const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
 
         const funcName = `objectAnimator${values.length == 0 ? '' : values.length}`
+
         Native.callUIFunction(
           viewRef.value,
           funcName,

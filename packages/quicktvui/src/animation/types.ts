@@ -1,5 +1,34 @@
 //
 
+export enum QTAnimatorRelationType {
+  SEQUENCE = 'sequence', // playSequentially
+  TOGETHER = 'together', // playTogether
+  WITH = 'with', // with
+  BEFORE = 'before', // before
+  AFTER = 'after', // after
+}
+
+export interface QTAnimatorSet {
+  id: QTAnimatorId
+  animators: QTAnimator[]
+  duration?: number
+  listenAnimator?: boolean
+  relationType?: QTAnimatorRelationType
+}
+
+export interface QTAnimator {
+  id: QTAnimatorId
+  valueType?: QTAnimationValueType
+  propertyName: QTAnimationPropertyName
+  values: number[]
+  duration: number
+  repeatMode?: QTAnimationRepeatMode
+  repeatCount?: number
+  listenAnimator?: boolean
+  listenAnimatorValue?: boolean
+  interpolator?: QTAnimationInterpolator
+}
+
 export type QTAnimatorId = string
 
 export interface QTAnimationInterpolator {

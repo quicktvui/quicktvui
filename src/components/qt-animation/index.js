@@ -1,12 +1,16 @@
-import qt_animation_view_alpha_page from './qt-animation-view-alpha-page';
-import qt_animation_view_scale_page from './qt-animation-view-scale-page';
-import qt_animation_view_translation_page from './qt-animation-view-translation-page';
-import qt_animation_view_rotation_page from './qt-animation-view-rotation-page';
-import qt_animation_view_rotation_xy_page from './qt-animation-view-rotation-xy-page';
-import qt_animation_view_listener_page from './qt-animation-view-listener-page';
-import qt_animation_view_animators_page from './qt-animation-view-animators-page';
-import qt_animation_view_interpolator_page from './qt-animation-view-interpolator-page';
-import qt_animation_view_repeat_page from './qt-animation-view-repeat-page';
+import qt_animation_view_alpha_page from './qt-animation-view-alpha-page'
+import qt_animation_view_scale_page from './qt-animation-view-scale-page'
+import qt_animation_view_translation_page from './qt-animation-view-translation-page'
+import qt_animation_view_rotation_page from './qt-animation-view-rotation-page'
+import qt_animation_view_rotation_xy_page from './qt-animation-view-rotation-xy-page'
+import qt_animation_view_listener_page from './qt-animation-view-listener-page'
+import qt_animation_view_animators_page from './qt-animation-view-animators-page'
+import qt_animation_view_interpolator_page from './qt-animation-view-interpolator-page'
+import qt_animation_view_repeat_page from './qt-animation-view-repeat-page'
+import qt_animation_view_animator_props_page from './qt-animation-view-animator-props-page'
+import qt_animation_view_animator_props_default_page from './qt-animation-view-animator-props-default-page'
+import qt_animation_view_animators_props_page from './qt-animation-view-animators-props-page'
+import qt_animation_view_animators_props_default_page from './qt-animation-view-animators-props-default-page'
 
 const QTAnimationPageList = {
   qt_animation_view_alpha_page: {
@@ -45,5 +49,21 @@ const QTAnimationPageList = {
     name: qt_animation_view_repeat_page.name,
     component: qt_animation_view_repeat_page,
   },
-};
-export default QTAnimationPageList;
+  qt_animation_view_animator_props_page: {
+    name: qt_animation_view_animator_props_page.name,
+    component: qt_animation_view_animator_props_page,
+  },
+  qt_animation_view_animator_props_default_page: {
+    name: qt_animation_view_animator_props_default_page.name,
+    component: qt_animation_view_animator_props_default_page,
+  },
+  qt_animation_view_animators_props_page: {
+    name: qt_animation_view_animators_props_page.name,
+    component: qt_animation_view_animators_props_page,
+  },
+  qt_animation_view_animators_props_default_page: {
+    name: qt_animation_view_animators_props_default_page.name,
+    component: qt_animation_view_animators_props_default_page,
+  },
+}
+export default QTAnimationPageList
