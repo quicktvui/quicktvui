@@ -31,7 +31,7 @@ import { useESRouter } from '@extscreen/es3-router'
 import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'TranslationAnimation',
+  name: 'Translation',
   emits: [],
   setup() {
     const animation_view = ref<QTIAnimation>()

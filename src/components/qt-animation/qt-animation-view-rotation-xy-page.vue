@@ -35,7 +35,7 @@ import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@qu
 import imgSrc from '../../../src/assets/ic_car.jpg'
 
 export default defineComponent({
-  name: 'RotationXYAnimation',
+  name: 'RotationXY',
   emits: [],
   setup() {
     const animation_view = ref<QTIAnimation>()

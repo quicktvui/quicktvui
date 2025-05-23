@@ -34,7 +34,7 @@ import {
 } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'AnimationRepeat',
+  name: 'Repeat',
   emits: [],
   setup() {
     const animation_view = ref<QTIAnimation>()

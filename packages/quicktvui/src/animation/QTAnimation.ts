@@ -21,6 +21,14 @@ function registerQTAnimation(app: ESApp) {
       animator: {
         type: definePropType<QTAnimatorSet | QTAnimator>(Object),
       },
+      autoPlay: {
+        type: Boolean,
+        default: false,
+      },
+      loop: {
+        type: Boolean,
+        default: false,
+      },
     },
     emits: [
       'onAnimationEnd',
@@ -107,8 +115,11 @@ function registerQTAnimation(app: ESApp) {
               type,
               values,
               duration,
-              repeatMode ?? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
-              repeatCount ?? 0,
+              repeatMode ??
+                (props.loop
+                  ? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE
+                  : QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_RESTART),
+              repeatCount ?? (props.loop ? -1 : 0),
               listenAnimator ?? false,
               listenAnimatorValue ?? false,
               interpolator
@@ -177,12 +188,20 @@ function registerQTAnimation(app: ESApp) {
             type,
             values,
             duration,
-            repeatMode ?? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
-            repeatCount ?? 0,
+            repeatMode ??
+              (props.loop
+                ? QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE
+                : QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_RESTART),
+            repeatCount ?? (props.loop ? -1 : 0),
             listenAnimator ?? false,
             listenAnimatorValue ?? false,
             interpolator
           )
+        }
+
+        //自动执行
+        if (props.autoPlay) {
+          start(propsAnimatorId)
         }
       }
 

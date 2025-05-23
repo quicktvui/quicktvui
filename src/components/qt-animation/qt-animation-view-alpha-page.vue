@@ -31,7 +31,7 @@ import { useESRouter } from '@extscreen/es3-router'
 import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'AlphaAnimation',
+  name: 'Alpha',
   emits: [],
   setup() {
     const animationRef = ref<QTIAnimation>()
@@ -57,8 +57,7 @@ export default defineComponent({
         '3', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
-        [0, 1],
-        0,
+        [0, 1, 0],
         1000,
         -1,
         0,

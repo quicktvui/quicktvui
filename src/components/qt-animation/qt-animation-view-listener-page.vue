@@ -40,7 +40,7 @@ import { useESRouter } from '@extscreen/es3-router'
 import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'AnimationListener',
+  name: 'Listener',
   emits: [],
   setup() {
     const animationStatus = ref('重置')
