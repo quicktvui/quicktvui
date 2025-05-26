@@ -30,6 +30,7 @@ import QTSwiperPageList from './components/qt-swiper'
 import QTLottiePageList from './components/qt-lottie'
 import QTIndicatorPageList from './components/qt-indicator-list-view'
 import QTDialogPageList from './components/qt-dialog'
+import WebAlertPageList from './components/web-alert'
 
 import {
   QTWaterfallItemPageList,
@@ -340,6 +341,11 @@ const routes = [
     path: `/web-h/${item}`,
     name: `web-h/${item}`,
     component: WebHPageList[item].component,
+  })),
+  ...Object.keys(WebAlertPageList).map((item) => ({
+    path: `/web-alert/${item}`,
+    name: `web-alert/${item}`,
+    component: WebAlertPageList[item].component,
   })),
 ]
 

@@ -40,6 +40,7 @@ import web_nav_video_page from './web-nav-video-page'
 import web_nav_audio_page from './web-nav-audio-page'
 import web_nav_audio_service_page from './web-nav-audio-service-page'
 import web_nav_h_page from './web-nav-h-page'
+import web_nav_alert_page from './web-nav-alert-page'
 //--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
@@ -203,6 +204,10 @@ const QTAPINavPageList = {
   web_nav_h_page: {
     name: 'H',
     component: web_nav_h_page,
+  },
+  web_nav_alert_page: {
+    name: 'Alert',
+    component: web_nav_alert_page,
   },
 }
 
