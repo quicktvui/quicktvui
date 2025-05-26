@@ -61,10 +61,10 @@ export default defineComponent({
         '3', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ROTATION,
-        [0, 30, 60],
+        [0, 180, 360],
         1000,
         -1,
-        0,
+        1000,
         false,
         false
       )

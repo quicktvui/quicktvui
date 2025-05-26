@@ -25,6 +25,7 @@ app.config.errorHandler = (err, instance, info) => {
   console.error('🧩 Info:', info)
   // 如果你希望中断调试或抛出，可以手动 throw
   // throw err
+  router.push('error')
 }
 
 // app.config.errorHandler = (err, instance, info) => {

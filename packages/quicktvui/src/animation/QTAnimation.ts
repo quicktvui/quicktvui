@@ -2,6 +2,7 @@ import { defineComponent, h, ref, toRef, watch } from 'vue'
 import { ESApp, Native } from '@extscreen/es3-vue'
 import {
   QTAnimationInterpolator,
+  QTAnimationInterpolatorType,
   QTAnimationPropertyName,
   QTAnimationRepeatMode,
   QTAnimationType,
@@ -499,7 +500,9 @@ function registerQTAnimation(app: ESApp) {
             repeatCount,
             listenAnimator,
             listenAnimatorValue,
-            interpolator,
+            interpolator ?? {
+              type: QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR,
+            },
           ],
           (res) => {}
         )
@@ -539,7 +542,9 @@ function registerQTAnimation(app: ESApp) {
             repeatCount,
             listenAnimator,
             listenAnimatorValue,
-            interpolator,
+            interpolator ?? {
+              type: QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR,
+            },
           ],
           (res) => {}
         )
