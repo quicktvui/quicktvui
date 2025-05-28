@@ -15,6 +15,7 @@ import {
 import useBaseView from '../base/useBaseView'
 import { useESDisplay } from '@extscreen/es3-core'
 import { definePropType } from '../utils'
+import { nextTick } from '@vue/runtime-core'
 
 function registerQTAnimation(app: ESApp) {
   const AnimationViewImpl = defineComponent({
@@ -236,19 +237,23 @@ function registerQTAnimation(app: ESApp) {
 
       //-----------------------------------------------------------------------------------------------
       function startAnimator(animatorId?: QTAnimatorId) {
-        if (!animatorId && !propsAnimatorId) {
-          return
-        }
-        const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
+        nextTick(() => {
+          if (!animatorId && !propsAnimatorId) {
+            return
+          }
+          const id = animatorId ?? propsAnimatorId
+          Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
+        })
       }
 
       function startAnimatorDelay(animatorId?: QTAnimatorId, delay?: number) {
-        if (!animatorId && !propsAnimatorId) {
-          return
-        }
-        const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay ?? 0], (res) => {})
+        nextTick(() => {
+          if (!animatorId && !propsAnimatorId) {
+            return
+          }
+          const id = animatorId ?? propsAnimatorId
+          Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay ?? 0], (res) => {})
+        })
       }
 
       function pauseAnimator(animatorId?: QTAnimatorId) {
@@ -284,19 +289,23 @@ function registerQTAnimation(app: ESApp) {
       }
 
       function start(animatorId?: QTAnimatorId) {
-        if (!animatorId && !propsAnimatorId) {
-          return
-        }
-        const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
+        nextTick(() => {
+          if (!animatorId && !propsAnimatorId) {
+            return
+          }
+          const id = animatorId ?? propsAnimatorId
+          Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
+        })
       }
 
       function startDelay(animatorId?: QTAnimatorId, delay?: number) {
-        if (!animatorId && !propsAnimatorId) {
-          return
-        }
-        const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay], (res) => {})
+        nextTick(() => {
+          if (!animatorId && !propsAnimatorId) {
+            return
+          }
+          const id = animatorId ?? propsAnimatorId
+          Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay], (res) => {})
+        })
       }
 
       function pause(animatorId?: QTAnimatorId) {

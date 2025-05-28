@@ -13,6 +13,7 @@ import qt_animation_view_interpolator_page from './qt-animation-view-interpolato
 import qt_animation_view_repeat_page from './qt-animation-view-repeat-page'
 import qt_animation_view_animator_props_page from './qt-animation-view-animator-props-page'
 import qt_animation_view_animator_props_default_page from './qt-animation-view-animator-props-default-page'
+import qt_animation_view_animators_props_default_setup_page from './qt-animation-view-animators-props-default-setup-page'
 import qt_animation_view_animators_props_page from './qt-animation-view-animators-props-page'
 import qt_animation_view_animators_props_default_page from './qt-animation-view-animators-props-default-page'
 import qt_animation_view_animators_auto_play_page from './qt-animation-view-animator-auto-play-page'
@@ -86,6 +87,10 @@ const QTAnimationPageList = {
   qt_animation_view_animators_props_default_page: {
     name: qt_animation_view_animators_props_default_page.name,
     component: qt_animation_view_animators_props_default_page,
+  },
+  qt_animation_view_animators_props_default_setup_page: {
+    name: 'AnimatorsPropsDefault(setup)',
+    component: qt_animation_view_animators_props_default_setup_page,
   },
   qt_animation_view_animators_auto_play_page: {
     name: qt_animation_view_animators_auto_play_page.name,
