@@ -104,6 +104,10 @@ export default defineComponent({
     const play = () => {
       audioPlayer.value?.initialize()
     }
+    //播放开始
+    const start = () => {
+      audioPlayer.value?.start(0)
+    }
     //暂停播放
     const pause = () => {
       audioPlayer.value?.pause()
@@ -122,6 +126,7 @@ export default defineComponent({
       onPlayerInitialized,
       play,
       pause,
+      start,
       load,
       stop,
     }
