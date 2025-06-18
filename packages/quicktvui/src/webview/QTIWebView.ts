@@ -5,6 +5,8 @@ export interface QTIWebView extends QTIView {
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
 
+  setUserAgent(value: string): void
+
   canGoBack(): void
 
   goBack(): void

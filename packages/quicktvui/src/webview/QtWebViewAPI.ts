@@ -17,6 +17,8 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
     value: string
   ): Promise<string | undefined | null>
 
+  setUserAgent(instance: string | Ref<QTIWebView | undefined>, value: string): void
+
   canGoBack(instance: string | Ref<QTIWebView | undefined>): void
 
   goBack(instance: string | Ref<QTIWebView | undefined>): void
@@ -201,6 +203,14 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
       return instance.value!.evaluateJavascript(value)
     } else {
       return Promise.reject()
+    }
+  }
+
+  function setUserAgent(instance: string | Ref<QTIWebView | undefined>, value: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setUserAgent', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setUserAgent(value)
     }
   }
 
@@ -1036,6 +1046,7 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     ...viewAPI,
     loadUrl,
     evaluateJavascript,
+    setUserAgent,
     canGoBack,
     goBack,
     canGoForward,

@@ -46,6 +46,9 @@ function registerQTWebView(app: ESApp) {
           })
         })
       }
+      const setUserAgent = (value: string) => {
+        Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {})
+      }
       const canGoBack = () => {
         Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
           context.emit('onCanGoBack', res)
@@ -284,6 +287,7 @@ function registerQTWebView(app: ESApp) {
       context.expose({
         loadUrl,
         evaluateJavascript,
+        setUserAgent,
         canGoBack,
         goBack,
         canGoForward,
