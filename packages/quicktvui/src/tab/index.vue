@@ -3,6 +3,7 @@
     ref="tabs"
     v-if="ifTabs"
     class="tabs-root-css"
+    :offscreenPageLimit="offScreenPageLimit"
     :dataStrategy="tabsDataStrategy"
     :hideOnSingleTab="hideOnSingleTab"
     :pageSwitchDelay="tabContentSwitchDelay"
@@ -157,6 +158,10 @@ export default defineComponent({
     'onPluginLoadError',
   ],
   props: {
+    offScreenPageLimit: {
+      type: Number,
+      default: 1,
+    },
     enablePlaceholder: {
       type: Boolean,
       default: true,
@@ -294,13 +299,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    tabContentVerticalFadingEdgeEnabled:{
+    tabContentVerticalFadingEdgeEnabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     tabContentFadingEdgeLength: {
       type: Number,
-      default: 0
+      default: 0,
     },
     fadingEdgeLength: {
       type: Number,
