@@ -1,6 +1,12 @@
 import { QTIView } from '../view/QTIView'
 
+export interface QTX5WebViewParams {
+  [prop: string]: any
+}
+
 export interface QTIX5WebView extends QTIView {
+  initWebView(params?: QTX5WebViewParams): void
+
   loadUrl(url: string): void
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

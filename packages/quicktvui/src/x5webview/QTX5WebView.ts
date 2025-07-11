@@ -1,6 +1,7 @@
 import { ESApp, Native } from '@extscreen/es3-vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 import useBaseView from '../base/useBaseView'
+import { QTX5WebViewParams } from './QTIX5WebView'
 
 function registerQTX5WebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -36,6 +37,10 @@ function registerQTX5WebView(app: ESApp) {
         setPluginState(1)
         setCacheMode(2)
       })
+
+      const initWebView = (params?: QTX5WebViewParams) => {
+        Native.callUIFunction(webViewRef.value, 'initWebView', [params], (res) => {})
+      }
 
       const loadUrl = (url: string) => {
         Native.callUIFunction(webViewRef.value, 'loadUrl', [url], (res) => {})
@@ -281,6 +286,7 @@ function registerQTX5WebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'initWebViewFocus', [delayTime, x, y], (res) => {})
       }
       context.expose({
+        initWebView,
         loadUrl,
         evaluateJavascript,
         canGoBack,

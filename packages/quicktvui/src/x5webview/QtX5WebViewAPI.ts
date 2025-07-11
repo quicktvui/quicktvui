@@ -1,6 +1,6 @@
 import { Native } from '@extscreen/es3-vue'
 import { isRef, Ref } from '@vue/reactivity'
-import { QTIX5WebView } from './QTIX5WebView'
+import { QTIX5WebView, QTX5WebViewParams } from './QTIX5WebView'
 import {
   QT_CALL_UI_FUNCTION,
   QT_API_MODULE,
@@ -10,6 +10,8 @@ import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 
 export interface QtX5WebViewAPI extends QtBaseViewAPI {
+  initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
+
   loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void
 
   evaluateJavascript(
@@ -177,6 +179,17 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 }
 
 export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
+  function initWebView(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    params?: QTX5WebViewParams
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initWebView', [params]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.initWebView(params)
+    }
+  }
+
   function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
@@ -1064,6 +1077,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   return {
     ...viewAPI,
+    initWebView,
     loadUrl,
     evaluateJavascript,
     canGoBack,
