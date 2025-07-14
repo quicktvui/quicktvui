@@ -6,7 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 const watchPlugin = require('./webpack-watch.ts')
 
 const pkg = require('../package.json')
-let cssLoader = '@hippy/vue-css-loader'
+let cssLoader = '@extscreen/es3-vue-css-loader'
 
 module.exports = {
   mode: 'development',
@@ -61,6 +61,18 @@ module.exports = {
       __VUE_PROD_DEVTOOLS__: false,
       __PLATFORM__: null,
       __DEV__: true,
+
+      // ESVue 配置
+      __ES_VUE_FEATURE_FLAGS__: {
+        ENABLE_KEY_EVENT_DISPATCH: true,
+        ENABLE_EVENT_BUBBLE: false,
+        ENABLE_MODULES: true,
+      },
+      // ESRouter配置
+      __ES_ROUTER_FEATURE_FLAGS__: JSON.stringify({
+        // ROOT_VIEW_COMPONENT_NAME: "div",
+        // PAGE_VIEW_COMPONENT_NAME: "div",
+      }),
     }),
     new ESDynamicImportPlugin(),
     new CleanWebpackPlugin(),

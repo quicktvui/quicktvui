@@ -7,7 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const WebpackObfuscator = require('webpack-obfuscator')
 const platform = 'android'
 const pkg = require('../package.json')
-let cssLoader = '@hippy/vue-css-loader'
+let cssLoader = '@extscreen/es3-vue-css-loader'
 
 module.exports = {
   mode: 'production',
@@ -80,6 +80,18 @@ module.exports = {
       __FEATURE_PROD_DEVTOOLS__: false,
       __BROWSER__: false,
       'process.env': '{}',
+
+      // ESVue 配置
+      __ES_VUE_FEATURE_FLAGS__: {
+        ENABLE_KEY_EVENT_DISPATCH: true,
+        ENABLE_EVENT_BUBBLE: false,
+        ENABLE_MODULES: true,
+      },
+      // ESRouter配置
+      __ES_ROUTER_FEATURE_FLAGS__: JSON.stringify({
+        // ROOT_VIEW_COMPONENT_NAME: "div",
+        // PAGE_VIEW_COMPONENT_NAME: "div",
+      }),
     }),
     new CaseSensitivePathsPlugin(),
     new VueLoaderPlugin(),

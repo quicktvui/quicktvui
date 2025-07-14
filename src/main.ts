@@ -97,9 +97,9 @@ const playerManager = createESPlayerManager()
 app.use(playerManager)
 
 //
-import QuickTVHtml from '../packages/web'
-import '../packages/web/dist/index.css'
+// import QuickTVHtml from '../packages/web'
+// import '../packages/web/dist/index.css'
 //
-// import QuickTVHtml from '@quicktvui/html-core'
-// import '@quicktvui/html-core/dist/index.css'
+import QuickTVHtml from '@quicktvui/html-core'
+import '@quicktvui/html-core/dist/index.css'
 app.use(QuickTVHtml)
