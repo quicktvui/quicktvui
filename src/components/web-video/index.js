@@ -1,4 +1,5 @@
 import web_video_start_page from './web-video-start-page'
+import web_video_op_page from './web-video-op-page'
 import web_video_source_page from './web-video-source-page'
 import web_video_poster_page from './web-video-poster-page'
 
@@ -6,6 +7,10 @@ const WebVideoPageList = {
   web_video_start_page: {
     name: '使用初探',
     component: web_video_start_page,
+  },
+  web_video_op_page: {
+    name: '控制',
+    component: web_video_op_page,
   },
   web_video_source_page: {
     name: 'source',
