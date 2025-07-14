@@ -66,12 +66,12 @@ module.exports = {
       __ES_VUE_FEATURE_FLAGS__: {
         ENABLE_KEY_EVENT_DISPATCH: true,
         ENABLE_EVENT_BUBBLE: false,
-        ENABLE_MODULES: true,
+        ENABLE_MODULES: false,
       },
       // ESRouter配置
       __ES_ROUTER_FEATURE_FLAGS__: JSON.stringify({
-        // ROOT_VIEW_COMPONENT_NAME: "div",
-        // PAGE_VIEW_COMPONENT_NAME: "div",
+        ROOT_VIEW_COMPONENT_NAME: 'div',
+        PAGE_VIEW_COMPONENT_NAME: 'div',
       }),
     }),
     new ESDynamicImportPlugin(),
