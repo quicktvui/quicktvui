@@ -18,7 +18,12 @@ const routerOptions = {
 }
 
 const router: Router = createESRouter(routerOptions)
-const app: ESApp = createESApp(application, router)
+const app: ESApp = createESApp(application, router, {
+  debug: true,
+  styleOptions: {
+    ratioBaseWidth: 1920,
+  },
+})
 app.config.errorHandler = (err, instance, info) => {
   console.error('🌋 Vue ErrorHandler:', err)
   console.error('👉 Component instance:', instance)

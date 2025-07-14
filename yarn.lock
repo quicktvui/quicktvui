@@ -1302,10 +1302,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.35.tgz#4d2f64f6a0a9ab2a396fdf093098388149f21ce6"
   integrity sha512-raOfJI5a0dzV47CSZsL7DXmKaLyCcYVbFwm5ZxEum93VCJrHLxK6IZU9TdvP2hXUd12OTarvdAMNPuUO4UdoZA==
 
-"@extscreen/es3-core@1.1.41":
-  version "1.1.41"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-core/-/es3-core-1.1.41.tgz#35305b65f8428dea5a8b815ee9d9a5922da08416"
-  integrity sha512-RbdWFzIHt9ddZuektr13i03uz1zS4vnqu151FV6Mo3h2GDs1cNE2YOJsfrsx2r9E0JDZLSJG0awcivyGGRgsxg==
+"@extscreen/es3-core@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-core/-/es3-core-1.2.3.tgz#cb3c51184ff7d8abbb39476c46c13c638dca8991"
+  integrity sha512-M0coilmngkOXo3EXmbG9EP8AYOPcYGHyH+ixSjofciO/9ltapqMPZUSYXtPu/ws/oNKfOnFvYuRucI2PlQVwrg==
 
 "@extscreen/es3-debug-server@0.0.6":
   version "0.0.6"

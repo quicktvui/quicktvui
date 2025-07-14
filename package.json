@@ -20,7 +20,7 @@
     "@extscreen/es3-audio-service-player": "1.0.13",
     "@extscreen/es3-soundpool-player": "1.0.25",
     "@extscreen/es3-component": "1.0.35",
-    "@extscreen/es3-core": "1.1.41",
+    "@extscreen/es3-core": "1.2.3",
     "@extscreen/es3-m1905-player": "0.0.12",
     "@extscreen/es3-player": "1.0.33",
     "@extscreen/es3-player-manager": "1.0.48",
@@ -30,6 +30,7 @@
     "@extscreen/es3-vue-style-parser": "2.0.0",
     "@quicktvui/quicktvui3": "1.2.0-beta.38",
     "@quicktvui/html-core": "0.0.1-beta.1",
+    "@vue/devtools-api": "^6.5.0",
     "@vue/runtime-core": "^3.5.15",
     "@vue/shared": "^3.5.15",
     "@vue/tsconfig": "^0.4.0",
@@ -40,7 +41,7 @@
     "vue-tsc": "^1.6.5"
   },
   "devDependencies": {
-    "@vue/devtools-api": "^6.5.0",
+    "@extscreen/es3-vue-css-loader": "^2.0.1",
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -57,7 +58,6 @@
     "@extscreen/es3-dynamic-import-plugin": "^0.0.5",
     "@hippy/hippy-hmr-plugin": "^0.1.0",
     "@hippy/rejection-tracking-polyfill": "^1.0.0",
-    "@extscreen/es3-vue-css-loader": "^2.0.1",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-replace": "^5.0.2",
