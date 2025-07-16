@@ -14,6 +14,8 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void
 
+  reload(instance: string | Ref<QTIX5WebView | undefined>): void
+
   evaluateJavascript(
     instance: string | Ref<QTIX5WebView | undefined>,
     value: string
@@ -195,6 +197,14 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.loadUrl(url)
+    }
+  }
+
+  function reload(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'reload', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.reload()
     }
   }
 
@@ -1079,6 +1089,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     ...viewAPI,
     initWebView,
     loadUrl,
+    reload,
     evaluateJavascript,
     canGoBack,
     goBack,

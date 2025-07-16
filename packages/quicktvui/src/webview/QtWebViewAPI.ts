@@ -11,6 +11,7 @@ import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 
 export interface QtWebViewAPI extends QtBaseViewAPI {
   loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
+  reload(instance: string | Ref<QTIWebView | undefined>): void
 
   evaluateJavascript(
     instance: string | Ref<QTIWebView | undefined>,
@@ -181,6 +182,14 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.loadUrl(url)
+    }
+  }
+
+  function reload(instance: string | Ref<QTIWebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'reload', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.reload()
     }
   }
 
@@ -1045,6 +1054,7 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
   return {
     ...viewAPI,
     loadUrl,
+    reload,
     evaluateJavascript,
     setUserAgent,
     canGoBack,

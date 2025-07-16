@@ -9,6 +9,8 @@ export interface QTIX5WebView extends QTIView {
 
   loadUrl(url: string): void
 
+  reload(): void
+
   evaluateJavascript(value: string): Promise<string | undefined | null>
 
   canGoBack(): void

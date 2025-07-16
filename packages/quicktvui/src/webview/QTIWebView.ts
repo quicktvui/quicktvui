@@ -3,6 +3,8 @@ import { QTIView } from '../view/QTIView'
 export interface QTIWebView extends QTIView {
   loadUrl(url: string): void
 
+  reload(): void
+
   evaluateJavascript(value: string): Promise<string | undefined | null>
 
   setUserAgent(value: string): void
