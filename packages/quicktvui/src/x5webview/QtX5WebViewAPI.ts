@@ -10,11 +10,21 @@ import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 
 export interface QtX5WebViewAPI extends QtBaseViewAPI {
+  reload(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  clearCache(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  getUrl(instance: string | Ref<QTIX5WebView | undefined>): Promise<string | undefined | null>
+
+  getOriginalUrl(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<string | undefined | null>
+
+  //---------------------------------------------------------------------------
+
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
 
   loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void
-
-  reload(instance: string | Ref<QTIX5WebView | undefined>): void
 
   evaluateJavascript(
     instance: string | Ref<QTIX5WebView | undefined>,
@@ -181,17 +191,64 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 }
 
 export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
-  function initWebView(
-    instance: string | Ref<QTIX5WebView | undefined>,
-    params?: QTX5WebViewParams
-  ): void {
+  function reload(instance: string | Ref<QTIX5WebView | undefined>): void {
     if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initWebView', [params]])
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'reload', []])
     } else if (isRef(instance) && instance.value) {
-      instance.value?.initWebView(params)
+      instance.value?.reload()
     }
   }
 
+  function clearCache(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'clearCache', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.clearCache(value)
+    }
+  }
+
+  function getUrl(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<string | undefined | null> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getUrl', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getUrl()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getOriginalUrl(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<string | undefined | null> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getOriginalUrl', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getOriginalUrl()
+    } else {
+      return Promise.reject()
+    }
+  }
+  //---------------------------------------------------------------------------
   function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
@@ -200,11 +257,14 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     }
   }
 
-  function reload(instance: string | Ref<QTIX5WebView | undefined>): void {
+  function initWebView(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    params?: QTX5WebViewParams
+  ): void {
     if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'reload', []])
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initWebView', [params]])
     } else if (isRef(instance) && instance.value) {
-      instance.value?.reload()
+      instance.value?.initWebView(params)
     }
   }
 
@@ -1087,9 +1147,14 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   return {
     ...viewAPI,
+    //------------------------------------
+    reload,
+    clearCache,
+    getUrl,
+    getOriginalUrl,
+    //------------------------------------
     initWebView,
     loadUrl,
-    reload,
     evaluateJavascript,
     canGoBack,
     goBack,

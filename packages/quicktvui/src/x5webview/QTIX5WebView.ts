@@ -9,7 +9,17 @@ export interface QTIX5WebView extends QTIView {
 
   loadUrl(url: string): void
 
+  //-------------------------------------------------------------
+
   reload(): void
+
+  clearCache(value: boolean): void
+
+  getUrl(): Promise<string | undefined | null>
+
+  getOriginalUrl(): Promise<string | undefined | null>
+
+  //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
 

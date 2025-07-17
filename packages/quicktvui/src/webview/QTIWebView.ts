@@ -3,7 +3,17 @@ import { QTIView } from '../view/QTIView'
 export interface QTIWebView extends QTIView {
   loadUrl(url: string): void
 
+  //-------------------------------------------------------------
+
   reload(): void
+
+  clearCache(value: boolean): void
+
+  getUrl(): Promise<string | undefined | null>
+
+  getOriginalUrl(): Promise<string | undefined | null>
+
+  //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
 

@@ -40,9 +40,28 @@ function registerQTWebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'loadUrl', [url], (res) => {})
       }
 
+      //--------------------------------------------------------------------------
       const reload = () => {
         Native.callUIFunction(webViewRef.value, 'reload', [], (res) => {})
       }
+      const clearCache = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'clearCache', [value], (res) => {})
+      }
+      const getUrl = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getUrl', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+      const getOriginalUrl = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getUrl', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+      //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
         return new Promise((resolve, reject) => {
@@ -290,8 +309,12 @@ function registerQTWebView(app: ESApp) {
       }
 
       context.expose({
-        loadUrl,
         reload,
+        clearCache,
+        getUrl,
+        getOriginalUrl,
+        //---------------------------------------------------------
+        loadUrl,
         evaluateJavascript,
         setUserAgent,
         canGoBack,

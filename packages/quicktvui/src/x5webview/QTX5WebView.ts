@@ -46,9 +46,28 @@ function registerQTX5WebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'loadUrl', [url], (res) => {})
       }
 
+      //--------------------------------------------------------------------------
       const reload = () => {
         Native.callUIFunction(webViewRef.value, 'reload', [], (res) => {})
       }
+      const clearCache = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'clearCache', [value], (res) => {})
+      }
+      const getUrl = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getUrl', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+      const getOriginalUrl = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getUrl', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+      //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
         return new Promise((resolve, reject) => {
@@ -291,8 +310,12 @@ function registerQTX5WebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'initWebViewFocus', [delayTime, x, y], (res) => {})
       }
       context.expose({
-        initWebView,
         reload,
+        clearCache,
+        getUrl,
+        getOriginalUrl,
+        //---------------------------------------------------------
+        initWebView,
         loadUrl,
         evaluateJavascript,
         canGoBack,

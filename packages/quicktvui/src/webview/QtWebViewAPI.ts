@@ -10,8 +10,16 @@ import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 
 export interface QtWebViewAPI extends QtBaseViewAPI {
-  loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
   reload(instance: string | Ref<QTIWebView | undefined>): void
+
+  clearCache(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+
+  getUrl(instance: string | Ref<QTIWebView | undefined>): Promise<string | undefined | null>
+
+  getOriginalUrl(instance: string | Ref<QTIWebView | undefined>): Promise<string | undefined | null>
+
+  //---------------------------------------------------------------------------
+  loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
 
   evaluateJavascript(
     instance: string | Ref<QTIWebView | undefined>,
@@ -177,19 +185,70 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
 }
 
 export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
-  function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
-    if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
-    } else if (isRef(instance) && instance.value) {
-      instance.value?.loadUrl(url)
-    }
-  }
-
   function reload(instance: string | Ref<QTIWebView | undefined>): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'reload', []])
     } else if (isRef(instance) && instance.value) {
       instance.value?.reload()
+    }
+  }
+
+  function clearCache(instance: string | Ref<QTIWebView | undefined>, value: boolean): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'clearCache', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.clearCache(value)
+    }
+  }
+
+  function getUrl(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<string | undefined | null> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getUrl', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getUrl()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getOriginalUrl(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<string | undefined | null> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getOriginalUrl', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getOriginalUrl()
+    } else {
+      return Promise.reject()
+    }
+  }
+  //---------------------------------------------------------------------------
+
+  function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.loadUrl(url)
     }
   }
 
@@ -1053,8 +1112,13 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
 
   return {
     ...viewAPI,
-    loadUrl,
+    //------------------------------------
     reload,
+    clearCache,
+    getUrl,
+    getOriginalUrl,
+    //------------------------------------
+    loadUrl,
     evaluateJavascript,
     setUserAgent,
     canGoBack,
