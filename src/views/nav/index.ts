@@ -44,7 +44,7 @@ import web_nav_alert_page from './web-nav-alert-page'
 //--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
-    name: 'QTView',
+    name: ' 🟢 QTView',
     component: qt_nav_view_page,
   },
   qt_nav_text_page: {
@@ -56,11 +56,11 @@ const QTAPINavPageList = {
     component: qt_nav_image_page,
   },
   qt_nav_row_page: {
-    name: 'QTRow',
+    name: ' 🟢 QTRow',
     component: qt_nav_row_page,
   },
   qt_nav_column_page: {
-    name: 'QTColumn',
+    name: ' 🟢 QTColumn',
     component: qt_nav_column_page,
   },
   qt_nav_loading_page: {
@@ -68,7 +68,7 @@ const QTAPINavPageList = {
     component: qt_nav_loading_page,
   },
   qt_nav_button_page: {
-    name: 'QTButton',
+    name: ' 🟢 QTButton',
     component: qt_nav_button_page,
   },
   qt_nav_text_view_page: {

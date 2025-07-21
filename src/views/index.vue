@@ -20,6 +20,10 @@
         <span class="tip-text-view-key">🔴</span>
         <span class="tip-text-view-value">待实现</span>
       </div>
+      <div class="tip-row-view">
+        <span class="tip-text-view-key">❌</span>
+        <span class="tip-text-view-value">无需实现</span>
+      </div>
     </div>
 
     <qt-view ref="root_view" class="es-sdk-content-row-css">
