@@ -143,7 +143,7 @@ module.exports = {
     alias: (() => {
       const aliases = {
         src: path.resolve('./src'),
-        '@extscreen/es3-component': path.resolve('./packages/component'),
+        // '@extscreen/es3-component': path.resolve('./packages/component'),
         '@quicktvui/quicktvui3': path.resolve('./packages/quicktvui'),
         // '@quicktvui/web': path.resolve('./packages/web'),
       }
