@@ -3,6 +3,7 @@ node_modules
 /dist
 ./dist
 packages/web/dist
+packages/component/dist
 packages/quicktvui/dist
 packages/quicktvui/dist/
 packages/dist/

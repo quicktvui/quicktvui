@@ -1,0 +1,38 @@
+import { ESApp, registerElement } from '@extscreen/es3-vue'
+
+function registerESProgressBarViewComponent(app: ESApp) {
+  const ProgressBarViewComponent = {
+    component: {
+      name: 'TVProgressBarViewComponent',
+      processEventData(
+        evtData,
+        nativeEventParams: {
+          isFocused: boolean
+          fromUser: boolean
+          leftProgress: number
+          rightProgress: number
+          progress: number
+        }
+      ) {
+        const { handler: event, __evt: nativeEventName } = evtData
+        switch (nativeEventName) {
+          case 'onFocus':
+            event.isFocused = nativeEventParams.isFocused
+            break
+          case 'onSeekBarChange':
+            event.fromUser = nativeEventParams.fromUser
+            event.progress = nativeEventParams.progress
+            event.leftProgress = nativeEventParams.leftProgress
+            event.rightProgress = nativeEventParams.rightProgress
+            break
+          default:
+            break
+        }
+        return event
+      },
+    },
+  }
+  registerElement('TVProgressBarViewComponent', ProgressBarViewComponent)
+}
+
+export default registerESProgressBarViewComponent
