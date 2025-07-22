@@ -1417,10 +1417,10 @@
   dependencies:
     "@vue/shared" "^3.2.21"
 
-"@extscreen/es3-vue@2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-2.0.5.tgz#9f9f01124b544041ba7a2d286a8de9e42a862153"
-  integrity sha512-jOsrJvEy+SZTcdgMf/XDNnwA9hkNQ5YMdAcp5wtF991FbXjxpRcA/lN6xT3MBkFXqbrdZg1XKndA0HF20T3Fdw==
+"@extscreen/es3-vue@2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-2.0.6.tgz#fd6e27cc14dd31333ca202bf0865e5a120355238"
+  integrity sha512-BVp2RAqsTCdDy/c2QThyHbwoaWDLuB9qYfUppFgxb+s7QaUWkr8GuWqRNl6BIHNXL64ionTyv63YNf+RHxYC/Q==
 
 "@hapi/bourne@^3.0.0":
   version "3.0.0"

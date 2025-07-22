@@ -64,7 +64,7 @@ const QTAPINavPageList = {
     component: qt_nav_column_page,
   },
   qt_nav_loading_page: {
-    name: 'QTLoading',
+    name: ' 🟢 QTLoading',
     component: qt_nav_loading_page,
   },
   qt_nav_button_page: {
@@ -96,7 +96,7 @@ const QTAPINavPageList = {
     component: qt_nav_qrcode_page,
   },
   qt_nav_progress_bar_page: {
-    name: 'QTProgressBar',
+    name: ' 🟢 QTProgressBar',
     component: qt_nav_progress_bar_page,
   },
   qt_nav_seek_bar_page: {
@@ -148,7 +148,7 @@ const QTAPINavPageList = {
   //   component: qt_nav_scroll_view_page,
   // },
   qt_nav_plugin_view_page: {
-    name: 'QTPluginView',
+    name: ' ❌ QTPluginView',
     component: qt_nav_plugin_view_page,
   },
   // qt_nav_api_page: {

@@ -1,22 +1,23 @@
 <template>
   <qt-view class="es-sdk-root-css" :clipChildren="false">
-    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
-    <qt-view class="es-sdk-content-divider-css"/>
+    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
+    <qt-view class="es-sdk-content-divider-css" />
     <qt-view class="qt-loading-view-start-page">
-      <qt-loading-view color="#409eff" style="height: 150px;width: 150px;"/>
+      <qt-loading-view color="#409eff" style="height: 150px; width: 150px" />
     </qt-view>
   </qt-view>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "@vue/runtime-core";
+import { defineComponent } from '@vue/runtime-core'
 
 export default defineComponent({
   name: 'QTLoading',
+  emits: [],
   setup(props, context) {
     return {}
   },
-});
+})
 </script>
 
 <style>
