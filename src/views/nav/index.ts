@@ -88,11 +88,11 @@ const QTAPINavPageList = {
     component: qt_nav_webview_page,
   },
   qt_nav_x5webview_page: {
-    name: 'QTX5WebView',
+    name: ' ❌ QTX5WebView',
     component: qt_nav_x5webview_page,
   },
   qt_nav_qrcode_page: {
-    name: 'QTQRCode',
+    name: ' 🟢 QTQRCode',
     component: qt_nav_qrcode_page,
   },
   qt_nav_progress_bar_page: {
@@ -186,7 +186,7 @@ const QTAPINavPageList = {
     component: qt_nav_long_image_page,
   },
   qt_nav_dialog_page: {
-    name: 'QTDialog',
+    name: ' 🟢 QTDialog',
     component: qt_nav_dialog_page,
   },
   web_nav_video_page: {
