@@ -84,7 +84,7 @@ const QTAPINavPageList = {
     component: qt_nav_app_icon_page,
   },
   qt_nav_webview_page: {
-    name: 'QTWebView',
+    name: ' 🟡 QTWebView',
     component: qt_nav_webview_page,
   },
   qt_nav_x5webview_page: {
@@ -100,7 +100,7 @@ const QTAPINavPageList = {
     component: qt_nav_progress_bar_page,
   },
   qt_nav_seek_bar_page: {
-    name: 'QTSeekBar',
+    name: ' 🟡 QTSeekBar',
     component: qt_nav_seek_bar_page,
   },
   qt_nav_grid_view_page: {

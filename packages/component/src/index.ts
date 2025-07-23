@@ -7,8 +7,6 @@ import registerESPlayMarkViewComponent from './ESPlayMarkView/ESPlayMarkViewComp
 import registerESQRCodeViewComponent from './ESQRCodeView/ESQRCodeViewComponent'
 import registerESScrollViewComponent from './ESScrollView/ESScrollViewComponent'
 import registerESWebViewComponent from './ESWebView/ESWebViewComponent'
-import registerESX5WebViewComponentForAndroid from './ESX5WebView/ESX5WebViewComponent.android'
-import registerESX5WebViewComponentForHarmony from './ESX5WebView/ESX5WebViewComponent.harmony'
 import registerESSurfaceViewComponent from './ESSurfaceView/ESSurfaceViewComponent'
 import registerESAppIconViewComponent from './ESAppIconView/ESAppIconViewComponent'
 import registerESTransitionImageViewComponent from './ESTransitionImageView/ESTransitionImageViewComponent'
@@ -17,7 +15,6 @@ import registerESFastSwiperSlideViewComponent from './ESFastSwiperSlideView/ESFa
 import registerESHorizontalSeekBarViewComponent from './ESOrientationSeekBar/ESHorizontalSeekBarViewComponent'
 import registerESVerticalSeekBarViewComponent from './ESOrientationSeekBar/ESVerticalSeekBarViewComponent'
 import registerESProgressBarViewComponent from './ESProgressBarView/ESProgressBarViewComponent'
-import registerESSeekBarViewComponent from './ESSeekBarView/ESSeekBarViewComponent'
 import registerESSwiftListViewComponent from './ESSwiftListView/ESSwiftListViewComponent'
 import registerESLargeListViewComponent from './ESLargeListView/ESLargeListViewComponent'
 import registerESBarChartViewComponent from './ESChartView/ESBarChartViewComponent'
@@ -44,20 +41,26 @@ import registerESSwiperSlideViewComponent from './ESSwiperSlideView/ESSwiperSlid
 import registerESSwiperViewComponent from './ESSwiperView/ESSwiperViewComponent'
 import registerESViewComponent from './ESView/ESViewComponent'
 import { Native } from '@extscreen/es3-vue'
+//
 import registerESLoadingViewElementForAndroid from './ESLoading/ESLoadingViewElement.android'
 import registerESLoadingViewElementForHarmony from './ESLoading/ESLoadingViewElement.harmony'
-
+import registerESX5WebViewElementForAndroid from './ESX5WebView/ESX5WebViewElement.android'
+import registerESX5WebViewElementForHarmony from './ESX5WebView/ESX5WebViewElement.harmony'
+import registerESSeekBarViewElementForAndroid from './ESSeekBarView/ESSeekBarViewElement.android'
+import registerESSeekBarViewElementForHarmony from './ESSeekBarView/ESSeekBarViewElement.harmony'
 //
 export const ESComponent = (Vue) => {
   // android
   if (Native.isAndroid()) {
     registerESLoadingViewElementForAndroid(Vue)
-    registerESX5WebViewComponentForAndroid(Vue)
+    registerESX5WebViewElementForAndroid(Vue)
+    registerESSeekBarViewElementForAndroid(Vue)
   }
   //harmony
   else {
     registerESLoadingViewElementForHarmony(Vue)
-    registerESX5WebViewComponentForHarmony(Vue)
+    registerESX5WebViewElementForHarmony(Vue)
+    registerESSeekBarViewElementForHarmony(Vue)
   }
 
   //
@@ -76,7 +79,6 @@ export const ESComponent = (Vue) => {
   registerESHorizontalSeekBarViewComponent(Vue)
   registerESVerticalSeekBarViewComponent(Vue)
   registerESProgressBarViewComponent(Vue)
-  registerESSeekBarViewComponent(Vue)
   registerESSwiftListViewComponent(Vue)
   registerESLargeListViewComponent(Vue)
   registerESBarChartViewComponent(Vue)

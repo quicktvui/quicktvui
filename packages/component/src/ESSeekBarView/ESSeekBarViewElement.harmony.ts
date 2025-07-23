@@ -1,9 +1,9 @@
 import { ESApp, registerElement } from '@extscreen/es3-vue'
 
-function registerESSeekBarViewComponent(app: ESApp) {
+function registerESSeekBarViewElementForHarmony(app: ESApp) {
   const SeekBarViewComponent = {
     component: {
-      name: 'TVSeekBarViewComponent',
+      name: 'QTSliderView',
       processEventData(
         evtData,
         nativeEventParams: {
@@ -35,4 +35,4 @@ function registerESSeekBarViewComponent(app: ESApp) {
   registerElement('TVSeekBarViewComponent', SeekBarViewComponent)
 }
 
-export default registerESSeekBarViewComponent
+export default registerESSeekBarViewElementForHarmony
