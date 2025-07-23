@@ -7,7 +7,8 @@ import registerESPlayMarkViewComponent from './ESPlayMarkView/ESPlayMarkViewComp
 import registerESQRCodeViewComponent from './ESQRCodeView/ESQRCodeViewComponent'
 import registerESScrollViewComponent from './ESScrollView/ESScrollViewComponent'
 import registerESWebViewComponent from './ESWebView/ESWebViewComponent'
-import registerESX5WebViewComponent from './ESX5WebView/ESX5WebViewComponent'
+import registerESX5WebViewComponentForAndroid from './ESX5WebView/ESX5WebViewComponent.android'
+import registerESX5WebViewComponentForHarmony from './ESX5WebView/ESX5WebViewComponent.harmony'
 import registerESSurfaceViewComponent from './ESSurfaceView/ESSurfaceViewComponent'
 import registerESAppIconViewComponent from './ESAppIconView/ESAppIconViewComponent'
 import registerESTransitionImageViewComponent from './ESTransitionImageView/ESTransitionImageViewComponent'
@@ -44,17 +45,19 @@ import registerESSwiperViewComponent from './ESSwiperView/ESSwiperViewComponent'
 import registerESViewComponent from './ESView/ESViewComponent'
 import { Native } from '@extscreen/es3-vue'
 import registerESLoadingViewElementForAndroid from './ESLoading/ESLoadingViewElement.android'
-import registerESLoadingViewElementHarmony from './ESLoading/ESLoadingViewElement.harmony'
+import registerESLoadingViewElementForHarmony from './ESLoading/ESLoadingViewElement.harmony'
 
 //
 export const ESComponent = (Vue) => {
   // android
   if (Native.isAndroid()) {
     registerESLoadingViewElementForAndroid(Vue)
+    registerESX5WebViewComponentForAndroid(Vue)
   }
   //harmony
   else {
-    registerESLoadingViewElementHarmony(Vue)
+    registerESLoadingViewElementForHarmony(Vue)
+    registerESX5WebViewComponentForHarmony(Vue)
   }
 
   //
@@ -68,7 +71,6 @@ export const ESComponent = (Vue) => {
   registerESSurfaceViewComponent(Vue)
   registerESAppIconViewComponent(Vue)
   registerESTransitionImageViewComponent(Vue)
-  registerESX5WebViewComponent(Vue)
   registerESAnimationViewComponent(Vue)
   registerESFastSwiperSlideViewComponent(Vue)
   registerESHorizontalSeekBarViewComponent(Vue)

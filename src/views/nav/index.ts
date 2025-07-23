@@ -88,7 +88,7 @@ const QTAPINavPageList = {
     component: qt_nav_webview_page,
   },
   qt_nav_x5webview_page: {
-    name: ' ❌ QTX5WebView',
+    name: ' 🟢 QTX5WebView',
     component: qt_nav_x5webview_page,
   },
   qt_nav_qrcode_page: {

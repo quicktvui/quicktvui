@@ -1,9 +1,9 @@
 import { ESApp, registerElement } from '@extscreen/es3-vue'
 
-function registerESX5WebViewComponent(app: ESApp) {
+function registerESX5WebViewComponentForHarmony(app: ESApp) {
   const webviewComponent = {
     component: {
-      name: 'ESX5WebViewComponent',
+      name: 'ESWebViewComponent',
       processEventData(
         evtData,
         nativeEventParams: {
@@ -53,4 +53,4 @@ function registerESX5WebViewComponent(app: ESApp) {
   registerElement('ESX5WebViewComponent', webviewComponent)
 }
 
-export default registerESX5WebViewComponent
+export default registerESX5WebViewComponentForHarmony

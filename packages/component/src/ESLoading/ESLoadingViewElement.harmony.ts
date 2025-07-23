@@ -1,6 +1,6 @@
 import { ESApp, registerElement } from '@extscreen/es3-vue'
 
-function registerESLoadingViewElementHarmony(app: ESApp) {
+function registerESLoadingViewElementForHarmony(app: ESApp) {
   registerElement('LoadingViewComponent', {
     component: {
       name: 'LoadingViewComponent',
@@ -8,4 +8,4 @@ function registerESLoadingViewElementHarmony(app: ESApp) {
   })
 }
 
-export default registerESLoadingViewElementHarmony
+export default registerESLoadingViewElementForHarmony
