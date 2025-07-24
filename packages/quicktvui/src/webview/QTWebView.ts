@@ -74,16 +74,22 @@ function registerQTWebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {})
       }
       const canGoBack = () => {
-        Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
-          context.emit('onCanGoBack', res)
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
+            context.emit('onCanGoBack', res)
+            resolve(res)
+          })
         })
       }
       const goBack = () => {
         Native.callUIFunction(webViewRef.value, 'goBack', [], (res) => {})
       }
       const canGoForward = () => {
-        Native.callUIFunction(webViewRef.value, 'canGoForward', [], (res) => {
-          context.emit('onCanGoForward', res)
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'canGoForward', [], (res) => {
+            context.emit('onCanGoForward', res)
+            resolve(res)
+          })
         })
       }
       const goForward = () => {

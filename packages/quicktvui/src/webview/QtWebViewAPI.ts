@@ -28,11 +28,11 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
 
   setUserAgent(instance: string | Ref<QTIWebView | undefined>, value: string): void
 
-  canGoBack(instance: string | Ref<QTIWebView | undefined>): void
+  canGoBack(instance: string | Ref<QTIWebView | undefined>): Promise<boolean>
 
   goBack(instance: string | Ref<QTIWebView | undefined>): void
 
-  canGoForward(instance: string | Ref<QTIWebView | undefined>): void
+  canGoForward(instance: string | Ref<QTIWebView | undefined>): Promise<boolean>
 
   goForward(instance: string | Ref<QTIWebView | undefined>): void
 
@@ -282,11 +282,22 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     }
   }
 
-  function canGoBack(instance: string | Ref<QTIWebView | undefined>): void {
+  function canGoBack(instance: string | Ref<QTIWebView | undefined>): Promise<boolean> {
     if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoBack', []])
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'canGoBack', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
     } else if (isRef(instance) && instance.value) {
-      instance.value?.canGoBack()
+      return instance.value!.canGoBack()
+    } else {
+      return Promise.reject()
     }
   }
 
@@ -298,11 +309,22 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     }
   }
 
-  function canGoForward(instance: string | Ref<QTIWebView | undefined>): void {
+  function canGoForward(instance: string | Ref<QTIWebView | undefined>): Promise<boolean> {
     if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoForward', []])
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'canGoForward', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
     } else if (isRef(instance) && instance.value) {
-      instance.value?.canGoForward()
+      return instance.value!.canGoForward()
+    } else {
+      return Promise.reject()
     }
   }
 

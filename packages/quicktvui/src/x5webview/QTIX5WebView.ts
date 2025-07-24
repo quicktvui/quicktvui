@@ -23,11 +23,11 @@ export interface QTIX5WebView extends QTIView {
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
 
-  canGoBack(): void
+  canGoBack(): Promise<boolean>
 
   goBack(): void
 
-  canGoForward(): void
+  canGoForward(): Promise<boolean>
 
   goForward(): void
 

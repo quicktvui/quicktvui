@@ -19,11 +19,11 @@ export interface QTIWebView extends QTIView {
 
   setUserAgent(value: string): void
 
-  canGoBack(): void
+  canGoBack(): Promise<boolean>
 
   goBack(): void
 
-  canGoForward(): void
+  canGoForward(): Promise<boolean>
 
   goForward(): void
 
