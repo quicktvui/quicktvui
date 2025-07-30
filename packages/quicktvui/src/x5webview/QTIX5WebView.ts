@@ -1,4 +1,5 @@
 import { QTIView } from '../view/QTIView'
+import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
 
 export interface QTX5WebViewParams {
   [prop: string]: any
@@ -18,6 +19,8 @@ export interface QTIX5WebView extends QTIView {
   getUrl(): Promise<string | undefined | null>
 
   getOriginalUrl(): Promise<string | undefined | null>
+
+  setLayerType(layerType: QTX5WebViewLayerType): void
 
   //-------------------------------------------------------------
 

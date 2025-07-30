@@ -2,6 +2,7 @@ import { ESApp, Native } from '@extscreen/es3-vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 import useBaseView from '../base/useBaseView'
 import { QTX5WebViewParams } from './QTIX5WebView'
+import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
 
 function registerQTX5WebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -66,6 +67,9 @@ function registerQTX5WebView(app: ESApp) {
             resolve(res)
           })
         })
+      }
+      const setLayerType = (layerType: QTX5WebViewLayerType) => {
+        Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {})
       }
       //--------------------------------------------------------------------------
 
@@ -320,6 +324,7 @@ function registerQTX5WebView(app: ESApp) {
         clearCache,
         getUrl,
         getOriginalUrl,
+        setLayerType,
         //---------------------------------------------------------
         initWebView,
         loadUrl,

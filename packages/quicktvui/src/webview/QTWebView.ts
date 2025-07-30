@@ -2,6 +2,7 @@ import { ESApp, Native } from '@extscreen/es3-vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 
 import useBaseView from '../base/useBaseView'
+import { QTWebViewLayerType } from './QTWebViewLayerType'
 
 function registerQTWebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -61,6 +62,11 @@ function registerQTWebView(app: ESApp) {
           })
         })
       }
+
+      const setLayerType = (layerType: QTWebViewLayerType) => {
+        Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {})
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -319,6 +325,7 @@ function registerQTWebView(app: ESApp) {
         clearCache,
         getUrl,
         getOriginalUrl,
+        setLayerType,
         //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,

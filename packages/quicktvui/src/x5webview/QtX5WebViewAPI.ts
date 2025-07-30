@@ -8,6 +8,7 @@ import {
 } from '../qt/QtAPIModule'
 import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
+import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
 
 export interface QtX5WebViewAPI extends QtBaseViewAPI {
   reload(instance: string | Ref<QTIX5WebView | undefined>): void
@@ -19,6 +20,8 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
   getOriginalUrl(
     instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<string | undefined | null>
+
+  setLayerType(instance: string | Ref<QTIX5WebView | undefined>, value: QTX5WebViewLayerType): void
 
   //---------------------------------------------------------------------------
 
@@ -248,6 +251,18 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       return Promise.reject()
     }
   }
+
+  function setLayerType(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewLayerType
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLayerType', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setLayerType(value)
+    }
+  }
+
   //---------------------------------------------------------------------------
   function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
     if (isString(instance)) {
@@ -1174,6 +1189,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     clearCache,
     getUrl,
     getOriginalUrl,
+    setLayerType,
     //------------------------------------
     initWebView,
     loadUrl,

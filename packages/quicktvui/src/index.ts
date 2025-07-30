@@ -233,9 +233,11 @@ export { arrangeChildren4ListView }
 
 //QTWebView
 export type { QTIWebView } from './webview/QTIWebView'
+export { QTWebViewLayerType } from './webview/QTWebViewLayerType'
 
 //QTX5WebView
 export type { QTIX5WebView, QTX5WebViewParams } from './x5webview/QTIX5WebView'
+export { QTX5WebViewLayerType } from './x5webview/QTX5WebViewLayerType'
 
 //QTISeekBar
 export type { QTISeekBar } from './seekbar/QTISeekBar'

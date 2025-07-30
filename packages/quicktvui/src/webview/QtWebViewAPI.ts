@@ -8,6 +8,7 @@ import {
 } from '../qt/QtAPIModule'
 import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
+import { QTWebViewLayerType } from './QTWebViewLayerType'
 
 export interface QtWebViewAPI extends QtBaseViewAPI {
   reload(instance: string | Ref<QTIWebView | undefined>): void
@@ -17,6 +18,8 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
   getUrl(instance: string | Ref<QTIWebView | undefined>): Promise<string | undefined | null>
 
   getOriginalUrl(instance: string | Ref<QTIWebView | undefined>): Promise<string | undefined | null>
+
+  setLayerType(instance: string | Ref<QTIWebView | undefined>, value: QTWebViewLayerType): void
 
   //---------------------------------------------------------------------------
   loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
@@ -242,6 +245,18 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
       return Promise.reject()
     }
   }
+
+  function setLayerType(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: QTWebViewLayerType
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLayerType', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setLayerType(value)
+    }
+  }
+
   //---------------------------------------------------------------------------
 
   function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
@@ -1139,6 +1154,7 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     clearCache,
     getUrl,
     getOriginalUrl,
+    setLayerType,
     //------------------------------------
     loadUrl,
     evaluateJavascript,

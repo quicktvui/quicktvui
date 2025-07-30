@@ -1,4 +1,5 @@
 import { QTIView } from '../view/QTIView'
+import { QTWebViewLayerType } from './QTWebViewLayerType'
 
 export interface QTIWebView extends QTIView {
   loadUrl(url: string): void
@@ -12,6 +13,8 @@ export interface QTIWebView extends QTIView {
   getUrl(): Promise<string | undefined | null>
 
   getOriginalUrl(): Promise<string | undefined | null>
+
+  setLayerType(layerType: QTWebViewLayerType): void
 
   //-------------------------------------------------------------
 
