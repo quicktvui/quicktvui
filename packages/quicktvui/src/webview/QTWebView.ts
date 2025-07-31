@@ -67,6 +67,9 @@ function registerQTWebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {})
       }
 
+      const setIgnoreCA = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
+      }
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -326,6 +329,7 @@ function registerQTWebView(app: ESApp) {
         getUrl,
         getOriginalUrl,
         setLayerType,
+        setIgnoreCA,
         //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,

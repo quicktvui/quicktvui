@@ -22,6 +22,8 @@ export interface QTIX5WebView extends QTIView {
 
   setLayerType(layerType: QTX5WebViewLayerType): void
 
+  setIgnoreCA(value: boolean): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

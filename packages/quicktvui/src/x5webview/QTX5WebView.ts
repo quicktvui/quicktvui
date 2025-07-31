@@ -71,6 +71,11 @@ function registerQTX5WebView(app: ESApp) {
       const setLayerType = (layerType: QTX5WebViewLayerType) => {
         Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {})
       }
+
+      const setIgnoreCA = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -325,6 +330,7 @@ function registerQTX5WebView(app: ESApp) {
         getUrl,
         getOriginalUrl,
         setLayerType,
+        setIgnoreCA,
         //---------------------------------------------------------
         initWebView,
         loadUrl,

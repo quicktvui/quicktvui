@@ -16,6 +16,8 @@ export interface QTIWebView extends QTIView {
 
   setLayerType(layerType: QTWebViewLayerType): void
 
+  setIgnoreCA(value: boolean): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

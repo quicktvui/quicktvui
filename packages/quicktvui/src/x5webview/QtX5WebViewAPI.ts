@@ -23,6 +23,8 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setLayerType(instance: string | Ref<QTIX5WebView | undefined>, value: QTX5WebViewLayerType): void
 
+  setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -260,6 +262,14 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLayerType', [value]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.setLayerType(value)
+    }
+  }
+
+  function setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setIgnoreCA', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setIgnoreCA(value)
     }
   }
 
@@ -1190,6 +1200,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     getUrl,
     getOriginalUrl,
     setLayerType,
+    setIgnoreCA,
     //------------------------------------
     initWebView,
     loadUrl,
