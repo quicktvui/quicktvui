@@ -15,7 +15,14 @@
         :blockFocusDirections="['left', 'right']"
       >
         <!-- item -->
-        <qt-poster />
+        <!--        <qt-poster />-->
+        <qt-view :type="10001" style="width: 800px; height: 100px; background-color: transparent">
+          <qt-text
+            style="width: 800px; height: 100px"
+            :textColor="'#ffffff'"
+            text="${title.text}"
+          ></qt-text>
+        </qt-view>
       </qt-list-view>
     </qt-view>
   </qt-view>
@@ -56,7 +63,7 @@ export default defineComponent({
             bottom: 80,
           },
           title: {
-            text: '主标题' + i,
+            text: '主标题aaaaaaaaa' + i,
             enable: true,
             style: {
               width: 260,
@@ -122,7 +129,9 @@ export default defineComponent({
         }
         arr.push(poster)
       }
-      listDataRec = listViewRef.value!.init(arr)
+      setTimeout(() => {
+        listDataRec = listViewRef.value!.init(arr)
+      }, 2000)
     }
     const onItemClick = () => {}
     const onItemBind = () => {}
