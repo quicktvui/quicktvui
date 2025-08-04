@@ -224,6 +224,9 @@ function registerQTX5WebView(app: ESApp) {
       const setTextZoom = (value: number) => {
         Native.callUIFunction(webViewRef.value, 'setTextZoom', [value], (res) => {})
       }
+      const setInitialScale = (value: number) => {
+        Native.callUIFunction(webViewRef.value, 'setInitialScale', [value], (res) => {})
+      }
       const setMinimumFontSize = (value: number) => {
         Native.callUIFunction(webViewRef.value, 'setMinimumFontSize', [value], (res) => {})
       }
@@ -407,6 +410,7 @@ function registerQTX5WebView(app: ESApp) {
         setSaveFormData,
         setSavePassword,
         setTextSize,
+        setInitialScale,
         setDefaultZoom,
         setLightTouchEnabled,
         setMinimumLogicalFontSize,

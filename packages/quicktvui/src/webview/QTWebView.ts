@@ -273,6 +273,10 @@ function registerQTWebView(app: ESApp) {
       const setTextSize = (value: number) => {
         Native.callUIFunction(webViewRef.value, 'setTextSize', [value], (res) => {})
       }
+      const setInitialScale = (value: number) => {
+        Native.callUIFunction(webViewRef.value, 'setInitialScale', [value], (res) => {})
+      }
+
       const setDefaultZoom = (value: number) => {
         Native.callUIFunction(webViewRef.value, 'setDefaultZoom', [value], (res) => {})
       }
@@ -406,6 +410,7 @@ function registerQTWebView(app: ESApp) {
         setSaveFormData,
         setSavePassword,
         setTextSize,
+        setInitialScale,
         setDefaultZoom,
         setLightTouchEnabled,
         setMinimumLogicalFontSize,

@@ -146,6 +146,8 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
 
   setTextSize(instance: string | Ref<QTIWebView | undefined>, value: number): void
 
+  setInitialScale(instance: string | Ref<QTIWebView | undefined>, value: number): void
+
   setDefaultZoom(instance: string | Ref<QTIWebView | undefined>, value: number): void
 
   setLightTouchEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void

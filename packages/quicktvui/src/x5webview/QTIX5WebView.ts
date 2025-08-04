@@ -96,6 +96,8 @@ export interface QTIX5WebView extends QTIView {
 
   setTextZoom(value: number): void
 
+  setInitialScale(value: number): void
+
   setMinimumFontSize(value: number): void
 
   setDefaultFontSize(value: number): void

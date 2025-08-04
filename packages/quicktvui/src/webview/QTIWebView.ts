@@ -21,6 +21,7 @@ export interface QTIWebView extends QTIView {
   getBackForwardList(): Promise<Array<Record<string, any>>>
 
   getCurrentIndexWithBackForwardList(): Promise<number>
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
@@ -125,6 +126,8 @@ export interface QTIWebView extends QTIView {
   setSavePassword(value: boolean): void
 
   setTextSize(value: number): void
+
+  setInitialScale(value: number): void
 
   setDefaultZoom(value: number): void
 
