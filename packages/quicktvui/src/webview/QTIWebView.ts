@@ -18,6 +18,9 @@ export interface QTIWebView extends QTIView {
 
   setIgnoreCA(value: boolean): void
 
+  getBackForwardList(): Promise<Array<Record<string, any>>>
+
+  getCurrentIndexWithBackForwardList(): Promise<number>
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

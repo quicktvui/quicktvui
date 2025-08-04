@@ -76,6 +76,27 @@ function registerQTX5WebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
       }
 
+      const getBackForwardList = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getBackForwardList', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getCurrentIndexWithBackForwardList = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'getCurrentIndexWithBackForwardList',
+            [],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -331,6 +352,8 @@ function registerQTX5WebView(app: ESApp) {
         getOriginalUrl,
         setLayerType,
         setIgnoreCA,
+        getBackForwardList,
+        getCurrentIndexWithBackForwardList,
         //---------------------------------------------------------
         initWebView,
         loadUrl,

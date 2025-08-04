@@ -70,6 +70,27 @@ function registerQTWebView(app: ESApp) {
       const setIgnoreCA = (value: boolean) => {
         Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
       }
+
+      const getBackForwardList = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getBackForwardList', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getCurrentIndexWithBackForwardList = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'getCurrentIndexWithBackForwardList',
+            [],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -330,6 +351,8 @@ function registerQTWebView(app: ESApp) {
         getOriginalUrl,
         setLayerType,
         setIgnoreCA,
+        getBackForwardList,
+        getCurrentIndexWithBackForwardList,
         //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,

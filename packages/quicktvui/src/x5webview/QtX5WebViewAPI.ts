@@ -25,6 +25,14 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
+  getBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<Array<Record<string, any>>>
+
+  getCurrentIndexWithBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<number>
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -273,6 +281,48 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     }
   }
 
+  function getBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<Array<Record<string, any>>> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getBackForwardList', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getCurrentIndexWithBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<number> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getCurrentIndexWithBackForwardList', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getCurrentIndexWithBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
   //---------------------------------------------------------------------------
   function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
     if (isString(instance)) {
@@ -302,7 +352,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
         Native.callNative(
           QT_API_MODULE,
           QT_CALL_UI_FUNCTION_WITH_PROMISE,
-          [instance, 'evaluateJavascript', []],
+          [instance, 'evaluateJavascript', [value]],
           (res) => {
             resolve(res)
           }
@@ -1201,6 +1251,8 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     getOriginalUrl,
     setLayerType,
     setIgnoreCA,
+    getBackForwardList,
+    getCurrentIndexWithBackForwardList,
     //------------------------------------
     initWebView,
     loadUrl,

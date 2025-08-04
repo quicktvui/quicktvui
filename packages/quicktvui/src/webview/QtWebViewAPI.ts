@@ -23,6 +23,14 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
 
   setIgnoreCA(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
 
+  getBackForwardList(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<Array<Record<string, any>>>
+
+  getCurrentIndexWithBackForwardList(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<number>
+
   //---------------------------------------------------------------------------
   loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
 
@@ -267,6 +275,48 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     }
   }
 
+  function getBackForwardList(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<Array<Record<string, any>>> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getBackForwardList', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getCurrentIndexWithBackForwardList(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<number> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getCurrentIndexWithBackForwardList', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getCurrentIndexWithBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
   //---------------------------------------------------------------------------
 
   function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
@@ -286,7 +336,7 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
         Native.callNative(
           QT_API_MODULE,
           QT_CALL_UI_FUNCTION_WITH_PROMISE,
-          [instance, 'evaluateJavascript', []],
+          [instance, 'evaluateJavascript', [value]],
           (res) => {
             resolve(res)
           }
@@ -1166,6 +1216,8 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     getOriginalUrl,
     setLayerType,
     setIgnoreCA,
+    getCurrentIndexWithBackForwardList,
+    getBackForwardList,
     //------------------------------------
     loadUrl,
     evaluateJavascript,
