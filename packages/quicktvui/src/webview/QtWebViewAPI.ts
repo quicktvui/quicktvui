@@ -319,6 +319,14 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     }
   }
 
+  function setInitialScale(instance: string | Ref<QTIWebView | undefined>, value: number): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setInitialScale', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setInitialScale(value)
+    }
+  }
+
   //---------------------------------------------------------------------------
 
   function loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void {
@@ -1220,6 +1228,7 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     setIgnoreCA,
     getCurrentIndexWithBackForwardList,
     getBackForwardList,
+    setInitialScale,
     //------------------------------------
     loadUrl,
     evaluateJavascript,
