@@ -18,6 +18,7 @@ import qt_animation_view_animators_props_page from './qt-animation-view-animator
 import qt_animation_view_animators_props_default_page from './qt-animation-view-animators-props-default-page'
 import qt_animation_view_animators_auto_play_page from './qt-animation-view-animator-auto-play-page'
 import qt_animation_view_animators_loop_page from './qt-animation-view-animator-loop-page'
+import qt_animation_view_with_page from './qt-animation-view-width-page'
 
 const QTAnimationPageList = {
   qt_animation_view_alpha_page: {
@@ -99,6 +100,10 @@ const QTAnimationPageList = {
   qt_animation_view_animators_loop_page: {
     name: qt_animation_view_animators_loop_page.name,
     component: qt_animation_view_animators_loop_page,
+  },
+  qt_animation_view_with_page: {
+    name: qt_animation_view_with_page.name,
+    component: qt_animation_view_with_page,
   },
 }
 export default QTAnimationPageList

@@ -9,7 +9,33 @@
     height: 200px;
     background-color: red;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    border-radius: 200px;
+    padding: 50px;
+}
+
+.animation-inner-absolute-view-css {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    position: absolute;
+}
+
+.animation-inner-view-gold-css {
+    width: 300px;
+    height: 100px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.es-sdk-content-animation-row-css{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: transparent;
+    padding-right: 40px;
 }
