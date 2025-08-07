@@ -21,6 +21,8 @@ export interface QTIWebView extends QTIView {
   getBackForwardList(): Promise<Array<Record<string, any>>>
 
   getCurrentIndexWithBackForwardList(): Promise<number>
+  
+  getScreenStatus(): Promise<number>
 
   //-------------------------------------------------------------
 

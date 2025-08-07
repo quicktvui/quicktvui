@@ -91,6 +91,19 @@ function registerQTWebView(app: ESApp) {
           )
         })
       }
+
+      const getScreenStatus = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'getScreenStatus',
+            [],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -357,6 +370,7 @@ function registerQTWebView(app: ESApp) {
         setIgnoreCA,
         getBackForwardList,
         getCurrentIndexWithBackForwardList,
+        getScreenStatus,
         //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,

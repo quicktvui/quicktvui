@@ -33,6 +33,10 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
     instance: string | Ref<QTIX5WebView | undefined>,
   ): Promise<number>
 
+  getScreenStatus(
+    instance: string | Ref<QTIX5WebView | undefined>,
+  ): Promise<number>
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -320,6 +324,27 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       })
     } else if (isRef(instance) && instance.value) {
       return instance.value!.getCurrentIndexWithBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getScreenStatus(
+    instance: string | Ref<QTIX5WebView | undefined>,
+  ): Promise<number> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getScreenStatus', []],
+          (res) => {
+            resolve(res)
+          },
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getScreenStatus()
     } else {
       return Promise.reject()
     }
@@ -1263,6 +1288,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     setIgnoreCA,
     getBackForwardList,
     getCurrentIndexWithBackForwardList,
+    getScreenStatus,
     //------------------------------------
     initWebView,
     loadUrl,

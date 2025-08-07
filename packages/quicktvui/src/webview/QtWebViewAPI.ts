@@ -31,6 +31,10 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
     instance: string | Ref<QTIWebView | undefined>
   ): Promise<number>
 
+  getScreenStatus(
+      instance: string | Ref<QTIWebView | undefined>
+    ): Promise<number>
+
   //---------------------------------------------------------------------------
   loadUrl(instance: string | Ref<QTIWebView | undefined>, url: string): void
 
@@ -314,6 +318,27 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
       })
     } else if (isRef(instance) && instance.value) {
       return instance.value!.getCurrentIndexWithBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getScreenStatus(
+    instance: string | Ref<QTIWebView | undefined>
+  ): Promise<number> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getScreenStatus', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getScreenStatus()
     } else {
       return Promise.reject()
     }
@@ -1227,6 +1252,7 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     setLayerType,
     setIgnoreCA,
     getCurrentIndexWithBackForwardList,
+    getScreenStatus,
     getBackForwardList,
     setInitialScale,
     //------------------------------------

@@ -97,6 +97,19 @@ function registerQTX5WebView(app: ESApp) {
         })
       }
 
+      const getScreenStatus = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'getScreenStatus',
+            [],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -357,6 +370,7 @@ function registerQTX5WebView(app: ESApp) {
         setIgnoreCA,
         getBackForwardList,
         getCurrentIndexWithBackForwardList,
+        getScreenStatus,
         //---------------------------------------------------------
         initWebView,
         loadUrl,

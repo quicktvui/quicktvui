@@ -28,6 +28,8 @@ export interface QTIX5WebView extends QTIView {
 
   getCurrentIndexWithBackForwardList(): Promise<number>
 
+  getScreenStatus(): Promise<number>
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
