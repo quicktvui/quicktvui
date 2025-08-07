@@ -35,16 +35,24 @@
           :style="{ marginRight: 40, backgroundColor: '#669966' }"
         ></div>
         <!-- 需要做动画的view -->
+        <!-- 100的宽度 + marginRight: 100  + 文字的宽度 -->
         <div
           class="animation-view-css"
           :style="{ width: width }"
           :clipChildren="true"
           :clipPadding="true"
         >
+          <!-- animation-inner-view-gold-css 不写宽度 -->
           <div class="animation-inner-view-gold-css">
+            <!-- 100的宽度 + marginRight: 100 -->
             <div class="animation-inner-view-css" :style="{ marginRight: 100 }"></div>
-            <p :style="{ backgroundColor: 'yellow' }">
-              文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+            <!-- p 通过layout事件获取宽度 -->
+            <p
+              :style="{ backgroundColor: 'yellow', height: 50 }"
+              @layout="layout"
+              :numberOfLines="1"
+            >
+              文字文字文字文字文文字文字文字文字文文字文字文字文字文文字文字文字文字文字文最后
             </p>
           </div>
         </div>
@@ -70,21 +78,35 @@ export default defineComponent({
   setup() {
     const animation_view = ref<QTIAnimation>()
     const router = useESRouter()
-    const width = ref<number>(200)
+
+    let minWidth = 200
+    const width = ref<number>(minWidth)
+    const maxWidth = ref<number>(minWidth)
+
+    let isFirstLayout = false
+
+    function layout(evt) {
+      if (!isFirstLayout) {
+        console.log('=======layout========>>>>', evt.width, maxWidth)
+        // 100的宽度 + marginRight: 100  + 文字的宽度
+        maxWidth.value = 100 + 100 + evt.width + 150 //适当加150的宽度，按实际情况
+        isFirstLayout = true
+      }
+    }
 
     function open() {
       animation_view.value?.animator(
         '3', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
-        [200, 1000],
+        [minWidth, maxWidth.value],
         1000,
         -1,
         0,
         true,
         true,
         {
-          type: QTAnimationInterpolatorType.QT_BOUNCE_INTERPOLATOR,
+          type: QTAnimationInterpolatorType.QT_ACCELERATE_INTERPOLATOR,
         }
       )
       animation_view.value?.start('3')
@@ -95,7 +117,7 @@ export default defineComponent({
         '2', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
-        [1000, 200],
+        [maxWidth.value, minWidth],
         1000,
         -1,
         0,
@@ -151,6 +173,7 @@ export default defineComponent({
 
     return {
       width,
+      maxWidth,
       animation_view,
       close,
       open,
@@ -163,9 +186,10 @@ export default defineComponent({
       onAnimationPause,
       onAnimationResume,
       onAnimationUpdate,
+      layout,
     }
   },
 })
 </script>
 
-<style src="./css/qt-animation-css.css"></style>
+<style scoped src="./css/qt-animation-css.css"></style>

@@ -5,7 +5,6 @@
 }
 
 .animation-view-css {
-    width: 200px;
     height: 200px;
     background-color: red;
     display: flex;
@@ -13,7 +12,6 @@
     align-items: center;
     justify-content: flex-start;
     border-radius: 200px;
-    padding: 50px;
 }
 
 .animation-inner-absolute-view-css {
@@ -24,11 +22,11 @@
 }
 
 .animation-inner-view-gold-css {
-    width: 300px;
     height: 100px;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    background-color: #fc5e1b;
 }
 
 .es-sdk-content-animation-row-css{
