@@ -220,11 +220,11 @@ function registerQTAnimationForHarmony(app: ESApp) {
       }
 
       function resetAnimators() {
-        Native.callUIFunction(viewRef.value, 'resetAnimators', [], (res) => {})
+        Native.callUIFunction(viewRef.value, 'reset', [], (res) => {})
       }
 
       function reset() {
-        Native.callUIFunction(viewRef.value, 'resetAnimators', [], (res) => {})
+        Native.callUIFunction(viewRef.value, 'reset', [], (res) => {})
       }
 
       function animatorSet(animatorId: QTAnimatorId, duration: number, listenAnimator: boolean) {
@@ -253,7 +253,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
             return
           }
           const id = animatorId ?? propsAnimatorId
-          Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay ?? 0], (res) => {})
+          Native.callUIFunction(viewRef.value, 'startDelay', [id, delay ?? 0], (res) => {})
         })
       }
 
@@ -366,7 +366,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
 
       function playSequentially(animatorSetId: QTAnimatorId, animatorIds: QTAnimatorId[]) {
         const count = animatorIds.length
-        const funcName = `playSequentially${count}`
+        const funcName = `playSequentially`
 
         Native.callUIFunction(viewRef.value, funcName, [animatorSetId, ...animatorIds], (res) => {})
       }
@@ -423,7 +423,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
 
       function playTogether(animatorSetId: QTAnimatorId, animatorIds: QTAnimatorId[]) {
         const count = animatorIds.length
-        const funcName = `playTogether${count}`
+        const funcName = `playTogether`
 
         Native.callUIFunction(viewRef.value, funcName, [animatorSetId, ...animatorIds], (res) => {})
       }
