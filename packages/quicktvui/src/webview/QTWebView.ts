@@ -38,15 +38,18 @@ function registerQTWebView(app: ESApp) {
       })
 
       const loadUrl = (url: string) => {
-        Native.callUIFunction(webViewRef.value, 'loadUrl', [url], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'loadUrl', [url], (res) => {
+        })
       }
 
       //--------------------------------------------------------------------------
       const reload = () => {
-        Native.callUIFunction(webViewRef.value, 'reload', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'reload', [], (res) => {
+        })
       }
       const clearCache = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'clearCache', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'clearCache', [value], (res) => {
+        })
       }
       const getUrl = () => {
         return new Promise((resolve, reject) => {
@@ -64,11 +67,13 @@ function registerQTWebView(app: ESApp) {
       }
 
       const setLayerType = (layerType: QTWebViewLayerType) => {
-        Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {
+        })
       }
 
       const setIgnoreCA = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {
+        })
       }
 
       const getBackForwardList = () => {
@@ -87,7 +92,7 @@ function registerQTWebView(app: ESApp) {
             [],
             (res) => {
               resolve(res)
-            }
+            },
           )
         })
       }
@@ -100,7 +105,20 @@ function registerQTWebView(app: ESApp) {
             [],
             (res) => {
               resolve(res)
-            }
+            },
+          )
+        })
+      }
+
+      const autoClickPosition = (x: number, y: number) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'autoClickPosition',
+            [x, y],
+            (res) => {
+              resolve(res)
+            },
           )
         })
       }
@@ -114,7 +132,8 @@ function registerQTWebView(app: ESApp) {
         })
       }
       const setUserAgent = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {
+        })
       }
       const canGoBack = () => {
         return new Promise((resolve, reject) => {
@@ -125,7 +144,8 @@ function registerQTWebView(app: ESApp) {
         })
       }
       const goBack = () => {
-        Native.callUIFunction(webViewRef.value, 'goBack', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'goBack', [], (res) => {
+        })
       }
       const canGoForward = () => {
         return new Promise((resolve, reject) => {
@@ -136,7 +156,8 @@ function registerQTWebView(app: ESApp) {
         })
       }
       const goForward = () => {
-        Native.callUIFunction(webViewRef.value, 'goForward', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'goForward', [], (res) => {
+        })
       }
       const canGoBackOrForward = (steps: number) => {
         Native.callUIFunction(webViewRef.value, 'canGoBackOrForward', [steps], (res) => {
@@ -144,173 +165,224 @@ function registerQTWebView(app: ESApp) {
         })
       }
       const goBackOrForward = (steps: number) => {
-        Native.callUIFunction(webViewRef.value, 'goBackOrForward', [steps], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'goBackOrForward', [steps], (res) => {
+        })
       }
       const onResume = () => {
-        Native.callUIFunction(webViewRef.value, 'onResume', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'onResume', [], (res) => {
+        })
       }
       const onPause = () => {
-        Native.callUIFunction(webViewRef.value, 'onPause', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'onPause', [], (res) => {
+        })
       }
       const pauseTimers = () => {
-        Native.callUIFunction(webViewRef.value, 'pauseTimers', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'pauseTimers', [], (res) => {
+        })
       }
       const resumeTimers = () => {
-        Native.callUIFunction(webViewRef.value, 'resumeTimers', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'resumeTimers', [], (res) => {
+        })
       }
       const destroy = () => {
-        Native.callUIFunction(webViewRef.value, 'destroy', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'destroy', [], (res) => {
+        })
       }
       const setJavaScriptEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setJavaScriptEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setJavaScriptEnabled', [value], (res) => {
+        })
       }
       const setPluginState = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setPluginState', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setPluginState', [value], (res) => {
+        })
       }
       const setJavaScriptCanOpenWindowsAutomatically = (value: boolean) => {
         Native.callUIFunction(
           webViewRef.value,
           'setJavaScriptCanOpenWindowsAutomatically',
           [value],
-          (res) => {}
+          (res) => {
+          },
         )
       }
       const setUseWideViewPort = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setUseWideViewPort', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setUseWideViewPort', [value], (res) => {
+        })
       }
       const setLoadWithOverviewMode = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setLoadWithOverviewMode', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setLoadWithOverviewMode', [value], (res) => {
+        })
       }
       const setSupportZoom = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setSupportZoom', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSupportZoom', [value], (res) => {
+        })
       }
       const setBuiltInZoomControls = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setBuiltInZoomControls', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setBuiltInZoomControls', [value], (res) => {
+        })
       }
       const setDisplayZoomControls = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setDisplayZoomControls', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDisplayZoomControls', [value], (res) => {
+        })
       }
       const setAllowFileAccess = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setAllowFileAccess', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setAllowFileAccess', [value], (res) => {
+        })
       }
       const setDomStorageEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setDomStorageEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDomStorageEnabled', [value], (res) => {
+        })
       }
       const setDatabaseEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setDatabaseEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDatabaseEnabled', [value], (res) => {
+        })
       }
       const setAppCacheEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setAppCacheEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setAppCacheEnabled', [value], (res) => {
+        })
       }
       const setAppCachePath = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setAppCachePath', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setAppCachePath', [value], (res) => {
+        })
       }
       const setMediaPlaybackRequiresUserGesture = (value: boolean) => {
         Native.callUIFunction(
           webViewRef.value,
           'setMediaPlaybackRequiresUserGesture',
           [value],
-          (res) => {}
+          (res) => {
+          },
         )
       }
       const setStandardFontFamily = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setStandardFontFamily', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setStandardFontFamily', [value], (res) => {
+        })
       }
       const setFixedFontFamily = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setFixedFontFamily', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setFixedFontFamily', [value], (res) => {
+        })
       }
       const setSansSerifFontFamily = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setSansSerifFontFamily', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSansSerifFontFamily', [value], (res) => {
+        })
       }
       const setSerifFontFamily = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setSerifFontFamily', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSerifFontFamily', [value], (res) => {
+        })
       }
       const setCursiveFontFamily = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setCursiveFontFamily', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setCursiveFontFamily', [value], (res) => {
+        })
       }
       const setFantasyFontFamily = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setFantasyFontFamily', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setFantasyFontFamily', [value], (res) => {
+        })
       }
       const setTextZoom = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setTextZoom', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setTextZoom', [value], (res) => {
+        })
       }
       const setMinimumFontSize = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setMinimumFontSize', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setMinimumFontSize', [value], (res) => {
+        })
       }
       const setDefaultFontSize = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setDefaultFontSize', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDefaultFontSize', [value], (res) => {
+        })
       }
       const setLayoutAlgorithm = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setLayoutAlgorithm', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setLayoutAlgorithm', [value], (res) => {
+        })
       }
       const setLoadsImagesAutomatically = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setLoadsImagesAutomatically', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setLoadsImagesAutomatically', [value], (res) => {
+        })
       }
       const setDefaultTextEncodingName = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setDefaultTextEncodingName', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDefaultTextEncodingName', [value], (res) => {
+        })
       }
       const setNeedInitialFocus = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setNeedInitialFocus', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setNeedInitialFocus', [value], (res) => {
+        })
       }
       const setGeolocationEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setGeolocationEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setGeolocationEnabled', [value], (res) => {
+        })
       }
       const setBlockNetworkLoads = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setBlockNetworkLoads', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setBlockNetworkLoads', [value], (res) => {
+        })
       }
       const setSupportMultipleWindows = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setSupportMultipleWindows', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSupportMultipleWindows', [value], (res) => {
+        })
       }
       const setAppCacheMaxSize = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setAppCacheMaxSize', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setAppCacheMaxSize', [value], (res) => {
+        })
       }
       const setRenderPriority = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setRenderPriority', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setRenderPriority', [value], (res) => {
+        })
       }
       const setCacheMode = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setCacheMode', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setCacheMode', [value], (res) => {
+        })
       }
       //-----------------------------------------------
       const setAllowContentAccess = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setAllowContentAccess', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setAllowContentAccess', [value], (res) => {
+        })
       }
       const setEnableSmoothTransition = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setEnableSmoothTransition', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setEnableSmoothTransition', [value], (res) => {
+        })
       }
       const setSaveFormData = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setSaveFormData', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSaveFormData', [value], (res) => {
+        })
       }
       const setSavePassword = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setSavePassword', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSavePassword', [value], (res) => {
+        })
       }
       const setTextSize = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setTextSize', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setTextSize', [value], (res) => {
+        })
       }
       const setInitialScale = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setInitialScale', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setInitialScale', [value], (res) => {
+        })
       }
 
       const setDefaultZoom = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setDefaultZoom', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDefaultZoom', [value], (res) => {
+        })
       }
       const setLightTouchEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setLightTouchEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setLightTouchEnabled', [value], (res) => {
+        })
       }
       const setMinimumLogicalFontSize = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setMinimumLogicalFontSize', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setMinimumLogicalFontSize', [value], (res) => {
+        })
       }
       const setDefaultFixedFontSize = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setDefaultFixedFontSize', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDefaultFixedFontSize', [value], (res) => {
+        })
       }
       const setBlockNetworkImage = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setBlockNetworkImage', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setBlockNetworkImage', [value], (res) => {
+        })
       }
       const setAllowUniversalAccessFromFileURLs = (value: boolean) => {
         Native.callUIFunction(
           webViewRef.value,
           'setAllowUniversalAccessFromFileURLs',
           [value],
-          (res) => {}
+          (res) => {
+          },
         )
       }
       const setAllowFileAccessFromFileURLs = (value: boolean) => {
@@ -318,47 +390,59 @@ function registerQTWebView(app: ESApp) {
           webViewRef.value,
           'setAllowFileAccessFromFileURLs',
           [value],
-          (res) => {}
+          (res) => {
+          },
         )
       }
       const setDatabasePath = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setDatabasePath', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setDatabasePath', [value], (res) => {
+        })
       }
       const setGeolocationDatabasePath = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setGeolocationDatabasePath', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setGeolocationDatabasePath', [value], (res) => {
+        })
       }
       const setUserAgentString = (value: string) => {
-        Native.callUIFunction(webViewRef.value, 'setUserAgentString', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setUserAgentString', [value], (res) => {
+        })
       }
       const setMixedContentMode = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setMixedContentMode', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setMixedContentMode', [value], (res) => {
+        })
       }
       const setOffscreenPreRaster = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setOffscreenPreRaster', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setOffscreenPreRaster', [value], (res) => {
+        })
       }
       const setSafeBrowsingEnabled = (value: boolean) => {
-        Native.callUIFunction(webViewRef.value, 'setSafeBrowsingEnabled', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setSafeBrowsingEnabled', [value], (res) => {
+        })
       }
       const setForceDark = (value: number) => {
-        Native.callUIFunction(webViewRef.value, 'setForceDark', [value], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'setForceDark', [value], (res) => {
+        })
       }
       const setDisabledActionModeMenuItems = (value: number) => {
         Native.callUIFunction(
           webViewRef.value,
           'setDisabledActionModeMenuItems',
           [value],
-          (res) => {}
+          (res) => {
+          },
         )
       }
 
       const initJavaScriptInterface = () => {
-        Native.callUIFunction(webViewRef.value, 'initJavaScriptInterface', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'initJavaScriptInterface', [], (res) => {
+        })
       }
       const removeJavaScriptInterface = () => {
-        Native.callUIFunction(webViewRef.value, 'removeJavaScriptInterface', [], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'removeJavaScriptInterface', [], (res) => {
+        })
       }
       const initWebViewFocus = (delayTime: number, x: number, y: number) => {
-        Native.callUIFunction(webViewRef.value, 'initWebViewFocus', [delayTime, x, y], (res) => {})
+        Native.callUIFunction(webViewRef.value, 'initWebViewFocus', [delayTime, x, y], (res) => {
+        })
       }
 
       context.expose({
@@ -371,6 +455,7 @@ function registerQTWebView(app: ESApp) {
         getBackForwardList,
         getCurrentIndexWithBackForwardList,
         getScreenStatus,
+        autoClickPosition,
         //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,

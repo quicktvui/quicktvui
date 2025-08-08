@@ -37,6 +37,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
     instance: string | Ref<QTIX5WebView | undefined>,
   ): Promise<number>
 
+  autoClickPosition(instance: string | Ref<QTIX5WebView | undefined>, x: number, y: number): void
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -347,6 +348,14 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       return instance.value!.getScreenStatus()
     } else {
       return Promise.reject()
+    }
+  }
+
+  function autoClickPosition(instance: string | Ref<QTIX5WebView | undefined>, x: number, y: number): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'autoClickPosition', [x, y]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.autoClickPosition(x, y)
     }
   }
 
@@ -1289,6 +1298,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     getBackForwardList,
     getCurrentIndexWithBackForwardList,
     getScreenStatus,
+    autoClickPosition,
     //------------------------------------
     initWebView,
     loadUrl,

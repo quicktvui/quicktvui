@@ -30,6 +30,8 @@ export interface QTIX5WebView extends QTIView {
 
   getScreenStatus(): Promise<number>
 
+  autoClickPosition(x: number, y: number): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

@@ -110,6 +110,19 @@ function registerQTX5WebView(app: ESApp) {
         })
       }
 
+      const autoClickPosition = (x: number, y: number) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'autoClickPosition',
+            [x,y],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -371,6 +384,7 @@ function registerQTX5WebView(app: ESApp) {
         getBackForwardList,
         getCurrentIndexWithBackForwardList,
         getScreenStatus,
+        autoClickPosition,
         //---------------------------------------------------------
         initWebView,
         loadUrl,
