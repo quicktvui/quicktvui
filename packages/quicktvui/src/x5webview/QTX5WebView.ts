@@ -20,6 +20,8 @@ function registerQTX5WebView(app: ESApp) {
       'onJs2Vue',
       'onJsRewardCall',
       'onJsFinishGame',
+      'onProgressChanged',
+      'onConsoleMessage',
     ],
     setup(props, context) {
       const webViewRef = ref()
@@ -99,27 +101,17 @@ function registerQTX5WebView(app: ESApp) {
 
       const getScreenStatus = () => {
         return new Promise((resolve, reject) => {
-          Native.callUIFunction(
-            webViewRef.value,
-            'getScreenStatus',
-            [],
-            (res) => {
-              resolve(res)
-            }
-          )
+          Native.callUIFunction(webViewRef.value, 'getScreenStatus', [], (res) => {
+            resolve(res)
+          })
         })
       }
 
       const autoClickPosition = (x: number, y: number) => {
         return new Promise((resolve, reject) => {
-          Native.callUIFunction(
-            webViewRef.value,
-            'autoClickPosition',
-            [x,y],
-            (res) => {
-              resolve(res)
-            }
-          )
+          Native.callUIFunction(webViewRef.value, 'autoClickPosition', [x, y], (res) => {
+            resolve(res)
+          })
         })
       }
 
@@ -497,6 +489,17 @@ function registerQTX5WebView(app: ESApp) {
           onJsFinishGame: (evt) => {
             let value = evt.jsFinishGameValue
             context.emit('onJsFinishGame', value)
+          },
+          onProgressChanged: (evt) => {
+            let value = evt.progress
+            context.emit('onProgressChanged', value)
+          },
+          onConsoleMessage: (evt) => {
+            let message = evt.message
+            let messageLevel = evt.messageLevel
+            let sourceId = evt.sourceId
+            let lineNumber = evt.lineNumber
+            context.emit('onConsoleMessage', message, messageLevel, sourceId, lineNumber)
           },
           ref: webViewRef,
         })
