@@ -17,7 +17,7 @@ import { useESDisplay } from '@extscreen/es3-core'
 import { definePropType } from '../utils'
 import { nextTick } from '@vue/runtime-core'
 
-function registerQTAnimation(app: ESApp) {
+function registerQTAnimationForAndroid(app: ESApp) {
   const AnimationViewImpl = defineComponent({
     props: {
       animator: {
@@ -965,4 +965,4 @@ function registerQTAnimation(app: ESApp) {
   app.component('qt-animation', AnimationViewImpl)
 }
 
-export default registerQTAnimation
+export default registerQTAnimationForAndroid

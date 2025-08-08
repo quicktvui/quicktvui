@@ -30,7 +30,8 @@ import registerQTX5WebView from './x5webview/QTX5WebView'
 import registerQTQRCodeView from './qrcode/QTQRCodeView'
 import registerQTSeekBarView from './seekbar/QTSeekBar'
 import registerQTProgressBarView from './progressbar/QTProgressBar'
-import registerQTAnimation from './animation/QTAnimation'
+import registerQTAnimationForAndroid from './animation/QTAnimation.android'
+import registerQTAnimationForHarmony from './animation/QTAnimation.harmony'
 import registerQTDialog from './dialog/QTDialog'
 import registerQTScrollView from './scroll-view/QTScrollView'
 import registerQTLottieView from './lottie/QTLottieView'
@@ -73,6 +74,7 @@ const components = [
 
 //---------------------------------------------------------------------------
 import { createQtAPI, QtAPI } from './qt/QtAPI'
+import { Native } from '@extscreen/es3-vue'
 
 declare global {
   // @ts-ignore
@@ -91,6 +93,15 @@ export { QTFocusDirectionName } from './focus/QTFocusDirectionName'
 //---------------------------------------------------------------------------
 
 export const QuickTVUI = (Vue) => {
+  // android
+  if (Native.isAndroid()) {
+    registerQTAnimationForAndroid(Vue)
+  }
+  //harmony
+  else {
+    registerQTAnimationForHarmony(Vue)
+  }
+
   registerQTLoadingViewComponent(Vue)
   registerESListViewComponent(Vue)
   registerESListItemComponent(Vue)
@@ -100,7 +111,6 @@ export const QuickTVUI = (Vue) => {
   registerQTQRCodeView(Vue)
   registerQTSeekBarView(Vue)
   registerQTProgressBarView(Vue)
-  registerQTAnimation(Vue)
   registerQTDialog(Vue)
   registerQTScrollView(Vue)
   registerQTLottieView(Vue)
