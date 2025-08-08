@@ -222,6 +222,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
       function resetAnimators() {
         Native.callUIFunction(viewRef.value, 'resetAnimators', [], (res) => {})
       }
+
       function reset() {
         Native.callUIFunction(viewRef.value, 'resetAnimators', [], (res) => {})
       }
@@ -242,7 +243,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
             return
           }
           const id = animatorId ?? propsAnimatorId
-          Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
+          Native.callUIFunction(viewRef.value, 'start', [id], (res) => {})
         })
       }
 
@@ -261,7 +262,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'pauseAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'pause', [id], (res) => {})
       }
 
       function resumeAnimator(animatorId?: QTAnimatorId) {
@@ -269,7 +270,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'resumeAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'resume', [id], (res) => {})
       }
 
       function cancelAnimator(animatorId?: QTAnimatorId) {
@@ -277,7 +278,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'cancelAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'cancel', [id], (res) => {})
       }
 
       function reverseAnimator(animatorId?: QTAnimatorId) {
@@ -285,7 +286,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'reverseAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'reverse', [id], (res) => {})
       }
 
       function start(animatorId?: QTAnimatorId) {
@@ -294,7 +295,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
             return
           }
           const id = animatorId ?? propsAnimatorId
-          Native.callUIFunction(viewRef.value, 'startAnimator', [id], (res) => {})
+          Native.callUIFunction(viewRef.value, 'start', [id], (res) => {})
         })
       }
 
@@ -304,7 +305,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
             return
           }
           const id = animatorId ?? propsAnimatorId
-          Native.callUIFunction(viewRef.value, 'startAnimatorDelay', [id, delay], (res) => {})
+          Native.callUIFunction(viewRef.value, 'startDelay', [id, delay], (res) => {})
         })
       }
 
@@ -313,7 +314,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'pauseAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'pause', [id], (res) => {})
       }
 
       function resume(animatorId?: QTAnimatorId) {
@@ -321,7 +322,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'resumeAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'resume', [id], (res) => {})
       }
 
       function cancel(animatorId?: QTAnimatorId) {
@@ -329,7 +330,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'cancelAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'cancel', [id], (res) => {})
       }
 
       function reverse(animatorId?: QTAnimatorId) {
@@ -337,7 +338,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           return
         }
         const id = animatorId ?? propsAnimatorId
-        Native.callUIFunction(viewRef.value, 'reverseAnimator', [id], (res) => {})
+        Native.callUIFunction(viewRef.value, 'reverse', [id], (res) => {})
       }
 
       //----------------------------------------------------------------------------------------------------------------
@@ -536,7 +537,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
 
         const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
 
-        const funcName = `objectAnimator${values.length == 0 ? '' : values.length}`
+        const funcName = `animator`
 
         Native.callUIFunction(
           viewRef.value,
@@ -545,15 +546,13 @@ function registerQTAnimationForHarmony(app: ESApp) {
             id,
             valueType,
             propertyName,
-            ...scaledValues,
+            scaledValues,
             duration,
             repeatMode,
             repeatCount,
             listenAnimator,
             listenAnimatorValue,
-            interpolator ?? {
-              type: QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR,
-            },
+            interpolator ?? [QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR],
           ],
           (res) => {}
         )
