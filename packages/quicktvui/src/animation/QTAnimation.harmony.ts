@@ -368,7 +368,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
         const count = animatorIds.length
         const funcName = `playSequentially`
 
-        Native.callUIFunction(viewRef.value, funcName, [animatorSetId, ...animatorIds], (res) => {})
+        Native.callUIFunction(viewRef.value, funcName, [animatorSetId, animatorIds], (res) => {})
       }
 
       function playSequentially1(animatorSetId: QTAnimatorId, animatorId1: QTAnimatorId) {
@@ -425,7 +425,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
         const count = animatorIds.length
         const funcName = `playTogether`
 
-        Native.callUIFunction(viewRef.value, funcName, [animatorSetId, ...animatorIds], (res) => {})
+        Native.callUIFunction(viewRef.value, funcName, [animatorSetId, animatorIds], (res) => {})
       }
 
       function playTogether1(animatorSetId: QTAnimatorId, animatorId1: QTAnimatorId) {
@@ -495,7 +495,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
 
         const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
 
-        const funcName = `objectAnimator${values.length == 0 ? '' : values.length}`
+        const funcName = `objectAnimator`
 
         Native.callUIFunction(
           viewRef.value,
@@ -510,9 +510,9 @@ function registerQTAnimationForHarmony(app: ESApp) {
             repeatCount,
             listenAnimator,
             listenAnimatorValue,
-            interpolator ?? {
-              type: QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR,
-            },
+            interpolator
+              ? [interpolator.type, interpolator.params]
+              : [QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR],
           ],
           (res) => {}
         )
@@ -552,7 +552,9 @@ function registerQTAnimationForHarmony(app: ESApp) {
             repeatCount,
             listenAnimator,
             listenAnimatorValue,
-            interpolator ?? [QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR],
+            interpolator
+              ? [interpolator.type, interpolator.params]
+              : [QTAnimationInterpolatorType.QT_LINEAR_INTERPOLATOR],
           ],
           (res) => {}
         )
