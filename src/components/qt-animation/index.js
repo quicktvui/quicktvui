@@ -1,8 +1,12 @@
 import qt_animation_view_alpha_page from './qt-animation-view-alpha-page'
 import qt_animation_view_alpha_props_page from './qt-animation-view-alpha-props-page'
-import qt_animation_view_scale_page from './qt-animation-view-scale-page'
+import qt_animation_view_scale_x_page from './qt-animation-view-scale-x-page'
+import qt_animation_view_scale_y_page from './qt-animation-view-scale-y-page'
+import qt_animation_view_scale_z_page from './qt-animation-view-scale-z-page'
 import qt_animation_view_scale_props_page from './qt-animation-view-scale-props-page'
-import qt_animation_view_translation_page from './qt-animation-view-translation-page'
+import qt_animation_view_translation_x_page from './qt-animation-view-translation-x-page'
+import qt_animation_view_translation_y_page from './qt-animation-view-translation-y-page'
+import qt_animation_view_translation_z_page from './qt-animation-view-translation-z-page'
 import qt_animation_view_translation_props_page from './qt-animation-view-translation-props-page'
 import qt_animation_view_rotation_page from './qt-animation-view-rotation-page'
 import qt_animation_view_rotation_props_page from './qt-animation-view-rotation-props-page'
@@ -21,71 +25,87 @@ import qt_animation_view_animators_loop_page from './qt-animation-view-animator-
 
 const QTAnimationPageList = {
   qt_animation_view_alpha_page: {
-    name: qt_animation_view_alpha_page.name,
+    name: 'Alpha',
     component: qt_animation_view_alpha_page,
   },
   qt_animation_view_alpha_props_page: {
-    name: qt_animation_view_alpha_props_page.name,
+    name: 'Alpha（props）',
     component: qt_animation_view_alpha_props_page,
   },
-  qt_animation_view_scale_page: {
-    name: qt_animation_view_scale_page.name,
-    component: qt_animation_view_scale_page,
+  qt_animation_view_scale_x_page: {
+    name: 'ScaleX',
+    component: qt_animation_view_scale_x_page,
+  },
+  qt_animation_view_scale_y_page: {
+    name: 'ScaleY',
+    component: qt_animation_view_scale_y_page,
+  },
+  qt_animation_view_scale_z_page: {
+    name: 'ScaleZ',
+    component: qt_animation_view_scale_z_page,
   },
   qt_animation_view_scale_props_page: {
-    name: qt_animation_view_scale_props_page.name,
+    name: 'Scale（props）',
     component: qt_animation_view_scale_props_page,
   },
-  qt_animation_view_translation_page: {
-    name: qt_animation_view_translation_page.name,
-    component: qt_animation_view_translation_page,
+  qt_animation_view_translation_x_page: {
+    name: 'TranslationX',
+    component: qt_animation_view_translation_x_page,
+  },
+  qt_animation_view_translation_y_page: {
+    name: 'TranslationY',
+    component: qt_animation_view_translation_y_page,
+  },
+  qt_animation_view_translation_z_page: {
+    name: 'TranslationZ',
+    component: qt_animation_view_translation_z_page,
   },
   qt_animation_view_translation_props_page: {
-    name: qt_animation_view_translation_props_page.name,
+    name: 'Translation（props）',
     component: qt_animation_view_translation_props_page,
   },
   qt_animation_view_rotation_page: {
-    name: qt_animation_view_rotation_page.name,
+    name: 'Rotation',
     component: qt_animation_view_rotation_page,
   },
   qt_animation_view_rotation_props_page: {
-    name: qt_animation_view_rotation_props_page.name,
+    name: 'Rotation（props）',
     component: qt_animation_view_rotation_props_page,
   },
   qt_animation_view_rotation_xy_page: {
-    name: qt_animation_view_rotation_xy_page.name,
+    name: 'RotationXY',
     component: qt_animation_view_rotation_xy_page,
   },
   qt_animation_view_animators_page: {
-    name: qt_animation_view_animators_page.name,
+    name: 'Animators',
     component: qt_animation_view_animators_page,
   },
   qt_animation_view_interpolator_page: {
-    name: qt_animation_view_interpolator_page.name,
+    name: 'Interpolator',
     component: qt_animation_view_interpolator_page,
   },
   qt_animation_view_listener_page: {
-    name: qt_animation_view_listener_page.name,
+    name: 'Listener',
     component: qt_animation_view_listener_page,
   },
   qt_animation_view_repeat_page: {
-    name: qt_animation_view_repeat_page.name,
+    name: 'Repeat',
     component: qt_animation_view_repeat_page,
   },
   qt_animation_view_animator_props_page: {
-    name: qt_animation_view_animator_props_page.name,
+    name: 'AnimatorProps',
     component: qt_animation_view_animator_props_page,
   },
   qt_animation_view_animator_props_default_page: {
-    name: qt_animation_view_animator_props_default_page.name,
+    name: 'AnimatorPropsDefault',
     component: qt_animation_view_animator_props_default_page,
   },
   qt_animation_view_animators_props_page: {
-    name: qt_animation_view_animators_props_page.name,
+    name: 'AnimatorsProps',
     component: qt_animation_view_animators_props_page,
   },
   qt_animation_view_animators_props_default_page: {
-    name: qt_animation_view_animators_props_default_page.name,
+    name: 'AnimatorsPropsDefault',
     component: qt_animation_view_animators_props_default_page,
   },
   qt_animation_view_animators_props_default_setup_page: {
@@ -93,11 +113,11 @@ const QTAnimationPageList = {
     component: qt_animation_view_animators_props_default_setup_page,
   },
   qt_animation_view_animators_auto_play_page: {
-    name: qt_animation_view_animators_auto_play_page.name,
+    name: 'AutoPlay',
     component: qt_animation_view_animators_auto_play_page,
   },
   qt_animation_view_animators_loop_page: {
-    name: qt_animation_view_animators_loop_page.name,
+    name: 'Loop',
     component: qt_animation_view_animators_loop_page,
   },
 }
