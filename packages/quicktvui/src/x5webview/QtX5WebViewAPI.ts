@@ -18,7 +18,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
   getUrl(instance: string | Ref<QTIX5WebView | undefined>): Promise<string | undefined | null>
 
   getOriginalUrl(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<string | undefined | null>
 
   setLayerType(instance: string | Ref<QTIX5WebView | undefined>, value: QTX5WebViewLayerType): void
@@ -26,18 +26,21 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
   setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
   getBackForwardList(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<Array<Record<string, any>>>
 
   getCurrentIndexWithBackForwardList(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<number>
 
-  getScreenStatus(
-    instance: string | Ref<QTIX5WebView | undefined>,
-  ): Promise<number>
+  getScreenStatus(instance: string | Ref<QTIX5WebView | undefined>): Promise<number>
 
   autoClickPosition(instance: string | Ref<QTIX5WebView | undefined>, x: number, y: number): void
+
+  disableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  enableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -46,7 +49,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   evaluateJavascript(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): Promise<string | undefined | null>
 
   canGoBack(instance: string | Ref<QTIX5WebView | undefined>): Promise<boolean>
@@ -77,7 +80,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setJavaScriptCanOpenWindowsAutomatically(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void
 
   setUseWideViewPort(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
@@ -102,7 +105,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setMediaPlaybackRequiresUserGesture(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void
 
   setStandardFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
@@ -129,7 +132,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setLoadsImagesAutomatically(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void
 
   setDefaultTextEncodingName(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
@@ -171,12 +174,12 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setAllowUniversalAccessFromFileURLs(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void
 
   setAllowFileAccessFromFileURLs(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void
 
   setDatabasePath(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
@@ -195,7 +198,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setDisabledActionModeMenuItems(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void
 
   initJavaScriptInterface(instance: string | Ref<QTIX5WebView | undefined>): void
@@ -206,7 +209,7 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
     instance: string | Ref<QTIX5WebView | undefined>,
     delayTime: number,
     x: number,
-    y: number,
+    y: number
   ): void
 }
 
@@ -228,7 +231,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
   }
 
   function getUrl(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<string | undefined | null> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
@@ -238,7 +241,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'getUrl', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -249,7 +252,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
   }
 
   function getOriginalUrl(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<string | undefined | null> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
@@ -259,7 +262,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'getOriginalUrl', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -271,7 +274,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setLayerType(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: QTX5WebViewLayerType,
+    value: QTX5WebViewLayerType
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLayerType', [value]])
@@ -289,7 +292,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
   }
 
   function getBackForwardList(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<Array<Record<string, any>>> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
@@ -299,7 +302,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'getBackForwardList', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -310,7 +313,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
   }
 
   function getCurrentIndexWithBackForwardList(
-    instance: string | Ref<QTIX5WebView | undefined>,
+    instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<number> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
@@ -320,7 +323,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'getCurrentIndexWithBackForwardList', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -330,9 +333,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     }
   }
 
-  function getScreenStatus(
-    instance: string | Ref<QTIX5WebView | undefined>,
-  ): Promise<number> {
+  function getScreenStatus(instance: string | Ref<QTIX5WebView | undefined>): Promise<number> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
         Native.callNative(
@@ -341,7 +342,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'getScreenStatus', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -351,11 +352,31 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     }
   }
 
-  function autoClickPosition(instance: string | Ref<QTIX5WebView | undefined>, x: number, y: number): void {
+  function autoClickPosition(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    x: number,
+    y: number
+  ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'autoClickPosition', [x, y]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.autoClickPosition(x, y)
+    }
+  }
+
+  function disableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'disableImageDisplay', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.disableImageDisplay()
+    }
+  }
+
+  function enableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'enableImageDisplay', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.enableImageDisplay()
     }
   }
 
@@ -370,7 +391,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function initWebView(
     instance: string | Ref<QTIX5WebView | undefined>,
-    params?: QTX5WebViewParams,
+    params?: QTX5WebViewParams
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initWebView', [params]])
@@ -381,7 +402,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function evaluateJavascript(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): Promise<string | undefined | null> {
     if (isString(instance)) {
       return new Promise((resolve, reject) => {
@@ -391,7 +412,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'evaluateJavascript', [value]],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -410,7 +431,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'canGoBack', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -437,7 +458,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
           [instance, 'canGoForward', []],
           (res) => {
             resolve(res)
-          },
+          }
         )
       })
     } else if (isRef(instance) && instance.value) {
@@ -457,7 +478,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function canGoBackOrForward(
     instance: string | Ref<QTIX5WebView | undefined>,
-    steps: number,
+    steps: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -520,7 +541,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setJavaScriptEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -543,7 +564,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setJavaScriptCanOpenWindowsAutomatically(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -558,7 +579,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setUseWideViewPort(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -573,7 +594,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setLoadWithOverviewMode(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -596,7 +617,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setBuiltInZoomControls(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -611,7 +632,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDisplayZoomControls(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -626,7 +647,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setAllowFileAccess(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -641,7 +662,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDomStorageEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -656,7 +677,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDatabaseEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -671,7 +692,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setAppCacheEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -694,7 +715,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setMediaPlaybackRequiresUserGesture(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -709,7 +730,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setStandardFontFamily(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -724,7 +745,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setFixedFontFamily(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -739,7 +760,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setSansSerifFontFamily(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -754,7 +775,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setSerifFontFamily(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -769,7 +790,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setCursiveFontFamily(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -784,7 +805,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setFantasyFontFamily(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -815,7 +836,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setMinimumFontSize(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -830,7 +851,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDefaultFontSize(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -845,7 +866,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setLayoutAlgorithm(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -860,7 +881,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setLoadsImagesAutomatically(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -875,7 +896,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDefaultTextEncodingName(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -890,7 +911,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setNeedInitialFocus(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -905,7 +926,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setGeolocationEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -920,7 +941,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setBlockNetworkLoads(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -935,7 +956,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setSupportMultipleWindows(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -950,7 +971,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setAppCacheMaxSize(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -965,7 +986,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setRenderPriority(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -989,7 +1010,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
   //-----------------------------------------------
   function setAllowContentAccess(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1004,7 +1025,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setEnableSmoothTransition(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1051,7 +1072,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setLightTouchEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1066,7 +1087,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setMinimumLogicalFontSize(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1081,7 +1102,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDefaultFixedFontSize(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1096,7 +1117,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setBlockNetworkImage(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1111,7 +1132,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setAllowUniversalAccessFromFileURLs(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1126,7 +1147,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setAllowFileAccessFromFileURLs(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1149,7 +1170,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setGeolocationDatabasePath(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1164,7 +1185,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setUserAgentString(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: string,
+    value: string
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1179,7 +1200,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setMixedContentMode(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1194,7 +1215,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setOffscreenPreRaster(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1209,7 +1230,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setSafeBrowsingEnabled(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: boolean,
+    value: boolean
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1232,7 +1253,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   function setDisabledActionModeMenuItems(
     instance: string | Ref<QTIX5WebView | undefined>,
-    value: number,
+    value: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1273,7 +1294,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     instance: string | Ref<QTIX5WebView | undefined>,
     delayTime: number,
     x: number,
-    y: number,
+    y: number
   ): void {
     if (isString(instance)) {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
@@ -1299,6 +1320,8 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     getCurrentIndexWithBackForwardList,
     getScreenStatus,
     autoClickPosition,
+    disableImageDisplay,
+    enableImageDisplay,
     //------------------------------------
     initWebView,
     loadUrl,

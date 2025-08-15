@@ -115,6 +115,22 @@ function registerQTX5WebView(app: ESApp) {
         })
       }
 
+      const enableImageDisplay = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'enableImageDisplay', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const disableImageDisplay = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'enableImageDisplay', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -377,6 +393,8 @@ function registerQTX5WebView(app: ESApp) {
         getCurrentIndexWithBackForwardList,
         getScreenStatus,
         autoClickPosition,
+        enableImageDisplay,
+        disableImageDisplay,
         //---------------------------------------------------------
         initWebView,
         loadUrl,
