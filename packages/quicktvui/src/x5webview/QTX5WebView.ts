@@ -125,7 +125,7 @@ function registerQTX5WebView(app: ESApp) {
 
       const disableImageDisplay = () => {
         return new Promise((resolve, reject) => {
-          Native.callUIFunction(webViewRef.value, 'enableImageDisplay', [], (res) => {
+          Native.callUIFunction(webViewRef.value, 'disableImageDisplay', [], (res) => {
             resolve(res)
           })
         })
