@@ -48,11 +48,11 @@ const QTAPINavPageList = {
     component: qt_nav_view_page,
   },
   qt_nav_text_page: {
-    name: 'QTText',
+    name: ' 🟢 QTText',
     component: qt_nav_text_page,
   },
   qt_nav_image_page: {
-    name: 'QTImage',
+    name: ' 🟢 QTImage',
     component: qt_nav_image_page,
   },
   qt_nav_row_page: {
@@ -72,7 +72,7 @@ const QTAPINavPageList = {
     component: qt_nav_button_page,
   },
   qt_nav_text_view_page: {
-    name: 'TextView',
+    name: ' 🟢 TextView',
     component: qt_nav_text_view_page,
   },
   qt_nav_animation_page: {
@@ -80,7 +80,7 @@ const QTAPINavPageList = {
     component: qt_nav_animation_page,
   },
   qt_nav_app_icon_page: {
-    name: 'QTAppIcon',
+    name: ' ❌ QTAppIcon',
     component: qt_nav_app_icon_page,
   },
   qt_nav_webview_page: {
@@ -202,7 +202,7 @@ const QTAPINavPageList = {
     component: web_nav_audio_service_page,
   },
   web_nav_h_page: {
-    name: 'H',
+    name: ' 🟢 H',
     component: web_nav_h_page,
   },
   web_nav_alert_page: {
