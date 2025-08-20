@@ -1,6 +1,6 @@
 {
   "name": "@quicktvui/quicktvui3",
-  "version": "1.2.0-beta.44",
+  "version": "3.0.0-alpha.1",
   "description": "ExtScreen framework",
   "author": "ExtScreen Team",
   "homepage": "http://extscreen.com",
@@ -15,10 +15,6 @@
     "framework",
     "compiler"
   ],
-  "peerDependencies": {
-    "@extscreen/es3-core": "^1.1.24",
-    "@extscreen/es3-router": "^1.1.14"
-  },
   "files": [
     "dist",
     "web-types.json"

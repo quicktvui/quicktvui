@@ -1302,10 +1302,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.35.tgz#4d2f64f6a0a9ab2a396fdf093098388149f21ce6"
   integrity sha512-raOfJI5a0dzV47CSZsL7DXmKaLyCcYVbFwm5ZxEum93VCJrHLxK6IZU9TdvP2hXUd12OTarvdAMNPuUO4UdoZA==
 
-"@extscreen/es3-core@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-core/-/es3-core-1.2.3.tgz#cb3c51184ff7d8abbb39476c46c13c638dca8991"
-  integrity sha512-M0coilmngkOXo3EXmbG9EP8AYOPcYGHyH+ixSjofciO/9ltapqMPZUSYXtPu/ws/oNKfOnFvYuRucI2PlQVwrg==
+"@extscreen/es3-core@3.0.0-alpha.1":
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-core/-/es3-core-3.0.0-alpha.1.tgz#7cab8857a2ffbb4b1c0eefbf0b4905ebdec91319"
+  integrity sha512-HCP0g1dANwLUp4sLEWOLptbUVMvw3e+HXoqacxsfz2382rHS5UzJ4t6sZiSKmZ4AWSiHJSqSH/kOIcHOjTLmNA==
 
 "@extscreen/es3-debug-server@0.0.6":
   version "0.0.6"
@@ -1386,10 +1386,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-player/-/es3-player-1.0.33.tgz#ec88e3173562f2975aec1a8201e9cf0ea2d02b75"
   integrity sha512-VNt5iMsUYquH2E9X9Cx1mP21sosNu3YQrLFwQvfCXAt7l62+eI5D4/i6UQ+i4IK0aBcYWJG+nDfUku9JSLDADQ==
 
-"@extscreen/es3-router@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-router/-/es3-router-1.2.1.tgz#cec81e3c7d65d445010743d74c038ac4da81ab5e"
-  integrity sha512-iLSPoIO4xF5jXkyGDBNmuv0ZCNEOLHFsPkmT7LOkchXm0HinoLd86ateyFOsEdl7NWZ8y0Kg8NRL5jNxSP8Xkg==
+"@extscreen/es3-router@3.0.0-alpha.1":
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-router/-/es3-router-3.0.0-alpha.1.tgz#9de08077d25cbdbc1e67443d0aa454020bafa238"
+  integrity sha512-5cNRIPhtd+4Rapg+dWzUvqMDJWgC1F5pYXDcwmnW28EmRJ+5mnpS26v+bfHAjUYPexYokVn25QmhVsdiEwRavw==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
 
@@ -1403,24 +1403,24 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-video-player/-/es3-video-player-1.0.45.tgz#4b0daa33ac6304b001e47bfcd0c059a73f065802"
   integrity sha512-Mk+CEBCKjwmblFaK8PO3kZTa1yCJn/p8LAVLxocw8+viMqhOISnBkltSUA15gzVhd0NxdHba1FM0tE41gE3b8A==
 
-"@extscreen/es3-vue-css-loader@^2.0.1":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue-css-loader/-/es3-vue-css-loader-2.0.2.tgz#34741e15f08bb69d67cc9b128bf534997456b2ae"
-  integrity sha512-YLiedLgN620K8DmPTG2XDYFJfvMZ7roPRYG5cxI27fJ4vafeA5Nn4wNvmXsk6UjiIX9plBRQGZg3FBhEyjgwqA==
+"@extscreen/es3-vue-css-loader@3.0.0-alpha.1":
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue-css-loader/-/es3-vue-css-loader-3.0.0-alpha.1.tgz#2d8c47d61f7fbd4d8978b556e9c5462d2ace5690"
+  integrity sha512-B2LB+oTmxRLI9/hYsh+jrY7JOYDSvDMDYUuzkvD5dOfeGcgrzHKCOUo5EomOqW7veA2/FzhpKrc4v2Dp2S/bjg==
   dependencies:
     loader-utils "^1.4.1"
 
-"@extscreen/es3-vue-style-parser@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue-style-parser/-/es3-vue-style-parser-2.0.0.tgz#e5909ce25f9819950c0a2130d1d5314efb89a0c7"
-  integrity sha512-4ZWBnaOewH8M7di7WE1SfU8hNIFR4uOHna0sYf9/qvYL1klk/WdrcHzEXSVZfkMah1iu7hPvbSDNb9eXR7E78w==
+"@extscreen/es3-vue-style-parser@3.0.0-alpha.1":
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue-style-parser/-/es3-vue-style-parser-3.0.0-alpha.1.tgz#f8fd995ebb5a030b7a5b7c5b29d2046f408377e9"
+  integrity sha512-rDeIHqBeyk+lolJCjKpPQUmu0QfFBevOz87YqxP4jkLSR7TVTTi8zczK/D5ON/Q6LHpg2xasbqVgQCmSOqzBWg==
   dependencies:
     "@vue/shared" "^3.2.21"
 
-"@extscreen/es3-vue@2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-2.0.6.tgz#fd6e27cc14dd31333ca202bf0865e5a120355238"
-  integrity sha512-BVp2RAqsTCdDy/c2QThyHbwoaWDLuB9qYfUppFgxb+s7QaUWkr8GuWqRNl6BIHNXL64ionTyv63YNf+RHxYC/Q==
+"@extscreen/es3-vue@3.0.0-alpha.1":
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-3.0.0-alpha.1.tgz#e953cac50afa839fd60dbefbd55273817d4684d9"
+  integrity sha512-10llZvrm5nPWBwdZcACX82iagEreL6lXT9DcnJChPVNGKGDIqHggWYpacpruW+oPOcZDoHFWRPv5a8QUMkoOZQ==
 
 "@hapi/bourne@^3.0.0":
   version "3.0.0"
