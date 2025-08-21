@@ -103,7 +103,6 @@ export const ESComponent = (Vue) => {
   registerESTestViewComponent(Vue)
   registerESTestGroupComponent(Vue)
   registerESTestAViewComponent(Vue)
-  registerESLottieViewComponent(Vue)
   registerESPluginViewComponent(Vue)
   //
   registerESSwiperSlideViewComponent(Vue)
