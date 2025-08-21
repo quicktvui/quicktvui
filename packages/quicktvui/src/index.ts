@@ -30,16 +30,19 @@ import registerQTX5WebView from './x5webview/QTX5WebView'
 import registerQTQRCodeView from './qrcode/QTQRCodeView'
 import registerQTSeekBarView from './seekbar/QTSeekBar'
 import registerQTProgressBarView from './progressbar/QTProgressBar'
-import registerQTAnimationForAndroid from './animation/QTAnimation.android'
-import registerQTAnimationForHarmony from './animation/QTAnimation.harmony'
 import registerQTDialog from './dialog/QTDialog'
 import registerQTScrollView from './scroll-view/QTScrollView'
-import registerQTLottieView from './lottie/QTLottieView'
 import { QTListViewItemState } from './list-view/core/QTListViewItemState'
 import registerAppIconView from './app/QTAppIcon'
 import registerQTIReplaceChildView from './replace-child/QTReplaceChildView'
 import registerQTLongImageComponent from './long-image/QTLongImage'
 
+//
+import registerQTLottieViewForHarmony from './lottie/QTLottieView.harmony'
+import registerQTLottieViewForAndroid from './lottie/QTLottieView.android'
+import registerQTAnimationForAndroid from './animation/QTAnimation.android'
+import registerQTAnimationForHarmony from './animation/QTAnimation.harmony'
+//
 export {
   qtRef,
   qtWatchAll,
@@ -96,10 +99,12 @@ export const QuickTVUI = (Vue) => {
   // android
   if (Native.isAndroid()) {
     registerQTAnimationForAndroid(Vue)
+    registerQTLottieViewForAndroid(Vue)
   }
   //harmony
   else {
     registerQTAnimationForHarmony(Vue)
+    registerQTLottieViewForHarmony(Vue)
   }
 
   registerQTLoadingViewComponent(Vue)
@@ -113,7 +118,6 @@ export const QuickTVUI = (Vue) => {
   registerQTProgressBarView(Vue)
   registerQTDialog(Vue)
   registerQTScrollView(Vue)
-  registerQTLottieView(Vue)
   registerAppIconView(Vue)
   registerQTPluginView(Vue)
   registerQTIReplaceChildView(Vue)
