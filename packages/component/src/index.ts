@@ -35,7 +35,7 @@ import registerESMediaSeriesComponent from './ESMediaSeries/ESMediaSeriesCompone
 import registerESTestViewComponent from './ESTestView/ESTestViewComponent'
 import registerESTestGroupComponent from './ESTestView/ESTestGroupComponent'
 import registerESTestAViewComponent from './ESTestView/ESTestAViewComponent'
-import registerESLottieViewComponent from './ESLottieView/ESLottieViewComponent'
+
 import registerESPluginViewComponent from './ESPluginView/ESPluginViewComponent'
 import registerESSwiperSlideViewComponent from './ESSwiperSlideView/ESSwiperSlideViewComponent'
 import registerESSwiperViewComponent from './ESSwiperView/ESSwiperViewComponent'
@@ -48,6 +48,8 @@ import registerESX5WebViewElementForAndroid from './ESX5WebView/ESX5WebViewEleme
 import registerESX5WebViewElementForHarmony from './ESX5WebView/ESX5WebViewElement.harmony'
 import registerESSeekBarViewElementForAndroid from './ESSeekBarView/ESSeekBarViewElement.android'
 import registerESSeekBarViewElementForHarmony from './ESSeekBarView/ESSeekBarViewElement.harmony'
+import registerESLottieViewForAndroid from './ESLottieView/ESLottieViewComponent.android'
+import registerESLottieViewElementForHarmony from './ESLottieView/ESLottieViewComponent.harmony'
 //
 export const ESComponent = (Vue) => {
   // android
@@ -55,12 +57,14 @@ export const ESComponent = (Vue) => {
     registerESLoadingViewElementForAndroid(Vue)
     registerESX5WebViewElementForAndroid(Vue)
     registerESSeekBarViewElementForAndroid(Vue)
+    registerESLottieViewForAndroid(Vue)
   }
   //harmony
   else {
     registerESLoadingViewElementForHarmony(Vue)
     registerESX5WebViewElementForHarmony(Vue)
     registerESSeekBarViewElementForHarmony(Vue)
+    registerESLottieViewElementForHarmony(Vue)
   }
 
   //

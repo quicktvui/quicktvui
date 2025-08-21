@@ -1,6 +1,6 @@
 import { ESApp, registerElement } from '@extscreen/es3-vue'
 
-function registerESLottieViewComponent(app: ESApp) {
+function registerESLottieViewElementForHarmony(app: ESApp) {
   registerElement('ESLottieViewComponent', {
     component: {
       name: 'ESLottieViewComponent',
@@ -26,4 +26,4 @@ function registerESLottieViewComponent(app: ESApp) {
   })
 }
 
-export default registerESLottieViewComponent
+export default registerESLottieViewElementForHarmony
