@@ -26,6 +26,16 @@ export interface QTIWebView extends QTIView {
 
   autoClickPosition(x: number, y: number): void
 
+  disableImageDisplay(): void
+
+  enableImageDisplay(): void
+
+  stopLoading(): void
+
+  clearView(): void
+
+  setListenEvents(value: string): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

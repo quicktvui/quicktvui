@@ -41,6 +41,12 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   enableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void
 
+  clearView(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  stopLoading(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  setListenEvents(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -377,6 +383,30 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'enableImageDisplay', []])
     } else if (isRef(instance) && instance.value) {
       instance.value?.enableImageDisplay()
+    }
+  }
+
+  function clearView(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'clearView', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.clearView()
+    }
+  }
+
+  function stopLoading(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'stopLoading', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.stopLoading()
+    }
+  }
+
+  function setListenEvents(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setListenEvents', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setListenEvents(value)
     }
   }
 
@@ -1322,6 +1352,9 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     autoClickPosition,
     disableImageDisplay,
     enableImageDisplay,
+    clearView,
+    stopLoading,
+    setListenEvents,
     //------------------------------------
     initWebView,
     loadUrl,

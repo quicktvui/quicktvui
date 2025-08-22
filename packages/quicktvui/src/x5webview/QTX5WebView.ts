@@ -131,6 +131,30 @@ function registerQTX5WebView(app: ESApp) {
         })
       }
 
+      const stopLoading = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'stopLoading', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const clearView = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'clearView', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const setListenEvents = (value: string) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'setListenEvents', [value], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -395,6 +419,9 @@ function registerQTX5WebView(app: ESApp) {
         autoClickPosition,
         enableImageDisplay,
         disableImageDisplay,
+        clearView,
+        stopLoading,
+        setListenEvents,
         //---------------------------------------------------------
         initWebView,
         loadUrl,
