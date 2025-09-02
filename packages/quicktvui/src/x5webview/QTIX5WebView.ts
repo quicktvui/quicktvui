@@ -42,6 +42,8 @@ export interface QTIX5WebView extends QTIView {
 
   setListenEvents(value: string): void
 
+  sendKeyCodeEvent(keyCode: number, action: number): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

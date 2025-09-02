@@ -47,6 +47,12 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setListenEvents(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
+  sendKeyCodeEvent(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number
+  ): void
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -407,6 +413,22 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setListenEvents', [value]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.setListenEvents(value)
+    }
+  }
+
+  function sendKeyCodeEvent(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'sendKeyCodeEvent',
+        [keyCode, action],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.sendKeyCodeEvent(keyCode, action)
     }
   }
 
@@ -1355,6 +1377,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     clearView,
     stopLoading,
     setListenEvents,
+    sendKeyCodeEvent,
     //------------------------------------
     initWebView,
     loadUrl,

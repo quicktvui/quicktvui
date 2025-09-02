@@ -155,6 +155,14 @@ function registerQTX5WebView(app: ESApp) {
         })
       }
 
+      const sendKeyCodeEvent = (keyCode: number, action: number) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'sendKeyCodeEvent', [keyCode, action], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -422,6 +430,7 @@ function registerQTX5WebView(app: ESApp) {
         clearView,
         stopLoading,
         setListenEvents,
+        sendKeyCodeEvent,
         //---------------------------------------------------------
         initWebView,
         loadUrl,
