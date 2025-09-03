@@ -44,6 +44,8 @@ export interface QTIX5WebView extends QTIView {
 
   sendKeyCodeEvent(keyCode: number, action: number): void
 
+  autoClickPositionWithDuration(keyCode: number, action: number, duration: number): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

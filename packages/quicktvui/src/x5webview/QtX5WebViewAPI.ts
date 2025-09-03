@@ -53,6 +53,13 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
     action: number
   ): void
 
+  autoClickPositionWithDuration(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number,
+    duration: number
+  ): void
+
   //---------------------------------------------------------------------------
 
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
@@ -429,6 +436,23 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       ])
     } else if (isRef(instance) && instance.value) {
       instance.value?.sendKeyCodeEvent(keyCode, action)
+    }
+  }
+
+  function autoClickPositionWithDuration(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number,
+    duration: number
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'autoClickPositionWithDuration',
+        [keyCode, action],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.autoClickPositionWithDuration(keyCode, action, duration)
     }
   }
 
@@ -1378,6 +1402,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     stopLoading,
     setListenEvents,
     sendKeyCodeEvent,
+    autoClickPositionWithDuration,
     //------------------------------------
     initWebView,
     loadUrl,

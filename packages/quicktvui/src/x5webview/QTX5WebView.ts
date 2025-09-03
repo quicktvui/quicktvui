@@ -163,6 +163,19 @@ function registerQTX5WebView(app: ESApp) {
         })
       }
 
+      const autoClickPositionWithDuration = (keyCode: number, action: number, duration: number) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'autoClickPositionWithDuration',
+            [keyCode, action, duration],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
+
       //--------------------------------------------------------------------------
 
       const evaluateJavascript = (value: string) => {
@@ -431,6 +444,7 @@ function registerQTX5WebView(app: ESApp) {
         stopLoading,
         setListenEvents,
         sendKeyCodeEvent,
+        autoClickPositionWithDuration,
         //---------------------------------------------------------
         initWebView,
         loadUrl,
