@@ -11,7 +11,8 @@ import './components/qt-seek-bar/css/qt-seek-bar-css.css'
 import { createESRouter, Router } from '@extscreen/es3-router'
 
 const routerOptions = {
-  main: 'splash',
+  // main: 'splash',
+  main: 'x5webview/qt_web_view_cast_page',
   error: 'error',
   limit: 10,
   routes: routes,

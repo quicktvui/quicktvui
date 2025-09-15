@@ -9,6 +9,7 @@ import {
 import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
+import { QTX5WebViewSniffingRule } from './QTX5WebViewSniffingRule'
 
 export interface QtX5WebViewAPI extends QtBaseViewAPI {
   reload(instance: string | Ref<QTIX5WebView | undefined>): void
@@ -70,6 +71,15 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
     instance: string | Ref<QTIX5WebView | undefined>,
     value: string
   ): Promise<string | undefined | null>
+
+  setSniffingEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  setSniffingRule(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewSniffingRule
+  ): void
+
+  resetSniffingRule(instance: string | Ref<QTIX5WebView | undefined>): void
 
   canGoBack(instance: string | Ref<QTIX5WebView | undefined>): Promise<boolean>
 
@@ -495,6 +505,40 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       return instance.value!.evaluateJavascript(value)
     } else {
       return Promise.reject()
+    }
+  }
+
+  function setSniffingEnabled(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setSniffingEnabled',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setSniffingEnabled(value)
+    }
+  }
+
+  function setSniffingRule(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewSniffingRule
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSniffingRule', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setSniffingRule(value)
+    }
+  }
+
+  function resetSniffingRule(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetSniffingRule', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.resetSniffingRule()
     }
   }
 
@@ -1407,6 +1451,9 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     initWebView,
     loadUrl,
     evaluateJavascript,
+    setSniffingEnabled,
+    setSniffingRule,
+    resetSniffingRule,
     canGoBack,
     goBack,
     canGoForward,

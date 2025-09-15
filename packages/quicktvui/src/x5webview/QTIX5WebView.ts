@@ -1,5 +1,7 @@
 import { QTIView } from '../view/QTIView'
 import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
+import { QTX5WebViewSniffingRule } from './QTX5WebViewSniffingRule'
+import { Native } from '@extscreen/es3-vue'
 
 export interface QTX5WebViewParams {
   [prop: string]: any
@@ -49,6 +51,12 @@ export interface QTIX5WebView extends QTIView {
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
+
+  setSniffingEnabled(value: boolean): void
+
+  setSniffingRule(value: QTX5WebViewSniffingRule): void
+
+  resetSniffingRule(): void
 
   canGoBack(): Promise<boolean>
 

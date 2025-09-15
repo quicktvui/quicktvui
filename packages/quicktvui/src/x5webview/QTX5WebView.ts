@@ -3,6 +3,7 @@ import { defineComponent, h, onMounted, ref } from 'vue'
 import useBaseView from '../base/useBaseView'
 import { QTX5WebViewParams } from './QTIX5WebView'
 import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
+import { QTX5WebViewSniffingRule } from './QTX5WebViewSniffingRule'
 
 function registerQTX5WebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -22,6 +23,7 @@ function registerQTX5WebView(app: ESApp) {
       'onJsFinishGame',
       'onProgressChanged',
       'onConsoleMessage',
+      'onSniffingResult',
     ],
     setup(props, context) {
       const webViewRef = ref()
@@ -185,6 +187,19 @@ function registerQTX5WebView(app: ESApp) {
           })
         })
       }
+
+      const setSniffingEnabled = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setSniffingEnabled', [value], (res) => {})
+      }
+
+      const setSniffingRule = (value: QTX5WebViewSniffingRule) => {
+        Native.callUIFunction(webViewRef.value, 'setSniffingRule', [value], (res) => {})
+      }
+
+      const resetSniffingRule = () => {
+        Native.callUIFunction(webViewRef.value, 'resetSniffingRule', [], (res) => {})
+      }
+
       const canGoBack = () => {
         return new Promise((resolve, reject) => {
           Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
@@ -449,6 +464,9 @@ function registerQTX5WebView(app: ESApp) {
         initWebView,
         loadUrl,
         evaluateJavascript,
+        setSniffingEnabled,
+        setSniffingRule,
+        resetSniffingRule,
         canGoBack,
         goBack,
         canGoForward,
@@ -568,6 +586,11 @@ function registerQTX5WebView(app: ESApp) {
             let sourceId = evt.sourceId
             let lineNumber = evt.lineNumber
             context.emit('onConsoleMessage', message, messageLevel, sourceId, lineNumber)
+          },
+          onSniffingResult: (evt) => {
+            let url = evt.url
+            let headers = evt.headers
+            context.emit('onSniffingResult', url, headers)
           },
           ref: webViewRef,
         })

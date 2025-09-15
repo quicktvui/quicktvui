@@ -238,6 +238,11 @@ export { QTWebViewLayerType } from './webview/QTWebViewLayerType'
 //QTX5WebView
 export type { QTIX5WebView, QTX5WebViewParams } from './x5webview/QTIX5WebView'
 export { QTX5WebViewLayerType } from './x5webview/QTX5WebViewLayerType'
+export {
+  QTX5WebViewSniffingRule,
+  QTX5WebViewSniffingUrlRuleItem,
+  QTX5WebViewSniffingHeaderRuleItem,
+} from './x5webview/QTX5WebViewSniffingRule'
 
 //QTISeekBar
 export type { QTISeekBar } from './seekbar/QTISeekBar'
