@@ -80,6 +80,10 @@ function registerQTX5WebView(app: ESApp) {
         Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
       }
 
+      const setIgnoreAllKeyEvent = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setIgnoreAllKeyEvent', [value], (res) => {})
+      }
+
       const getBackForwardList = () => {
         return new Promise((resolve, reject) => {
           Native.callUIFunction(webViewRef.value, 'getBackForwardList', [], (res) => {
@@ -449,6 +453,7 @@ function registerQTX5WebView(app: ESApp) {
         getOriginalUrl,
         setLayerType,
         setIgnoreCA,
+        setIgnoreAllKeyEvent,
         getBackForwardList,
         getCurrentIndexWithBackForwardList,
         getScreenStatus,

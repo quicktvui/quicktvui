@@ -48,6 +48,8 @@ export interface QTIX5WebView extends QTIView {
 
   autoClickPositionWithDuration(keyCode: number, action: number, duration: number): void
 
+  setIgnoreAllKeyEvent(value: boolean): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

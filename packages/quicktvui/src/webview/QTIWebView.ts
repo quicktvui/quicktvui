@@ -36,6 +36,8 @@ export interface QTIWebView extends QTIView {
 
   setListenEvents(value: string): void
 
+  setIgnoreAllKeyEvent(value: boolean): void
+
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>

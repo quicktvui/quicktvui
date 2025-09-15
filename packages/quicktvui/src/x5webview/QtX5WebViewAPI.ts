@@ -26,6 +26,8 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 
   setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
 
+  setIgnoreAllKeyEvent(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
   getBackForwardList(
     instance: string | Ref<QTIX5WebView | undefined>
   ): Promise<Array<Record<string, any>>>
@@ -317,6 +319,21 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setIgnoreCA', [value]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.setIgnoreCA(value)
+    }
+  }
+
+  function setIgnoreAllKeyEvent(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setIgnoreAllKeyEvent',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setIgnoreAllKeyEvent(value)
     }
   }
 
@@ -1436,6 +1453,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     getOriginalUrl,
     setLayerType,
     setIgnoreCA,
+    setIgnoreAllKeyEvent,
     getBackForwardList,
     getCurrentIndexWithBackForwardList,
     getScreenStatus,
