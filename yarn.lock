@@ -1297,10 +1297,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-service-player/-/es3-audio-service-player-1.0.13.tgz#5de28102815ac1c602f8849a1f08bf3b3fad03bc"
   integrity sha512-KOOpzyvd+sFTUaZlCGcu4gWzyyQW6nv7ZYAFLuVhltPe3RONkooXFyogiLs0kUQzNXuTWa2Z+FQLq0uBHejnfA==
 
-"@extscreen/es3-component@1.0.37-beta.1":
-  version "1.0.37-beta.1"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.37-beta.1.tgz#1f32fbcb0a9e37275140fed3d2e18cd4c316ee65"
-  integrity sha512-h933Q3jhYEf9jvMLO63kUvkU7Z5wxC6UEIFLl3BKpc1amPhZV+juTx1E7z/qTYOu94+kNl7/rqvVXxvsCS32pQ==
+"@extscreen/es3-component@1.0.37-beta.2":
+  version "1.0.37-beta.2"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-1.0.37-beta.2.tgz#a8ca28bbd958cafd941ee9cc96127f16ecacd999"
+  integrity sha512-yYoEBy6m5rNCNACcp7hZNj5VMnyDs/m9TJ9eO40RjryaVYJfY1TsV8QdUZDW23qmH6NTdgpN0P9fxnQNUIlJCg==
 
 "@extscreen/es3-core@1.2.3":
   version "1.2.3"
@@ -1639,10 +1639,10 @@
   resolved "https://registry.yarnpkg.com/@quicktvui/html-core/-/html-core-0.0.1-beta.1.tgz#a8f94b5ccb9398b07fe74edc44e65b19b194de48"
   integrity sha512-gHSsC3xLuv5Qgjj6jqdxJEZ77XeeatbKUsC00PT+yG+NoWq9ymHvPnixjA4ZZ8wjyxfCAxEdNhfFGS96fuNvUg==
 
-"@quicktvui/quicktvui3@1.2.0-beta.61":
-  version "1.2.0-beta.61"
-  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-1.2.0-beta.61.tgz#f958a280c8331e0efaf39d4e2ec413a6cb58de59"
-  integrity sha512-UrvRkn/NQJLEA+HDetBpTtgkQXphVbcBO7qzcPG8NXo64qbeeP8xR5Ydu7Xb4UzcU15FkTxRitRirk/WCYngfw==
+"@quicktvui/quicktvui3@1.2.0-beta.63":
+  version "1.2.0-beta.63"
+  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-1.2.0-beta.63.tgz#fc1213a14ed50bcb8f27e6f672e272acd514327f"
+  integrity sha512-gbUABuX7jMgj45w19NIigJhvrZ8kxHCdjgUG0QZ1/xHjkQUjR+GoNT24jAjjDSGVd2MO45hyvNbfMwJPjw4R3g==
 
 "@rollup/plugin-alias@^3.1.9":
   version "3.1.9"

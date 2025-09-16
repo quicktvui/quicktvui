@@ -1,5 +1,6 @@
 import { QTIView } from '../view/QTIView'
 import { QTWebViewLayerType } from './QTWebViewLayerType'
+import { QTX5WebViewSniffingRule } from '../x5webview/QTX5WebViewSniffingRule'
 
 export interface QTIWebView extends QTIView {
   loadUrl(url: string): void
@@ -41,6 +42,12 @@ export interface QTIWebView extends QTIView {
   //-------------------------------------------------------------
 
   evaluateJavascript(value: string): Promise<string | undefined | null>
+
+  setSniffingEnabled(value: boolean): void
+
+  setSniffingRule(value: QTX5WebViewSniffingRule): void
+
+  resetSniffingRule(): void
 
   setUserAgent(value: string): void
 

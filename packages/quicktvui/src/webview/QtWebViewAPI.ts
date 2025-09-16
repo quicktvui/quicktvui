@@ -9,6 +9,7 @@ import {
 import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 import { QTWebViewLayerType } from './QTWebViewLayerType'
+import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
 
 export interface QtWebViewAPI extends QtBaseViewAPI {
   reload(instance: string | Ref<QTIWebView | undefined>): void
@@ -42,6 +43,15 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
     instance: string | Ref<QTIWebView | undefined>,
     value: string
   ): Promise<string | undefined | null>
+
+  setSniffingEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+
+  setSniffingRule(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: QTWebViewSniffingRule
+  ): void
+
+  resetSniffingRule(instance: string | Ref<QTIWebView | undefined>): void
 
   setUserAgent(instance: string | Ref<QTIWebView | undefined>, value: string): void
 
@@ -458,6 +468,40 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
       return instance.value!.evaluateJavascript(value)
     } else {
       return Promise.reject()
+    }
+  }
+
+  function setSniffingEnabled(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setSniffingEnabled',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setSniffingEnabled(value)
+    }
+  }
+
+  function setSniffingRule(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: QTWebViewSniffingRule
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSniffingRule', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setSniffingRule(value)
+    }
+  }
+
+  function resetSniffingRule(instance: string | Ref<QTIWebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetSniffingRule', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.resetSniffingRule()
     }
   }
 
@@ -1342,6 +1386,9 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     //------------------------------------
     loadUrl,
     evaluateJavascript,
+    setSniffingEnabled,
+    setSniffingRule,
+    resetSniffingRule,
     setUserAgent,
     canGoBack,
     goBack,

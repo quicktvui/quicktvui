@@ -3,6 +3,7 @@ import { defineComponent, h, onMounted, ref } from 'vue'
 
 import useBaseView from '../base/useBaseView'
 import { QTWebViewLayerType } from './QTWebViewLayerType'
+import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
 
 function registerQTWebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -18,6 +19,7 @@ function registerQTWebView(app: ESApp) {
       'onReceivedError',
       'shouldOverrideUrlLoading',
       'onJs2Vue',
+      'onSniffingResult',
     ],
     setup(props, context) {
       const webViewRef = ref()
@@ -160,6 +162,17 @@ function registerQTWebView(app: ESApp) {
             resolve(res)
           })
         })
+      }
+      const setSniffingEnabled = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setSniffingEnabled', [value], (res) => {})
+      }
+
+      const setSniffingRule = (value: QTWebViewSniffingRule) => {
+        Native.callUIFunction(webViewRef.value, 'setSniffingRule', [value], (res) => {})
+      }
+
+      const resetSniffingRule = () => {
+        Native.callUIFunction(webViewRef.value, 'resetSniffingRule', [], (res) => {})
       }
       const setUserAgent = (value: string) => {
         Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {})
@@ -429,6 +442,9 @@ function registerQTWebView(app: ESApp) {
         //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,
+        setSniffingEnabled,
+        setSniffingRule,
+        resetSniffingRule,
         setUserAgent,
         canGoBack,
         goBack,
@@ -530,6 +546,11 @@ function registerQTWebView(app: ESApp) {
           onJs2Vue: (evt) => {
             let value = evt.js2VueValue
             context.emit('onJs2Vue', value)
+          },
+          onSniffingResult: (evt) => {
+            let url = evt.url
+            let headers = evt.headers
+            context.emit('onSniffingResult', url, headers)
           },
           ref: webViewRef,
         })

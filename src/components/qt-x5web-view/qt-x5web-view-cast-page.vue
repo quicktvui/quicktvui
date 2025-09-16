@@ -12,6 +12,7 @@
       :ignoreCA="true"
       :focusable="false"
       @onSniffingResult="onSniffingResult"
+      @onShouldOverrideUrlLoading="onShouldOverrideUrlLoading"
     />
     <es-video-player
       ref="videoPlayer"
@@ -126,12 +127,22 @@ export default defineComponent({
       // webview.value?.loadUrl('https://www.eggvo.com/play/115094-0-0.html') // 茶杯狐，识别出单个地址
       // webview.value?.loadUrl('https://www.eggvo.com/play/37878-0-0.html')
       // webview.value?.loadUrl('https://www.dytt8s.com/a/play-64586-1-4.html') // 电影天堂，识别出单个地址
-      webview.value?.loadUrl('https://www.libvio.cc/play/714892764-2-1.html') // lib vio，识别出单个地址 需header和apollo
+      // webview.value?.loadUrl('https://www.libvio.cc/play/714892764-2-1.html') // lib vio，识别出单个地址 需header和apollo
       // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
       // webview.value?.loadUrl('http://www.pianwuwenhua.com/bf/123590/1-1.html') // 梦宁，识别出2个有效地址
       // webview.value?.loadUrl('https://www.ncat21.com/play/302195-32-2358105.html') // 网飞猫，识别出单个地址 参数有时间戳
       // webview.value?.loadUrl('https://www.0996zp.com/vod/play/118886/1/956025') // 金牌影院，识别出单个地址 参数有auth_key
       // webview.value?.loadUrl('https://m.wbtdy.net/vod-play-id-265059-src-1-num-1.html') // 微博影院，识别出单个地址
+
+      // 央视频
+      // webview.value?.loadUrl('https://www.yangshipin.cn/tv/home?pid=600002521')
+
+      // 可可影视
+      // webview.value?.loadUrl('https://m.cdblsgg.com/')
+      // libvio
+      webview.value?.loadUrl('https://www.libvio.cc/')
+      // vidhub
+      // webview.value?.loadUrl('https://vidhub4.cc/')
 
       videoPlayer.value?.initialize()
     }
@@ -141,77 +152,81 @@ export default defineComponent({
       return match ? match[1] : null
     }
 
+    function onShouldOverrideUrlLoading(url: string) {
+      console.log('onShouldOverrideUrlLoading', url)
+    }
+
     function onSniffingResult(url: string, headers) {
       console.log('onSniffingResult', url, headers)
-      if (headers.Referer && headers.Referer.includes('bilibili')) {
-        if (headers.Range && headers.Range.includes('bytes=0-')) {
-          const bw = Number(getBwWithRegex(url))
-          if (bw > 0) {
-            if (videoUrl.bw > 0) {
-              if (videoUrl.bw < bw) {
-                const tempUrl = videoUrl.url
-                const tempBw = videoUrl.bw
-                videoUrl.url = url
-                videoUrl.bw = bw
-                audioUrl.url = tempUrl
-                audioUrl.bw = tempBw
-              } else {
-                audioUrl.url = url
-                audioUrl.bw = bw
-              }
-
-              let mediaSource: ESMediaSource = {
-                uri: videoUrl.url,
-                metadata: {
-                  headers: {
-                    'User-Agent': headers['User-Agent'],
-                    Referer: headers['Referer'],
-                    Origin: headers['Origin'],
-                  },
-                  audios: [
-                    {
-                      url: audioUrl.url,
-                    },
-                  ],
-                },
-              }
-
-              playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
-              onPlayerInitialized(mediaSource)
-            } else {
-              videoUrl.url = url
-              videoUrl.bw = bw
-            }
-          }
-          console.log('onSniffingResult2', bw)
-        }
-      } else if (!url.includes('/youku/')) {
-        let mediaSource: ESMediaSource = {
-          uri: url,
-          metadata: {
-            headers: {
-              Referer: headers['Referer'],
-              Origin: headers['Origin'],
-            },
+      // if (headers.Referer && headers.Referer.includes('bilibili')) {
+      //   if (headers.Range && headers.Range.includes('bytes=0-')) {
+      //     const bw = Number(getBwWithRegex(url))
+      //     if (bw > 0) {
+      //       if (videoUrl.bw > 0) {
+      //         if (videoUrl.bw < bw) {
+      //           const tempUrl = videoUrl.url
+      //           const tempBw = videoUrl.bw
+      //           videoUrl.url = url
+      //           videoUrl.bw = bw
+      //           audioUrl.url = tempUrl
+      //           audioUrl.bw = tempBw
+      //         } else {
+      //           audioUrl.url = url
+      //           audioUrl.bw = bw
+      //         }
+      //
+      //         let mediaSource: ESMediaSource = {
+      //           uri: videoUrl.url,
+      //           metadata: {
+      //             headers: {
+      //               'User-Agent': headers['User-Agent'],
+      //               Referer: headers['Referer'],
+      //               Origin: headers['Origin'],
+      //             },
+      //             audios: [
+      //               {
+      //                 url: audioUrl.url,
+      //               },
+      //             ],
+      //           },
+      //         }
+      //
+      //         playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
+      //         onPlayerInitialized(mediaSource)
+      //       } else {
+      //         videoUrl.url = url
+      //         videoUrl.bw = bw
+      //       }
+      //     }
+      //     console.log('onSniffingResult2', bw)
+      //   }
+      // } else if (!url.includes('/youku/')) {
+      let mediaSource: ESMediaSource = {
+        uri: url,
+        metadata: {
+          headers: {
+            Referer: headers['Referer'],
+            Origin: headers['Origin'],
           },
-        }
-        let options = playerConfiguration.options
-        if (!options) {
-          options = []
-        }
-
-        options.push({
-          type: ESPlayerOptionType.ES_PLAYER_OPTION_TYPE_STRING,
-          category: ESPlayerOptionCategory.ES_PLAYER_OPTION_CATEGORY_FORMAT,
-          name: 'user_agent',
-          value: headers['User-Agent'],
-        })
-
-        playerConfiguration.options = options
-        playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_IJK)
-        // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
-        onPlayerInitialized(mediaSource)
+        },
       }
+      let options = playerConfiguration.options
+      if (!options) {
+        options = []
+      }
+
+      options.push({
+        type: ESPlayerOptionType.ES_PLAYER_OPTION_TYPE_STRING,
+        category: ESPlayerOptionCategory.ES_PLAYER_OPTION_CATEGORY_FORMAT,
+        name: 'user_agent',
+        value: headers['User-Agent'],
+      })
+
+      playerConfiguration.options = options
+      playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_IJK)
+      // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
+      onPlayerInitialized(mediaSource)
+      // }
     }
 
     function onPlayerInitialized(mediaSource: ESMediaSource) {
@@ -235,6 +250,7 @@ export default defineComponent({
       onESCreate,
       onPageStarted,
       onSniffingResult,
+      onShouldOverrideUrlLoading,
       onPlayerInitialized,
       onBackPressed,
     }
