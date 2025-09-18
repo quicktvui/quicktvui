@@ -6,8 +6,7 @@ import {
   Native,
 } from '@extscreen/es3-vue'
 import type { App } from '@vue/runtime-core'
-import { h, ref } from '@vue/runtime-core'
-import { defineComponent } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 
 export function registerTVImageComponent(vueApp: App) {
   registerElement('h-tv-img', {

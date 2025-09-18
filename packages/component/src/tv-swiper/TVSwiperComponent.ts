@@ -1,7 +1,6 @@
 import type { App } from '@vue/runtime-core'
-import { h, ref } from '@vue/runtime-core'
 import { Native, registerElement } from '@extscreen/es3-vue'
-import { defineComponent, watch } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 
 export function registerTVSwiperComponent(vueApp: App): void {
   registerElement('tv-hi-swiper', {
