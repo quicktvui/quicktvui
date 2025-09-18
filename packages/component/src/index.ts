@@ -50,6 +50,13 @@ import registerESSeekBarViewElementForAndroid from './ESSeekBarView/ESSeekBarVie
 import registerESSeekBarViewElementForHarmony from './ESSeekBarView/ESSeekBarViewElement.harmony'
 import registerESLottieViewForAndroid from './ESLottieView/ESLottieViewComponent.android'
 import registerESLottieViewElementForHarmony from './ESLottieView/ESLottieViewComponent.harmony'
+
+//-----------------------------------------------------------------
+import { registerTVDivComponent } from './tv-div/TVDivComponent'
+import { registerTVImageComponent } from './tv-image/TVImageComponent'
+import { registerTVLiComponent } from './tv-li/TVLiComponent'
+import { registerTVSwiperComponent } from './tv-swiper/TVSwiperComponent'
+import { registerTVULComponent } from './tv-ul/TVULComponent'
 //
 export const ESComponent = (Vue) => {
   // android
@@ -107,6 +114,13 @@ export const ESComponent = (Vue) => {
   //
   registerESSwiperSlideViewComponent(Vue)
   registerESSwiperViewComponent(Vue)
+
+  //---------------------------------------------------------
+  registerTVDivComponent(Vue)
+  registerTVImageComponent(Vue)
+  registerTVLiComponent(Vue)
+  registerTVSwiperComponent(Vue)
+  registerTVULComponent(Vue)
 }
 
 //---------------------------------------------------------

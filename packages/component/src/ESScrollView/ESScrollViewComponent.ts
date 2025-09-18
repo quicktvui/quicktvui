@@ -9,6 +9,7 @@ function registerESScrollViewComponent(app: ESApp) {
   })
 
   const ScrollViewImpl = defineComponent({
+    emits: [],
     setup(props, context) {
       const viewRef = ref()
 
