@@ -42,6 +42,11 @@ import web_nav_audio_service_page from './web-nav-audio-service-page'
 import web_nav_h_page from './web-nav-h-page'
 import web_nav_alert_page from './web-nav-alert-page'
 //--------------------------------------------------------------------
+import qt_nav_tv_div_page from './qt-nav-tv-div-page'
+import qt_nav_tv_image_page from './qt-nav-tv-image-page'
+import qt_nav_tv_swiper_page from './qt-nav-tv-swiper-page'
+import qt_nav_tv_ul_page from './qt-nav-tv-ul-page'
+//--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
     name: ' 🟢 QTView',
@@ -208,6 +213,23 @@ const QTAPINavPageList = {
   web_nav_alert_page: {
     name: 'Alert',
     component: web_nav_alert_page,
+  },
+  //----------------------------------------------
+  qt_nav_tv_div_page: {
+    name: 'tv-div',
+    component: qt_nav_tv_div_page,
+  },
+  qt_nav_tv_image_page: {
+    name: 'tv-image',
+    component: qt_nav_tv_image_page,
+  },
+  qt_nav_tv_swiper_page: {
+    name: 'tv-swiper',
+    component: qt_nav_tv_swiper_page,
+  },
+  qt_nav_tv_ul_page: {
+    name: 'tv-ul',
+    component: qt_nav_tv_ul_page,
   },
 }
 

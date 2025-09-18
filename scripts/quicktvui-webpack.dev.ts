@@ -70,8 +70,8 @@ module.exports = {
       },
       // ESRouter配置
       __ES_ROUTER_FEATURE_FLAGS__: JSON.stringify({
-        ROOT_VIEW_COMPONENT_NAME: 'div',
-        PAGE_VIEW_COMPONENT_NAME: 'div',
+        // ROOT_VIEW_COMPONENT_NAME: 'div',
+        // PAGE_VIEW_COMPONENT_NAME: 'div',
       }),
     }),
     new ESDynamicImportPlugin(),

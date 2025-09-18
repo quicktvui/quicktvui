@@ -62,7 +62,12 @@ import WebVideoPageList from './components/web-video'
 import WebAudioPageList from './components/web-audio'
 import WebAudioServicePageList from './components/web-audio-service'
 import WebHPageList from './components/web-h'
-
+//--------------------------------------------------------------------------------
+import QTTVDivPageList from './components/qt-tv-div'
+import QTTVImagePageList from './components/qt-tv-image'
+import QTTVSwiperPageList from './components/qt-tv-swiper'
+import QTTVUlPageList from './components/qt-tv-ul'
+//--------------------------------------------------------------------------------
 const routes = [
   {
     path: '/splash',
@@ -346,6 +351,27 @@ const routes = [
     path: `/web-alert/${item}`,
     name: `web-alert/${item}`,
     component: WebAlertPageList[item].component,
+  })),
+  //-----------------------------------------------------------------------
+  ...Object.keys(QTTVDivPageList).map((item) => ({
+    path: `/tv-div/${item}`,
+    name: `tv-div/${item}`,
+    component: QTTVDivPageList[item].component,
+  })),
+  ...Object.keys(QTTVImagePageList).map((item) => ({
+    path: `/tv-image/${item}`,
+    name: `tv-image/${item}`,
+    component: QTTVImagePageList[item].component,
+  })),
+  ...Object.keys(QTTVSwiperPageList).map((item) => ({
+    path: `/tv-swiper/${item}`,
+    name: `tv-swiper/${item}`,
+    component: QTTVSwiperPageList[item].component,
+  })),
+  ...Object.keys(QTTVUlPageList).map((item) => ({
+    path: `/tv-ul/${item}`,
+    name: `tv-ul/${item}`,
+    component: QTTVUlPageList[item].component,
   })),
 ]
 
