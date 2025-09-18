@@ -2,11 +2,17 @@
   <div class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
-    <qt-row class="qt-sdk-content-row-css">
-      <tv-div class="tv-div-css" @scroll="onOuterScroll" name="name0">
-        <label>文字文字文字文字文字</label>
+    <qt-column class="es-sdk-content-column-css" style="background-color: #40b883">
+      <tv-div class="tv-div-opacity-css" opacity="0.2">
+        <p>opacity: 0.2</p>
       </tv-div>
-    </qt-row>
+      <tv-div class="tv-div-opacity-css" opacity="0.5">
+        <p>opacity: 0.5</p>
+      </tv-div>
+      <tv-div class="tv-div-opacity-css" opacity="0.8">
+        <p>opacity: 0.8</p>
+      </tv-div>
+    </qt-column>
   </div>
 </template>
 
@@ -14,37 +20,22 @@
 import { defineComponent, ref } from '@vue/runtime-core'
 
 export default defineComponent({
-  name: '使用初探',
+  name: 'opacity',
   emits: [],
   setup() {
-    const offsetY = ref(0)
-
     function onESCreate(params) {}
 
-    const onOuterScroll = (e) => {
-      offsetY.value = e.offsetY
-    }
-
     return {
-      offsetY,
       onESCreate,
-      onOuterScroll,
     }
   },
 })
 </script>
 
 <style>
-.tv-div-css {
+.tv-div-opacity-css {
   width: 200px;
   height: 200px;
   background-color: red;
-}
-
-.qt-sdk-content-row-css {
-  width: 1920px;
-  height: 1080px;
-  align-items: center;
-  justify-content: center;
 }
 </style>
