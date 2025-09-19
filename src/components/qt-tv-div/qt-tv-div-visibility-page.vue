@@ -34,17 +34,14 @@ export default defineComponent({
     const visible = ref<boolean>(true)
 
     function setVisibilityGone() {
-      console.log('======setVisibilityGone==============', divRef.value)
       divRef.value?.setVisibility(QTVisibility.QT_GONE)
     }
 
     function setVisibilityInvisible() {
-      console.log('======setVisibilityInvisible==============', divRef.value)
       divRef.value?.setVisibility(QTVisibility.QT_INVISIBLE)
     }
 
     function setVisibilityVisible() {
-      console.log('======setVisibilityVisible==============', divRef.value)
       divRef.value?.setVisibility(QTVisibility.QT_VISIBLE)
     }
 

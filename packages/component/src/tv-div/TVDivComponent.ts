@@ -86,8 +86,8 @@ export function registerTVDivComponent(vueApp: App) {
         })
       }
 
-      function setBackGroundColor(focusAbility: string, id: string) {
-        Native.callUIFunction(viewRef.value, 'setBackGroundColor', [focusAbility, id])
+      function setBackgroundColor(focusAbility: string, id: string) {
+        Native.callUIFunction(viewRef.value, 'setBackgroundColor', [focusAbility, id])
       }
 
       function setVisibility(v: QTVisibility) {
@@ -107,7 +107,7 @@ export function registerTVDivComponent(vueApp: App) {
         requestFocusDirectly,
         clearFocus,
         setVisibility,
-        setBackGroundColor,
+        setBackgroundColor,
         isFocused,
         hasFocus,
         blur,
