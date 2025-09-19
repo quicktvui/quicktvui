@@ -1,6 +1,14 @@
 import { ESApp, Native, registerElement } from '@extscreen/es3-vue'
 import { h, ref } from 'vue'
 import useBaseView from '../base/useBaseView'
+import {
+  QTLongImageCenterChangeBean,
+  QTLongImageDownloadChangeBean,
+  QTLongImageLoadStatusChangeBean,
+  QTLongImageScaleChangeBean,
+  QTLongImageScrollChangeBean,
+  QTLongImageShowChangeBean,
+} from './QTLongImageEventBean'
 
 function registerQTLongImageComponent(app: ESApp) {
   const LongImageComponent = {
@@ -9,6 +17,7 @@ function registerQTLongImageComponent(app: ESApp) {
       processEventData(
         evtData,
         nativeEventParams: {
+          fileId: string
           status: number
           progress: number
           message: string
@@ -19,18 +28,40 @@ function registerQTLongImageComponent(app: ESApp) {
           scrollProgressIndicator: number
           isScrollEdge: boolean
           isScroll: boolean
+          mimeType: string
+          isGif: boolean
+          scale: number
+          minScale: number
+          maxScale: number
+          origin: number
+          x: number
+          y: number
         }
       ) {
         const { handler: event, __evt: nativeEventName } = evtData
         switch (nativeEventName) {
-          case 'onLongImageChange':
+          case 'onImageDownLoadChange': // 原 onLongImageChange
+            event.fileId = nativeEventParams.fileId
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
+            event.mimeType = nativeEventParams.mimeType
             event.status = nativeEventParams.status
             event.progress = nativeEventParams.progress
             event.message = nativeEventParams.message
             break
+          case 'onImageLoadStatusChange':
+            event.fileId = nativeEventParams.fileId
+            event.status = nativeEventParams.status
+            event.message = nativeEventParams.message
+            event.isGif = nativeEventParams.isGif
+            event.width = nativeEventParams.width
+            event.height = nativeEventParams.height
+            event.scale = nativeEventParams.scale
+            event.minScale = nativeEventParams.minScale
+            event.maxScale = nativeEventParams.maxScale
+            break
           case 'onScroll':
+            event.fileId = nativeEventParams.fileId
             event.width = nativeEventParams.width
             event.height = nativeEventParams.height
             event.direction = nativeEventParams.direction
@@ -38,11 +69,19 @@ function registerQTLongImageComponent(app: ESApp) {
             event.isScroll = nativeEventParams.isScrollEdge
             break
           case 'onShow':
-            event.width = nativeEventParams.width
-            event.height = nativeEventParams.height
-            event.direction = nativeEventParams.direction
-            event.percent = nativeEventParams.scrollProgressIndicator
+            event.fileId = nativeEventParams.fileId
             event.isScroll = nativeEventParams.isScroll
+            break
+          case 'onScaleChanged':
+            event.fileId = nativeEventParams.fileId
+            event.scale = nativeEventParams.scale
+            event.origin = nativeEventParams.origin
+            break
+          case 'onCenterChanged':
+            event.fileId = nativeEventParams.fileId
+            event.x = nativeEventParams.x
+            event.y = nativeEventParams.y
+            event.origin = nativeEventParams.origin
             break
           default:
             break
@@ -115,34 +154,124 @@ function registerQTLongImageComponent(app: ESApp) {
       return () => {
         return h('ESLongImageViewComponent', {
           ref: viewRef,
-          onLongImageChange: (evt) => {
+          onImageDownLoadChange: (evt) => {
             const width = evt.width
             const height = evt.height
             const status = evt.status
             const message = evt.message
             const progress = evt.progress
+            const fileId = evt.fileId
+            const mimeType = evt.mimeType
             console.log(
-              '---------onLongImageChange------------->>>>',
+              '---------onImageDownLoadChange------------->>>>',
               status,
               progress,
               message,
               width,
-              height
+              height,
+              fileId,
+              mimeType
             )
 
-            context.emit('onLoad', status, progress, message, width, height)
+            const changeBean: QTLongImageDownloadChangeBean = {
+              fileId,
+              status,
+              message,
+              progress,
+              width,
+              height,
+              mimeType,
+            }
+            context.emit('onDownLoad', changeBean)
+          },
+          onImageLoadStatusChange: (evt) => {
+            const fileId = evt.fileId
+            const status = evt.status
+            const message = evt.message
+            const isGif = evt.isGif
+            const width = evt.width
+            const height = evt.height
+            const scale = evt.scale
+            const minScale = evt.minScale
+            const maxScale = evt.maxScale
+            console.log(
+              '---------onImageLoadStatusChange------------->>>>',
+              fileId,
+              status,
+              message,
+              isGif,
+              width,
+              height,
+              scale,
+              minScale,
+              maxScale
+            )
+
+            const changeBean: QTLongImageLoadStatusChangeBean = {
+              fileId,
+              status,
+              message,
+              isGif,
+              width,
+              height,
+              scale,
+              minScale,
+              maxScale,
+            }
+            context.emit('onImageLoad', changeBean)
           },
           onScroll: (evt) => {
+            const fileId = evt.fileId
             const width = evt.width
             const height = evt.height
             const direction = evt.direction
             const percent = evt.percent
             const isScroll = evt.isScroll
-            context.emit('onScroll', direction, percent, isScroll, width, height)
+
+            const scrollBean: QTLongImageScrollChangeBean = {
+              fileId,
+              direction,
+              percent,
+              isScroll,
+              width,
+              height,
+            }
+            context.emit('onScroll', scrollBean)
           },
           onShow: (evt) => {
             const scrollable = evt.isScroll
-            context.emit('onRendered', scrollable)
+            const fileId = evt.fileId
+            const showBean: QTLongImageShowChangeBean = {
+              fileId,
+              scrollable,
+            }
+            context.emit('onRendered', showBean)
+          },
+          onScaleChanged: (evt) => {
+            const fileId = evt.fileId
+            const scale = evt.scale
+            const origin = evt.origin
+            const changeBean: QTLongImageScaleChangeBean = {
+              fileId,
+              scale,
+              origin,
+            }
+            context.emit('onScaleChanged', changeBean)
+          },
+          onCenterChanged: (evt) => {
+            const fileId = evt.fileId
+            const scale = evt.scale
+            const origin = evt.origin
+            const x = evt.x
+            const y = evt.y
+            const changeBean: QTLongImageCenterChangeBean = {
+              fileId,
+              scale,
+              origin,
+              x,
+              y,
+            }
+            context.emit('onCenterChanged', changeBean)
           },
         })
       }
