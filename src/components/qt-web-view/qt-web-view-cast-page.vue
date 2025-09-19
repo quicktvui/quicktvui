@@ -4,7 +4,7 @@
     <!--                  :text="this.$options.name"/>-->
     <!--    <div class="es-sdk-content-divider-css"/>-->
     <!--    <div class="es-sdk-content-row-css">-->
-    <qt-x5web-view
+    <qt-web-view
       @onPageStarted="onPageStarted"
       ref="webview"
       class="es-sdk-web-view-css"
@@ -12,7 +12,7 @@
       :ignoreCA="true"
       :focusable="false"
       @onSniffingResult="onSniffingResult"
-      @onShouldOverrideUrlLoading="onShouldOverrideUrlLoading"
+      @shouldOverrideUrlLoading="onShouldOverrideUrlLoading"
     />
     <es-video-player
       ref="videoPlayer"
@@ -39,7 +39,7 @@ import {
   ESPlayerOptionCategory,
 } from '@extscreen/es3-player'
 import { useESRouter } from '@extscreen/es3-router'
-import { QTIX5WebView } from '@quicktvui/quicktvui3'
+import { QTIWebView } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '网页投屏',
@@ -47,7 +47,7 @@ export default defineComponent({
     'es-video-player': ESVideoPlayer,
   },
   setup() {
-    const webview = ref<QTIX5WebView>()
+    const webview = ref<QTIWebView>()
     const videoPlayer = ref<ESIPlayer>()
     const router = useESRouter()
 
@@ -99,7 +99,7 @@ export default defineComponent({
       // webview.value?.disableImageDisplay();
       // webview.value?.setLoadsImagesAutomatically(true);
       webview.value?.setListenEvents(
-        'onProgressChanged,onConsoleMessage,shouldOverrideUrlLoading,onPageStarted,onPageFinished,onReceivedSslError,onReceivedError'
+        'onProgressChanged,onConsoleMessage,onShouldOverrideUrlLoading,onPageStarted,onPageFinished,onReceivedSslError,onReceivedError'
       )
       // 加载投屏网址
       webview.value?.stopLoading()
@@ -140,12 +140,9 @@ export default defineComponent({
       // 可可影视
       // webview.value?.loadUrl('https://m.cdblsgg.com/')
       // libvio
-      // webview.value?.loadUrl('https://www.libvio.cc/')
+      webview.value?.loadUrl('https://www.libvio.cc/')
       // vidhub
       // webview.value?.loadUrl('https://vidhub4.cc/')
-
-      // 北京时间
-      webview.value?.loadUrl('https://www.btime.com/btv/btvsy_index')
 
       videoPlayer.value?.initialize()
     }
@@ -157,6 +154,7 @@ export default defineComponent({
 
     function onShouldOverrideUrlLoading(url: string) {
       console.log('onShouldOverrideUrlLoading', url)
+      webview.value?.loadUrl(url)
     }
 
     function onSniffingResult(url: string, headers) {
@@ -226,8 +224,8 @@ export default defineComponent({
       })
 
       playerConfiguration.options = options
-      playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_IJK)
-      // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
+      // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_IJK)
+      playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
       onPlayerInitialized(mediaSource)
       // }
     }
