@@ -10,7 +10,14 @@
       <tv-div class="tv-div-visible-css" name="name1" :visible="true">
         <label>:visible="true"</label>
       </tv-div>
+
+      <tv-div class="tv-div-visible-css" name="name1" :visible="visible">
+        <label>visible</label>
+      </tv-div>
     </qt-column>
+    <qt-row>
+      <s-text-button text="visible" @onButtonClicked="setVisible" />
+    </qt-row>
   </div>
 </template>
 
@@ -21,10 +28,15 @@ export default defineComponent({
   name: 'visible',
   emits: [],
   setup() {
-    function onESCreate(params) {}
+    const visible = ref<boolean>(true)
+
+    function setVisible() {
+      visible.value = !visible.value
+    }
 
     return {
-      onESCreate,
+      visible,
+      setVisible,
     }
   },
 })

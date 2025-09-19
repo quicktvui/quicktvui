@@ -173,7 +173,7 @@ export type { QTFlexStyleGradientBackground } from './core/QTFlexStyleGradientBa
 export type { QTFlexStyleText } from './core/QTFlexStyleText'
 
 //
-export type { QTVisibility } from './core/QTVisibility'
+export { QTVisibility } from './core/QTVisibility'
 
 //
 export type { QTEventData } from './core/QTEventData'
