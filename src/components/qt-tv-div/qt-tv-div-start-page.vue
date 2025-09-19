@@ -34,7 +34,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .tv-div-css {
   width: 200px;
   height: 200px;

@@ -32,7 +32,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .tv-div-opacity-css {
   width: 200px;
   height: 200px;

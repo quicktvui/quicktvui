@@ -42,7 +42,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .tv-div-visible-css {
   width: 200px;
   height: 200px;
