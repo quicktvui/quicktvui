@@ -4,6 +4,8 @@ import qt_tv_div_visibility_page from './qt-tv-div-visibility-page'
 import qt_tv_div_opacity_page from './qt-tv-div-opacity-page'
 import qt_tv_div_background_color_page from './qt-tv-div-background-color-page'
 import qt_tv_div_clip_children_page from './qt-tv-div-clip-children-page'
+import qt_tv_div_horizontal_scroll_page from './qt-tv-div-horizontal-scroll-page'
+import qt_tv_div_vertical_scroll_page from './qt-tv-div-vertical-scroll-page'
 
 const QTTVDivPageList = {
   qt_tv_div_start_page: {
@@ -29,6 +31,14 @@ const QTTVDivPageList = {
   qt_tv_div_clip_children_page: {
     name: 'ClipChildren',
     component: qt_tv_div_clip_children_page,
+  },
+  qt_tv_div_horizontal_scroll_page: {
+    name: 'HorizontalScroll',
+    component: qt_tv_div_horizontal_scroll_page,
+  },
+  qt_tv_div_vertical_scroll_page: {
+    name: 'VerticalScroll',
+    component: qt_tv_div_vertical_scroll_page,
   },
 }
 export default QTTVDivPageList
