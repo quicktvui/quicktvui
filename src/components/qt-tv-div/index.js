@@ -7,6 +7,7 @@ import qt_tv_div_clip_children_page from './qt-tv-div-clip-children-page'
 import qt_tv_div_horizontal_scroll_page from './qt-tv-div-horizontal-scroll-page'
 import qt_tv_div_vertical_scroll_page from './qt-tv-div-vertical-scroll-page'
 import qt_tv_div_transform_page from './qt-tv-div-transform-page'
+import qt_tv_div_gradient_page from './qt-tv-div-gradient-page'
 
 const QTTVDivPageList = {
   qt_tv_div_start_page: {
@@ -44,6 +45,10 @@ const QTTVDivPageList = {
   qt_tv_div_transform_page: {
     name: 'transform',
     component: qt_tv_div_transform_page,
+  },
+  qt_tv_div_gradient_page: {
+    name: 'gradient',
+    component: qt_tv_div_gradient_page,
   },
 }
 export default QTTVDivPageList
