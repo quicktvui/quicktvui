@@ -6,6 +6,7 @@ import qt_tv_div_background_color_page from './qt-tv-div-background-color-page'
 import qt_tv_div_clip_children_page from './qt-tv-div-clip-children-page'
 import qt_tv_div_horizontal_scroll_page from './qt-tv-div-horizontal-scroll-page'
 import qt_tv_div_vertical_scroll_page from './qt-tv-div-vertical-scroll-page'
+import qt_tv_div_transform_page from './qt-tv-div-transform-page'
 
 const QTTVDivPageList = {
   qt_tv_div_start_page: {
@@ -39,6 +40,10 @@ const QTTVDivPageList = {
   qt_tv_div_vertical_scroll_page: {
     name: 'VerticalScroll',
     component: qt_tv_div_vertical_scroll_page,
+  },
+  qt_tv_div_transform_page: {
+    name: 'transform',
+    component: qt_tv_div_transform_page,
   },
 }
 export default QTTVDivPageList
