@@ -234,20 +234,22 @@ export { arrangeChildren4ListView }
 //QTWebView
 export type { QTIWebView } from './webview/QTIWebView'
 export { QTWebViewLayerType } from './webview/QTWebViewLayerType'
-export {
+export type {
   QTWebViewSniffingRule,
   QTWebViewSniffingUrlRuleItem,
   QTWebViewSniffingHeaderRuleItem,
 } from './webview/QTWebViewSniffingRule'
+export type { QTWebViewInterceptRule } from './webview/QTWebViewInterceptRule'
 
 //QTX5WebView
 export type { QTIX5WebView, QTX5WebViewParams } from './x5webview/QTIX5WebView'
 export { QTX5WebViewLayerType } from './x5webview/QTX5WebViewLayerType'
-export {
+export type {
   QTX5WebViewSniffingRule,
   QTX5WebViewSniffingUrlRuleItem,
   QTX5WebViewSniffingHeaderRuleItem,
 } from './x5webview/QTX5WebViewSniffingRule'
+export type { QTX5WebViewInterceptRule } from './x5webview/QTX5WebViewInterceptRule'
 
 //QTISeekBar
 export type { QTISeekBar } from './seekbar/QTISeekBar'

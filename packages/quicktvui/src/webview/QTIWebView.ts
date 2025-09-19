@@ -1,6 +1,7 @@
 import { QTIView } from '../view/QTIView'
 import { QTWebViewLayerType } from './QTWebViewLayerType'
-import { QTX5WebViewSniffingRule } from '../x5webview/QTX5WebViewSniffingRule'
+import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
+import { QTWebViewInterceptRule } from './QTWebViewInterceptRule'
 
 export interface QTIWebView extends QTIView {
   loadUrl(url: string): void
@@ -45,9 +46,17 @@ export interface QTIWebView extends QTIView {
 
   setSniffingEnabled(value: boolean): void
 
-  setSniffingRule(value: QTX5WebViewSniffingRule): void
+  setSniffingRule(value: QTWebViewSniffingRule): void
 
   resetSniffingRule(): void
+
+  setInterceptEnabled(value: boolean): void
+
+  setInterceptRule(value: QTWebViewInterceptRule): void
+
+  resetInterceptRule(): void
+
+  shouldOverrideUrlLoading(value: boolean): void
 
   setUserAgent(value: string): void
 

@@ -4,6 +4,7 @@ import useBaseView from '../base/useBaseView'
 import { QTX5WebViewParams } from './QTIX5WebView'
 import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
 import { QTX5WebViewSniffingRule } from './QTX5WebViewSniffingRule'
+import { QTX5WebViewInterceptRule } from './QTX5WebViewInterceptRule'
 
 function registerQTX5WebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -202,6 +203,22 @@ function registerQTX5WebView(app: ESApp) {
 
       const resetSniffingRule = () => {
         Native.callUIFunction(webViewRef.value, 'resetSniffingRule', [], (res) => {})
+      }
+
+      const setInterceptEnabled = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setInterceptEnabled', [value], (res) => {})
+      }
+
+      const setInterceptRule = (value: QTX5WebViewInterceptRule) => {
+        Native.callUIFunction(webViewRef.value, 'setInterceptRule', [value], (res) => {})
+      }
+
+      const resetInterceptRule = () => {
+        Native.callUIFunction(webViewRef.value, 'resetInterceptRule', [], (res) => {})
+      }
+
+      const shouldOverrideUrlLoading = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'shouldOverrideUrlLoading', [value], (res) => {})
       }
 
       const canGoBack = () => {
@@ -472,6 +489,10 @@ function registerQTX5WebView(app: ESApp) {
         setSniffingEnabled,
         setSniffingRule,
         resetSniffingRule,
+        setInterceptEnabled,
+        setInterceptRule,
+        resetInterceptRule,
+        shouldOverrideUrlLoading,
         canGoBack,
         goBack,
         canGoForward,

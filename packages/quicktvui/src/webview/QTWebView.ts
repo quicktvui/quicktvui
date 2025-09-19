@@ -4,6 +4,7 @@ import { defineComponent, h, onMounted, ref } from 'vue'
 import useBaseView from '../base/useBaseView'
 import { QTWebViewLayerType } from './QTWebViewLayerType'
 import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
+import { QTWebViewInterceptRule } from './QTWebViewInterceptRule'
 
 function registerQTWebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -163,6 +164,7 @@ function registerQTWebView(app: ESApp) {
           })
         })
       }
+
       const setSniffingEnabled = (value: boolean) => {
         Native.callUIFunction(webViewRef.value, 'setSniffingEnabled', [value], (res) => {})
       }
@@ -174,9 +176,27 @@ function registerQTWebView(app: ESApp) {
       const resetSniffingRule = () => {
         Native.callUIFunction(webViewRef.value, 'resetSniffingRule', [], (res) => {})
       }
+
+      const setInterceptEnabled = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setInterceptEnabled', [value], (res) => {})
+      }
+
+      const setInterceptRule = (value: QTWebViewInterceptRule) => {
+        Native.callUIFunction(webViewRef.value, 'setInterceptRule', [value], (res) => {})
+      }
+
+      const resetInterceptRule = () => {
+        Native.callUIFunction(webViewRef.value, 'resetInterceptRule', [], (res) => {})
+      }
+
+      const shouldOverrideUrlLoading = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'shouldOverrideUrlLoading', [value], (res) => {})
+      }
+
       const setUserAgent = (value: string) => {
         Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {})
       }
+
       const canGoBack = () => {
         return new Promise((resolve, reject) => {
           Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
@@ -445,6 +465,10 @@ function registerQTWebView(app: ESApp) {
         setSniffingEnabled,
         setSniffingRule,
         resetSniffingRule,
+        setInterceptEnabled,
+        setInterceptRule,
+        resetInterceptRule,
+        shouldOverrideUrlLoading,
         setUserAgent,
         canGoBack,
         goBack,

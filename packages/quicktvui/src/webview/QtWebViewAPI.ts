@@ -10,6 +10,7 @@ import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
 import { QTWebViewLayerType } from './QTWebViewLayerType'
 import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
+import { QTWebViewInterceptRule } from './QTWebViewInterceptRule'
 
 export interface QtWebViewAPI extends QtBaseViewAPI {
   reload(instance: string | Ref<QTIWebView | undefined>): void
@@ -52,6 +53,17 @@ export interface QtWebViewAPI extends QtBaseViewAPI {
   ): void
 
   resetSniffingRule(instance: string | Ref<QTIWebView | undefined>): void
+
+  setInterceptEnabled(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
+
+  setInterceptRule(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: QTWebViewInterceptRule
+  ): void
+
+  resetInterceptRule(instance: string | Ref<QTIWebView | undefined>): void
+
+  shouldOverrideUrlLoading(instance: string | Ref<QTIWebView | undefined>, value: boolean): void
 
   setUserAgent(instance: string | Ref<QTIWebView | undefined>, value: string): void
 
@@ -502,6 +514,55 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetSniffingRule', []])
     } else if (isRef(instance) && instance.value) {
       instance.value?.resetSniffingRule()
+    }
+  }
+
+  function setInterceptEnabled(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setInterceptEnabled',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setInterceptEnabled(value)
+    }
+  }
+
+  function setInterceptRule(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: QTWebViewInterceptRule
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setInterceptRule', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setInterceptRule(value)
+    }
+  }
+
+  function resetInterceptRule(instance: string | Ref<QTIWebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetInterceptRule', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.resetInterceptRule()
+    }
+  }
+
+  function shouldOverrideUrlLoading(
+    instance: string | Ref<QTIWebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'shouldOverrideUrlLoading',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.shouldOverrideUrlLoading(value)
     }
   }
 
@@ -1389,6 +1450,10 @@ export function createQtWebViewAPI(viewAPI: QtBaseViewAPI): QtWebViewAPI {
     setSniffingEnabled,
     setSniffingRule,
     resetSniffingRule,
+    setInterceptEnabled,
+    setInterceptRule,
+    resetInterceptRule,
+    shouldOverrideUrlLoading,
     setUserAgent,
     canGoBack,
     goBack,
