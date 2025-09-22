@@ -4,18 +4,13 @@
     <div class="es-sdk-content-divider-css" />
     <qt-column class="qt-sdk-content-row-css">
       <tv-img
-        alt=""
-        name="name6"
+        name="name5"
         :selected="false"
         showOnState="focused"
         :visible="true"
         :src="defaultImage"
         class="image center tint-color"
-        @load="onLoad"
       />
-      <div class="img-result">
-        <p>Load Result: {{ gifLoadResult }}</p>
-      </div>
     </qt-column>
   </div>
 </template>
@@ -26,11 +21,10 @@ import defaultImage from '../../assets/ad.jpg'
 
 /**
  * 问题：
- * 1、不起作用：:placeholder="defaultImage"
- * 2、onLoad 事件里面无宽高信息
+ * 1、:src="defaultImage" 不显示
  */
 export default defineComponent({
-  name: 'gif',
+  name: 'TintColor',
   emits: [],
   setup() {
     const id = ref('image1')
@@ -95,15 +89,6 @@ export default defineComponent({
   justify-content: center;
 }
 
-.img-result {
-  width: 300px;
-  height: 150px;
-  margin-top: 50px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #40b883;
-}
-
 .image {
   width: 300px;
   height: 180px;
@@ -123,9 +108,5 @@ export default defineComponent({
 
 .center {
   resize-mode: center;
-}
-
-.tint-color {
-  tint-color: #40b88399;
 }
 </style>
