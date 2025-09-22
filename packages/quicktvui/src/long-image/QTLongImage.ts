@@ -9,6 +9,9 @@ import {
   QTLongImageScrollChangeBean,
   QTLongImageShowChangeBean,
 } from './QTLongImageEventBean'
+import { QTLongImageScaleType } from './QTLongImageScaleType'
+import { QTLongImagePositionType } from './QTLongImagePositionType'
+import { QTLongImageOrientation } from './QTLongImageOrientation'
 
 function registerQTLongImageComponent(app: ESApp) {
   const LongImageComponent = {
@@ -95,40 +98,54 @@ function registerQTLongImageComponent(app: ESApp) {
   app.component('qt-long-image-view', {
     setup(props, context) {
       const viewRef = ref()
+      const setInitScale = (type: QTLongImageScaleType, scale = 0) => {
+        Native.callUIFunction(viewRef.value, 'setInitScale', [type, scale])
+      }
 
-      const setSrc = (url: string) => {
+      const setInitPosition = (type: QTLongImagePositionType) => {
+        Native.callUIFunction(viewRef.value, 'setInitPosition', [type])
+      }
+
+      const setInitCenter = (x: number, y: number) => {
+        Native.callUIFunction(viewRef.value, 'setInitCenter', [x, y])
+      }
+
+      const setInitOrientation = (orientation: QTLongImageOrientation) => {
+        Native.callUIFunction(viewRef.value, 'setInitOrientation', [orientation])
+      }
+
+      const setSrc = (url: string, fileId = '') => {
         console.log('----------setSrc--------->>>>', url)
-        Native.callUIFunction(viewRef.value, 'setImageUrl', [url])
+        Native.callUIFunction(viewRef.value, 'setImageUrl', [url, fileId])
       }
 
-      const setZoomEnabled = (value: boolean) => {
-        console.log('----------setZoomEnabled--------->>>>', value)
-        Native.callUIFunction(viewRef.value, 'setScaleEnabled', [value])
+      const zoom = (type: QTLongImageScaleType, scale = 0) => {
+        Native.callUIFunction(viewRef.value, 'zoom', [type, scale])
       }
 
-      const zoomIn = (step: number) => {
-        console.log('----------zoomIn--------->>>>', step)
-        Native.callUIFunction(viewRef.value, 'handleDpadCenter', [true, step])
+      const zoomByPoint = (type: QTLongImageScaleType, x = 0, y = 0, scale = 0) => {
+        Native.callUIFunction(viewRef.value, 'zoomByPoint', [type, x, y, scale])
       }
-      const zoomOut = (step: number) => {
-        console.log('----------zoomOut--------->>>>', step)
-        Native.callUIFunction(viewRef.value, 'handleDpadCenter', [false, step])
+
+      const zoomByCenter = (type: QTLongImageScaleType, scale = 0) => {
+        Native.callUIFunction(viewRef.value, 'zoomByCenter', [type, scale])
       }
-      const scrollDown = (step: number) => {
+
+      const scrollDown = (step = 200) => {
         console.log('----------scrollDown--------->>>>', step)
         Native.callUIFunction(viewRef.value, 'actionDown', [step])
       }
 
-      const scrollUp = (step: number) => {
+      const scrollUp = (step = 200) => {
         console.log('----------scrollUp--------->>>>', step)
         Native.callUIFunction(viewRef.value, 'actionUp', [step])
       }
-      const scrollLeft = (step: number) => {
+      const scrollLeft = (step = 200) => {
         console.log('----------scrollLeft--------->>>>', step)
         Native.callUIFunction(viewRef.value, 'actionLeft', [step])
       }
 
-      const scrollRight = (step: number) => {
+      const scrollRight = (step = 200) => {
         console.log('----------scrollRight--------->>>>', step)
         Native.callUIFunction(viewRef.value, 'actionRight', [step])
       }
@@ -137,17 +154,36 @@ function registerQTLongImageComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'scrollToPosition', [offsetX, offsetY])
       }
 
+      const rotate = (rotation: number) => {
+        Native.callUIFunction(viewRef.value, 'rotate', [rotation])
+      }
+
+      const setScaleByAnimal = (useAnimal: boolean) => {
+        Native.callUIFunction(viewRef.value, 'setScaleByAnimal', [useAnimal])
+      }
+
+      const setDebug = (debug: boolean) => {
+        Native.callUIFunction(viewRef.value, 'setDebug', [debug])
+      }
+
       context.expose({
         viewRef,
         setSrc,
-        setZoomEnabled,
-        zoomIn,
-        zoomOut,
+        setInitScale,
+        setInitPosition,
+        setInitCenter,
+        setInitOrientation,
+        zoom,
+        zoomByPoint,
+        zoomByCenter,
         scrollDown,
         scrollUp,
         scrollLeft,
         scrollRight,
         scrollTo,
+        rotate,
+        setScaleByAnimal,
+        setDebug,
         ...useBaseView(viewRef),
       })
 

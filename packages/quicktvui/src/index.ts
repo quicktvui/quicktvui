@@ -355,6 +355,18 @@ export type { QTICanvasView } from './canvas/QTICanvasView'
 
 //--------------------------------QTIText---------------------------------
 export type { QTILongImage } from './long-image/QTILongImage'
+export type {
+  QTLongImageCenterChangeBean,
+  QTLongImageDownloadChangeBean,
+  QTLongImageLoadStatusChangeBean,
+  QTLongImageScaleChangeBean,
+  QTLongImageScrollChangeBean,
+  QTLongImageShowChangeBean,
+} from './long-image/QTLongImageEventBean'
+export { LongImageScrollDirection, LongImageStatus } from './long-image/QTLongImageEventBean'
+export { QTLongImageScaleType } from './long-image/QTLongImageScaleType'
+export { QTLongImagePositionType } from './long-image/QTLongImagePositionType'
+export { QTLongImageOrientation } from './long-image/QTLongImageOrientation'
 
 //--------------------------------QTCanvas---------------------------------
 
