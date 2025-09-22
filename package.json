@@ -28,7 +28,7 @@
     "@extscreen/es3-video-player": "1.0.45",
     "@extscreen/es3-vue": "2.0.5",
     "@extscreen/es3-vue-style-parser": "2.0.0",
-    "@quicktvui/quicktvui3": "1.2.0-beta.63",
+    "@quicktvui/quicktvui3": "1.2.0-beta.64",
     "@quicktvui/html-core": "0.0.1-beta.1",
     "@vue/devtools-api": "^6.5.0",
     "@vue/runtime-core": "^3.5.15",

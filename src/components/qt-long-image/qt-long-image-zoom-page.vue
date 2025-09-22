@@ -4,7 +4,7 @@
       <qt-long-image
         ref="viewRef"
         :focusable="false"
-        @onLoad="onLoad"
+        @onDownLoad="onLoad"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"
         class="qt-long-image-css"
@@ -26,7 +26,11 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { QTILongImage } from '@quicktvui/quicktvui3'
+import {
+  QTILongImage,
+  QTLongImageDownloadChangeBean,
+  QTLongImageScaleType,
+} from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '放大缩小',
@@ -38,26 +42,20 @@ export default defineComponent({
     const zoomEnableText = ref<string>('不可缩放')
     const zoomStep = 200
 
-    function onLoad(
-      status: number,
-      progress: number,
-      message: string,
-      width: number,
-      height: number
-    ) {
-      console.log('----------onLoad--------->>>>', status, progress, message, width, height)
+    function onLoad(downLoadBean: QTLongImageDownloadChangeBean) {
+      console.log('----------onLoad--------->>>>', downLoadBean)
       eventText.value =
         ' onLoad: ' +
         ' status:' +
-        status +
+        downLoadBean.status +
         ' progress:' +
-        progress +
+        downLoadBean.progress +
         ' message:' +
-        message +
+        downLoadBean.message +
         ' width:' +
-        width +
+        downLoadBean.width +
         ' height:' +
-        height
+        downLoadBean.height
     }
 
     function onInitializeSuccess() {
@@ -74,16 +72,16 @@ export default defineComponent({
     //----------------------------------------------------------
 
     function onZoomInButtonClicked() {
-      viewRef.value?.zoomIn(zoomStep)
+      viewRef.value?.zoom(QTLongImageScaleType.ZOOM_TYPE_CENTER_OUTSIDE)
     }
 
     function onZoomOutButtonClicked() {
-      viewRef.value?.zoomOut(zoomStep)
+      viewRef.value?.zoom(QTLongImageScaleType.ZOOM_TYPE_CENTER_INSIDE)
     }
 
     function onZoomEnableButtonClicked() {
       const value = !zoomEnable.value
-      viewRef.value?.setZoomEnabled(value)
+      // viewRef.value?.setZoomEnabled(value)
       zoomEnable.value = value
       if (value) {
         zoomEnableText.value = '可以缩放'

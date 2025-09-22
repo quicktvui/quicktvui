@@ -4,7 +4,7 @@
       <qt-long-image
         ref="viewRef"
         :focusable="false"
-        @onLoad="onLoad"
+        @onDownLoad="onLoad"
         :scaleType="2"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"
@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { QTILongImage } from '@quicktvui/quicktvui3'
+import { QTILongImage, QTLongImageDownloadChangeBean } from '@quicktvui/quicktvui3'
 import { useESRouter } from '@extscreen/es3-router'
 
 export default defineComponent({
@@ -37,26 +37,20 @@ export default defineComponent({
     const eventText = ref<string>('')
     const router = useESRouter()
 
-    function onLoad(
-      status: number,
-      progress: number,
-      message: string,
-      width: number,
-      height: number
-    ) {
-      console.log('----------onLoad--------->>>>', status, progress, message, width, height)
+    function onLoad(downLoadBean: QTLongImageDownloadChangeBean) {
+      console.log('----------onLoad--------->>>>', downLoadBean)
       eventText.value =
         ' onLoad: ' +
         ' status:' +
-        status +
+        downLoadBean.status +
         ' progress:' +
-        progress +
+        downLoadBean.progress +
         ' message:' +
-        message +
+        downLoadBean.message +
         ' width:' +
-        width +
+        downLoadBean.width +
         ' height:' +
-        height
+        downLoadBean.height
     }
 
     function onInitializeSuccess() {

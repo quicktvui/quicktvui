@@ -4,7 +4,7 @@
       <qt-long-image
         ref="viewRef"
         :focusable="false"
-        @onLoad="onLoad"
+        @onDownLoad="onLoad"
         @onScroll="onScroll"
         @onInitializeSuccess="onInitializeSuccess"
         @onInitializeError="onInitializeError"
@@ -29,7 +29,11 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ref } from 'vue'
-import { QTILongImage } from '@quicktvui/quicktvui3'
+import {
+  QTILongImage,
+  QTLongImageDownloadChangeBean,
+  QTLongImageScrollChangeBean,
+} from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '滚动到指定位置',
@@ -41,59 +45,53 @@ export default defineComponent({
     const eventText = ref<string>('')
 
     function onOneInButtonClicked() {
-      viewRef.value?.scrollTo(100)
+      viewRef.value?.scrollTo(0, 100)
     }
 
     function onTwoButtonClicked() {
-      viewRef.value?.scrollTo(20)
+      viewRef.value?.scrollTo(0, 20)
     }
 
     function onThreeButtonClicked() {
-      viewRef.value?.scrollTo(40)
+      viewRef.value?.scrollTo(0, 40)
     }
 
     function onFourButtonClicked() {
-      viewRef.value?.scrollTo(50)
+      viewRef.value?.scrollTo(0, 50)
     }
 
     //-----------------------------------------------------------------
-    function onLoad(
-      status: number,
-      progress: number,
-      message: string,
-      width: number,
-      height: number
-    ) {
-      console.log('----------onLoad--------->>>>', status, progress, message, width, height)
+    function onLoad(downLoadBean: QTLongImageDownloadChangeBean) {
+      console.log('----------onLoad--------->>>>', downLoadBean)
       const text =
         ' onLoad: ' +
         ' status:' +
-        status +
+        downLoadBean.status +
         ' progress:' +
-        progress +
+        downLoadBean.progress +
         ' message:' +
-        message +
+        downLoadBean.message +
         ' width:' +
-        width +
+        downLoadBean.width +
         ' height:' +
-        height
+        downLoadBean.height
       eventText.value = text
     }
 
-    function onScroll(direction: number, percent: number, isScroll, width: number, height: number) {
-      console.log('----------onScroll--------->>>>', direction, percent, isScroll, width, height)
+    function onScroll(scrollBean: QTLongImageScrollChangeBean) {
+      console.log('----------onScroll--------->>>>', scrollBean)
       const text =
         ' onScroll: ' +
         ' direction:' +
-        direction +
+        scrollBean.direction +
         ' percent:' +
-        percent +
+        scrollBean.percent +
         ' isScroll:' +
-        isScroll +
+        scrollBean.isScroll +
         ' width:' +
-        width +
+        scrollBean.width +
         ' height:' +
-        height
+        scrollBean.height
       eventText.value = text
     }
 
