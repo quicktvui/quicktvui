@@ -2,18 +2,19 @@
   <div class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
-    <qt-row class="qt-sdk-content-row-css">
+    <qt-row class="qt-sdk-content-row-css" id="demo-tv-img">
       <tv-img
         ref="imageRef"
         :sid="id"
         @click="changeFocus(id)"
+        alt=""
         name="name1"
         :selected="false"
         showOnState="focused"
         :visible="true"
         src="https://img2.baidu.com/it/u=3447043455,3428211187&fm=253&app=138&f=JPEG?w=800&h=500"
         :placeholder="defaultImage"
-        class="image center"
+        class="image"
         @touchstart="onTouchStart"
         @touchmove="onTouchMove"
         @touchend="onTouchEnd"
@@ -93,8 +94,8 @@ export default defineComponent({
 }
 
 .image {
-  width: 250px;
-  height: 190px;
+  width: 150px;
+  height: 90px;
   margin: 15px;
   border-width: 1px;
   border-style: solid;
