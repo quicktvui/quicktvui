@@ -2,14 +2,16 @@
   <div class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
-    <qt-column class="es-sdk-content-row-css">
+    <qt-column class="es-sdk-content-column-css" style="justify-content: center">
       <tv-img
-        name="name5"
-        :selected="false"
-        showOnState="focused"
+        alt=""
+        name="name2"
+        :selected="true"
+        showOnState="selected"
         :visible="true"
-        :src="defaultImage"
-        class="image center tint-color"
+        :placeholder="defaultImage"
+        src="https://user-images.githubusercontent.com/12878546/148736102-7cd9525b-aceb-41c6-a905-d3156219ef16.png"
+        class="image cover"
       />
     </qt-column>
   </div>
@@ -19,12 +21,8 @@
 import { defineComponent } from '@vue/runtime-core'
 import defaultImage from '../../assets/ad.jpg'
 
-/**
- * 问题：
- * 1、:src="defaultImage" 不显示
- */
 export default defineComponent({
-  name: 'TintColor',
+  name: 'Cover',
   emits: [],
   setup() {
     return {
@@ -36,9 +34,8 @@ export default defineComponent({
 
 <style scoped>
 .image {
-  width: 300px;
-  height: 180px;
-  margin: 15px;
+  width: 960px;
+  height: 540px;
   border-width: 1px;
   border-style: solid;
   border-color: #40b883;
@@ -54,9 +51,5 @@ export default defineComponent({
 
 .center {
   resize-mode: center;
-}
-
-.tint-color {
-  tint-color: #40b88399;
 }
 </style>

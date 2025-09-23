@@ -2,23 +2,21 @@
   <div class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
-    <qt-row class="es-sdk-content-row-css">
+    <qt-column class="es-sdk-content-column-css" style="justify-content: center">
       <tv-img
         ref="imageRef"
         :sid="id"
         @click="changeFocus(id)"
+        alt=""
         name="name1"
         :selected="false"
         showOnState="focused"
         :visible="true"
         src="https://img2.baidu.com/it/u=3447043455,3428211187&fm=253&app=138&f=JPEG?w=800&h=500"
         :placeholder="defaultImage"
-        class="image center"
-        @touchstart="onTouchStart"
-        @touchmove="onTouchMove"
-        @touchend="onTouchEnd"
+        class="image contain"
       />
-    </qt-row>
+    </qt-column>
   </div>
 </template>
 
@@ -27,7 +25,7 @@ import { defineComponent, ref } from '@vue/runtime-core'
 import defaultImage from '../../assets/ad.jpg'
 
 export default defineComponent({
-  name: '使用初探',
+  name: 'Contain',
   emits: [],
   setup() {
     const id = ref('image1')
@@ -40,29 +38,8 @@ export default defineComponent({
       imageRef.value?.setFocus(isFocused.value, id)
     }
 
-    // img touch event is supported after hippy-vue 2.6.2
-    const onTouchStart = (evt: Event) => {
-      console.log('onTouchDown', evt)
-      evt.stopPropagation()
-    }
-    // img touch event is supported after hippy-vue 2.6.2
-    const onTouchMove = (evt: Event) => {
-      console.log('onTouchMove', evt)
-      evt.stopPropagation()
-      console.log(evt)
-    }
-    // img touch event is supported after hippy-vue 2.6.2
-    const onTouchEnd = (evt: Event) => {
-      console.log('onTouchEnd', evt)
-      evt.stopPropagation()
-      console.log(evt)
-    }
-
     return {
       id,
-      onTouchEnd,
-      onTouchMove,
-      onTouchStart,
       defaultImage,
       changeFocus,
       imageRef,

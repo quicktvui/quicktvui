@@ -2,7 +2,7 @@
   <div class="es-sdk-root-css" :clipChildren="false">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
-    <qt-column class="qt-sdk-content-row-css">
+    <qt-column class="es-sdk-content-column-css" style="justify-content: center">
       <tv-img
         alt=""
         name="name6"
@@ -30,19 +30,11 @@ import defaultImage from '../../assets/ad.jpg'
  * 2、onLoad 事件里面无宽高信息
  */
 export default defineComponent({
-  name: 'gif',
+  name: 'Gif',
   emits: [],
   setup() {
     const id = ref('image1')
     const gifLoadResult = ref({})
-
-    const changeFocus = (id: string) => {
-      // if (imageRef.value) {
-      //   isFocused.value = !isFocused.value
-      //   // @ts-ignore
-      //   imageRef.value.changeFocus(isFocused.value, id);
-      // }
-    }
 
     const onLoad = (evt: Event) => {
       console.log('onLoad', evt)
@@ -55,46 +47,17 @@ export default defineComponent({
       }
     }
 
-    // img touch event is supported after hippy-vue 2.6.2
-    const onTouchStart = (evt: Event) => {
-      console.log('onTouchDown', evt)
-      evt.stopPropagation()
-    }
-    // img touch event is supported after hippy-vue 2.6.2
-    const onTouchMove = (evt: Event) => {
-      console.log('onTouchMove', evt)
-      evt.stopPropagation()
-      console.log(evt)
-    }
-    // img touch event is supported after hippy-vue 2.6.2
-    const onTouchEnd = (evt: Event) => {
-      console.log('onTouchEnd', evt)
-      evt.stopPropagation()
-      console.log(evt)
-    }
-
     return {
       gifLoadResult,
       id,
-      onTouchEnd,
-      onTouchMove,
-      onTouchStart,
       onLoad,
       defaultImage,
-      changeFocus,
     }
   },
 })
 </script>
 
 <style scoped>
-.qt-sdk-content-row-css {
-  width: 1920px;
-  height: 1080px;
-  align-items: center;
-  justify-content: center;
-}
-
 .img-result {
   width: 300px;
   height: 150px;
