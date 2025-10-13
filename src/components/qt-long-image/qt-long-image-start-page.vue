@@ -56,7 +56,8 @@ export default defineComponent({
     function onInitializeSuccess() {
       console.log('----------onInitializeSuccess--------->>>>')
       viewRef.value?.setSrc(
-        'https://ss-mpvolc.meipian.me/users/1465746/3abb8b5805d6491f89af4d7e4da94f1bsoi__png.heic~tplv-s1ctq42ewb-s2-cC-q:682:10000:0:0:q80.jpg'
+        // 'https://ss-mpvolc.meipian.me/users/1465746/3abb8b5805d6491f89af4d7e4da94f1bsoi__png.heic~tplv-s1ctq42ewb-s2-cC-q:682:10000:0:0:q80.jpg'
+        'file:///storage/emulate/0/Download/Ceremonial4_8k.jpg'
       )
     }
 

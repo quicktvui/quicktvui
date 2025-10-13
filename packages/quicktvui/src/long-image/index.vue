@@ -174,7 +174,7 @@ export default defineComponent({
 
     function installPlugin() {
       const p = {
-        pkg: 'eskit.plugin.long.image2',
+        pkg: 'eskit.plugin.long.image3',
       }
 
       plugin.addListener(p, listener)

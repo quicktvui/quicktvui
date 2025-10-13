@@ -13,6 +13,9 @@
       :focusable="false"
       @onSniffingResult="onSniffingResult"
       @onShouldOverrideUrlLoading="onShouldOverrideUrlLoading"
+      @onPageFinished="onPageFinished"
+      @onJs2Vue="onJs2Vue"
+      @onConsoleMessage="onConsoleMessage"
     />
     <es-video-player
       ref="videoPlayer"
@@ -74,6 +77,14 @@ export default defineComponent({
       //   }
       // })
 
+      // webview.value?.setSniffingRule({
+      //   headerRule: {
+      //     addRules: {
+      //       range: '',
+      //     }
+      //   }
+      // })
+
       webview.value?.setJavaScriptEnabled(true)
       // 禁止缩放
       webview.value?.setSupportZoom(false)
@@ -99,7 +110,7 @@ export default defineComponent({
       // webview.value?.disableImageDisplay();
       // webview.value?.setLoadsImagesAutomatically(true);
       webview.value?.setListenEvents(
-        'onProgressChanged,onConsoleMessage,shouldOverrideUrlLoading,onPageStarted,onPageFinished,onReceivedSslError,onReceivedError'
+        'onProgressChanged,onConsoleMessage,onShouldOverrideUrlLoading,onPageStarted,onPageFinished,onReceivedSslError,onReceivedError,onJs2Vue'
       )
       // 加载投屏网址
       webview.value?.stopLoading()
@@ -145,7 +156,8 @@ export default defineComponent({
       // webview.value?.loadUrl('https://vidhub4.cc/')
 
       // 北京时间
-      webview.value?.loadUrl('https://www.btime.com/btv/btvsy_index')
+      webview.value?.loadUrl('https://vidhub4.cc/vodplay/268206-1-1.html')
+      // webview.value?.loadUrl('https://www.kuaikaw.cn/episode/41000101091/558901535')
 
       videoPlayer.value?.initialize()
     }
@@ -153,6 +165,46 @@ export default defineComponent({
     function getBwWithRegex(url) {
       const match = url.match(/[?&]bw=([^&]*)/)
       return match ? match[1] : null
+    }
+
+    function onPageFinished(url: string) {
+      console.log('onPageFinished', url)
+      const jsHook =
+        '' +
+        '(function() {' +
+        '  if (window.__routeHookInstalled) return;' +
+        '  window.__routeHookInstalled = true;' +
+        '  function notify() {' +
+        '    if (window.Js2Vue) {' +
+        '      Js2Vue.js2Vue(location.href);' +
+        '    }' +
+        '  }' +
+        '  const push = history.pushState;' +
+        '  const replace = history.replaceState;' +
+        '  history.pushState = function() { push.apply(this, arguments); notify(); };' +
+        '  history.replaceState = function() { replace.apply(this, arguments); notify(); };' +
+        "  window.addEventListener('popstate', notify);" +
+        // + "  document.addEventListener('click', function(e) {"
+        // + "    var a = e.target.closest('a');"
+        // + "    if (a && a.href && !a.target) {"
+        // + "      setTimeout(notify, 300);" // 延迟通知，保证URL已变
+        // + "    }"
+        // + "  }, true);"
+        '})();'
+      webview.value?.evaluateJavascript(jsHook)
+    }
+
+    function onJs2Vue(url: string) {
+      console.log('onJs2Vue', url)
+    }
+
+    function onConsoleMessage(
+      message: string,
+      messageLevel: number,
+      sourceId: string,
+      lineNumber: number
+    ) {
+      console.log('onConsoleMessage', message, messageLevel, sourceId, lineNumber)
     }
 
     function onShouldOverrideUrlLoading(url: string) {
@@ -210,26 +262,30 @@ export default defineComponent({
           headers: {
             Referer: headers['Referer'],
             Origin: headers['Origin'],
+            // 'User-Agent': headers['User-Agent'],
           },
         },
       }
-      let options = playerConfiguration.options
-      if (!options) {
-        options = []
-      }
 
-      options.push({
-        type: ESPlayerOptionType.ES_PLAYER_OPTION_TYPE_STRING,
-        category: ESPlayerOptionCategory.ES_PLAYER_OPTION_CATEGORY_FORMAT,
-        name: 'user_agent',
-        value: headers['User-Agent'],
-      })
+      qt.log.e('onSniffingResult', url, JSON.stringify(headers))
 
-      playerConfiguration.options = options
-      playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_IJK)
-      // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
-      onPlayerInitialized(mediaSource)
+      // let options = playerConfiguration.options
+      // if (!options) {
+      //   options = []
       // }
+      //
+      // options.push({
+      //   type: ESPlayerOptionType.ES_PLAYER_OPTION_TYPE_STRING,
+      //   category: ESPlayerOptionCategory.ES_PLAYER_OPTION_CATEGORY_FORMAT,
+      //   name: 'user_agent',
+      //   value: headers['User-Agent'],
+      // })
+      //
+      // playerConfiguration.options = options
+      // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_IJK)
+      // // playerTypeManager.setPlayerType(ESPlayerType.ES_PLAYER_TYPE_APOLLO)
+      // onPlayerInitialized(mediaSource)
+      // // }
     }
 
     function onPlayerInitialized(mediaSource: ESMediaSource) {
@@ -256,6 +312,9 @@ export default defineComponent({
       onShouldOverrideUrlLoading,
       onPlayerInitialized,
       onBackPressed,
+      onPageFinished,
+      onJs2Vue,
+      onConsoleMessage,
     }
   },
 })
