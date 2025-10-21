@@ -31,6 +31,7 @@ import QTLottiePageList from './components/qt-lottie'
 import QTIndicatorPageList from './components/qt-indicator-list-view'
 import QTDialogPageList from './components/qt-dialog'
 import WebAlertPageList from './components/web-alert'
+import QTPlayMarkPageList from './components/qt-play-mark'
 
 import {
   QTWaterfallItemPageList,
@@ -325,6 +326,11 @@ const routes = [
     path: `/dialog/${item}`,
     name: `dialog/${item}`,
     component: QTDialogPageList[item].component,
+  })),
+  ...Object.keys(QTPlayMarkPageList).map((item) => ({
+    path: `/play-mark/${item}`,
+    name: `play-mark/${item}`,
+    component: QTPlayMarkPageList[item].component,
   })),
   //------------------------------------------------------------------
   ...Object.keys(WebVideoPageList).map((item) => ({

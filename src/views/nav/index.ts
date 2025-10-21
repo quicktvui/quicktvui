@@ -30,6 +30,7 @@ import qt_nav_swiper_page from './qt-nav-swiper-page.vue'
 import qt_nav_lottie_page from './qt-nav-lottie-page.vue'
 import qt_indicator_list_view_page from './qt-nav-indicator-list-view-page.vue'
 import qt_nav_dialog_page from './qt-nav-dialog-page.vue'
+import qt_nav_play_mark_page from './qt-nav-play-mark-page.vue'
 //
 import qt_nav_module_page from './qt-nav-module-page'
 import qt_nav_component_page from './qt-nav-component-page'
@@ -180,6 +181,10 @@ const QTAPINavPageList = {
   qt_nav_component_page: {
     name: 'QTComponent',
     component: qt_nav_component_page,
+  },
+  qt_nav_play_mark_page: {
+    name: 'QTPlayMark',
+    component: qt_nav_play_mark_page,
   },
   /*qt_nav_canvas_page: {
     name: 'QTCanvas',
