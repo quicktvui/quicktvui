@@ -5,7 +5,7 @@
     <qt-row class="qt-sdk-content-row-css">
       <play-mark class="qt-sdk-play-mark-css" />
       <play-mark :roundCorner="10" class="qt-sdk-play-mark-css" />
-      <play-mark :gap="10" class="qt-sdk-play-mark-css" />
+      <play-mark :gap="25" class="qt-sdk-play-mark-css" />
       <play-mark :showType="1" class="qt-sdk-play-mark-css" />
       <play-mark startColor="#FF8534" endColor="#FFCA37" class="qt-sdk-play-mark-css" />
       <play-mark
