@@ -1,17 +1,70 @@
 import { QTIView } from '../view/QTIView'
+import { QTWebViewLayerType } from './QTWebViewLayerType'
+import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
+import { QTWebViewInterceptRule } from './QTWebViewInterceptRule'
 
 export interface QTIWebView extends QTIView {
   loadUrl(url: string): void
 
+  //-------------------------------------------------------------
+
+  reload(): void
+
+  clearCache(value: boolean): void
+
+  getUrl(): Promise<string | undefined | null>
+
+  getOriginalUrl(): Promise<string | undefined | null>
+
+  setLayerType(layerType: QTWebViewLayerType): void
+
+  setIgnoreCA(value: boolean): void
+
+  getBackForwardList(): Promise<Array<Record<string, any>>>
+
+  getCurrentIndexWithBackForwardList(): Promise<number>
+
+  getScreenStatus(): Promise<number>
+
+  autoClickPosition(x: number, y: number): void
+
+  disableImageDisplay(): void
+
+  enableImageDisplay(): void
+
+  stopLoading(): void
+
+  clearView(): void
+
+  setListenEvents(value: string): void
+
+  setIgnoreAllKeyEvent(value: boolean): void
+
+  //-------------------------------------------------------------
+
   evaluateJavascript(value: string): Promise<string | undefined | null>
+
+  setSniffingEnabled(value: boolean): void
+
+  setSniffingRule(value: QTWebViewSniffingRule): void
+
+  resetSniffingRule(): void
+
+  setInterceptEnabled(value: boolean): void
+
+  setInterceptRule(value: QTWebViewInterceptRule): void
+
+  resetInterceptRule(): void
+
+  shouldOverrideUrlLoading(value: boolean): void
 
   setUserAgent(value: string): void
 
-  canGoBack(): void
+  canGoBack(): Promise<boolean>
 
   goBack(): void
 
-  canGoForward(): void
+  canGoForward(): Promise<boolean>
 
   goForward(): void
 
@@ -105,6 +158,8 @@ export interface QTIWebView extends QTIView {
   setSavePassword(value: boolean): void
 
   setTextSize(value: number): void
+
+  setInitialScale(value: number): void
 
   setDefaultZoom(value: number): void
 

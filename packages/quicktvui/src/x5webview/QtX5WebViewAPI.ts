@@ -8,8 +8,64 @@ import {
 } from '../qt/QtAPIModule'
 import { isString } from '../utils/type'
 import { QtBaseViewAPI } from '../base/QtBaseViewAPI'
+import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
+import { QTX5WebViewSniffingRule } from './QTX5WebViewSniffingRule'
+import { QTX5WebViewInterceptRule } from './QTX5WebViewInterceptRule'
 
 export interface QtX5WebViewAPI extends QtBaseViewAPI {
+  reload(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  clearCache(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  getUrl(instance: string | Ref<QTIX5WebView | undefined>): Promise<string | undefined | null>
+
+  getOriginalUrl(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<string | undefined | null>
+
+  setLayerType(instance: string | Ref<QTIX5WebView | undefined>, value: QTX5WebViewLayerType): void
+
+  setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  setIgnoreAllKeyEvent(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  getBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<Array<Record<string, any>>>
+
+  getCurrentIndexWithBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<number>
+
+  getScreenStatus(instance: string | Ref<QTIX5WebView | undefined>): Promise<number>
+
+  autoClickPosition(instance: string | Ref<QTIX5WebView | undefined>, x: number, y: number): void
+
+  disableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  enableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  clearView(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  stopLoading(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  setListenEvents(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
+
+  sendKeyCodeEvent(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number
+  ): void
+
+  autoClickPositionWithDuration(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number,
+    duration: number
+  ): void
+
+  //---------------------------------------------------------------------------
+
   initWebView(instance: string | Ref<QTIX5WebView | undefined>, params?: QTX5WebViewParams): void
 
   loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void
@@ -19,11 +75,31 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
     value: string
   ): Promise<string | undefined | null>
 
-  canGoBack(instance: string | Ref<QTIX5WebView | undefined>): void
+  setSniffingEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  setSniffingRule(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewSniffingRule
+  ): void
+
+  resetSniffingRule(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  setInterceptEnabled(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  setInterceptRule(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewInterceptRule
+  ): void
+
+  resetInterceptRule(instance: string | Ref<QTIX5WebView | undefined>): void
+
+  shouldOverrideUrlLoading(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void
+
+  canGoBack(instance: string | Ref<QTIX5WebView | undefined>): Promise<boolean>
 
   goBack(instance: string | Ref<QTIX5WebView | undefined>): void
 
-  canGoForward(instance: string | Ref<QTIX5WebView | undefined>): void
+  canGoForward(instance: string | Ref<QTIX5WebView | undefined>): Promise<boolean>
 
   goForward(instance: string | Ref<QTIX5WebView | undefined>): void
 
@@ -88,6 +164,8 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
   setFantasyFontFamily(instance: string | Ref<QTIX5WebView | undefined>, value: string): void
 
   setTextZoom(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
+
+  setInitialScale(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
   setMinimumFontSize(instance: string | Ref<QTIX5WebView | undefined>, value: number): void
 
@@ -179,6 +257,253 @@ export interface QtX5WebViewAPI extends QtBaseViewAPI {
 }
 
 export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
+  function reload(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'reload', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.reload()
+    }
+  }
+
+  function clearCache(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'clearCache', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.clearCache(value)
+    }
+  }
+
+  function getUrl(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<string | undefined | null> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getUrl', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getUrl()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getOriginalUrl(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<string | undefined | null> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getOriginalUrl', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getOriginalUrl()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function setLayerType(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewLayerType
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setLayerType', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setLayerType(value)
+    }
+  }
+
+  function setIgnoreCA(instance: string | Ref<QTIX5WebView | undefined>, value: boolean): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setIgnoreCA', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setIgnoreCA(value)
+    }
+  }
+
+  function setIgnoreAllKeyEvent(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setIgnoreAllKeyEvent',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setIgnoreAllKeyEvent(value)
+    }
+  }
+
+  function getBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<Array<Record<string, any>>> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getBackForwardList', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getCurrentIndexWithBackForwardList(
+    instance: string | Ref<QTIX5WebView | undefined>
+  ): Promise<number> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getCurrentIndexWithBackForwardList', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getCurrentIndexWithBackForwardList()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function getScreenStatus(instance: string | Ref<QTIX5WebView | undefined>): Promise<number> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'getScreenStatus', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.getScreenStatus()
+    } else {
+      return Promise.reject()
+    }
+  }
+
+  function autoClickPosition(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    x: number,
+    y: number
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'autoClickPosition', [x, y]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.autoClickPosition(x, y)
+    }
+  }
+
+  function disableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'disableImageDisplay', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.disableImageDisplay()
+    }
+  }
+
+  function enableImageDisplay(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'enableImageDisplay', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.enableImageDisplay()
+    }
+  }
+
+  function clearView(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'clearView', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.clearView()
+    }
+  }
+
+  function stopLoading(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'stopLoading', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.stopLoading()
+    }
+  }
+
+  function setListenEvents(instance: string | Ref<QTIX5WebView | undefined>, value: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setListenEvents', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setListenEvents(value)
+    }
+  }
+
+  function sendKeyCodeEvent(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'sendKeyCodeEvent',
+        [keyCode, action],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.sendKeyCodeEvent(keyCode, action)
+    }
+  }
+
+  function autoClickPositionWithDuration(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    keyCode: number,
+    action: number,
+    duration: number
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'autoClickPositionWithDuration',
+        [keyCode, action],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.autoClickPositionWithDuration(keyCode, action, duration)
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.loadUrl(url)
+    }
+  }
+
   function initWebView(
     instance: string | Ref<QTIX5WebView | undefined>,
     params?: QTX5WebViewParams
@@ -187,14 +512,6 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'initWebView', [params]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.initWebView(params)
-    }
-  }
-
-  function loadUrl(instance: string | Ref<QTIX5WebView | undefined>, url: string): void {
-    if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'loadUrl', [url]])
-    } else if (isRef(instance) && instance.value) {
-      instance.value?.loadUrl(url)
     }
   }
 
@@ -207,7 +524,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
         Native.callNative(
           QT_API_MODULE,
           QT_CALL_UI_FUNCTION_WITH_PROMISE,
-          [instance, 'evaluateJavascript', []],
+          [instance, 'evaluateJavascript', [value]],
           (res) => {
             resolve(res)
           }
@@ -220,11 +537,105 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     }
   }
 
-  function canGoBack(instance: string | Ref<QTIX5WebView | undefined>): void {
+  function setSniffingEnabled(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: boolean
+  ): void {
     if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoBack', []])
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setSniffingEnabled',
+        [value],
+      ])
     } else if (isRef(instance) && instance.value) {
-      instance.value?.canGoBack()
+      instance.value?.setSniffingEnabled(value)
+    }
+  }
+
+  function setSniffingRule(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewSniffingRule
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setSniffingRule', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setSniffingRule(value)
+    }
+  }
+
+  function resetSniffingRule(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetSniffingRule', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.resetSniffingRule()
+    }
+  }
+
+  function setInterceptEnabled(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'setInterceptEnabled',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setInterceptEnabled(value)
+    }
+  }
+
+  function setInterceptRule(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: QTX5WebViewInterceptRule
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setInterceptRule', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setInterceptRule(value)
+    }
+  }
+
+  function resetInterceptRule(instance: string | Ref<QTIX5WebView | undefined>): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'resetInterceptRule', []])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.resetInterceptRule()
+    }
+  }
+
+  function shouldOverrideUrlLoading(
+    instance: string | Ref<QTIX5WebView | undefined>,
+    value: boolean
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [
+        instance,
+        'shouldOverrideUrlLoading',
+        [value],
+      ])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.shouldOverrideUrlLoading(value)
+    }
+  }
+
+  function canGoBack(instance: string | Ref<QTIX5WebView | undefined>): Promise<boolean> {
+    if (isString(instance)) {
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'canGoBack', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
+    } else if (isRef(instance) && instance.value) {
+      return instance.value!.canGoBack()
+    } else {
+      return Promise.reject()
     }
   }
 
@@ -236,11 +647,22 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     }
   }
 
-  function canGoForward(instance: string | Ref<QTIX5WebView | undefined>): void {
+  function canGoForward(instance: string | Ref<QTIX5WebView | undefined>): Promise<boolean> {
     if (isString(instance)) {
-      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'canGoForward', []])
+      return new Promise((resolve, reject) => {
+        Native.callNative(
+          QT_API_MODULE,
+          QT_CALL_UI_FUNCTION_WITH_PROMISE,
+          [instance, 'canGoForward', []],
+          (res) => {
+            resolve(res)
+          }
+        )
+      })
     } else if (isRef(instance) && instance.value) {
-      instance.value?.canGoForward()
+      return instance.value!.canGoForward()
+    } else {
+      return Promise.reject()
     }
   }
 
@@ -599,6 +1021,14 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
       Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setTextZoom', [value]])
     } else if (isRef(instance) && instance.value) {
       instance.value?.setTextZoom(value)
+    }
+  }
+
+  function setInitialScale(instance: string | Ref<QTIX5WebView | undefined>, value: number): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'setInitialScale', [value]])
+    } else if (isRef(instance) && instance.value) {
+      instance.value?.setInitialScale(value)
     }
   }
 
@@ -1077,9 +1507,36 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
 
   return {
     ...viewAPI,
+    //------------------------------------
+    reload,
+    clearCache,
+    getUrl,
+    getOriginalUrl,
+    setLayerType,
+    setIgnoreCA,
+    setIgnoreAllKeyEvent,
+    getBackForwardList,
+    getCurrentIndexWithBackForwardList,
+    getScreenStatus,
+    autoClickPosition,
+    disableImageDisplay,
+    enableImageDisplay,
+    clearView,
+    stopLoading,
+    setListenEvents,
+    sendKeyCodeEvent,
+    autoClickPositionWithDuration,
+    //------------------------------------
     initWebView,
     loadUrl,
     evaluateJavascript,
+    setSniffingEnabled,
+    setSniffingRule,
+    resetSniffingRule,
+    setInterceptEnabled,
+    setInterceptRule,
+    resetInterceptRule,
+    shouldOverrideUrlLoading,
     canGoBack,
     goBack,
     canGoForward,
@@ -1112,6 +1569,7 @@ export function createQtX5WebViewAPI(viewAPI: QtBaseViewAPI): QtX5WebViewAPI {
     setCursiveFontFamily,
     setFantasyFontFamily,
     setTextZoom,
+    setInitialScale,
     setMinimumFontSize,
     setDefaultFontSize,
     setLayoutAlgorithm,

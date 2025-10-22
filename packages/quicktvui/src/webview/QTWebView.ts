@@ -2,6 +2,9 @@ import { ESApp, Native } from '@extscreen/es3-vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 
 import useBaseView from '../base/useBaseView'
+import { QTWebViewLayerType } from './QTWebViewLayerType'
+import { QTWebViewSniffingRule } from './QTWebViewSniffingRule'
+import { QTWebViewInterceptRule } from './QTWebViewInterceptRule'
 
 function registerQTWebView(app: ESApp) {
   const WebViewImpl = defineComponent({
@@ -17,6 +20,7 @@ function registerQTWebView(app: ESApp) {
       'onReceivedError',
       'shouldOverrideUrlLoading',
       'onJs2Vue',
+      'onSniffingResult',
     ],
     setup(props, context) {
       const webViewRef = ref()
@@ -39,6 +43,120 @@ function registerQTWebView(app: ESApp) {
       const loadUrl = (url: string) => {
         Native.callUIFunction(webViewRef.value, 'loadUrl', [url], (res) => {})
       }
+
+      //--------------------------------------------------------------------------
+      const reload = () => {
+        Native.callUIFunction(webViewRef.value, 'reload', [], (res) => {})
+      }
+      const clearCache = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'clearCache', [value], (res) => {})
+      }
+      const getUrl = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getUrl', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+      const getOriginalUrl = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getUrl', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const setLayerType = (layerType: QTWebViewLayerType) => {
+        Native.callUIFunction(webViewRef.value, 'setLayerType', [layerType], (res) => {})
+      }
+
+      const setIgnoreCA = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setIgnoreCA', [value], (res) => {})
+      }
+
+      const setIgnoreAllKeyEvent = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setIgnoreAllKeyEvent', [value], (res) => {})
+      }
+
+      const getBackForwardList = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getBackForwardList', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getCurrentIndexWithBackForwardList = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(
+            webViewRef.value,
+            'getCurrentIndexWithBackForwardList',
+            [],
+            (res) => {
+              resolve(res)
+            }
+          )
+        })
+      }
+
+      const getScreenStatus = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'getScreenStatus', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const autoClickPosition = (x: number, y: number) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'autoClickPosition', [x, y], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const enableImageDisplay = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'enableImageDisplay', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const disableImageDisplay = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'disableImageDisplay', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const stopLoading = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'stopLoading', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const clearView = () => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'clearView', [], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const setListenEvents = (value: string) => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'setListenEvents', [value], (res) => {
+            resolve(res)
+          })
+        })
+      }
+
+      //--------------------------------------------------------------------------
+
       const evaluateJavascript = (value: string) => {
         return new Promise((resolve, reject) => {
           Native.callUIFunction(webViewRef.value, 'evaluateJavascript', [value], (res) => {
@@ -46,20 +164,56 @@ function registerQTWebView(app: ESApp) {
           })
         })
       }
+
+      const setSniffingEnabled = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setSniffingEnabled', [value], (res) => {})
+      }
+
+      const setSniffingRule = (value: QTWebViewSniffingRule) => {
+        Native.callUIFunction(webViewRef.value, 'setSniffingRule', [value], (res) => {})
+      }
+
+      const resetSniffingRule = () => {
+        Native.callUIFunction(webViewRef.value, 'resetSniffingRule', [], (res) => {})
+      }
+
+      const setInterceptEnabled = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'setInterceptEnabled', [value], (res) => {})
+      }
+
+      const setInterceptRule = (value: QTWebViewInterceptRule) => {
+        Native.callUIFunction(webViewRef.value, 'setInterceptRule', [value], (res) => {})
+      }
+
+      const resetInterceptRule = () => {
+        Native.callUIFunction(webViewRef.value, 'resetInterceptRule', [], (res) => {})
+      }
+
+      const shouldOverrideUrlLoading = (value: boolean) => {
+        Native.callUIFunction(webViewRef.value, 'shouldOverrideUrlLoading', [value], (res) => {})
+      }
+
       const setUserAgent = (value: string) => {
         Native.callUIFunction(webViewRef.value, 'setUserAgent', [value], (res) => {})
       }
+
       const canGoBack = () => {
-        Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
-          context.emit('onCanGoBack', res)
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'canGoBack', [], (res) => {
+            context.emit('onCanGoBack', res)
+            resolve(res)
+          })
         })
       }
       const goBack = () => {
         Native.callUIFunction(webViewRef.value, 'goBack', [], (res) => {})
       }
       const canGoForward = () => {
-        Native.callUIFunction(webViewRef.value, 'canGoForward', [], (res) => {
-          context.emit('onCanGoForward', res)
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(webViewRef.value, 'canGoForward', [], (res) => {
+            context.emit('onCanGoForward', res)
+            resolve(res)
+          })
         })
       }
       const goForward = () => {
@@ -213,6 +367,10 @@ function registerQTWebView(app: ESApp) {
       const setTextSize = (value: number) => {
         Native.callUIFunction(webViewRef.value, 'setTextSize', [value], (res) => {})
       }
+      const setInitialScale = (value: number) => {
+        Native.callUIFunction(webViewRef.value, 'setInitialScale', [value], (res) => {})
+      }
+
       const setDefaultZoom = (value: number) => {
         Native.callUIFunction(webViewRef.value, 'setDefaultZoom', [value], (res) => {})
       }
@@ -285,8 +443,32 @@ function registerQTWebView(app: ESApp) {
       }
 
       context.expose({
+        reload,
+        clearCache,
+        getUrl,
+        getOriginalUrl,
+        setLayerType,
+        setIgnoreCA,
+        setIgnoreAllKeyEvent,
+        getBackForwardList,
+        getCurrentIndexWithBackForwardList,
+        getScreenStatus,
+        autoClickPosition,
+        enableImageDisplay,
+        disableImageDisplay,
+        clearView,
+        stopLoading,
+        setListenEvents,
+        //---------------------------------------------------------
         loadUrl,
         evaluateJavascript,
+        setSniffingEnabled,
+        setSniffingRule,
+        resetSniffingRule,
+        setInterceptEnabled,
+        setInterceptRule,
+        resetInterceptRule,
+        shouldOverrideUrlLoading,
         setUserAgent,
         canGoBack,
         goBack,
@@ -337,6 +519,7 @@ function registerQTWebView(app: ESApp) {
         setSaveFormData,
         setSavePassword,
         setTextSize,
+        setInitialScale,
         setDefaultZoom,
         setLightTouchEnabled,
         setMinimumLogicalFontSize,
@@ -387,6 +570,11 @@ function registerQTWebView(app: ESApp) {
           onJs2Vue: (evt) => {
             let value = evt.js2VueValue
             context.emit('onJs2Vue', value)
+          },
+          onSniffingResult: (evt) => {
+            let url = evt.url
+            let headers = evt.headers
+            context.emit('onSniffingResult', url, headers)
           },
           ref: webViewRef,
         })

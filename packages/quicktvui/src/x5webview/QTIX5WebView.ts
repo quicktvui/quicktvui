@@ -1,4 +1,7 @@
 import { QTIView } from '../view/QTIView'
+import { QTX5WebViewLayerType } from './QTX5WebViewLayerType'
+import { QTX5WebViewSniffingRule } from './QTX5WebViewSniffingRule'
+import { QTX5WebViewInterceptRule } from './QTX5WebViewInterceptRule'
 
 export interface QTX5WebViewParams {
   [prop: string]: any
@@ -9,13 +12,67 @@ export interface QTIX5WebView extends QTIView {
 
   loadUrl(url: string): void
 
+  //-------------------------------------------------------------
+
+  reload(): void
+
+  clearCache(value: boolean): void
+
+  getUrl(): Promise<string | undefined | null>
+
+  getOriginalUrl(): Promise<string | undefined | null>
+
+  setLayerType(layerType: QTX5WebViewLayerType): void
+
+  setIgnoreCA(value: boolean): void
+
+  getBackForwardList(): Promise<Array<Record<string, any>>>
+
+  getCurrentIndexWithBackForwardList(): Promise<number>
+
+  getScreenStatus(): Promise<number>
+
+  autoClickPosition(x: number, y: number): void
+
+  disableImageDisplay(): void
+
+  enableImageDisplay(): void
+
+  stopLoading(): void
+
+  clearView(): void
+
+  setListenEvents(value: string): void
+
+  sendKeyCodeEvent(keyCode: number, action: number): void
+
+  autoClickPositionWithDuration(keyCode: number, action: number, duration: number): void
+
+  setIgnoreAllKeyEvent(value: boolean): void
+
+  //-------------------------------------------------------------
+
   evaluateJavascript(value: string): Promise<string | undefined | null>
 
-  canGoBack(): void
+  setSniffingEnabled(value: boolean): void
+
+  setSniffingRule(value: QTX5WebViewSniffingRule): void
+
+  resetSniffingRule(): void
+
+  setInterceptEnabled(value: boolean): void
+
+  setInterceptRule(value: QTX5WebViewInterceptRule): void
+
+  resetInterceptRule(): void
+
+  shouldOverrideUrlLoading(value: boolean): void
+
+  canGoBack(): Promise<boolean>
 
   goBack(): void
 
-  canGoForward(): void
+  canGoForward(): Promise<boolean>
 
   goForward(): void
 
@@ -74,6 +131,8 @@ export interface QTIX5WebView extends QTIView {
   setFantasyFontFamily(value: string): void
 
   setTextZoom(value: number): void
+
+  setInitialScale(value: number): void
 
   setMinimumFontSize(value: number): void
 

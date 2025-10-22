@@ -247,9 +247,23 @@ export { arrangeChildren4ListView }
 
 //QTWebView
 export type { QTIWebView } from './webview/QTIWebView'
+export { QTWebViewLayerType } from './webview/QTWebViewLayerType'
+export type {
+  QTWebViewSniffingRule,
+  QTWebViewSniffingUrlRuleItem,
+  QTWebViewSniffingHeaderRuleItem,
+} from './webview/QTWebViewSniffingRule'
+export type { QTWebViewInterceptRule } from './webview/QTWebViewInterceptRule'
 
 //QTX5WebView
 export type { QTIX5WebView, QTX5WebViewParams } from './x5webview/QTIX5WebView'
+export { QTX5WebViewLayerType } from './x5webview/QTX5WebViewLayerType'
+export type {
+  QTX5WebViewSniffingRule,
+  QTX5WebViewSniffingUrlRuleItem,
+  QTX5WebViewSniffingHeaderRuleItem,
+} from './x5webview/QTX5WebViewSniffingRule'
+export type { QTX5WebViewInterceptRule } from './x5webview/QTX5WebViewInterceptRule'
 
 //QTISeekBar
 export type { QTISeekBar } from './seekbar/QTISeekBar'
@@ -355,6 +369,18 @@ export type { QTICanvasView } from './canvas/QTICanvasView'
 
 //--------------------------------QTIText---------------------------------
 export type { QTILongImage } from './long-image/QTILongImage'
+export type {
+  QTLongImageCenterChangeBean,
+  QTLongImageDownloadChangeBean,
+  QTLongImageLoadStatusChangeBean,
+  QTLongImageScaleChangeBean,
+  QTLongImageScrollChangeBean,
+  QTLongImageShowChangeBean,
+} from './long-image/QTLongImageEventBean'
+export { LongImageScrollDirection, LongImageStatus } from './long-image/QTLongImageEventBean'
+export { QTLongImageScaleType } from './long-image/QTLongImageScaleType'
+export { QTLongImagePositionType } from './long-image/QTLongImagePositionType'
+export { QTLongImageOrientation } from './long-image/QTLongImageOrientation'
 
 //--------------------------------QTCanvas---------------------------------
 

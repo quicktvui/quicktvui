@@ -66,7 +66,7 @@ module.exports = {
       __ES_VUE_FEATURE_FLAGS__: {
         ENABLE_KEY_EVENT_DISPATCH: true,
         ENABLE_EVENT_BUBBLE: false,
-        ENABLE_MODULES: false,
+        ENABLE_MODULES: true,
       },
       // ESRouter配置
       __ES_ROUTER_FEATURE_FLAGS__: JSON.stringify({

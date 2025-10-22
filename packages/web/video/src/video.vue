@@ -125,9 +125,14 @@ export default defineComponent({
       visible.value = false
     }
 
-    //开始播放
+    //加载初始化
     const play = () => {
       videoPlayer.value?.initialize()
+    }
+    //开始播放
+    const start = () => {
+      console.log('=========开始播放====start======>>>>')
+      videoPlayer.value?.start(0)
     }
     //暂停播放
     const pause = () => {
@@ -146,6 +151,7 @@ export default defineComponent({
       videoPlayer,
       sources,
       play,
+      start,
       pause,
       load,
       stop,

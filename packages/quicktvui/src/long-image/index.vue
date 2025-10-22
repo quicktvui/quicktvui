@@ -17,9 +17,12 @@
     :scaleType="scaleType"
     :sliderAssetsIcon="sliderAssetsIcon"
     :sliderNetworkIcon="sliderNetworkIcon"
-    @onRendered="onRendered"
-    @onLoad="onLoad"
+    @onDownLoad="onDownLoad"
+    @onImageLoad="onImageLoad"
     @onScroll="onScroll"
+    @onRendered="onRendered"
+    @onScaleChanged="onScaleChanged"
+    @onCenterChanged="onCenterChanged"
   />
 </template>
 
@@ -29,10 +32,30 @@ import { ref, watch } from 'vue'
 import useBaseView from '../base/useBaseView'
 import { ESPluginListener, useES, useESPlugin } from '@extscreen/es3-core'
 import { QTILongImage } from './QTILongImage'
+import { QTLongImageScaleType } from './QTLongImageScaleType'
+import { QTLongImagePositionType } from './QTLongImagePositionType'
+import { QTLongImageOrientation } from './QTLongImageOrientation'
+import {
+  QTLongImageCenterChangeBean,
+  QTLongImageDownloadChangeBean,
+  QTLongImageLoadStatusChangeBean,
+  QTLongImageScaleChangeBean,
+  QTLongImageScrollChangeBean,
+  QTLongImageShowChangeBean,
+} from './QTLongImageEventBean'
 
 export default defineComponent({
   name: 'qt-long-image',
-  emits: ['onLoad', 'onScroll', 'onInitializeSuccess', 'onInitializeError', 'onRendered'],
+  emits: [
+    'onInitializeSuccess',
+    'onInitializeError',
+    'onDownLoad',
+    'onImageLoad',
+    'onScroll',
+    'onRendered',
+    'onScaleChanged',
+    'onCenterChanged',
+  ],
   props: {
     size: {
       type: String,
@@ -151,43 +174,71 @@ export default defineComponent({
 
     function installPlugin() {
       const p = {
-        pkg: 'eskit.plugin.long.image',
+        pkg: 'eskit.plugin.long.image3',
       }
 
       plugin.addListener(p, listener)
       plugin.installPlugin(p)
     }
 
-    const setSrc = (url: string): void => {
-      viewRef.value?.setSrc(url)
+    const setInitScale = (type: QTLongImageScaleType, scale = 0) => {
+      viewRef.value?.setInitScale(type, scale)
     }
 
-    const setZoomEnabled = (value: boolean): void => {
-      viewRef.value?.setZoomEnabled(value)
+    const setInitPosition = (type: QTLongImagePositionType) => {
+      viewRef.value?.setInitPosition(type)
     }
 
-    const zoomIn = (step: number): void => {
-      viewRef.value?.zoomIn(step)
+    const setInitCenter = (x: number, y: number) => {
+      viewRef.value?.setInitCenter(x, y)
     }
 
-    const zoomOut = (step: number): void => {
-      viewRef.value?.zoomOut(step)
+    const setInitOrientation = (orientation: QTLongImageOrientation) => {
+      viewRef.value?.setInitOrientation(orientation)
     }
 
-    const scrollDown = (step: number): void => {
+    const setSrc = (url: string, fileId = ''): void => {
+      viewRef.value?.setSrc(url, fileId)
+    }
+
+    const zoom = (type: QTLongImageScaleType, scale = 0) => {
+      viewRef.value?.zoom(type, scale)
+    }
+
+    const zoomByPoint = (type: QTLongImageScaleType, x = 0, y = 0, scale = 0) => {
+      viewRef.value?.zoomByPoint(type, x, y, scale)
+    }
+
+    const zoomByCenter = (type: QTLongImageScaleType, scale = 0) => {
+      viewRef.value?.zoomByCenter(type, scale)
+    }
+
+    const scrollDown = (step = 200): void => {
       viewRef.value?.scrollDown(step)
     }
 
-    const scrollUp = (step: number): void => {
+    const scrollUp = (step = 200): void => {
       viewRef.value?.scrollUp(step)
     }
 
-    const scrollLeft = (step: number): void => {
+    const scrollLeft = (step = 200): void => {
       viewRef.value?.scrollLeft(step)
     }
 
-    const scrollRight = (step: number): void => {
+    const scrollRight = (step = 200): void => {
       viewRef.value?.scrollRight(step)
+    }
+
+    const rotate = (rotation: number) => {
+      viewRef.value?.rotate(rotation)
+    }
+
+    const setScaleByAnimal = (useAnimal: boolean) => {
+      viewRef.value?.setScaleByAnimal(useAnimal)
+    }
+
+    const setDebug = (debug: boolean) => {
+      viewRef.value?.setDebug(debug)
     }
 
     const scrollTo = (offsetX: number, offsetY: number): void => {
@@ -195,43 +246,53 @@ export default defineComponent({
     }
 
     //---------------------------------------------------------------
-    const onRendered = (scrollable: boolean) => {
-      context.emit('onRendered', scrollable)
+    const onRendered = (showBean: QTLongImageShowChangeBean) => {
+      context.emit('onRendered', showBean)
     }
 
-    const onLoad = (
-      status: number,
-      progress: number,
-      message: string,
-      width: number,
-      height: number
-    ) => {
-      context.emit('onLoad', status, progress, message, width, height)
+    const onDownLoad = (changeBean: QTLongImageDownloadChangeBean) => {
+      context.emit('onDownLoad', changeBean)
     }
-    const onScroll = (
-      direction: number,
-      percent: number,
-      isScroll,
-      width: number,
-      height: number
-    ) => {
-      context.emit('onScroll', direction, percent, isScroll, width, height)
+    const onImageLoad = (changeBean: QTLongImageLoadStatusChangeBean) => {
+      context.emit('onImageLoad', changeBean)
+    }
+
+    const onScroll = (scrollBean: QTLongImageScrollChangeBean) => {
+      context.emit('onScroll', scrollBean)
+    }
+
+    const onScaleChanged = (scaleBean: QTLongImageScaleChangeBean) => {
+      context.emit('onScaleChanged', scaleBean)
+    }
+
+    const onCenterChanged = (centerBean: QTLongImageCenterChangeBean) => {
+      context.emit('onCenterChanged', centerBean)
     }
 
     return {
       viewRef,
       setSrc,
-      setZoomEnabled,
-      zoomIn,
-      zoomOut,
+      setInitScale,
+      setInitPosition,
+      setInitCenter,
+      setInitOrientation,
+      zoom,
+      zoomByPoint,
+      zoomByCenter,
       scrollDown,
       scrollUp,
       scrollLeft,
       scrollRight,
-      onLoad,
+      scrollTo,
+      rotate,
+      setScaleByAnimal,
+      setDebug,
+      onDownLoad,
+      onImageLoad,
       onRendered,
       onScroll,
-      scrollTo,
+      onScaleChanged,
+      onCenterChanged,
       componentInitialized,
       ...useBaseView(viewRef),
     }
