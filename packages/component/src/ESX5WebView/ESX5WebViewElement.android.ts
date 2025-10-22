@@ -14,6 +14,11 @@ function registerESX5WebViewElementForAndroid(app: ESApp) {
           jsRewardCallValue: string
           jsFinishGameValue: string
           url: string
+          progress: number
+          message: string
+          messageLevel: string
+          sourceId: string
+          lineNumber: number
         }
       ) {
         const { handler: event, __evt: nativeEventName } = evtData
@@ -43,6 +48,15 @@ function registerESX5WebViewElementForAndroid(app: ESApp) {
             break
           case 'onJsFinishGame':
             event.jsFinishGameValue = nativeEventParams.jsFinishGameValue
+            break
+          case 'onProgressChanged':
+            event.progress = nativeEventParams.progress
+            break
+          case 'onConsoleMessage':
+            event.message = nativeEventParams.message
+            event.messageLevel = nativeEventParams.messageLevel
+            event.sourceId = nativeEventParams.sourceId
+            event.lineNumber = nativeEventParams.lineNumber
             break
           default:
         }
