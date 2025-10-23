@@ -5,7 +5,7 @@ import { QTLottieEvent } from './QTLottieEvent'
 
 import useBaseView from '../base/useBaseView'
 
-function registerQTLottieView(app: ESApp) {
+function registerQTLottieViewForAndroid(app: ESApp) {
   app.component('qt-lottie-view', {
     emits: [
       'onAnimationStart',
@@ -178,4 +178,4 @@ function registerQTLottieView(app: ESApp) {
   })
 }
 
-export default registerQTLottieView
+export default registerQTLottieViewForAndroid

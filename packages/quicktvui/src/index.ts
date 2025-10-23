@@ -30,14 +30,17 @@ import registerQTX5WebView from './x5webview/QTX5WebView'
 import registerQTQRCodeView from './qrcode/QTQRCodeView'
 import registerQTSeekBarView from './seekbar/QTSeekBar'
 import registerQTProgressBarView from './progressbar/QTProgressBar'
-import registerQTAnimation from './animation/QTAnimation'
 import registerQTDialog from './dialog/QTDialog'
 import registerQTScrollView from './scroll-view/QTScrollView'
-import registerQTLottieView from './lottie/QTLottieView'
 import { QTListViewItemState } from './list-view/core/QTListViewItemState'
 import registerAppIconView from './app/QTAppIcon'
 import registerQTIReplaceChildView from './replace-child/QTReplaceChildView'
 import registerQTLongImageComponent from './long-image/QTLongImage'
+
+import registerQTLottieViewForHarmony from './lottie/QTLottieView.harmony'
+import registerQTLottieViewForAndroid from './lottie/QTLottieView.android'
+import registerQTAnimationForAndroid from './animation/QTAnimation.android'
+import registerQTAnimationForHarmony from './animation/QTAnimation.harmony'
 
 export {
   qtRef,
@@ -73,6 +76,7 @@ const components = [
 
 //---------------------------------------------------------------------------
 import { createQtAPI, QtAPI } from './qt/QtAPI'
+import { Native } from '@extscreen/es3-vue'
 
 declare global {
   // @ts-ignore
@@ -91,6 +95,17 @@ export { QTFocusDirectionName } from './focus/QTFocusDirectionName'
 //---------------------------------------------------------------------------
 
 export const QuickTVUI = (Vue) => {
+  // android
+  if (Native.isAndroid()) {
+    registerQTAnimationForAndroid(Vue)
+    registerQTLottieViewForAndroid(Vue)
+  }
+  //harmony
+  else {
+    registerQTAnimationForHarmony(Vue)
+    registerQTLottieViewForHarmony(Vue)
+  }
+
   registerQTLoadingViewComponent(Vue)
   registerESListViewComponent(Vue)
   registerESListItemComponent(Vue)
@@ -100,10 +115,8 @@ export const QuickTVUI = (Vue) => {
   registerQTQRCodeView(Vue)
   registerQTSeekBarView(Vue)
   registerQTProgressBarView(Vue)
-  registerQTAnimation(Vue)
   registerQTDialog(Vue)
   registerQTScrollView(Vue)
-  registerQTLottieView(Vue)
   registerAppIconView(Vue)
   registerQTPluginView(Vue)
   registerQTIReplaceChildView(Vue)
@@ -159,7 +172,7 @@ export type { QTFlexStyleGradientBackground } from './core/QTFlexStyleGradientBa
 export type { QTFlexStyleText } from './core/QTFlexStyleText'
 
 //
-export type { QTVisibility } from './core/QTVisibility'
+export { QTVisibility } from './core/QTVisibility'
 
 //
 export type { QTEventData } from './core/QTEventData'
