@@ -1,0 +1,24 @@
+{
+  "name": "@extscreen/es3-component",
+  "version": "3.0.0-alpha.1",
+  "description": "ExtScreen framework",
+  "author": "ExtScreen Team",
+  "homepage": "http://extscreen.com",
+  "license": "Apache-2.0",
+  "entry": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/src/index.d.ts",
+  "keywords": [
+    "es3-core",
+    "native",
+    "web",
+    "framework",
+    "compiler"
+  ],
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+  }
+}
