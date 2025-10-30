@@ -1355,10 +1355,10 @@
   dependencies:
     "@vue/shared" "^3.2.21"
 
-"@extscreen/es3-vue@3.0.0-alpha.4":
-  version "3.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-3.0.0-alpha.4.tgz#a637162604aad2f4857d4de0c0f6194d1bb2cecf"
-  integrity sha512-VFG8afzd5Ao+r0WD3vSDTRisPOheICRwszMMn855J6CAZJvGTkpaToSbhI9uxxgQv+GhBJR14ExoaXADzh3q6w==
+"@extscreen/es3-vue@3.0.0-alpha.5":
+  version "3.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-3.0.0-alpha.5.tgz#2475a71a838c84b6ac8a3b429dfdc9de45f0c4f3"
+  integrity sha512-9Ekoqe4mKHgSKxnwuQQeu0hc2d/RzMWJJhV7lvy9LpaGebnaJWi5QHClRpCJhWyS2lVqtyXx+dkOHKlhd6MBBA==
 
 "@hapi/bourne@^3.0.0":
   version "3.0.0"

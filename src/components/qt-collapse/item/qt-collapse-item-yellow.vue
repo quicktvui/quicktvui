@@ -1,26 +1,26 @@
 <template>
-  <qt-column class="qt-collapse-item-yellow"
-             :focusable="true"
-             :enableFocusBorder="true"
-             :focusScale="1">
+  <qt-column
+    class="qt-collapse-item-yellow"
+    :focusable="true"
+    :enableFocusBorder="true"
+    :focusScale="1"
+  >
     <span class="qt-collapse-item-title">标题四</span>
     <div class="qt-collapse-item-content">
       <span class="qt-collapse-item-content-text">
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
+        黄色黄色黄色黄色黄色黄色黄色黄色黄色 黄色黄色黄色黄色黄色黄色黄色黄色黄色
       </span>
     </div>
   </qt-column>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "@vue/runtime-core";
-import {ESLogLevel, useESLog} from "@extscreen/es3-core";
+import { defineComponent } from '@vue/runtime-core'
+import { ESLogLevel, useESLog } from '@extscreen/es3-core'
 
 const TAG = 'QTCollapseItem'
 export default defineComponent({
-  name: "qt-collapse-item-yellow",
+  name: 'qt-collapse-item-yellow',
   setup(props, context) {
     const log = useESLog()
 
@@ -31,11 +31,10 @@ export default defineComponent({
     }
 
     return {
-      onCollapseItemExpand
+      onCollapseItemExpand,
     }
   },
-});
-
+})
 </script>
 
 <style scoped>

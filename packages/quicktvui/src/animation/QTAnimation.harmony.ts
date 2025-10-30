@@ -1,5 +1,5 @@
 import { defineComponent, h, ref, toRef, watch } from 'vue'
-import { ESApp, Native } from '@extscreen/es3-vue'
+import { ESApp, Native, resolveScaleValue } from '@extscreen/es3-vue'
 import {
   QTAnimationInterpolator,
   QTAnimationInterpolatorType,
@@ -43,8 +43,6 @@ function registerQTAnimationForHarmony(app: ESApp) {
     ],
     setup(props, context) {
       const viewRef = ref()
-      const display = useESDisplay()
-      const displayScale = display.getDisplayScale()
 
       const animatorProps = toRef(props, 'animator')
 
@@ -493,7 +491,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           type === QTAnimationType.TRANSLATION_Y ||
           type === QTAnimationType.TRANSLATION_Z
 
-        const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
+        const scaledValues = isTranslationProp ? values.map((v) => resolveScaleValue(v)) : values
 
         const funcName = `objectAnimator`
 
@@ -535,7 +533,7 @@ function registerQTAnimationForHarmony(app: ESApp) {
           propertyName === QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y ||
           propertyName === QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z
 
-        const scaledValues = isTranslationProp ? values.map((v) => v * displayScale) : values
+        const scaledValues = isTranslationProp ? values.map((v) => resolveScaleValue(v)) : values
 
         const funcName = `animator`
 

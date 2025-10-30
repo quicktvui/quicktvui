@@ -1,41 +1,34 @@
 <template>
-  <qt-column class="qt-collapse-item-purple"
-             :focusable="true"
-             :enableFocusBorder="true"
-             :focusScale="1">
+  <qt-column
+    class="qt-collapse-item-purple"
+    :focusable="true"
+    :enableFocusBorder="true"
+    :focusScale="1"
+  >
     <span class="qt-collapse-item-title">标题二</span>
     <div class="qt-collapse-item-content">
       <span class="qt-collapse-item-content-text">
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
-        内容内容内容内容内容内容内容内容内容
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
+        紫色紫色紫色紫色紫色紫色紫色紫色紫色 紫色紫色紫色紫色紫色紫色紫色紫色紫色
       </span>
     </div>
   </qt-column>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "@vue/runtime-core";
-import {ESLogLevel, useESLog} from "@extscreen/es3-core";
+import { defineComponent } from '@vue/runtime-core'
+import { ESLogLevel, useESLog } from '@extscreen/es3-core'
 
 const TAG = 'QTCollapseItem'
 
 export default defineComponent({
-  name: "qt-collapse-item-purple",
+  name: 'qt-collapse-item-purple',
   setup(props, context) {
     const log = useESLog()
 
@@ -46,11 +39,10 @@ export default defineComponent({
     }
 
     return {
-      onCollapseItemExpand
+      onCollapseItemExpand,
     }
   },
-});
-
+})
 </script>
 
 <style scoped>

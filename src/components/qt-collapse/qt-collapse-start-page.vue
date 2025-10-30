@@ -2,6 +2,19 @@
   <div class="es-sdk-root-css">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
+    <div style="background-color: red; width: 1920px; height: 700px">
+      <qt-collapse
+        ref="collapseRef"
+        @onCollapseItemExpand="onCollapseItemExpand"
+        class="qt-collapse-css"
+      >
+        <qt-collapse-item-green @onCollapseItemGreenExpand="onCollapseItemGreenExpand" />
+        <qt-collapse-item-purple />
+        <qt-collapse-item-red />
+        <qt-collapse-item-yellow />
+      </qt-collapse>
+    </div>
+
     <div class="es-sdk-content-row-css">
       <s-text-button text="收缩" @onButtonClicked="onCollapseButtonClicked" />
       <s-text-button text="展开" @onButtonClicked="onExpandButtonClicked" />
@@ -11,16 +24,6 @@
       <s-text-button text="展开第四个" @onButtonClicked="onFourButtonClicked" />
       <s-text-button text="调用第一个Item的方法" @onButtonClicked="onCallButtonClicked" />
     </div>
-    <qt-collapse
-      ref="collapseRef"
-      @onCollapseItemExpand="onCollapseItemExpand"
-      class="qt-collapse-css"
-    >
-      <qt-collapse-item-green @onCollapseItemGreenExpand="onCollapseItemGreenExpand" />
-      <qt-collapse-item-purple />
-      <qt-collapse-item-red />
-      <qt-collapse-item-yellow />
-    </qt-collapse>
   </div>
 </template>
 
@@ -34,6 +37,7 @@ import QTCollapseItemYellow from './item/qt-collapse-item-yellow.vue'
 import { QTGreenCollapseItem } from './item/QTGreenCollapseItem'
 import { ESLogLevel, useESLog } from '@extscreen/es3-core'
 import { QTCollapse, QTCollapseItem, QTICollapse } from '@quicktvui/quicktvui3'
+import { resolveScaleValue } from '@extscreen/es3-vue'
 
 const TAG = 'QTCollapsePage'
 
@@ -49,6 +53,8 @@ export default defineComponent({
   setup(props, context) {
     const collapseRef = ref<QTICollapse>()
     const log = useESLog()
+
+    console.log('=========resolveScaleValue====>>>>' + resolveScaleValue(1))
 
     function onESCreate() {
       const collapse: QTCollapse = {
@@ -136,7 +142,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .qt-collapse-css {
   width: 1920px;
   height: 800px;
