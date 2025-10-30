@@ -33,7 +33,7 @@ export default defineComponent({
 
     function onESCreate(params) {
       setTimeout(() => {
-        webview.value?.loadUrl('http://192.168.80.32')
+        webview.value?.loadUrl('http://192.168.40.77')
       }, 2000)
     }
 

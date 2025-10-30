@@ -37,7 +37,9 @@ export default defineComponent({
     }
 
     function onESCreate(params) {
-      webview.value?.loadUrl('http://192.168.40.77')
+      setTimeout(() => {
+        webview.value?.loadUrl('http://192.168.40.77')
+      }, 2000)
     }
 
     function onJs2Vue(value) {
