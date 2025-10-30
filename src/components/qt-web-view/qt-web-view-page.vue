@@ -23,7 +23,9 @@ export default defineComponent({
 
     function onESCreate(params) {
       nextTick(() => {
-        webview.value?.loadUrl('https://quicktvui.com/zh-CN/guide/basic/installation.html')
+        setTimeout(() => {
+          webview.value?.loadUrl('https://quicktvui.com/zh-CN/guide/basic/installation.html')
+        }, 2000)
       })
     }
 

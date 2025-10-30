@@ -1,6 +1,6 @@
 import index from './views/index.vue'
 import error from './views/error.vue'
-import splash from './views/splash/es-splash-page.vue'
+// import splash from './views/splash/es-splash-page.vue'
 import QTAPINavPageList from './views/nav/index'
 import QTButtonPageList from './components/qt-button'
 import QTGridViewPageList from './components/qt-grid-view'
@@ -73,7 +73,8 @@ const routes = [
   {
     path: '/splash',
     name: 'splash',
-    component: splash,
+    // component: splash,
+    component: () => import('./views/splash/es-splash-page.vue'),
     launchMode: 'standard',
   },
   {

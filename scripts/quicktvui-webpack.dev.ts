@@ -1,3 +1,4 @@
+const os = require('os')
 const path = require('path')
 const webpack = require('webpack')
 const ESDynamicImportPlugin = require('@extscreen/es3-dynamic-import-plugin')
@@ -7,6 +8,18 @@ const watchPlugin = require('./webpack-watch.ts')
 
 const pkg = require('../package.json')
 let cssLoader = '@extscreen/es3-vue-css-loader'
+
+function getLocalIp() {
+  const interfaces = os.networkInterfaces()
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address
+      }
+    }
+  }
+  return '127.0.0.1'
+}
 
 module.exports = {
   mode: 'development',
@@ -19,7 +32,7 @@ module.exports = {
     // remote debug server address
     remote: {
       protocol: 'http',
-      host: '127.0.0.1',
+      host: getLocalIp(),
       port: 38989,
     },
     // support inspect vue components, store and router, by default is disabled
