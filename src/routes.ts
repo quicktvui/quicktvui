@@ -57,6 +57,7 @@ import QtComponentPageList from './components/qt-component'
 import QTCanvasViewPageList from './components/qt-canvas-view'
 
 import QTLongImagePageList from './components/qt-long-image'
+import QTFileBrowsePageList from './components/qt-file-browse'
 //--------------------------------WEB------------------------------------------------
 import WebVideoPageList from './components/web-video'
 import WebAudioPageList from './components/web-audio'
@@ -315,6 +316,11 @@ const routes = [
     path: `/long-image/${item}`,
     name: `long-image/${item}`,
     component: QTLongImagePageList[item].component,
+  })),
+  ...Object.keys(QTFileBrowsePageList).map((item) => ({
+    path: `/file-browse/${item}`,
+    name: `file-browse/${item}`,
+    component: QTFileBrowsePageList[item].component,
   })),
   ...Object.keys(QTDialogPageList).map((item) => ({
     path: `/dialog/${item}`,

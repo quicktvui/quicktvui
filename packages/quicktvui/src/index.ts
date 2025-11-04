@@ -36,6 +36,7 @@ import { QTListViewItemState } from './list-view/core/QTListViewItemState'
 import registerAppIconView from './app/QTAppIcon'
 import registerQTIReplaceChildView from './replace-child/QTReplaceChildView'
 import registerQTLongImageComponent from './long-image/QTLongImage'
+import registerQTFileBrowseComponent from './file-browse/QTFileBrowse'
 
 import registerQTLottieViewForHarmony from './lottie/QTLottieView.harmony'
 import registerQTLottieViewForAndroid from './lottie/QTLottieView.android'
@@ -122,6 +123,7 @@ export const QuickTVUI = (Vue) => {
   registerQTIReplaceChildView(Vue)
   registerQTCanvasView(Vue)
   registerQTLongImageComponent(Vue)
+  registerQTFileBrowseComponent(Vue)
 
   for (let key in components) {
     Vue.component(components[key].name, components[key])
@@ -367,6 +369,8 @@ export { VirtualView } from './utils/VirtualView'
 export type { QTICanvasView } from './canvas/QTICanvasView'
 
 //--------------------------------QTIText---------------------------------
+export type { QTIFileBrowse } from './file-browse/QTIFileBrowse'
+
 export type { QTILongImage } from './long-image/QTILongImage'
 export type {
   QTLongImageCenterChangeBean,
