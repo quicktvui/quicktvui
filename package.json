@@ -20,7 +20,7 @@
     "@extscreen/es3-audio-service-player": "1.0.13",
     "@extscreen/es3-soundpool-player": "1.0.25",
     "@extscreen/es3-component": "3.0.0-alpha.1",
-    "@extscreen/es3-core": "3.0.0-alpha.1",
+    "@extscreen/es3-core": "3.0.0-alpha.4",
     "@extscreen/es3-m1905-player": "0.0.12",
     "@extscreen/es3-player": "1.0.33",
     "@extscreen/es3-player-manager": "1.0.48",
