@@ -86,22 +86,34 @@ export default defineComponent({
         path: '/sdcard/word/1128.log',
         fileExt: 'log',
       },
+      {
+        id: 9,
+        name: '夸克网盘_tcl_2.8.1663_20250922142333_debug.apk',
+        path: '/sdcard/word/夸克网盘_tcl_2.8.1663_20250922142333_debug.apk',
+        fileExt: 'apk',
+      },
     ])
+
     function onInitClicked() {
       console.log('----------onInitClicked--------->>>>')
 
       Native.callNativeWithPromise(
         'ESFileBrowseModule',
         'initFileBrowse',
-        'uNC9kZV1m4uAD2aYcDXHR9MYy8/hsap05SYPE+aMMP1VFq1XYidkaTuN7/fVQI/Q'
+        // 'uNC9kZV1m4uAD2aYcDXHR9MYy8/hsap05SYPE+aMMP1VFq1XYidkaTuN7/fVQI/Q'
+        '93Yhfp1Zj2HlqcewyzPejjYbKqQId8O5QbFtSYiYENvT+J3a6wH+u0OUH+hZkBzp'
       ).then((res) => {
         console.log('----------canOpenFile--------->>>>', res)
         eventText.value = '初始化成功'
       })
     }
+
     function onOpenFileClicked(item) {
       console.log('----------onOpenFileClicked--------->>>>', item)
-      Native.callNative('ESFileBrowseModule', 'openFile', item.path, item.fileExt)
+      if (item.fileExt === 'apk') {
+        Native.callNative('ESFileBrowseModule', 'openApkFile', item.path)
+        // Native.callNative('ESFileBrowseModule', 'openOtherFile', item.path, "")
+      } else Native.callNative('ESFileBrowseModule', 'openFile', item.path, item.fileExt)
       // Native.callNativeWithPromise('ESFileBrowseModule', 'canOpenFileExt', item.fileExt)
       //     .then((res) => {
       //       console.log('----------canOpenFileExt--------->>>>', res)
