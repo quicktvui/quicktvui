@@ -22,11 +22,7 @@ export default defineComponent({
     function onPageStarted(url) {}
 
     function onESCreate(params) {
-      nextTick(() => {
-        setTimeout(() => {
-          webview.value?.loadUrl('https://quicktvui.com/zh-CN/guide/basic/installation.html')
-        }, 2000)
-      })
+      webview.value?.loadUrl('https://quicktvui.com/zh-CN/guide/basic/installation.html')
     }
 
     return {

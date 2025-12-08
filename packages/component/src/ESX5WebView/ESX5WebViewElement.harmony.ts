@@ -11,14 +11,7 @@ function registerESX5WebViewElementForHarmony(app: ESApp) {
           description: string
           failingUrl: string
           js2VueValue: string
-          jsRewardCallValue: string
-          jsFinishGameValue: string
           url: string
-          progress: number
-          message: string
-          messageLevel: string
-          sourceId: string
-          lineNumber: number
         }
       ) {
         const { handler: event, __evt: nativeEventName } = evtData
@@ -42,21 +35,6 @@ function registerESX5WebViewElementForHarmony(app: ESApp) {
             break
           case 'onJs2Vue':
             event.js2VueValue = nativeEventParams.js2VueValue
-            break
-          case 'onJsRewardCall':
-            event.jsRewardCallValue = nativeEventParams.jsRewardCallValue
-            break
-          case 'onJsFinishGame':
-            event.jsFinishGameValue = nativeEventParams.jsFinishGameValue
-            break
-          case 'onProgressChanged':
-            event.progress = nativeEventParams.progress
-            break
-          case 'onConsoleMessage':
-            event.message = nativeEventParams.message
-            event.messageLevel = nativeEventParams.messageLevel
-            event.sourceId = nativeEventParams.sourceId
-            event.lineNumber = nativeEventParams.lineNumber
             break
           default:
         }

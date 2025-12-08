@@ -1235,10 +1235,10 @@
   resolved "https://registry.yarnpkg.com/@extscreen/es3-audio-service-player/-/es3-audio-service-player-1.0.13.tgz#5de28102815ac1c602f8849a1f08bf3b3fad03bc"
   integrity sha512-KOOpzyvd+sFTUaZlCGcu4gWzyyQW6nv7ZYAFLuVhltPe3RONkooXFyogiLs0kUQzNXuTWa2Z+FQLq0uBHejnfA==
 
-"@extscreen/es3-component@3.0.0-alpha.1":
-  version "3.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-3.0.0-alpha.1.tgz#458d4f07c43dc81047ecfbf5e1b1b1d02c7642af"
-  integrity sha512-qrrwGE6lk5HkZVAhieIqWKj9iWXxsFvoeTjc0DDzbPfCSdg24eH9VxlCEBdd6/VwiugrVbmHy3NJcD3jjK0NWg==
+"@extscreen/es3-component@3.0.0-alpha.2":
+  version "3.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-component/-/es3-component-3.0.0-alpha.2.tgz#87b3f611455401d43ebf7075d1a3a991d4a31304"
+  integrity sha512-guGxphn9/59GMEojPaBqgJ3INx3UufFJEQwnx3qfUifCmnuVqdyV7ftmg7TTJAVhdV9fw/T6VR/0IttURdN+cA==
 
 "@extscreen/es3-core@3.0.0-alpha.4":
   version "3.0.0-alpha.4"
@@ -1355,10 +1355,10 @@
   dependencies:
     "@vue/shared" "^3.2.21"
 
-"@extscreen/es3-vue@3.0.0-alpha.5":
-  version "3.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-3.0.0-alpha.5.tgz#2475a71a838c84b6ac8a3b429dfdc9de45f0c4f3"
-  integrity sha512-9Ekoqe4mKHgSKxnwuQQeu0hc2d/RzMWJJhV7lvy9LpaGebnaJWi5QHClRpCJhWyS2lVqtyXx+dkOHKlhd6MBBA==
+"@extscreen/es3-vue@3.0.0-alpha.8":
+  version "3.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/@extscreen/es3-vue/-/es3-vue-3.0.0-alpha.8.tgz#bc5c44e11ebfdcd90bf6166d933698fe49711c5a"
+  integrity sha512-ayzTCQGYfRrnNbORgu/j6DqblkaoSWDs1ucZwh8Z4B5stHZxn7UW9jPc/VnbHTlhr4OJrum5aBejAHOjKfs/xQ==
 
 "@hapi/bourne@^3.0.0":
   version "3.0.0"
@@ -1591,10 +1591,10 @@
   resolved "https://registry.yarnpkg.com/@quicktvui/html-core/-/html-core-0.0.1-beta.1.tgz#a8f94b5ccb9398b07fe74edc44e65b19b194de48"
   integrity sha512-gHSsC3xLuv5Qgjj6jqdxJEZ77XeeatbKUsC00PT+yG+NoWq9ymHvPnixjA4ZZ8wjyxfCAxEdNhfFGS96fuNvUg==
 
-"@quicktvui/quicktvui3@3.0.0-alpha.4":
-  version "3.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-3.0.0-alpha.4.tgz#f74c35981e010051a56e0de1d5e5095f85fa42ef"
-  integrity sha512-8R0T6Euibs3zTvDSuDE16XZb7qddxkOCFkIRlsfYdph4Kn/Pq57a5b4qKshKbKXtfcPhRf/p6yEUOFbIVQD1Uw==
+"@quicktvui/quicktvui3@3.0.0-alpha.7":
+  version "3.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@quicktvui/quicktvui3/-/quicktvui3-3.0.0-alpha.7.tgz#16d3baee4b95b360fc6dfbcb95dfcdef93533b43"
+  integrity sha512-81JohhLKVBfphANJ4JDjMAwSejSTCPt9g710kssuV/Ji4wnNVuiWWjES3PrwVGQMzVn3odaUEKj0IM7eQGAMzw==
 
 "@rollup/plugin-alias@^3.1.9":
   version "3.1.9"
