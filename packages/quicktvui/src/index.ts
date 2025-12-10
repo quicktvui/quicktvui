@@ -38,11 +38,6 @@ import registerQTIReplaceChildView from './replace-child/QTReplaceChildView'
 import registerQTLongImageComponent from './long-image/QTLongImage'
 import registerQTFileBrowseComponent from './file-browse/QTFileBrowse'
 
-import registerQTLottieViewForHarmony from './lottie/QTLottieView.harmony'
-import registerQTLottieViewForAndroid from './lottie/QTLottieView.android'
-import registerQTAnimationForAndroid from './animation/QTAnimation.android'
-import registerQTAnimationForHarmony from './animation/QTAnimation.harmony'
-
 //
 import registerQTLottieViewForHarmony from './lottie/QTLottieView.harmony'
 import registerQTLottieViewForAndroid from './lottie/QTLottieView.android'
