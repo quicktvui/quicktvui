@@ -30,6 +30,7 @@
         autoHeight
         flexStyle="${titleStyle}"
         typeface="${titleTypeface}"
+        fontFamily="${fontFamily}"
         :focusable="false"
         textSize="${titleStyle.fontSize}"
         text="${title}"

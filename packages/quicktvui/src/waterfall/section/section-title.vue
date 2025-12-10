@@ -14,6 +14,7 @@
       class="section-title-text-css"
       :postDelay="300"
       :style="{ marginLeft: plateTitleLeftMargin + 'px' }"
+      fontFamily="${fontFamily}"
       typeface="${titleTypeface}"
       :focusable="false"
       textSize="${titleStyle.fontSize}"
