@@ -27,20 +27,20 @@ export default defineComponent({
 
     function onESCreate(app: ESApp, params: ESAppParams) {
       log.setMinimumLoggingLevel(ESLogLevel.DEBUG)
-      return Promise.resolve().then(() => {
-        const playerDisplay: ESPlayerDisplay = {
-          screenWidth: device.getScreenWidth(),
-          screenHeight: device.getScreenHeight(),
-        }
-        const config: ESPlayerConfiguration = {
-          debug: true,
-          display: playerDisplay,
-          device: {
-            deviceType: runtime.getRuntimeDeviceType() ?? '',
-          },
-        }
-        return playerManager.init(config)
-      })
+      // return Promise.resolve().then(() => {
+      //   const playerDisplay: ESPlayerDisplay = {
+      //     screenWidth: device.getScreenWidth(),
+      //     screenHeight: device.getScreenHeight(),
+      //   }
+      //   const config: ESPlayerConfiguration = {
+      //     debug: true,
+      //     display: playerDisplay,
+      //     device: {
+      //       deviceType: runtime.getRuntimeDeviceType() ?? '',
+      //     },
+      //   }
+      //   return playerManager.init(config)
+      // })
     }
 
     function onESCreated(success: boolean) {
