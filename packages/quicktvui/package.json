@@ -15,12 +15,13 @@
     "framework",
     "compiler"
   ],
+  "peerDependencies": {
+  },
   "files": [
     "dist",
     "web-types.json"
   ],
   "web-types": "web-types.json",
   "dependencies": {
-    "@extscreen/es3-vue": "^2.0.6"
   }
 }

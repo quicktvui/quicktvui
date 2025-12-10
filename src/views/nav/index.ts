@@ -36,6 +36,7 @@ import qt_nav_module_page from './qt-nav-module-page'
 import qt_nav_component_page from './qt-nav-component-page'
 import qt_nav_canvas_page from './qt-nav-canvas-view-page'
 import qt_nav_long_image_page from './qt-nav-long-image-page'
+import qt_nav_file_browse_page from './qt-nav-file-browse-page'
 //--------------------------------------------------------------------
 import web_nav_video_page from './web-nav-video-page'
 import web_nav_audio_page from './web-nav-audio-page'
@@ -218,6 +219,10 @@ const QTAPINavPageList = {
   web_nav_alert_page: {
     name: 'Alert',
     component: web_nav_alert_page,
+  },
+  qt_nav_file_browse_page: {
+    name: 'QTFileBrowse',
+    component: qt_nav_file_browse_page,
   },
   //----------------------------------------------
   qt_nav_tv_div_page: {

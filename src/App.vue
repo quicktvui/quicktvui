@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 import { ESLogLevel, useESLog, ESAppParams, useESRuntime, useESDevice } from '@extscreen/es3-core'
-import { ESApp } from '@extscreen/es3-vue'
+import { ESApp, Native } from '@extscreen/es3-vue'
 import {
   ESPlayerConfiguration,
   ESPlayerDisplay,
@@ -27,20 +27,20 @@ export default defineComponent({
 
     function onESCreate(app: ESApp, params: ESAppParams) {
       log.setMinimumLoggingLevel(ESLogLevel.DEBUG)
-      // return Promise.resolve().then(() => {
-      //   const playerDisplay: ESPlayerDisplay = {
-      //     screenWidth: device.getScreenWidth(),
-      //     screenHeight: device.getScreenHeight(),
-      //   }
-      //   const config: ESPlayerConfiguration = {
-      //     debug: true,
-      //     display: playerDisplay,
-      //     device: {
-      //       deviceType: runtime.getRuntimeDeviceType() ?? '',
-      //     },
-      //   }
-      //   return playerManager.init(config)
-      // })
+      return Promise.resolve().then(() => {
+        const playerDisplay: ESPlayerDisplay = {
+          screenWidth: device.getScreenWidth(),
+          screenHeight: device.getScreenHeight(),
+        }
+        const config: ESPlayerConfiguration = {
+          debug: true,
+          display: playerDisplay,
+          device: {
+            deviceType: runtime.getRuntimeDeviceType() ?? '',
+          },
+        }
+        return playerManager.init(config)
+      })
     }
 
     function onESCreated(success: boolean) {
