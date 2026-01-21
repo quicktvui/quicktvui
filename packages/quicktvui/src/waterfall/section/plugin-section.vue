@@ -19,6 +19,7 @@
       :postDelay="300"
       autoWidth
       autoHeight
+      fontFamily="${fontFamily}"
       typeface="${titleTypeface}"
       flexStyle="${titleStyle}"
       :focusable="false"

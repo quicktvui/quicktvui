@@ -20,6 +20,7 @@
       autoWidth
       autoHeight
       typeface="${titleTypeface}"
+      fontFamily="${fontFamily}"
       :lines="1"
       flexStyle="${titleStyle}"
       :focusable="false"
