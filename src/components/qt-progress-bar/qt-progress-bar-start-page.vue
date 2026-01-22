@@ -1,7 +1,7 @@
 <template>
   <div class="es-sdk-root-css">
-    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name"/>
-    <div class="es-sdk-content-divider-css"/>
+    <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
+    <div class="es-sdk-content-divider-css" />
     <div class="es-sdk-content-row-css">
       <qt-progress-bar
         ref="progress_bar"
@@ -11,20 +11,22 @@
         :secondary-progress="80"
         :background-color="backgroundColor"
         :color="color"
-        class="es-progress-bar-css"/>
+        class="es-progress-bar-css"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "@vue/runtime-core";
-import {ref} from "vue";
-import {QTIProgressBar} from "@quicktvui/quicktvui3";
+import { defineComponent } from '@vue/runtime-core'
+import { ref } from 'vue'
+import { QTIProgressBar } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
   name: '使用初探',
+  emits: [],
   setup() {
+    const progress = ref<number>(0)
     const progress_bar = ref<QTIProgressBar>()
     const backgroundColor = ref('#54D00C')
     const color = ref({
@@ -36,27 +38,33 @@ export default defineComponent({
     })
 
     function onESCreate(params) {
-      progress_bar.value?.setProgress(10);
-      progress_bar.value?.setMaxProgress(100);
-      progress_bar.value?.setProgressColor(0xFFFF0000);
-      progress_bar.value?.setProgressDefaultColor(0xFF7415B1);
+      progress_bar.value?.setProgress(10)
+      progress_bar.value?.setMaxProgress(100)
+      // progress_bar.value?.setProgressColor(0xFFFF0000);
+      // progress_bar.value?.setProgressDefaultColor(0xFF7415B1);
+
+      setInterval(() => {
+        progress.value = progress.value + 5
+        progress_bar.value?.setProgress(progress.value)
+      }, 1000)
     }
 
     return {
+      progress,
       progress_bar,
       backgroundColor,
       color,
-      onESCreate
+      onESCreate,
     }
   },
-});
-
+})
 </script>
 
-<style>
+<style scoped>
 .es-progress-bar-css {
   width: 800px;
   height: 20px;
   border-radius: 0;
+  background-color: #7415b1;
 }
 </style>

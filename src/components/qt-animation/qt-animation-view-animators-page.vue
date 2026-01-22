@@ -50,7 +50,7 @@ export default defineComponent({
         'AlphaAnimationId', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_ALPHA,
-        [0, 1],
+        [1, 0, 1],
         2000,
         -1,
         0,
@@ -61,7 +61,7 @@ export default defineComponent({
         'ScaleAnimationId', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
-        [0, 2.5],
+        [1, 1.5],
         2000,
         -1,
         0,
@@ -90,11 +90,9 @@ export default defineComponent({
         false,
         false
       )
-      animationRef.value?.playSequentially(
-        'SequentiallyAnimatorsId'[
-          ('AlphaAnimationId', 'ScaleAnimationId', 'RotationAnimationId', 'TranslationAnimationId')
-        ]
-      )
+      animationRef.value?.playSequentially('SequentiallyAnimatorsId', [
+        ['AlphaAnimationId', 'ScaleAnimationId', 'RotationAnimationId', 'TranslationAnimationId'],
+      ])
       animationRef.value?.start('SequentiallyAnimatorsId')
     }
 

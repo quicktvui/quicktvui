@@ -31,7 +31,7 @@ import { useESRouter } from '@extscreen/es3-router'
 import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'Translation',
+  name: 'TranslationZ',
   emits: [],
   setup() {
     const animation_view = ref<QTIAnimation>()
@@ -41,7 +41,7 @@ export default defineComponent({
       animation_view.value?.animator(
         '2', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z,
         [0, 300],
         1000,
         -1,
@@ -56,7 +56,7 @@ export default defineComponent({
       animation_view.value?.animator(
         '3', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z,
         [0, 300, 60],
         1000,
         -1,
@@ -71,7 +71,7 @@ export default defineComponent({
       animation_view.value?.animator(
         '4', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z,
         [0, 300, 60, -60],
         1000,
         -1,
@@ -86,7 +86,7 @@ export default defineComponent({
       animation_view.value?.animator(
         'n', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z,
         [0, 300, 60, -60, 60, 0, 800, 60, -600, 60],
         10000,
         -1,
@@ -101,7 +101,7 @@ export default defineComponent({
       animation_view.value?.animator(
         '5', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_X,
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Z,
         [0, 300, 60, -60, 60],
         1000,
         -1,

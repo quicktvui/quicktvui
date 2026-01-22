@@ -1,5 +1,5 @@
 <template>
-  <div class="es-sdk-root-css">
+  <div class="es-sdk-root-css" :clipChildren="true">
     <s-title-view class="es-sdk-content-title-css" :text="this.$options.name" />
     <div class="es-sdk-content-divider-css" />
     <div class="es-sdk-content-column-css" :clipChildren="true" style="height: 1080px">
@@ -31,7 +31,7 @@ import { useESRouter } from '@extscreen/es3-router'
 import { QTAnimationPropertyName, QTAnimationValueType, QTIAnimation } from '@quicktvui/quicktvui3'
 
 export default defineComponent({
-  name: 'Scale',
+  name: 'TranslationY',
   emits: [],
   setup() {
     const animation_view = ref<QTIAnimation>()
@@ -41,8 +41,8 @@ export default defineComponent({
       animation_view.value?.animator(
         '2', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
-        [0, 1.5],
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
+        [0, 300],
         1000,
         -1,
         0,
@@ -56,8 +56,8 @@ export default defineComponent({
       animation_view.value?.animator(
         '3', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
-        [0, 1.5, 2],
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
+        [0, 300, 60],
         1000,
         -1,
         0,
@@ -71,8 +71,8 @@ export default defineComponent({
       animation_view.value?.animator(
         '4', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
-        [0, 1.5, 2, 0.3],
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
+        [0, 300, 60, -60],
         1000,
         -1,
         0,
@@ -86,8 +86,8 @@ export default defineComponent({
       animation_view.value?.animator(
         'n', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
-        [0, 1.5, 2, 0.3, 0, 1, 0, 1.5, 2, 0.3],
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
+        [0, 300, 60, -60, 60, 0, 800, 60, -600, 60],
         10000,
         -1,
         0,
@@ -101,8 +101,8 @@ export default defineComponent({
       animation_view.value?.animator(
         '5', //自定义id
         QTAnimationValueType.QT_ANIMATION_VALUE_TYPE_FLOAT,
-        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_SCALE_X,
-        [0, 1.5, 2, 0.3, 0],
+        QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
+        [0, 300, 60, -60, 60],
         1000,
         -1,
         0,

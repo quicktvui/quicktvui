@@ -1,9 +1,9 @@
 <template>
   <qt-view class="es-sdk-root-css" ref="root_view">
     <qt-view class="es-sdk-splash-logo-css">
-      <qt-image class="es-sdk-splash-css" :src="logo"/>
+      <qt-image class="es-sdk-splash-css" :src="logo" />
       <qt-view class="es-sdk-content-column-css">
-        <s-text-view text="快应用"/>
+        <s-text-view text="快应用" />
         <span class="es-sdk-splash-title-css">QuickTVUI</span>
       </qt-view>
     </qt-view>
@@ -11,15 +11,16 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "@vue/runtime-core";
-import {useESRouter} from "@extscreen/es3-router";
+import { defineComponent } from '@vue/runtime-core'
+import { useESRouter } from '@extscreen/es3-router'
 import logo from '../../assets/logo.png'
 import lottie from '../../assets/lottie-logo.json'
 
 export default defineComponent({
-  name: "es-splash-page",
+  name: 'es-splash-page',
+  emits: [],
   setup() {
-    const router = useESRouter();
+    const router = useESRouter()
     const onESCreate = (params) => {
       setTimeout(() => {
         router.push('index')
@@ -29,14 +30,13 @@ export default defineComponent({
     return {
       onESCreate,
       logo,
-      lottie
+      lottie,
     }
   },
-});
+})
 </script>
 
 <style scoped>
-
 .es-sdk-splash-css {
   width: 300px;
   height: 300px;
@@ -58,5 +58,4 @@ export default defineComponent({
   margin-top: 5px;
   color: white;
 }
-
 </style>

@@ -30,6 +30,7 @@ import qt_nav_swiper_page from './qt-nav-swiper-page.vue'
 import qt_nav_lottie_page from './qt-nav-lottie-page.vue'
 import qt_indicator_list_view_page from './qt-nav-indicator-list-view-page.vue'
 import qt_nav_dialog_page from './qt-nav-dialog-page.vue'
+import qt_nav_play_mark_page from './qt-nav-play-mark-page.vue'
 //
 import qt_nav_module_page from './qt-nav-module-page'
 import qt_nav_component_page from './qt-nav-component-page'
@@ -43,37 +44,42 @@ import web_nav_audio_service_page from './web-nav-audio-service-page'
 import web_nav_h_page from './web-nav-h-page'
 import web_nav_alert_page from './web-nav-alert-page'
 //--------------------------------------------------------------------
+import qt_nav_tv_div_page from './qt-nav-tv-div-page'
+import qt_nav_tv_image_page from './qt-nav-tv-image-page'
+import qt_nav_tv_swiper_page from './qt-nav-tv-swiper-page'
+import qt_nav_tv_ul_page from './qt-nav-tv-ul-page'
+//--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
-    name: 'QTView',
+    name: ' 🟢 QTView',
     component: qt_nav_view_page,
   },
   qt_nav_text_page: {
-    name: 'QTText',
+    name: ' 🟢 QTText',
     component: qt_nav_text_page,
   },
   qt_nav_image_page: {
-    name: 'QTImage',
+    name: ' 🟢 QTImage',
     component: qt_nav_image_page,
   },
   qt_nav_row_page: {
-    name: 'QTRow',
+    name: ' 🟢 QTRow',
     component: qt_nav_row_page,
   },
   qt_nav_column_page: {
-    name: 'QTColumn',
+    name: ' 🟢 QTColumn',
     component: qt_nav_column_page,
   },
   qt_nav_loading_page: {
-    name: 'QTLoading',
+    name: ' 🟢 QTLoading',
     component: qt_nav_loading_page,
   },
   qt_nav_button_page: {
-    name: 'QTButton',
+    name: ' 🟢 QTButton',
     component: qt_nav_button_page,
   },
   qt_nav_text_view_page: {
-    name: 'TextView',
+    name: ' 🟢 TextView',
     component: qt_nav_text_view_page,
   },
   qt_nav_animation_page: {
@@ -81,27 +87,27 @@ const QTAPINavPageList = {
     component: qt_nav_animation_page,
   },
   qt_nav_app_icon_page: {
-    name: 'QTAppIcon',
+    name: ' ❌ QTAppIcon',
     component: qt_nav_app_icon_page,
   },
   qt_nav_webview_page: {
-    name: 'QTWebView',
+    name: ' 🟡 QTWebView',
     component: qt_nav_webview_page,
   },
   qt_nav_x5webview_page: {
-    name: 'QTX5WebView',
+    name: ' 🟢 QTX5WebView',
     component: qt_nav_x5webview_page,
   },
   qt_nav_qrcode_page: {
-    name: 'QTQRCode',
+    name: ' 🟢 QTQRCode',
     component: qt_nav_qrcode_page,
   },
   qt_nav_progress_bar_page: {
-    name: 'QTProgressBar',
+    name: ' 🟢 QTProgressBar',
     component: qt_nav_progress_bar_page,
   },
   qt_nav_seek_bar_page: {
-    name: 'QTSeekBar',
+    name: ' 🟡 QTSeekBar',
     component: qt_nav_seek_bar_page,
   },
   qt_nav_grid_view_page: {
@@ -149,7 +155,7 @@ const QTAPINavPageList = {
   //   component: qt_nav_scroll_view_page,
   // },
   qt_nav_plugin_view_page: {
-    name: 'QTPluginView',
+    name: ' ❌ QTPluginView',
     component: qt_nav_plugin_view_page,
   },
   // qt_nav_api_page: {
@@ -177,6 +183,10 @@ const QTAPINavPageList = {
     name: 'QTComponent',
     component: qt_nav_component_page,
   },
+  qt_nav_play_mark_page: {
+    name: 'QTPlayMark',
+    component: qt_nav_play_mark_page,
+  },
   /*qt_nav_canvas_page: {
     name: 'QTCanvas',
     component: qt_nav_canvas_page,
@@ -187,7 +197,7 @@ const QTAPINavPageList = {
     component: qt_nav_long_image_page,
   },
   qt_nav_dialog_page: {
-    name: 'QTDialog',
+    name: ' 🟢 QTDialog',
     component: qt_nav_dialog_page,
   },
   web_nav_video_page: {
@@ -203,7 +213,7 @@ const QTAPINavPageList = {
     component: web_nav_audio_service_page,
   },
   web_nav_h_page: {
-    name: 'H',
+    name: ' 🟢 H',
     component: web_nav_h_page,
   },
   web_nav_alert_page: {
@@ -213,6 +223,23 @@ const QTAPINavPageList = {
   qt_nav_file_browse_page: {
     name: 'QTFileBrowse',
     component: qt_nav_file_browse_page,
+  },
+  //----------------------------------------------
+  qt_nav_tv_div_page: {
+    name: 'tv-div',
+    component: qt_nav_tv_div_page,
+  },
+  qt_nav_tv_image_page: {
+    name: 'tv-image',
+    component: qt_nav_tv_image_page,
+  },
+  qt_nav_tv_swiper_page: {
+    name: 'tv-swiper',
+    component: qt_nav_tv_swiper_page,
+  },
+  qt_nav_tv_ul_page: {
+    name: 'tv-ul',
+    component: qt_nav_tv_ul_page,
   },
 }
 
