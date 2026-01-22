@@ -77,7 +77,7 @@ export default defineComponent({
         QTAnimationPropertyName.QT_ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
         [0, 300, 0, -300, 0],
         1000,
-        QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_RESTART,
+        QTAnimationRepeatMode.QT_ANIMATION_REPEAT_MODE_INFINITE,
         -1,
         false,
         false

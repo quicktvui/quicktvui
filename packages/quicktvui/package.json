@@ -1,9 +1,9 @@
 {
   "name": "@quicktvui/quicktvui3",
-  "version": "3.0.0-alpha.5",
-  "description": "ExtScreen framework",
-  "author": "ExtScreen Team",
-  "homepage": "http://extscreen.com",
+  "version": "3.0.0-alpha.11",
+  "description": "Quick TV framework",
+  "author": "Quick TV Team",
+  "homepage": "https://quicktvui.com",
   "license": "Apache-2.0",
   "entry": "dist/index.js",
   "main": "dist/index.js",
@@ -21,5 +21,18 @@
     "dist",
     "web-types.json"
   ],
-  "web-types": "web-types.json"
+  "web-types": "web-types.json",
+  "dependencies": {
+    "@extscreen/es3-audio-player": "~3.0.0-alpha.1",
+    "@extscreen/es3-audio-service-player": "~3.0.0-alpha.1",
+    "@extscreen/es3-component": "~3.0.0-alpha.1",
+    "@extscreen/es3-core": "~3.0.0-alpha.1",
+    "@extscreen/es3-player": "~3.0.0-alpha.2",
+    "@extscreen/es3-player-manager": "~3.0.0-alpha.1",
+    "@extscreen/es3-router": "~3.0.0-alpha.1",
+    "@extscreen/es3-soundpool-player": "~3.0.0-alpha.1",
+    "@extscreen/es3-video-player": "~3.0.0-alpha.1",
+    "@extscreen/es3-vue": "~3.0.0-alpha.10",
+    "@extscreen/es3-vue-style-parser": "~3.0.0-alpha.1"
+  }
 }
