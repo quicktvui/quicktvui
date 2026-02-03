@@ -445,6 +445,17 @@ export function createQtBaseNativeViewAPI(): QtBaseViewAPI {
     }
   }
 
+  function deepInvalidate(
+    instance: string | Ref<QTIView | undefined>,
+    params: Record<string, any>
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'deepInvalidate', [params]])
+    } else if (isRef(instance)) {
+      Native.callUIFunction(instance.value!, 'deepInvalidate', [params])
+    }
+  }
+
   return {
     requestFocus,
     requestChildFocus,
@@ -477,5 +488,6 @@ export function createQtBaseNativeViewAPI(): QtBaseViewAPI {
     getLocationOnScreen,
     getViewState,
     getChildViewState,
+    deepInvalidate,
   }
 }

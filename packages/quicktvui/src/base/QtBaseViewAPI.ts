@@ -116,6 +116,8 @@ export interface QtBaseViewAPI {
     instance: string | Ref<QTIView | undefined>,
     position: number
   ): Promise<QTViewState>
+
+  deepInvalidate(instance: string | Ref<QTIView | undefined>, params: Record<string, any>): void
 }
 
 export function createQtBaseViewAPI(): QtBaseViewAPI {
@@ -572,6 +574,19 @@ export function createQtBaseViewAPI(): QtBaseViewAPI {
     }
   }
 
+  function deepInvalidate(
+    instance: string | Ref<QTIView | undefined>,
+    params: Record<string, any>
+  ): void {
+    if (isString(instance)) {
+      Native.callNative(QT_API_MODULE, QT_CALL_UI_FUNCTION, [instance, 'deepInvalidate', [params]])
+    } else if (isRef(instance)) {
+      try {
+        instance.value?.deepInvalidate(params)
+      } catch (e) {}
+    }
+  }
+
   return {
     requestFocus,
     requestChildFocus,
@@ -604,5 +619,6 @@ export function createQtBaseViewAPI(): QtBaseViewAPI {
     getLocationOnScreen,
     getViewState,
     getChildViewState,
+    deepInvalidate,
   }
 }

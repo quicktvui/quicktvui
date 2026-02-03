@@ -8,6 +8,7 @@ import { QTFocusDirectionName } from '../focus/QTFocusDirectionName'
 import { QTEventData } from '../core/QTEventData'
 import { QTLocation } from '../core/QTLocation'
 import { QTViewState } from '../view/QTViewState'
+import { Native } from '@extscreen/es3-vue'
 
 export interface QTIBaseView extends ESIView {
   requestFocus(direction?: QTFocusDirection): void
@@ -84,4 +85,6 @@ export interface QTIBaseView extends ESIView {
   clearMemoryFocused(): void
 
   showDialog(show: boolean): void
+
+  deepInvalidate(params: Record<string, any>): void
 }
