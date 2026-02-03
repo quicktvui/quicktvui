@@ -272,6 +272,12 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     }
   }
 
+  function deepInvalidate(params: Record<string, any>): void {
+    if (viewRef.value) {
+      Native.callUIFunction(viewRef.value, 'deepInvalidate', [params])
+    }
+  }
+
   return {
     dispatchFunctionBySid,
     requestFocus,
@@ -308,5 +314,6 @@ export default function (viewRef: Ref<ESIView | undefined>) {
     requestChildFocusAtIndex,
     clearMemoryFocused,
     showDialog,
+    deepInvalidate,
   }
 }
