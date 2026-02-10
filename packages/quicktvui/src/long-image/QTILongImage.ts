@@ -39,6 +39,8 @@ export interface QTILongImage extends QTIView {
 
   enableHDR(enable: boolean): void
 
+  setDefaultHDR(type: number): void
+
   setSaturation(saturation: number): void
 
   setContrast(contrast: number): void

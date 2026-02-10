@@ -245,6 +245,10 @@ export default defineComponent({
       viewRef.value?.enableHDR(enable)
     }
 
+    const setDefaultHDR = (type: number) => {
+      viewRef.value?.setDefaultHDR(type)
+    }
+
     const setSaturation = (saturation: number) => {
       viewRef.value?.setSaturation(saturation)
     }
@@ -360,6 +364,7 @@ export default defineComponent({
       setScaleByAnimal,
       setDebug,
       enableHDR,
+      setDefaultHDR,
       setSaturation,
       setContrast,
       setBrightness,

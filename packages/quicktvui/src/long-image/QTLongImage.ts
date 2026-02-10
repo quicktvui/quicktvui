@@ -170,6 +170,10 @@ function registerQTLongImageComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'enableHDR', [enable])
       }
 
+      const setDefaultHDR = (type: number) => {
+        Native.callUIFunction(viewRef.value, 'setDefaultHDR', [type])
+      }
+
       const setSaturation = (saturation: number) => {
         Native.callUIFunction(viewRef.value, 'setSaturation', [saturation])
       }
@@ -257,6 +261,7 @@ function registerQTLongImageComponent(app: ESApp) {
         setScaleByAnimal,
         setDebug,
         enableHDR,
+        setDefaultHDR,
         setSaturation,
         setContrast,
         setBrightness,
