@@ -2,6 +2,7 @@ import { QTIView } from '../view/QTIView'
 import { QTLongImageScaleType } from './QTLongImageScaleType'
 import { QTLongImagePositionType } from './QTLongImagePositionType'
 import { QTLongImageOrientation } from './QTLongImageOrientation'
+import { Native } from '@extscreen/es3-vue'
 
 export interface QTILongImage extends QTIView {
   setInitScale(type: QTLongImageScaleType, scale?: number): void
@@ -36,4 +37,16 @@ export interface QTILongImage extends QTIView {
   setScaleByAnimal(useAnimal: boolean): void
 
   setDebug(debug: boolean): void
+
+  enableHDR(enable: boolean): void
+
+  setSaturation(saturation: number): void
+
+  setContrast(contrast: number): void
+
+  setBrightness(brightness: number): void
+
+  setWarmth(warmth: number): void
+
+  setOverlayAlpha(alpha: number): void
 }

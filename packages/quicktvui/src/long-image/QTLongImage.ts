@@ -166,6 +166,30 @@ function registerQTLongImageComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'setDebug', [debug])
       }
 
+      const enableHDR = (enable: boolean) => {
+        Native.callUIFunction(viewRef.value, 'enableHDR', [enable])
+      }
+
+      const setSaturation = (saturation: number) => {
+        Native.callUIFunction(viewRef.value, 'setSaturation', [saturation])
+      }
+
+      const setContrast = (contrast: number) => {
+        Native.callUIFunction(viewRef.value, 'setContrast', [contrast])
+      }
+
+      const setBrightness = (brightness: number) => {
+        Native.callUIFunction(viewRef.value, 'setBrightness', [brightness])
+      }
+
+      const setWarmth = (warmth: number) => {
+        Native.callUIFunction(viewRef.value, 'setWarmth', [warmth])
+      }
+
+      const setOverlayAlpha = (alpha: number) => {
+        Native.callUIFunction(viewRef.value, 'setOverlayAlpha', [alpha])
+      }
+
       context.expose({
         viewRef,
         setSrc,
@@ -184,6 +208,12 @@ function registerQTLongImageComponent(app: ESApp) {
         rotate,
         setScaleByAnimal,
         setDebug,
+        enableHDR,
+        setSaturation,
+        setContrast,
+        setBrightness,
+        setWarmth,
+        setOverlayAlpha,
         ...useBaseView(viewRef),
       })
 

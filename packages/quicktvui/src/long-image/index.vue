@@ -43,6 +43,7 @@ import {
   QTLongImageScrollChangeBean,
   QTLongImageShowChangeBean,
 } from './QTLongImageEventBean'
+import { Native } from '@extscreen/es3-vue'
 
 export default defineComponent({
   name: 'qt-long-image',
@@ -241,6 +242,30 @@ export default defineComponent({
       viewRef.value?.setDebug(debug)
     }
 
+    const enableHDR = (enable: boolean) => {
+      viewRef.value?.enableHDR(enable)
+    }
+
+    const setSaturation = (saturation: number) => {
+      viewRef.value?.setSaturation(saturation)
+    }
+
+    const setContrast = (contrast: number) => {
+      viewRef.value?.setContrast(contrast)
+    }
+
+    const setBrightness = (brightness: number) => {
+      viewRef.value?.setBrightness(brightness)
+    }
+
+    const setWarmth = (warmth: number) => {
+      viewRef.value?.setWarmth(warmth)
+    }
+
+    const setOverlayAlpha = (alpha: number) => {
+      viewRef.value?.setOverlayAlpha(alpha)
+    }
+
     const scrollTo = (offsetX: number, offsetY: number): void => {
       viewRef.value?.scrollTo(offsetX, offsetY)
     }
@@ -287,6 +312,12 @@ export default defineComponent({
       rotate,
       setScaleByAnimal,
       setDebug,
+      enableHDR,
+      setSaturation,
+      setContrast,
+      setBrightness,
+      setWarmth,
+      setOverlayAlpha,
       onDownLoad,
       onImageLoad,
       onRendered,
