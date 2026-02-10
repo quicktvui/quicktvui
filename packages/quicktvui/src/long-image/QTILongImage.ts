@@ -2,7 +2,6 @@ import { QTIView } from '../view/QTIView'
 import { QTLongImageScaleType } from './QTLongImageScaleType'
 import { QTLongImagePositionType } from './QTLongImagePositionType'
 import { QTLongImageOrientation } from './QTLongImageOrientation'
-import { Native } from '@extscreen/es3-vue'
 
 export interface QTILongImage extends QTIView {
   setInitScale(type: QTLongImageScaleType, scale?: number): void
@@ -49,4 +48,16 @@ export interface QTILongImage extends QTIView {
   setWarmth(warmth: number): void
 
   setOverlayAlpha(alpha: number): void
+
+  isHDR(): Promise<boolean>
+
+  getSaturation(): Promise<number>
+
+  getContrast(): Promise<number>
+
+  getBrightness(): Promise<number>
+
+  getWarmth(): Promise<number>
+
+  getOverlayAlpha(): Promise<number>
 }

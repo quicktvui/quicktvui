@@ -18,12 +18,36 @@
       <s-text-view :text="hdrText" />
     </div>
     <div class="es-sdk-content-row-css">
-      <s-text-button text="能否HDR" @onButtonFocused="onButtonFocused1" />
-      <s-text-button text="饱和度" @onButtonFocused="onButtonFocused2" />
-      <s-text-button text="对比度" @onButtonFocused="onButtonFocused3" />
-      <s-text-button text="亮度" @onButtonFocused="onButtonFocused4" />
-      <s-text-button text="色温" @onButtonFocused="onButtonFocused5" />
-      <s-text-button text="双层" @onButtonFocused="onButtonFocused6" />
+      <s-text-button
+        text="能否HDR"
+        @onButtonFocused="onButtonFocused1"
+        @onButtonClicked="onButtonClicked(1)"
+      />
+      <s-text-button
+        text="饱和度"
+        @onButtonFocused="onButtonFocused2"
+        @onButtonClicked="onButtonClicked(2)"
+      />
+      <s-text-button
+        text="对比度"
+        @onButtonFocused="onButtonFocused3"
+        @onButtonClicked="onButtonClicked(3)"
+      />
+      <s-text-button
+        text="亮度"
+        @onButtonFocused="onButtonFocused4"
+        @onButtonClicked="onButtonClicked(4)"
+      />
+      <s-text-button
+        text="色温"
+        @onButtonFocused="onButtonFocused5"
+        @onButtonClicked="onButtonClicked(5)"
+      />
+      <s-text-button
+        text="双层"
+        @onButtonFocused="onButtonFocused6"
+        @onButtonClicked="onButtonClicked(6)"
+      />
     </div>
   </qt-view>
 </template>
@@ -98,11 +122,43 @@ export default defineComponent({
       console.log('----------onInitializeError--------->>>>', error)
     }
 
-    function onButtonClicked() {
-      router.push({
-        name: 'long-image/qt_long_image_vertical_scroll_page',
-        params: {},
-      })
+    function onButtonClicked(index) {
+      // router.push({
+      //   name: 'long-image/qt_long_image_vertical_scroll_page',
+      //   params: {},
+      // })
+      switch (index) {
+        case 1:
+          viewRef.value?.isHDR().then((res) => {
+            toast.showLongToast('isHDR ' + res)
+          })
+          break
+        case 2:
+          viewRef.value?.getSaturation().then((res) => {
+            toast.showLongToast('getSaturation ' + res)
+          })
+          break
+        case 3:
+          viewRef.value?.getContrast().then((res) => {
+            toast.showLongToast('getContrast ' + res)
+          })
+          break
+        case 4:
+          viewRef.value?.getBrightness().then((res) => {
+            toast.showLongToast('getBrightness ' + res)
+          })
+          break
+        case 5:
+          viewRef.value?.getWarmth().then((res) => {
+            toast.showLongToast('getWarmth ' + res)
+          })
+          break
+        case 6:
+          viewRef.value?.getOverlayAlpha().then((res) => {
+            toast.showLongToast('getOverlayAlpha ' + res)
+          })
+          break
+      }
     }
 
     function onButtonFocused1(focused) {

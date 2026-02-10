@@ -190,6 +190,54 @@ function registerQTLongImageComponent(app: ESApp) {
         Native.callUIFunction(viewRef.value, 'setOverlayAlpha', [alpha])
       }
 
+      const isHDR = (): Promise<boolean> => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(viewRef.value, 'isHDR', [], (res: boolean) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getSaturation = (): Promise<number> => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(viewRef.value, 'getSaturation', [], (res: number) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getContrast = (): Promise<number> => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(viewRef.value, 'getContrast', [], (res: number) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getBrightness = (): Promise<number> => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(viewRef.value, 'getBrightness', [], (res: number) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getWarmth = (): Promise<number> => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(viewRef.value, 'getWarmth', [], (res: number) => {
+            resolve(res)
+          })
+        })
+      }
+
+      const getOverlayAlpha = (): Promise<number> => {
+        return new Promise((resolve, reject) => {
+          Native.callUIFunction(viewRef.value, 'getOverlayAlpha', [], (res: number) => {
+            resolve(res)
+          })
+        })
+      }
+
       context.expose({
         viewRef,
         setSrc,
@@ -214,6 +262,12 @@ function registerQTLongImageComponent(app: ESApp) {
         setBrightness,
         setWarmth,
         setOverlayAlpha,
+        isHDR,
+        getSaturation,
+        getContrast,
+        getBrightness,
+        getWarmth,
+        getOverlayAlpha,
         ...useBaseView(viewRef),
       })
 

@@ -43,7 +43,6 @@ import {
   QTLongImageScrollChangeBean,
   QTLongImageShowChangeBean,
 } from './QTLongImageEventBean'
-import { Native } from '@extscreen/es3-vue'
 
 export default defineComponent({
   name: 'qt-long-image',
@@ -266,6 +265,54 @@ export default defineComponent({
       viewRef.value?.setOverlayAlpha(alpha)
     }
 
+    const isHDR = (): Promise<boolean> => {
+      if (viewRef.value) {
+        return viewRef.value.isHDR()
+      } else {
+        return Promise.reject()
+      }
+    }
+
+    const getSaturation = (): Promise<number> => {
+      if (viewRef.value) {
+        return viewRef.value.getSaturation()
+      } else {
+        return Promise.reject()
+      }
+    }
+
+    const getContrast = (): Promise<number> => {
+      if (viewRef.value) {
+        return viewRef.value.getContrast()
+      } else {
+        return Promise.reject()
+      }
+    }
+
+    const getBrightness = (): Promise<number> => {
+      if (viewRef.value) {
+        return viewRef.value.getBrightness()
+      } else {
+        return Promise.reject()
+      }
+    }
+
+    const getWarmth = (): Promise<number> => {
+      if (viewRef.value) {
+        return viewRef.value.getWarmth()
+      } else {
+        return Promise.reject()
+      }
+    }
+
+    const getOverlayAlpha = (): Promise<number> => {
+      if (viewRef.value) {
+        return viewRef.value.getOverlayAlpha()
+      } else {
+        return Promise.reject()
+      }
+    }
+
     const scrollTo = (offsetX: number, offsetY: number): void => {
       viewRef.value?.scrollTo(offsetX, offsetY)
     }
@@ -318,6 +365,12 @@ export default defineComponent({
       setBrightness,
       setWarmth,
       setOverlayAlpha,
+      isHDR,
+      getSaturation,
+      getContrast,
+      getBrightness,
+      getWarmth,
+      getOverlayAlpha,
       onDownLoad,
       onImageLoad,
       onRendered,
