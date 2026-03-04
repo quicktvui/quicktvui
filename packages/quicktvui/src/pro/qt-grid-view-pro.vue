@@ -16,10 +16,10 @@
 </template>
 <script setup lang="ts">
 import { ref, toRaw, watch } from 'vue'
-import { Size } from './types/ArkTypes'
+import { Size } from './types/ProTypes'
 
 defineOptions({
-  name: 'qt-grid-view-ark',
+  name: 'qt-grid-view-pro',
 })
 
 const emit = defineEmits(['item-click'])

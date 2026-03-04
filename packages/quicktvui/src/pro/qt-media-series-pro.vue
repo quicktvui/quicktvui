@@ -1,7 +1,7 @@
 <template>
   <qt-view class="series-container" :clipChildren="false">
     <!-- 分集列表 -->
-    <ark-list-view
+    <qt-list-view-pro
       class="series-list"
       :enableFirstFocusAtStart="true"
       :blockFocusDirections="['left', 'right']"
@@ -26,9 +26,9 @@
         :type="1"
       />
       <slot name="custom" v-else-if="props.seriesStyle === SeriesStyleType.CUSTOM" />
-    </ark-list-view>
+    </qt-list-view-pro>
     <!-- 分组组件 -->
-    <ark-list-view
+    <qt-list-view-pro
       v-if="showGroupList"
       class="group-list"
       :blockFocusDirections="['left', 'right']"
@@ -85,20 +85,20 @@
           }"
         ></qt-view>
       </qt-view>
-    </ark-list-view>
+    </qt-list-view-pro>
   </qt-view>
 </template>
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import ArkListView from './qt-list-view-ark.vue'
+import QtListViewPro from './qt-list-view-pro.vue'
 import SeriesItemNumber from './style/series-item-number.vue'
 import SeriesItemText from './style/series-item-text.vue'
 import seriesItemImageLeft from './style/series-item-image-left.vue'
 import seriesItemImageTop from './style/series-item-image-top.vue'
 import { SeriesStyleType, SeriesItem } from './types/Series'
 defineOptions({
-  name: 'qt-media-series-ark',
+  name: 'qt-media-series-pro',
 })
 interface Props {
   totalEpisodes: number // 总集数
@@ -123,7 +123,7 @@ const props = withDefaults(defineProps<Props>(), {
   itemHeight: 240,
 })
 
-const TAG = 'qt-media-series-ark'
+const TAG = 'qt-media-series-pro'
 const innerTotalEpisodes = ref(props.totalEpisodes)
 const innerCurrentIndex = ref(props.currentIndex ?? 0)
 
@@ -345,7 +345,7 @@ function updateSeriesListWithPageData(page: number, data: SeriesItem[]) {
   const startIndex = page * props.pageSize
   if (startIndex >= innerTotalEpisodes.value) return
 
-  // 创建新数组以触发引用更新，确保 ArkVListView 能监听到变化
+  // 创建新数组以触发引用更新，确保 QtListViewPro 能监听到变化
   const newList = [...seriesList.value]
   let hasChange = false
 

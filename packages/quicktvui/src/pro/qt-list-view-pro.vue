@@ -18,11 +18,11 @@
 </template>
 <script setup lang="ts">
 import { PropType, ref, toRaw, watch } from 'vue'
-import { Size } from './types/ArkTypes'
+import { Size } from './types/ProTypes'
 import { QTListViewItem } from 'src/list-view/core/QTListViewItem'
 import { QTIListView } from 'src/list-view/core/QTIListView'
 defineOptions({
-  name: 'qt-list-view-ark',
+  name: 'qt-list-view-pro',
 })
 const emit = defineEmits(['item-click', 'item-focused', 'focus-lost'])
 const props = defineProps({

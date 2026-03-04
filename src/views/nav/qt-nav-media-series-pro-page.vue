@@ -4,7 +4,7 @@
       ref="titleRef"
       class="page-title"
       gravity="center"
-      text="QTMediaSeriesArk 示例"
+      text="QTMediaSeriesPro 示例"
     ></qt-text>
 
     <qt-waterfall ref="waterfall" class="waterfall-container">
@@ -12,8 +12,8 @@
         <qt-vue-section :type="seriesSectionTypes.example1" keyName="_id" class="waterfall-content">
           <qt-view class="example-section">
             <qt-text class="section-title" text="示例 1: 纯数字样式"></qt-text>
-            <qt-media-series-ark
-              ref="seriesArkRef1"
+            <qt-media-series-pro
+              ref="seriesProRef1"
               :totalEpisodes="100"
               :currentIndex="0"
               seriesStyle="number_only"
@@ -26,8 +26,8 @@
         <qt-vue-section :type="seriesSectionTypes.example2" keyName="_id" class="waterfall-content">
           <qt-view class="example-section">
             <qt-text class="section-title" text="示例 2: 纯文字样式"></qt-text>
-            <qt-media-series-ark
-              ref="seriesArkRef2"
+            <qt-media-series-pro
+              ref="seriesProRef2"
               :totalEpisodes="50"
               :currentIndex="5"
               seriesStyle="text_only"
@@ -40,8 +40,8 @@
         <qt-vue-section :type="seriesSectionTypes.example3" keyName="_id" class="waterfall-content">
           <qt-view class="example-section">
             <qt-text class="section-title" text="示例 3: 图片在上文字在下"></qt-text>
-            <qt-media-series-ark
-              ref="seriesArkRef3"
+            <qt-media-series-pro
+              ref="seriesProRef3"
               :totalEpisodes="80"
               :currentIndex="10"
               seriesStyle="image_top_text_bottom"
@@ -57,7 +57,7 @@
 
 <script lang="ts">
 export default {
-  name: 'qt-nav-media-series-ark-page',
+  name: 'qt-nav-media-series-pro-page',
 }
 </script>
 
@@ -71,9 +71,9 @@ import {
 } from '@quicktvui/quicktvui3'
 import { Native } from '@extscreen/es3-vue'
 
-const seriesArkRef1 = ref<any>()
-const seriesArkRef2 = ref<any>()
-const seriesArkRef3 = ref<any>()
+const seriesProRef1 = ref<any>()
+const seriesProRef2 = ref<any>()
+const seriesProRef3 = ref<any>()
 const waterfall = ref<QTIWaterfall>()
 const seriesSectionTypes = {
   example1: 20001,
@@ -120,7 +120,7 @@ const onESCreate = () => {
 
   const sectionList: QTWaterfallSection[] = [
     {
-      _id: 'media-series-ark-example-1',
+      _id: 'media-series-pro-example-1',
       type: seriesSectionTypes.example1,
       itemList: [],
       style: {
@@ -129,7 +129,7 @@ const onESCreate = () => {
       },
     },
     {
-      _id: 'media-series-ark-example-2',
+      _id: 'media-series-pro-example-2',
       type: seriesSectionTypes.example2,
       itemList: [],
       style: {
@@ -138,7 +138,7 @@ const onESCreate = () => {
       },
     },
     {
-      _id: 'media-series-ark-example-3',
+      _id: 'media-series-pro-example-3',
       type: seriesSectionTypes.example3,
       itemList: [],
       style: {

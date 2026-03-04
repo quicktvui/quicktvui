@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <qt-grid-view-ark
+    <qt-grid-view-pro
       ref="gridViewRef"
       class="es-sdk-content-row-css"
       :size="gridSize"
@@ -40,7 +40,7 @@
           <qt-text text="${name}" class="nav-grid-item-text" gravity="center"></qt-text>
         </qt-view>
       </template>
-    </qt-grid-view-ark>
+    </qt-grid-view-pro>
   </qt-view>
 </template>
 
