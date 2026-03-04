@@ -48,6 +48,7 @@ import qt_nav_tv_div_page from './qt-nav-tv-div-page'
 import qt_nav_tv_image_page from './qt-nav-tv-image-page'
 import qt_nav_tv_swiper_page from './qt-nav-tv-swiper-page'
 import qt_nav_tv_ul_page from './qt-nav-tv-ul-page'
+import qt_nav_media_series_ark_page from './qt-nav-media-series-ark-page.vue'
 //--------------------------------------------------------------------
 const QTAPINavPageList = {
   qt_nav_view_page: {
@@ -240,6 +241,10 @@ const QTAPINavPageList = {
   qt_nav_tv_ul_page: {
     name: 'tv-ul',
     component: qt_nav_tv_ul_page,
+  },
+  qt_nav_media_series_ark_page: {
+    name: 'qt-media-series-ark',
+    component: qt_nav_media_series_ark_page,
   },
 }
 

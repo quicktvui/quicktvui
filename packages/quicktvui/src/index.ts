@@ -15,7 +15,9 @@ import ClassifiedListView from './classified-list-view/index.vue'
 import QTMediaSeries from './series/index.vue'
 import QTCollapse from './collapse/index.vue'
 import LongImage from './long-image/index.vue'
-
+import QtListViewArk from './ark/qt-list-view-ark.vue'
+import QtMediaSeriesArk from './ark/qt-media-series-ark.vue'
+import QtGridViewArk from './ark/qt-grid-view-ark.vue'
 //
 import { arrangeChildren4ListView } from './utils/utils'
 import { QTListViewItemDecoration } from './list-view/core/QTListViewItemDecoration'
@@ -74,6 +76,9 @@ const components = [
   QTMediaSeries,
   QTCollapse,
   LongImage,
+  QtListViewArk,
+  QtMediaSeriesArk,
+  QtGridViewArk,
 ]
 
 //---------------------------------------------------------------------------
@@ -399,3 +404,6 @@ export type {
   Position2D,
   GradientType,
 } from './canvas/CanvasGradient'
+//---ark--
+export type { Size } from './ark/types/ArkTypes'
+export type { SeriesStyleType, SeriesItem } from './ark/types/Series'
