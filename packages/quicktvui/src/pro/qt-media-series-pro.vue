@@ -31,6 +31,7 @@
     <qt-list-view-pro
       v-if="showGroupList"
       class="group-list"
+      :enableFirstFocusAtStart="true"
       :blockFocusDirections="['left', 'right']"
       name="groupListView"
       ref="groupListViewRef"
