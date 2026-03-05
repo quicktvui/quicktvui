@@ -6,52 +6,47 @@
       gravity="center"
       text="QTMediaSeriesPro 示例"
     ></qt-text>
-
-    <qt-waterfall ref="waterfall" class="waterfall-container">
-      <template v-slot:section>
-        <qt-vue-section :type="seriesSectionTypes.example1" keyName="_id" class="waterfall-content">
-          <qt-view class="example-section">
-            <qt-text class="section-title" text="示例 1: 纯数字样式"></qt-text>
-            <qt-media-series-pro
-              ref="seriesProRef1"
-              :totalEpisodes="100"
-              :currentIndex="0"
-              seriesStyle="number_only"
-              :showGroup="true"
-              @item-click="onItemClick1"
-            />
-          </qt-view>
-        </qt-vue-section>
-
-        <qt-vue-section :type="seriesSectionTypes.example2" keyName="_id" class="waterfall-content">
-          <qt-view class="example-section">
-            <qt-text class="section-title" text="示例 2: 纯文字样式"></qt-text>
-            <qt-media-series-pro
-              ref="seriesProRef2"
-              :totalEpisodes="50"
-              :currentIndex="5"
-              seriesStyle="text_only"
-              :showGroup="true"
-              @item-click="onItemClick2"
-            />
-          </qt-view>
-        </qt-vue-section>
-
-        <qt-vue-section :type="seriesSectionTypes.example3" keyName="_id" class="waterfall-content">
-          <qt-view class="example-section">
-            <qt-text class="section-title" text="示例 3: 图片在上文字在下"></qt-text>
-            <qt-media-series-pro
-              ref="seriesProRef3"
-              :totalEpisodes="80"
-              :currentIndex="10"
-              seriesStyle="image_top_text_bottom"
-              :showGroup="false"
-              @item-click="onItemClick3"
-            />
-          </qt-view>
-        </qt-vue-section>
+    <qt-waterfall-pro :size="{ width: 1840, height: 900 }" :vueSections="vueSections">
+      <template v-slot:media-series-pro-example-1>
+        <qt-view class="example-section">
+          <qt-text class="section-title" text="示例 1: 纯数字样式"></qt-text>
+          <qt-media-series-pro
+            ref="seriesProRef1"
+            :totalEpisodes="100"
+            :currentIndex="0"
+            seriesStyle="number_only"
+            :showGroup="true"
+            @item-click="onItemClick1"
+          />
+        </qt-view>
       </template>
-    </qt-waterfall>
+      <template v-slot:media-series-pro-example-2>
+        <qt-view class="example-section">
+          <qt-text class="section-title" text="示例 2: 纯文字样式"></qt-text>
+          <qt-media-series-pro
+            ref="seriesProRef2"
+            :totalEpisodes="50"
+            :currentIndex="5"
+            seriesStyle="text_only"
+            :showGroup="true"
+            @item-click="onItemClick2"
+          />
+        </qt-view>
+      </template>
+      <template v-slot:media-series-pro-example-3>
+        <qt-view class="example-section">
+          <qt-text class="section-title" text="示例 3: 图片在上文字在下"></qt-text>
+          <qt-media-series-pro
+            ref="seriesProRef3"
+            :totalEpisodes="80"
+            :currentIndex="10"
+            seriesStyle="image_top_text_bottom"
+            :showGroup="false"
+            @item-click="onItemClick3"
+          />
+        </qt-view>
+      </template>
+    </qt-waterfall-pro>
   </qt-view>
 </template>
 
@@ -106,50 +101,21 @@ const onItemClick3 = (e: any) => {
   }
 }
 
-const onESCreate = () => {
-  const waterfallData: QTWaterfall = {
-    width: 1840,
-    height: 900,
-  }
-  waterfall.value?.init(waterfallData)
-
-  const sectionBaseStyle = {
-    width: 1840,
+const onESCreate = () => {}
+const vueSections = [
+  {
+    slotName: 'media-series-pro-example-1',
     height: 320,
-  }
-
-  const sectionList: QTWaterfallSection[] = [
-    {
-      _id: 'media-series-pro-example-1',
-      type: seriesSectionTypes.example1,
-      itemList: [],
-      style: {
-        ...sectionBaseStyle,
-        marginBottom: 40,
-      },
-    },
-    {
-      _id: 'media-series-pro-example-2',
-      type: seriesSectionTypes.example2,
-      itemList: [],
-      style: {
-        ...sectionBaseStyle,
-        marginBottom: 40,
-      },
-    },
-    {
-      _id: 'media-series-pro-example-3',
-      type: seriesSectionTypes.example3,
-      itemList: [],
-      style: {
-        ...sectionBaseStyle,
-      },
-    },
-  ]
-
-  waterfall.value?.setSectionList(sectionList)
-}
-
+  },
+  {
+    slotName: 'media-series-pro-example-2',
+    height: 320,
+  },
+  {
+    slotName: 'media-series-pro-example-3',
+    height: 320,
+  },
+]
 defineExpose({
   onESCreate,
 })
@@ -169,11 +135,6 @@ defineExpose({
   font-size: 48px;
   color: #ffffff;
   margin-bottom: 40px;
-}
-
-.waterfall-container {
-  width: 1840px;
-  height: 900px;
 }
 
 .waterfall-content {
