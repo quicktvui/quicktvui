@@ -21,7 +21,7 @@
 </template>
 <script lang="ts" setup>
 import { QTIWaterfall } from 'src/waterfall/core/QTIWaterfall'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { Size, VueSectionProp } from './types/ProTypes'
 import { QTWaterfall } from 'src/waterfall/core/QTWaterfall'
 import { QTWaterfallSection } from 'src/waterfall/core/QTWaterfallSection'
@@ -64,10 +64,18 @@ onMounted(() => {
     height: props.size.height,
   }
   waterfallRef.value?.init(waterfallData)
+  setSectionList()
+})
+function setSectionList() {
   const sectionList: QTWaterfallSection[] = []
-
   sectionList.push(...vueSectionList.value)
   console.log('sectionList:', sectionList)
   waterfallRef.value?.setSectionList(sectionList)
-})
+}
+watch(
+  () => props.vueSections,
+  () => {
+    setSectionList()
+  }
+)
 </script>
