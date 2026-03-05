@@ -373,7 +373,7 @@ function generateDefaultData(count: number, startIndex: number = 0): SeriesItem[
     const isPlaying = globalIndex === innerCurrentIndex.value
     const baseItem: SeriesItem = {
       type: 1,
-      text: (globalIndex + 1).toString(),
+      episode: globalIndex + 1,
       title: `第${globalIndex + 1}集`,
       subtitle: `时长: ${Math.floor(Math.random() * 60) + 30}分钟`,
       imageUrl: '',
@@ -387,7 +387,7 @@ function generateDefaultData(count: number, startIndex: number = 0): SeriesItem[
     // 根据样式类型返回不同的数据字段
     switch (props.seriesStyle) {
       case SeriesStyleType.NUMBER_ONLY:
-        return { ...baseItem, text: (globalIndex + 1).toString() }
+        return { ...baseItem, episode: globalIndex + 1 }
       case SeriesStyleType.TEXT_ONLY:
         return { ...baseItem, title: `第${globalIndex + 1}集 标题内容` }
       case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:

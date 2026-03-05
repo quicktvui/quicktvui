@@ -26,7 +26,7 @@
         :focusable="false"
       />
       <qt-text
-        text="${text}"
+        text="${episode}"
         fontSize="36"
         :style="{
           height: 40,
@@ -45,7 +45,7 @@
       duplicateParentState
     >
       <qt-text
-        text="${text}"
+        text="${episode}"
         fontSize="36"
         :style="{
           height: 40,
