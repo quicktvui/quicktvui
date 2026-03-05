@@ -13,7 +13,7 @@
           <qt-media-series-pro
             ref="seriesProRef1"
             :totalEpisodes="100"
-            :currentIndex="0"
+            :currentIndex="play1Index"
             seriesStyle="number_only"
             :showGroup="true"
             @item-click="onItemClick1"
@@ -66,23 +66,13 @@ import {
 } from '@quicktvui/quicktvui3'
 import { Native } from '@extscreen/es3-vue'
 
-const seriesProRef1 = ref<any>()
-const seriesProRef2 = ref<any>()
-const seriesProRef3 = ref<any>()
-const waterfall = ref<QTIWaterfall>()
-const seriesSectionTypes = {
-  example1: 20001,
-  example2: 20002,
-  example3: 20003,
-}
-const titleRef = ref()
+const play1Index = ref(0)
 
-const onItemClick1 = (e: any) => {
-  console.log('示例 1 点击:', e)
-  const item = e.item
-  if (item) {
-    console.log(`选中了第 ${item.episodeNumber} 集`)
-  }
+const onItemClick1 = (index: number) => {
+  console.log('示例 1 点击:', index)
+  play1Index.value = index
+  //vue-section监听不到变化
+  seriesProRef1.value.updateCurrentIndex(index)
 }
 
 const onItemClick2 = (e: any) => {
@@ -100,7 +90,7 @@ const onItemClick3 = (e: any) => {
     console.log(`选中了第 ${item.episodeNumber} 集，封面：${item.coverImage}`)
   }
 }
-
+const seriesProRef1 = ref()
 const onESCreate = () => {}
 const vueSections = [
   {

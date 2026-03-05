@@ -6,6 +6,7 @@
       height: size.height,
       backgroundColor: backgroundColor,
     }"
+    :useDiff="true"
   >
     <template v-slot:section>
       <qt-vue-section
