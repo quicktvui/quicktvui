@@ -48,7 +48,7 @@
             ref="seriesProRef3"
             seriesListName="series-list-3"
             groupListName="group-list-3"
-            seriesListUpName="series-group-2"
+            seriesListUpName="group-list-2"
             :totalEpisodes="80"
             :currentIndex="10"
             seriesStyle="image_top_text_bottom"

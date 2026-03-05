@@ -498,7 +498,7 @@ watch(
       setGroupIndex(groupIndex)
 
       // 分组列表跟随分集焦点联动滚动
-      if (oldVal == -1) {
+      if (oldVal != -1) {
         scrollGroupListToIndex(groupIndex)
       }
     } else {
