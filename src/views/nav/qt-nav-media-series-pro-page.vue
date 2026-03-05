@@ -12,9 +12,12 @@
           <qt-text class="section-title" text="示例 1: 纯数字样式"></qt-text>
           <qt-media-series-pro
             ref="seriesProRef1"
+            seriesListName="series-list-1"
+            groupListName="group-list-1"
             :totalEpisodes="100"
             :currentIndex="play1Index"
             seriesStyle="number_only"
+            groupListDownName="series-list-2"
             :showGroup="true"
             @item-click="onItemClick1"
           />
@@ -25,6 +28,10 @@
           <qt-text class="section-title" text="示例 2: 纯文字样式"></qt-text>
           <qt-media-series-pro
             ref="seriesProRef2"
+            seriesListName="series-list-2"
+            groupListName="group-list-2"
+            seriesListUpName="group-list-1"
+            groupListDownName="series-list-3"
             :totalEpisodes="50"
             :currentIndex="play2Index"
             seriesStyle="text_only"
@@ -39,6 +46,9 @@
           <qt-text class="section-title" text="示例 3: 图片在上文字在下"></qt-text>
           <qt-media-series-pro
             ref="seriesProRef3"
+            seriesListName="series-list-3"
+            groupListName="group-list-3"
+            seriesListUpName="series-group-2"
             :totalEpisodes="80"
             :currentIndex="10"
             seriesStyle="image_top_text_bottom"

@@ -1,23 +1,42 @@
 <template>
-  <qt-list-view
-    :horizontal="horizontal"
-    ref="listViewRef"
-    :style="{
-      width: size.width,
-      height: size.height,
-      backgroundColor,
-    }"
-    :clipChildren="false"
-    @item-click="onItemClick"
-    @item-focused="onItemFocused"
-    :useDiff="true"
-    :focusable="false"
-  >
-    <slot></slot>
-  </qt-list-view>
+  <template v-if="horizontal">
+    <qt-list-view
+      horizontal
+      ref="listViewRef"
+      :style="{
+        width: size.width,
+        height: size.height,
+        backgroundColor,
+      }"
+      :clipChildren="false"
+      @item-click="onItemClick"
+      @item-focused="onItemFocused"
+      :useDiff="true"
+      :focusable="false"
+    >
+      <slot></slot>
+    </qt-list-view>
+  </template>
+  <template v-else>
+    <qt-list-view
+      ref="listViewRef"
+      :style="{
+        width: size.width,
+        height: size.height,
+        backgroundColor,
+      }"
+      :clipChildren="false"
+      @item-click="onItemClick"
+      @item-focused="onItemFocused"
+      :useDiff="true"
+      :focusable="false"
+    >
+      <slot></slot>
+    </qt-list-view>
+  </template>
 </template>
 <script setup lang="ts">
-import { PropType, ref, toRaw, watch } from 'vue'
+import { PropType, ref, toRaw, watch, onUnmounted } from 'vue'
 import { Size } from './types/ProTypes'
 import { QTListViewItem } from 'src/list-view/core/QTListViewItem'
 import { QTIListView } from 'src/list-view/core/QTIListView'
@@ -49,8 +68,32 @@ const props = defineProps({
 function onItemClick(e: any) {
   emit('item-click', e)
 }
+
+const focusIndex = ref(-1)
+let focusLostTimer: ReturnType<typeof setTimeout> | null = null
+const FOCUS_LOST_DELAY = 100 // 延迟时间，可根据需要调整
+
 function onItemFocused(e: any) {
   emit('item-focused', e)
+  const isFocused = e.isFocused
+
+  if (isFocused) {
+    // 清除之前的延迟检查
+    if (focusLostTimer) {
+      clearTimeout(focusLostTimer)
+      focusLostTimer = null
+    }
+    focusIndex.value = e.position
+  } else {
+    focusIndex.value = -1
+
+    // 使用延迟检查，确保在焦点切换完成后判断是否真的离开列表
+    focusLostTimer = setTimeout(() => {
+      if (focusIndex.value === -1) {
+        emit('focus-lost')
+      }
+    }, FOCUS_LOST_DELAY)
+  }
 }
 const listViewRef = ref<QTIListView>()
 watch(
@@ -66,6 +109,14 @@ watch(
   },
   { immediate: true }
 )
+// 组件卸载时清理定时器
+onUnmounted(() => {
+  if (focusLostTimer) {
+    clearTimeout(focusLostTimer)
+    focusLostTimer = null
+  }
+})
+
 function scrollToIndex(x: number, y: number, animated: boolean, duration: number, offset: number) {
   listViewRef.value?.scrollToIndex(x, y, animated, duration, offset)
 }
