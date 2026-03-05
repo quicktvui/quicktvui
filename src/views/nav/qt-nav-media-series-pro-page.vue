@@ -26,9 +26,10 @@
           <qt-media-series-pro
             ref="seriesProRef2"
             :totalEpisodes="50"
-            :currentIndex="5"
+            :currentIndex="play2Index"
             seriesStyle="text_only"
             :showGroup="true"
+            :onLoadPageData="onTextLoadData"
             @item-click="onItemClick2"
           />
         </qt-view>
@@ -58,15 +59,11 @@ export default {
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import {
-  QTIWaterfall,
-  QTWaterfall,
-  QTWaterfallSection,
-  QTWaterfallSectionType,
-} from '@quicktvui/quicktvui3'
+import { SeriesItem } from '@quicktvui/quicktvui3'
 import { Native } from '@extscreen/es3-vue'
 
 const play1Index = ref(0)
+const play2Index = ref(0)
 
 const onItemClick1 = (index: number) => {
   console.log('示例 1 点击:', index)
@@ -75,12 +72,10 @@ const onItemClick1 = (index: number) => {
   seriesProRef1.value.updateCurrentIndex(index)
 }
 
-const onItemClick2 = (e: any) => {
-  console.log('示例 2 点击:', e)
-  const item = e.item
-  if (item) {
-    console.log(`选中了：${item.title}`)
-  }
+const onItemClick2 = (index: number) => {
+  play2Index.value = index
+  //vue-section监听不到变化
+  seriesProRef2.value.updateCurrentIndex(index)
 }
 
 const onItemClick3 = (e: any) => {
@@ -91,6 +86,7 @@ const onItemClick3 = (e: any) => {
   }
 }
 const seriesProRef1 = ref()
+const seriesProRef2 = ref()
 const onESCreate = () => {}
 const vueSections = [
   {
@@ -106,6 +102,24 @@ const vueSections = [
     height: 320,
   },
 ]
+const onTextLoadData = async (pageIndex: number, pageSize: number): Promise<SeriesItem[]> => {
+  // 模拟接口请求
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data: SeriesItem[] = []
+      for (let i = 0; i < pageSize; i++) {
+        const globalIndex = pageIndex * pageSize + i
+        data.push({
+          type: 1,
+          title: `第${globalIndex + 1}集 精彩标题很长长长长长长长长精彩标题很长长长长长长长长`,
+          subtitle: '更新至2024-03-05',
+          imageUrl: 'https://example.com/poster.jpg',
+        })
+      }
+      resolve(data)
+    }, 500)
+  })
+}
 defineExpose({
   onESCreate,
 })
