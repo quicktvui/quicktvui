@@ -3,8 +3,8 @@
   <qt-view
     type="1"
     :style="{
-      width: 200,
-      height: 140,
+      width: 336,
+      height: 260,
       backgroundColor: 'rgba(255,255,255,0.1)',
       focusBackgroundColor: '#FFFFFF',
       borderRadius: 8,
@@ -18,29 +18,43 @@
     <!-- 上方图片 -->
     <qt-image
       :style="{
-        width: 160,
-        height: 90,
-        borderRadius: 4,
-        marginTop: 8,
+        width: 336,
+        height: 198,
+        borderRadius: 8,
       }"
       src="${imageUrl}"
     />
     <!-- 下方文字 -->
     <qt-text
       text="${title}"
-      fontSize="24"
+      fontSize="30"
       :style="{
-        height: 30,
+        width: 336,
+        height: 34,
         color: 'white',
         focusColor: '#13161B',
-        marginTop: 4,
-        marginBottom: 8,
+        marginTop: 12,
       }"
-      autoWidth
+      :ellipsizeMode="4"
       duplicateParentState
       typeface="bold"
       gravity="center"
       maxLines="1"
+    />
+    <!-- 播放标识 -->
+    <play-mark
+      name="playMark"
+      showIf="${isPlaying}"
+      :style="{
+        width: 24,
+        height: 24,
+        position: 'absolute',
+        right: 24,
+        bottom: 60,
+      }"
+      markColor="#13161B"
+      :gap="2"
+      :focusable="false"
     />
   </qt-view>
 </template>

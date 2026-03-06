@@ -50,9 +50,10 @@
             groupListName="group-list-3"
             seriesListUpName="group-list-2"
             :totalEpisodes="80"
-            :currentIndex="10"
+            :currentIndex="play3Index"
             seriesStyle="image_top_text_bottom"
             :showGroup="false"
+            :onLoadPageData="onImageLeftLoadData"
             @item-click="onItemClick3"
           />
         </qt-view>
@@ -66,7 +67,7 @@
             groupListName="group-list-4"
             seriesListUpName="group-list-3"
             :totalEpisodes="80"
-            :currentIndex="0"
+            :currentIndex="play4Index"
             seriesStyle="image_left_text_right"
             :showGroup="false"
             :onLoadPageData="onImageLeftLoadData"
@@ -91,6 +92,7 @@ import { Native } from '@extscreen/es3-vue'
 import logo from '@/assets/logo.png'
 const play1Index = ref(0)
 const play2Index = ref(0)
+const play3Index = ref(0)
 const play4Index = ref(0)
 
 const onItemClick1 = (index: number) => {
@@ -106,12 +108,10 @@ const onItemClick2 = (index: number) => {
   seriesProRef2.value.updateCurrentIndex(index)
 }
 
-const onItemClick3 = (e: any) => {
-  console.log('示例 3 点击:', e)
-  const item = e.item
-  if (item) {
-    console.log(`选中了第 ${item.episodeNumber} 集，封面：${item.coverImage}`)
-  }
+const onItemClick3 = (index: number) => {
+  play3Index.value = index
+  //vue-section监听不到变化
+  seriesProRef3.value.updateCurrentIndex(index)
 }
 const onItemClick4 = (index: number) => {
   play4Index.value = index

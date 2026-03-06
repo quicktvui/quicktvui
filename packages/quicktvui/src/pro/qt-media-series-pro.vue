@@ -248,7 +248,7 @@ const seriesItemWidth = computed(() => {
     case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
       return 560
     case SeriesStyleType.IMAGE_TOP_TEXT_BOTTOM:
-      return 200
+      return 336
     default:
       return props.itemWidth
   }
@@ -257,6 +257,7 @@ const seriesItemWidth = computed(() => {
 const seriesListHeight = computed(() => {
   switch (props.seriesStyle) {
     case SeriesStyleType.IMAGE_TOP_TEXT_BOTTOM:
+      return 260
     case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
       return 160
     case SeriesStyleType.CUSTOM:
