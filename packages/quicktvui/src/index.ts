@@ -408,5 +408,5 @@ export type {
 } from './canvas/CanvasGradient'
 //---pro--
 export type { Size, VueSectionProp } from './pro/types/ProTypes'
-export type { SeriesItem } from './pro/types/Series'
+export type { SeriesItemLoad } from './pro/types/Series'
 export { SeriesStyleType } from './pro/types/Series'

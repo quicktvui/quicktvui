@@ -107,7 +107,7 @@ import SeriesItemNumber from './style/series-item-number.vue'
 import SeriesItemText from './style/series-item-text.vue'
 import seriesItemImageLeft from './style/series-item-image-left.vue'
 import seriesItemImageTop from './style/series-item-image-top.vue'
-import { SeriesStyleType, SeriesItem } from './types/Series'
+import { SeriesStyleType, SeriesItem, SeriesItemLoad } from './types/Series'
 defineOptions({
   name: 'qt-media-series-pro',
 })
@@ -124,7 +124,7 @@ interface Props {
   groupListName?: string
   seriesListUpName?: string
   groupListDownName?: string
-  onLoadPageData?: (pageIndex: number, pageSize: number) => Promise<SeriesItem[]> // 分页数据加载回调
+  onLoadPageData?: (pageIndex: number, pageSize: number) => Promise<SeriesItemLoad[]> // 分页数据加载回调
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -145,7 +145,7 @@ const innerTotalEpisodes = ref(props.totalEpisodes)
 const innerCurrentIndex = ref(props.currentIndex ?? 0)
 
 // 分页数据缓存
-const pageDataCache = ref<Map<number, SeriesItem[]>>(new Map())
+const pageDataCache = ref<Map<number, SeriesItemLoad[]>>(new Map())
 // 当前加载的页数范围
 const loadedPageRange = ref<{ start: number; end: number }>({ start: -1, end: -1 })
 
@@ -246,7 +246,7 @@ const seriesItemWidth = computed(() => {
     case SeriesStyleType.TEXT_ONLY:
       return 490
     case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
-      return 400
+      return 560
     case SeriesStyleType.IMAGE_TOP_TEXT_BOTTOM:
       return 200
     default:
@@ -258,7 +258,7 @@ const seriesListHeight = computed(() => {
   switch (props.seriesStyle) {
     case SeriesStyleType.IMAGE_TOP_TEXT_BOTTOM:
     case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
-      return 120
+      return 160
     case SeriesStyleType.CUSTOM:
       return props.itemHeight
     case SeriesStyleType.TEXT_ONLY:
@@ -360,7 +360,7 @@ function initSeriesList() {
 }
 
 // 更新指定页的数据到 seriesList
-function updateSeriesListWithPageData(page: number, data: SeriesItem[]) {
+function updateSeriesListWithPageData(page: number, data: SeriesItemLoad[]) {
   console.log(TAG, `更新第${page}页数据到 seriesList，共${data.length}条`)
   const startIndex = page * props.pageSize
   if (startIndex >= innerTotalEpisodes.value) return

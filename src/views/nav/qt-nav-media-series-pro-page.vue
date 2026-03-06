@@ -57,6 +57,23 @@
           />
         </qt-view>
       </template>
+      <template v-slot:media-series-pro-example-4>
+        <qt-view class="example-section">
+          <qt-text class="section-title" text="示例 4: 左图右文"></qt-text>
+          <qt-media-series-pro
+            ref="seriesProRef4"
+            seriesListName="series-list-4"
+            groupListName="group-list-4"
+            seriesListUpName="group-list-3"
+            :totalEpisodes="80"
+            :currentIndex="0"
+            seriesStyle="image_left_text_right"
+            :showGroup="false"
+            :onLoadPageData="onImageLeftLoadData"
+            @item-click="onItemClick4"
+          />
+        </qt-view>
+      </template>
     </qt-waterfall-pro>
   </qt-view>
 </template>
@@ -69,11 +86,12 @@ export default {
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { SeriesItem } from '@quicktvui/quicktvui3'
+import { SeriesItemLoad } from '@quicktvui/quicktvui3'
 import { Native } from '@extscreen/es3-vue'
-
+import logo from '@/assets/logo.png'
 const play1Index = ref(0)
 const play2Index = ref(0)
+const play4Index = ref(0)
 
 const onItemClick1 = (index: number) => {
   console.log('示例 1 点击:', index)
@@ -95,8 +113,15 @@ const onItemClick3 = (e: any) => {
     console.log(`选中了第 ${item.episodeNumber} 集，封面：${item.coverImage}`)
   }
 }
+const onItemClick4 = (index: number) => {
+  play4Index.value = index
+  //vue-section监听不到变化
+  seriesProRef4.value.updateCurrentIndex(index)
+}
 const seriesProRef1 = ref()
 const seriesProRef2 = ref()
+const seriesProRef3 = ref()
+const seriesProRef4 = ref()
 const onESCreate = () => {}
 const vueSections = [
   {
@@ -111,19 +136,42 @@ const vueSections = [
     slotName: 'media-series-pro-example-3',
     height: 320,
   },
+  {
+    slotName: 'media-series-pro-example-4',
+    height: 320,
+  },
 ]
-const onTextLoadData = async (pageIndex: number, pageSize: number): Promise<SeriesItem[]> => {
+const onTextLoadData = async (pageIndex: number, pageSize: number): Promise<SeriesItemLoad[]> => {
   // 模拟接口请求
   return new Promise((resolve) => {
     setTimeout(() => {
-      const data: SeriesItem[] = []
+      const data: SeriesItemLoad[] = []
       for (let i = 0; i < pageSize; i++) {
         const globalIndex = pageIndex * pageSize + i
         data.push({
-          type: 1,
           title: `第${globalIndex + 1}集 精彩标题很长长长长长长长长精彩标题很长长长长长长长长`,
           subtitle: '更新至2024-03-05',
           imageUrl: 'https://example.com/poster.jpg',
+        })
+      }
+      resolve(data)
+    }, 500)
+  })
+}
+const onImageLeftLoadData = async (
+  pageIndex: number,
+  pageSize: number
+): Promise<SeriesItemLoad[]> => {
+  // 模拟接口请求
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data: SeriesItemLoad[] = []
+      for (let i = 0; i < pageSize; i++) {
+        const globalIndex = pageIndex * pageSize + i
+        data.push({
+          title: `第${globalIndex + 1}集 精彩标题很长长长长长长长长精彩标题很长长长长长长长长1222222222222222`,
+          subtitle: '更新至2024-03-05',
+          imageUrl: `file://${logo}`,
         })
       }
       resolve(data)

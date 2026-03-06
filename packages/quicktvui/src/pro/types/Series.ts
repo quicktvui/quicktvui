@@ -22,3 +22,11 @@ export interface SeriesItem {
   }
   [key: string]: any
 }
+
+export interface SeriesItemLoad {
+  title?: string //纯文字取值
+  subtitle?: string
+  imageUrl?: string
+  corner?: string
+  [key: string]: any
+}

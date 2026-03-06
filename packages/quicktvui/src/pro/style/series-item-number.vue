@@ -3,7 +3,7 @@
     :style="{
       width: 160,
       height: 80,
-      backgroundColor: 'rgba(255,255,255,0.2)',
+      backgroundColor: 'rgba(255,255,255,0.1)',
       focusBackgroundColor: '#FFFFFF',
       borderRadius: 8,
       focusBorderRadius: 8,

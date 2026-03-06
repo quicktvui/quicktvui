@@ -5,7 +5,7 @@
     :style="{
       width: 490,
       height: 100,
-      backgroundColor: 'rgba(255,255,255,0.06)',
+      backgroundColor: 'rgba(255,255,255,0.1)',
       focusBackgroundColor: '#FFFFFF',
       borderRadius: 8,
       focusBorderRadius: 8,

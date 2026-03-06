@@ -3,9 +3,9 @@
   <qt-view
     type="1"
     :style="{
-      width: 400,
-      height: 120,
-      backgroundColor: 'rgba(255,255,255,0.06)',
+      width: 560,
+      height: 160,
+      backgroundColor: 'rgba(255,255,255,0.1)',
       focusBackgroundColor: '#FFFFFF',
       borderRadius: 8,
       focusBorderRadius: 8,
@@ -16,70 +16,51 @@
     eventClick
   >
     <!-- 左侧图片容器 -->
-    <qt-view
-      class="relative"
+    <qt-image
       :style="{
-        width: 160,
-        height: 90,
-        marginLeft: 12,
+        width: 268,
+        height: 160,
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
       }"
-    >
-      <qt-image
-        :style="{
-          width: 160,
-          height: 90,
-          borderRadius: 4,
-          backgroundColor: 'rgba(255,255,255,0.06)',
-        }"
-        src="${imageUrl}"
-      />
-      <!-- 播放标识 -->
-      <play-mark
-        name="playMark"
-        showIf="${isPlaying}"
-        :style="{
-          width: 26,
-          height: 30,
-          position: 'absolute',
-          left: 67,
-          top: 30,
-        }"
-        markColor="#FFFFFF"
-        :gap="2"
-        :focusable="false"
-      />
-    </qt-view>
+      src="${imageUrl}"
+    />
 
     <!-- 右侧文字 -->
     <qt-view
-      class="flex flex-col justify-center"
-      :style="{ marginLeft: 12, marginRight: 8 }"
+      class="flex flex-col justify-center items-center"
+      :style="{ width: 292, height: 160 }"
       duplicateParentState
     >
       <qt-text
         text="${title}"
         fontSize="28"
         :style="{
-          height: 32,
-          color: 'white',
+          width: 252,
+          height: 108,
+          color: 'rgba(255,255,255,0.5)',
           focusColor: '#13161B',
         }"
-        autoWidth
+        gravity="centerVertical"
+        :maxLines="3"
+        :ellipsizeMode="2"
         duplicateParentState
         typeface="bold"
-        maxLines="1"
       />
-      <qt-text
-        text="${subtitle}"
-        fontSize="24"
+      <!-- 播放标识 -->
+      <play-mark
+        name="playMark"
+        showIf="${isPlaying}"
         :style="{
-          height: 28,
-          color: 'rgba(255,255,255,0.7)',
-          focusColor: '#13161B',
+          width: 24,
+          height: 24,
+          position: 'absolute',
+          right: 24,
+          bottom: 12,
         }"
-        autoWidth
-        duplicateParentState
-        maxLines="1"
+        markColor="#13161B"
+        :gap="2"
+        :focusable="false"
       />
     </qt-view>
   </qt-view>
