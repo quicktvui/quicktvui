@@ -18,6 +18,7 @@ import LongImage from './long-image/index.vue'
 import QtListViewPro from './pro/qt-list-view-pro.vue'
 import QtMediaSeriesPro from './pro/qt-media-series-pro.vue'
 import QtGridViewPro from './pro/qt-grid-view-pro.vue'
+import QtWaterfallPro from './pro/qt-waterfall-pro.vue'
 //
 import { arrangeChildren4ListView } from './utils/utils'
 import { QTListViewItemDecoration } from './list-view/core/QTListViewItemDecoration'
@@ -79,6 +80,7 @@ const components = [
   QtListViewPro,
   QtMediaSeriesPro,
   QtGridViewPro,
+  QtWaterfallPro,
 ]
 
 //---------------------------------------------------------------------------
@@ -405,6 +407,6 @@ export type {
   GradientType,
 } from './canvas/CanvasGradient'
 //---pro--
-export type { Size } from './pro/types/ProTypes'
-export type { SeriesItem } from './pro/types/Series'
+export type { Size, VueSectionProp } from './pro/types/ProTypes'
+export type { SeriesItemLoad } from './pro/types/Series'
 export { SeriesStyleType } from './pro/types/Series'

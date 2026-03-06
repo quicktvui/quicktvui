@@ -9,7 +9,7 @@ export enum SeriesStyleType {
 
 export interface SeriesItem {
   type: number
-  text?: string //纯数字取值
+  episode: number //纯数字取值
   title?: string //纯文字取值
   subtitle?: string
   imageUrl?: string
@@ -20,5 +20,13 @@ export interface SeriesItem {
     top?: number
     bottom?: number
   }
+  [key: string]: any
+}
+
+export interface SeriesItemLoad {
+  title?: string //纯文字取值
+  subtitle?: string
+  imageUrl?: string
+  corner?: string
   [key: string]: any
 }

@@ -5,7 +5,11 @@
       class="series-list"
       :enableFirstFocusAtStart="true"
       :blockFocusDirections="['left', 'right']"
-      name="seriesListView"
+      :name="seriesListName"
+      :nextFocusName="{
+        down: groupListName,
+        up: seriesListUpName,
+      }"
       ref="listViewRef"
       :size="{ width: 1920, height: seriesListHeight }"
       backgroundColor="transparent"
@@ -13,6 +17,7 @@
       :horizontal="true"
       @item-click="onItemClick"
       @item-focused="onItemFocused"
+      @focus-lost="onFocusLost"
       :clipChildren="false"
     >
       <series-item-number v-if="props.seriesStyle === SeriesStyleType.NUMBER_ONLY" :type="1" />
@@ -31,9 +36,13 @@
     <qt-list-view-pro
       v-if="showGroupList"
       class="group-list"
+      :name="groupListName"
+      :nextFocusName="{
+        up: seriesListName,
+        down: groupListDownName,
+      }"
       :enableFirstFocusAtStart="true"
       :blockFocusDirections="['left', 'right']"
-      name="groupListView"
       ref="groupListViewRef"
       :size="{ width: 1920, height: 80 }"
       backgroundColor="transparent"
@@ -41,6 +50,7 @@
       :horizontal="true"
       @item-click="onGroupItemClick"
       @item-focused="onGroupItemFocused"
+      @focus-lost="onGroupFocusLost"
     >
       <qt-view
         type="1"
@@ -97,7 +107,7 @@ import SeriesItemNumber from './style/series-item-number.vue'
 import SeriesItemText from './style/series-item-text.vue'
 import seriesItemImageLeft from './style/series-item-image-left.vue'
 import seriesItemImageTop from './style/series-item-image-top.vue'
-import { SeriesStyleType, SeriesItem } from './types/Series'
+import { SeriesStyleType, SeriesItem, SeriesItemLoad } from './types/Series'
 defineOptions({
   name: 'qt-media-series-pro',
 })
@@ -110,7 +120,11 @@ interface Props {
   pageSize?: number // 分页大小，默认10
   itemWidth?: number // 每个item宽度，默认0
   itemHeight?: number // 每个item高度，默认0
-  onLoadPageData?: (pageIndex: number, pageSize: number) => Promise<SeriesItem[]> // 分页数据加载回调
+  seriesListName?: string
+  groupListName?: string
+  seriesListUpName?: string
+  groupListDownName?: string
+  onLoadPageData?: (pageIndex: number, pageSize: number) => Promise<SeriesItemLoad[]> // 分页数据加载回调
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -122,6 +136,8 @@ const props = withDefaults(defineProps<Props>(), {
   pageSize: 10,
   itemWidth: 160,
   itemHeight: 240,
+  seriesListName: 'seriesListView',
+  groupListName: 'groupListView',
 })
 
 const TAG = 'qt-media-series-pro'
@@ -129,7 +145,7 @@ const innerTotalEpisodes = ref(props.totalEpisodes)
 const innerCurrentIndex = ref(props.currentIndex ?? 0)
 
 // 分页数据缓存
-const pageDataCache = ref<Map<number, SeriesItem[]>>(new Map())
+const pageDataCache = ref<Map<number, SeriesItemLoad[]>>(new Map())
 // 当前加载的页数范围
 const loadedPageRange = ref<{ start: number; end: number }>({ start: -1, end: -1 })
 
@@ -138,6 +154,7 @@ const listViewRef = ref<any>(null)
 const groupListViewRef = ref<any>(null)
 // 维护当前选中的焦点索引
 const currentFocusIndex = ref<number>(-1)
+const currentGroupFocusIndex = ref<number>(-1)
 // 维护当前选中的分组索引
 const currentGroupIndex = ref<number>(-1)
 // 如果使用qt-waterfall组件，需要主动触发更新，watch方法无效
@@ -227,11 +244,11 @@ const SCREEN_WIDTH = 1920 // 屏幕宽度
 const seriesItemWidth = computed(() => {
   switch (props.seriesStyle) {
     case SeriesStyleType.TEXT_ONLY:
-      return 300
+      return 490
     case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
-      return 400
+      return 560
     case SeriesStyleType.IMAGE_TOP_TEXT_BOTTOM:
-      return 200
+      return 336
     default:
       return props.itemWidth
   }
@@ -240,10 +257,13 @@ const seriesItemWidth = computed(() => {
 const seriesListHeight = computed(() => {
   switch (props.seriesStyle) {
     case SeriesStyleType.IMAGE_TOP_TEXT_BOTTOM:
+      return 260
     case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
-      return 120
+      return 160
     case SeriesStyleType.CUSTOM:
       return props.itemHeight
+    case SeriesStyleType.TEXT_ONLY:
+      return 100
     default:
       return 80
   }
@@ -341,7 +361,7 @@ function initSeriesList() {
 }
 
 // 更新指定页的数据到 seriesList
-function updateSeriesListWithPageData(page: number, data: SeriesItem[]) {
+function updateSeriesListWithPageData(page: number, data: SeriesItemLoad[]) {
   console.log(TAG, `更新第${page}页数据到 seriesList，共${data.length}条`)
   const startIndex = page * props.pageSize
   if (startIndex >= innerTotalEpisodes.value) return
@@ -373,7 +393,7 @@ function generateDefaultData(count: number, startIndex: number = 0): SeriesItem[
     const isPlaying = globalIndex === innerCurrentIndex.value
     const baseItem: SeriesItem = {
       type: 1,
-      text: (globalIndex + 1).toString(),
+      episode: globalIndex + 1,
       title: `第${globalIndex + 1}集`,
       subtitle: `时长: ${Math.floor(Math.random() * 60) + 30}分钟`,
       imageUrl: '',
@@ -387,7 +407,7 @@ function generateDefaultData(count: number, startIndex: number = 0): SeriesItem[
     // 根据样式类型返回不同的数据字段
     switch (props.seriesStyle) {
       case SeriesStyleType.NUMBER_ONLY:
-        return { ...baseItem, text: (globalIndex + 1).toString() }
+        return { ...baseItem, episode: globalIndex + 1 }
       case SeriesStyleType.TEXT_ONLY:
         return { ...baseItem, title: `第${globalIndex + 1}集 标题内容` }
       case SeriesStyleType.IMAGE_LEFT_TEXT_RIGHT:
@@ -406,22 +426,30 @@ function generateDefaultData(count: number, startIndex: number = 0): SeriesItem[
 
 function onGroupItemFocused(event: any) {
   const index = event.position
-  if (index !== undefined) {
+  const isFocused = event.isFocused
+  if (isFocused) {
     // 更新当前选中的分组索引
+    currentFocusIndex.value = -1
+    const lastGroupFocusIndex = currentGroupFocusIndex.value
     currentGroupIndex.value = index
+    currentGroupFocusIndex.value = index
     const startIndex = index * props.groupSize
     const endIndex = Math.min((index + 1) * props.groupSize - 1, innerTotalEpisodes.value - 1)
     emit('group-focused', index, startIndex, endIndex)
 
     // 分组列表焦点移动时，联动分集列表滚动到该分组的第一个集数
-    scrollSeriesListToGroup(index)
+    if (lastGroupFocusIndex != -1) {
+      scrollSeriesListToGroup(index)
+    }
 
     // 检查并加载数据
     const pageIndex = Math.floor(startIndex / props.pageSize)
     checkAndLoadPageData(pageIndex)
   }
 }
-
+function onGroupFocusLost() {
+  currentGroupFocusIndex.value = -1
+}
 function onGroupItemClick(event: any) {
   const index = event.position
   if (index !== undefined) {
@@ -444,6 +472,7 @@ async function onItemFocused(event: any) {
   const isFocused = event.isFocused
 
   if (isFocused) {
+    currentGroupFocusIndex.value = -1
     console.log(TAG, 'onItemFocused:' + index)
     if (index !== undefined) {
       // 更新当前选中的焦点索引
@@ -455,36 +484,34 @@ async function onItemFocused(event: any) {
 
       // 检查是否需要加载新页面的数据
       await checkAndLoadPageData(currentPage)
-
+    }
+  }
+}
+watch(
+  () => [currentFocusIndex.value, currentGroupFocusIndex.value],
+  ([newVal, newGroupVal], [oldVal, oldGroupVal]) => {
+    //分集列表有焦点，分组没有焦点
+    if (newVal != -1 && newGroupVal == -1) {
       // 更新当前分组索引
-      const groupIndex = Math.floor(index / props.groupSize)
+      const groupIndex = Math.floor(newVal / props.groupSize)
       currentGroupIndex.value = groupIndex
       // 设置分组列表选中项
       setGroupIndex(groupIndex)
 
       // 分组列表跟随分集焦点联动滚动
-      scrollGroupListToIndex(groupIndex)
-    }
-  } else {
-    // item失去焦点
-    if (currentFocusIndex.value === index) {
-      currentFocusIndex.value = -1
-
-      // 检查是否整个列表都失去了焦点
-      checkListFocusLost()
+      if (oldVal != -1) {
+        scrollGroupListToIndex(groupIndex)
+      }
+    } else {
+      //分集列表无焦点分组有焦点或者两者都无焦点
+      if ((newVal == -1 && currentGroupIndex.value != -1) || (newVal == -1 && newGroupVal == -1)) {
+        clearGroupSelection()
+      }
     }
   }
-}
-
-function checkListFocusLost() {
-  // 延迟检查，如果一段时间后焦点索引仍然是-1，则认为整个列表失去了焦点
-  setTimeout(() => {
-    if (currentFocusIndex.value === -1) {
-      console.log(TAG, '分集列表已完全失去焦点')
-      // 清除分组列表选中状态
-      clearGroupSelection()
-    }
-  }, 150)
+)
+function onFocusLost() {
+  currentFocusIndex.value = -1
 }
 
 function onItemClick(event: any) {
@@ -600,11 +627,6 @@ function scrollSeriesListToGroup(groupIndex: number) {
     )
   }
 }
-function onAssetListFocusLost() {
-  console.log(TAG, '分集列表丢失焦点，清除分组列表选中状态')
-  clearGroupSelection()
-}
-
 function clearGroupSelection() {
   if (groupListViewRef.value) {
     //清除选中
