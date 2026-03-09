@@ -7,6 +7,7 @@
       backgroundColor: backgroundColor,
     }"
     :useDiff="true"
+    :clipChildren="false"
   >
     <template v-slot:section>
       <qt-vue-section
@@ -14,6 +15,7 @@
         :key="index"
         :type="section.type"
         :style="section.style"
+        :clipChildren="false"
       >
         <slot :name="section._id" :type="section.type" />
       </qt-vue-section>
