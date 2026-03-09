@@ -57,6 +57,7 @@ function registerESListViewComponent(app: ESApp) {
       'focus-search-failed',
       'scrollYGreaterReference',
       'scrollYLesserReference',
+      'focus-lost',
     ],
     setup(props, ctx) {
       const viewRef = ref()
@@ -324,6 +325,9 @@ function registerESListViewComponent(app: ESApp) {
             },
             onLoadMore: (evt) => {
               ctx.emit('load-more', evt)
+            },
+            onFocusLost: (evt) => {
+              ctx.emit('focus-lost', evt)
             },
             onScrollStateChanged: (evt) => {
               ctx.emit('scroll-state-changed', evt)
